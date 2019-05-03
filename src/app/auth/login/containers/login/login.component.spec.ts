@@ -48,8 +48,8 @@ describe('LoginComponent', () => {
     });
   });
 
-  describe('loginUser', function() {
-    it('should dispatch a LogIn action', function() {
+  describe('loginUser', () => {
+    it('should dispatch a LogIn action', () => {
       spyOn(store, 'dispatch').and.callThrough();
       const value = {email: 'email', password: 'password'};
 

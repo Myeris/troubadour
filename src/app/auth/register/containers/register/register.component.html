@@ -13,8 +13,8 @@
   <button type="submit">
     Create account
   </button>
-  <div class="error" *ngIf="error">
-    {{ error }}
+  <div class="error" *ngIf="(error$ | async)">
+    {{ error$ | async }}
   </div>
 </app-auth-form>
 

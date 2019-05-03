@@ -7,7 +7,8 @@ import {AuthRequest} from '../models/auth-request.model';
 
 class AfAuthMock {
   public auth = {
-    signInWithEmailAndPassword: () => true
+    signInWithEmailAndPassword: () => true,
+    createUserWithEmailAndPassword: () => true
   };
 }
 
@@ -49,15 +50,43 @@ describe('AuthResource', () => {
       expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
       expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
     }));
+
+    it('should return a string on failure', async(() => {
+      const error = 'this is an error';
+      spyOn(afAuth.auth, 'signInWithEmailAndPassword').and.returnValue(Promise.reject(error));
+
+      resource.login(req).catch((res) => expect(res).toEqual(error));
+
+      expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
+      expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
+    }));
   });
 
-  it('should return a string on failure', async(() => {
-    const error = 'this is an error';
-    spyOn(afAuth.auth, 'signInWithEmailAndPassword').and.returnValue(Promise.reject(error));
+  describe('register', () => {
+    it('should return a UserCredentials object on success', async(() => {
+      const userCreds: UserCredential = {
+        user: {
+          email: 'email',
+          emailVerified: true
+        }
+      } as UserCredential;
 
-    resource.login(req).catch((res) => expect(res).toEqual(error));
+      spyOn(afAuth.auth, 'createUserWithEmailAndPassword').and.returnValue(Promise.resolve(userCreds));
 
-    expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
-    expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
-  }));
+      resource.register(req).then((res) => expect(res).toEqual(userCreds));
+
+      expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
+      expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
+    }));
+
+    it('should return a string on failure', async(() => {
+      const error = 'this is an error';
+      spyOn(afAuth.auth, 'createUserWithEmailAndPassword').and.returnValue(Promise.reject(error));
+
+      resource.register(req).catch((res) => expect(res).toEqual(error));
+
+      expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
+      expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
+    }));
+  });
 });
