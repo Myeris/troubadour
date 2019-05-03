@@ -8,7 +8,7 @@ import {AuthModule} from '../auth/auth.module';
 import {AppHeaderComponent} from './components/app-header/app-header.component';
 import {AppFooterComponent} from './components/app-footer/app-footer.component';
 import {AppNavComponent} from './components/app-nav/app-nav.component';
-import {SharedModule} from '../shared/shared.module';
+import {AppSharedModule} from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,7 @@ import {SharedModule} from '../shared/shared.module';
     // app
     AppRoutingModule,
     AuthModule,
-    SharedModule
+    AppSharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

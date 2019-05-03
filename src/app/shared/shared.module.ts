@@ -16,5 +16,5 @@ import {SvgIconComponent} from './components/svg-icon/svg-icon.component';
     HttpClientModule
   ]
 })
-export class SharedModule {
+export class AppSharedModule {
 }

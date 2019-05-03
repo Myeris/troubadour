@@ -3,7 +3,7 @@ import {MatIconModule} from '@angular/material';
 import {RouterTestingModule} from '@angular/router/testing';
 // app
 import {AppHeaderComponent} from './app-header.component';
-import {SharedModule} from '../../../shared/shared.module';
+import {AppSharedModule} from '../../../shared/shared.module';
 
 describe('AppHeaderComponent', () => {
   let component: AppHeaderComponent;
@@ -12,7 +12,7 @@ describe('AppHeaderComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [AppHeaderComponent],
-      imports: [MatIconModule, SharedModule, RouterTestingModule]
+      imports: [MatIconModule, AppSharedModule, RouterTestingModule]
     })
       .compileComponents();
   }));
