@@ -1,0 +1,62 @@
+$transition: all 0.5s;
+
+.app-header {
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+  padding: 0 1em;
+
+  & > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    &:first-child {
+      flex-grow: 1;
+
+      a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        text-transform: uppercase;
+        font-weight: bold;
+
+        app-svg-icon {
+          margin-right: 0.5em;
+          font-size: 20px;
+        }
+      }
+    }
+
+    a {
+      &.account {
+        transition: $transition;
+
+        &:hover {
+          transition: $transition;
+          color: #CCFF00;
+        }
+      }
+
+      &.logout {
+        transition: $transition;
+
+        &:hover {
+          .mat-icon {
+            transition: $transition;
+            color: #F44336;
+          }
+        }
+      }
+
+      &:not(:last-of-type) {
+        margin-right: 0.5em;
+      }
+    }
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+}

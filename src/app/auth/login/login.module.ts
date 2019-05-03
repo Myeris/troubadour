@@ -1,0 +1,15 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+// app
+import {LoginComponent} from './containers/login/login.component';
+import {LoginRoutingModule} from './login-routing.module';
+
+@NgModule({
+  declarations: [LoginComponent],
+  imports: [
+    CommonModule,
+    LoginRoutingModule
+  ]
+})
+export class LoginModule {
+}
