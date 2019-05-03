@@ -4,15 +4,15 @@ import {Actions} from '@ngrx/effects';
 import {cold, hot} from 'jasmine-marbles';
 import {of, throwError} from 'rxjs';
 import UserCredential = firebase.auth.UserCredential;
+import FirestoreError = firebase.firestore.FirestoreError;
 // app
-import {getActions, TestActions} from '../../../../../shared/utils/test-actions/test-actions.utils';
-import {AuthResource} from '../../../resources/auth.resource';
 import {UserEffects} from './user.effects';
 import {appReducers} from '../../app.reducer';
-import {UserService} from '../../../services/user.service';
 import {LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess} from '../actions/user.actions';
-import {AuthRequest} from '../../../models/auth-request.model';
-import FirestoreError = firebase.firestore.FirestoreError;
+import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
+import {getActions, TestActions} from '../../../shared/utils/test-actions/test-actions.utils';
+import {AuthResource} from '../../../auth/shared/resources/auth.resource';
+import {UserService} from '../../../auth/shared/services/user.service';
 
 class AuthResourceMock {
   login() {

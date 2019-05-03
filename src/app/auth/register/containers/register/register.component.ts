@@ -5,11 +5,12 @@ import {Store} from '@ngrx/store';
 import {Observable} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 // app
-import {AppState} from '../../../shared/store/app.reducer';
 import {AuthRequest} from '../../../shared/models/auth-request.model';
 import {LifecycleComponent} from '../../../../shared/components/lifecycle/lifecycle.component';
-import {getError} from '../../../shared/store/user/selectors/user.selectors';
-import {Register} from '../../../shared/store/user/actions/user.actions';
+import {AppState} from '../../../../store/app.reducer';
+import {getError} from '../../../../store/user/selectors/user.selectors';
+import {Register} from '../../../../store/user/actions/user.actions';
+
 
 @Component({
   selector: 'app-register',

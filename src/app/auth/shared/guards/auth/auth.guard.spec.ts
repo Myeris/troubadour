@@ -3,9 +3,9 @@ import {Store, StoreModule} from '@ngrx/store';
 import {of} from 'rxjs';
 // app
 import {AuthGuard} from './auth.guard';
-import {appReducers, AppState} from '../../store/app.reducer';
-import {LogInSuccess} from '../../store/user/actions/user.actions';
 import {User} from '../../models/user.model';
+import {appReducers, AppState} from '../../../../store/app.reducer';
+import {LogInSuccess} from '../../../../store/user/actions/user.actions';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;

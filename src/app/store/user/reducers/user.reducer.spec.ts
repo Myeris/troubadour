@@ -1,8 +1,9 @@
 import {initialUserState} from '../user.state';
 import {userReducer} from './user.reducer';
 import {LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess} from '../actions/user.actions';
-import {AuthRequest} from '../../../models/auth-request.model';
-import {User} from '../../../models/user.model';
+import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
+import {User} from '../../../auth/shared/models/user.model';
+
 
 describe('userReducer', () => {
   describe('undefined actions', () => {

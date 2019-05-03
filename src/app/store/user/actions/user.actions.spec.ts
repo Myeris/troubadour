@@ -1,6 +1,6 @@
+import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
 import {LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess, UserActionsTypes} from './user.actions';
-import {User} from '../../../models/user.model';
-import {AuthRequest} from '../../../models/auth-request.model';
+import {User} from '../../../auth/shared/models/user.model';
 
 const authRequest: AuthRequest = {email: 'email', password: 'password'};
 
