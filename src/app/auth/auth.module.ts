@@ -1,11 +1,28 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {AngularFireModule} from '@angular/fire';
+import {AngularFireAuthModule} from '@angular/fire/auth';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 // app
 import {AuthRoutingModule} from './auth-routing.module';
+
+export const firebaseConfig = {
+  apiKey: 'AIzaSyAAPo3qoSzFGJkEeWMd7cq8a2UuPT8xYTI',
+  authDomain: 'drums-101.firebaseapp.com',
+  databaseURL: 'https://drums-101.firebaseio.com',
+  projectId: 'drums-101',
+  storageBucket: 'drums-101.appspot.com',
+  messagingSenderId: '395707803889'
+};
 
 @NgModule({
   imports: [
     CommonModule,
+    // third party
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    // app
     AuthRoutingModule
   ]
 })
