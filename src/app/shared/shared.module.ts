@@ -4,11 +4,16 @@ import {MatIconModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 // app
 import {SvgIconComponent} from './components/svg-icon/svg-icon.component';
+import {LifecycleComponent} from './components/lifecycle/lifecycle.component';
 
 @NgModule({
-  declarations: [SvgIconComponent],
+  declarations: [
+    SvgIconComponent,
+    LifecycleComponent
+  ],
   exports: [
-    SvgIconComponent
+    SvgIconComponent,
+    LifecycleComponent
   ],
   imports: [
     CommonModule,

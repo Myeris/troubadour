@@ -9,7 +9,6 @@ import {AppHeaderComponent} from './components/app-header/app-header.component';
 import {AppFooterComponent} from './components/app-footer/app-footer.component';
 import {AppNavComponent} from './components/app-nav/app-nav.component';
 import {AppSharedModule} from '../shared/shared.module';
-import {AppStoreModule} from '../store/store.module';
 
 @NgModule({
   declarations: [
@@ -25,8 +24,7 @@ import {AppStoreModule} from '../store/store.module';
     // app
     AppRoutingModule,
     AuthModule,
-    AppSharedModule,
-    AppStoreModule
+    AppSharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

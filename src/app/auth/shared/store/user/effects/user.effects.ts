@@ -4,12 +4,13 @@ import {Observable, of} from 'rxjs';
 import UserCredential = firebase.auth.UserCredential;
 import {catchError, map, pluck, switchMap} from 'rxjs/operators';
 import {Action, Store} from '@ngrx/store';
+import FirestoreError = firebase.firestore.FirestoreError;
 // app
 import {AppState} from '../../app.reducer';
 import {LogIn, LogInFail, LogInSuccess, UserActionsTypes} from '../actions/user.actions';
-import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
-import {AuthResource} from '../../../auth/shared/resources/auth.resource';
-import {UserService} from '../../../auth/shared/services/user.service';
+import {AuthRequest} from '../../../models/auth-request.model';
+import {AuthResource} from '../../../resources/auth.resource';
+import {UserService} from '../../../services/user.service';
 
 @Injectable()
 export class UserEffects {
@@ -21,8 +22,7 @@ export class UserEffects {
       pluck('payload'),
       switchMap((authRequest: AuthRequest) => this.authResource.login(authRequest)),
       map((userCreds: UserCredential) => new LogInSuccess({user: this.userService.mapLoginResponse(userCreds)})),
-      catchError((error: string) => of(new LogInFail({error})))
-    );
+      catchError((fe: FirestoreError) => of(new LogInFail({error: fe.message}))));
 
   constructor(private actions$: Actions,
               private store$: Store<AppState>,
