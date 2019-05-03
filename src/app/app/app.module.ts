@@ -9,6 +9,7 @@ import {AppHeaderComponent} from './components/app-header/app-header.component';
 import {AppFooterComponent} from './components/app-footer/app-footer.component';
 import {AppNavComponent} from './components/app-nav/app-nav.component';
 import {AppSharedModule} from '../shared/shared.module';
+import {DrumsModule} from '../drums/drums.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {AppSharedModule} from '../shared/shared.module';
     // app
     AppRoutingModule,
     AuthModule,
+    DrumsModule,
     AppSharedModule
   ],
   providers: [],
