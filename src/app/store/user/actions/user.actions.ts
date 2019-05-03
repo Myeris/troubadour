@@ -1,7 +1,7 @@
 import {Action} from '@ngrx/store';
 // app
-import {AuthRequest} from '../../../../auth/shared/models/auth-request.model';
-import {User} from '../../../../auth/shared/models/user.model';
+import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
+import {User} from '../../../auth/shared/models/user.model';
 
 export enum UserActionsTypes {
   LogIn = '[Login page] Log user in',

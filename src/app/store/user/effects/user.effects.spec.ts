@@ -1,14 +1,14 @@
-import {getActions, TestActions} from '../../../utils/test-actions/test-actions.utils';
-import {AuthResource} from '../../../../auth/shared/resources/auth.resource';
+import {getActions, TestActions} from '../../../shared/utils/test-actions/test-actions.utils';
+import {AuthResource} from '../../../auth/shared/resources/auth.resource';
 import {UserEffects} from './user.effects';
 import {async, TestBed} from '@angular/core/testing';
 import {StoreModule} from '@ngrx/store';
 import {appReducers} from '../../app.reducer';
 import {Actions} from '@ngrx/effects';
-import {UserService} from '../../../../auth/shared/services/user.service';
+import {UserService} from '../../../auth/shared/services/user.service';
 import UserCredential = firebase.auth.UserCredential;
 import {LogIn, LogInFail, LogInSuccess} from '../actions/user.actions';
-import {AuthRequest} from '../../../../auth/shared/models/auth-request.model';
+import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
 import {cold, hot} from 'jasmine-marbles';
 import {of, throwError} from 'rxjs';
 

@@ -2,10 +2,8 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatIconModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
-import {EffectsModule} from '@ngrx/effects';
 // app
 import {SvgIconComponent} from './components/svg-icon/svg-icon.component';
-import {UserEffects} from './store/user/effects/user.effects';
 
 @NgModule({
   declarations: [SvgIconComponent],
@@ -15,10 +13,7 @@ import {UserEffects} from './store/user/effects/user.effects';
   imports: [
     CommonModule,
     MatIconModule,
-    HttpClientModule,
-    EffectsModule.forRoot([
-      UserEffects
-    ])
+    HttpClientModule
   ]
 })
 export class AppSharedModule {

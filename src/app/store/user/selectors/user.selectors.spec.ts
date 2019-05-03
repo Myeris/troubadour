@@ -4,8 +4,8 @@ import {Store, StoreModule} from '@ngrx/store';
 import {appReducers, AppState} from '../../app.reducer';
 import {getError, isLoading, isLoggedIn} from './user.selectors';
 import {LogIn, LogInFail, LogInSuccess} from '../actions/user.actions';
-import {AuthRequest} from '../../../../auth/shared/models/auth-request.model';
-import {User} from '../../../../auth/shared/models/user.model';
+import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
+import {User} from '../../../auth/shared/models/user.model';
 
 describe('UserSelectors', () => {
   let store: Store<AppState>;

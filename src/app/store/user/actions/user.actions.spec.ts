@@ -1,5 +1,5 @@
 import {LogIn, LogInFail, LogInSuccess, UserActionsTypes} from './user.actions';
-import {User} from '../../../../auth/shared/models/user.model';
+import {User} from '../../../auth/shared/models/user.model';
 
 describe('UserActions', () => {
   describe('Login', () => {

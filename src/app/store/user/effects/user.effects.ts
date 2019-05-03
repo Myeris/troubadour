@@ -7,9 +7,9 @@ import {Action, Store} from '@ngrx/store';
 // app
 import {AppState} from '../../app.reducer';
 import {LogIn, LogInFail, LogInSuccess, UserActionsTypes} from '../actions/user.actions';
-import {AuthRequest} from '../../../../auth/shared/models/auth-request.model';
-import {AuthResource} from '../../../../auth/shared/resources/auth.resource';
-import {UserService} from '../../../../auth/shared/services/user.service';
+import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
+import {AuthResource} from '../../../auth/shared/resources/auth.resource';
+import {UserService} from '../../../auth/shared/services/user.service';
 
 @Injectable()
 export class UserEffects {
