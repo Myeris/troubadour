@@ -1,18 +1,17 @@
-import {User} from 'firebase';
-// app
 import {LogIn, LogInFail, LogInSuccess, UserActionsTypes} from './user.actions';
+import {User} from '../../../../auth/shared/models/user.model';
 
 describe('UserActions', () => {
   describe('Login', () => {
     it('should create an action', () => {
-      const action = new LogIn();
+      const action = new LogIn({authRequest: {email: 'email', password: 'password'}});
       expect(action.type).toBe(UserActionsTypes.LogIn);
     });
   });
 
   describe('LogInSuccess', () => {
     it('should create an action', () => {
-      const user = {} as User;
+      const user = { } as User;
       const action = new LogInSuccess({user});
       expect(action.type).toBe(UserActionsTypes.LogInSuccess);
     });

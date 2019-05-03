@@ -1,5 +1,7 @@
 import {Action} from '@ngrx/store';
-import {User} from 'firebase';
+// app
+import {AuthRequest} from '../../../../auth/shared/models/auth-request.model';
+import {User} from '../../../../auth/shared/models/user.model';
 
 export enum UserActionsTypes {
   LogIn = '[Login page] Log user in',
@@ -9,6 +11,9 @@ export enum UserActionsTypes {
 
 export class LogIn implements Action {
   public readonly type = UserActionsTypes.LogIn;
+
+  constructor(public payload: { authRequest: AuthRequest }) {
+  }
 }
 
 export class LogInSuccess implements Action {

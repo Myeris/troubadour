@@ -3,5 +3,4 @@ export interface User {
   uid: string;
   authenticated: boolean;
   verified: boolean;
-  creationDate: number;
 }
