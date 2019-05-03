@@ -5,6 +5,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
 // app
 import {AuthRoutingModule} from './auth-routing.module';
+import {SharedModule} from './shared/shared.module';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAAPo3qoSzFGJkEeWMd7cq8a2UuPT8xYTI',
@@ -23,7 +24,8 @@ export const firebaseConfig = {
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     // app
-    AuthRoutingModule
+    AuthRoutingModule,
+    SharedModule.forRoot()
   ]
 })
 export class AuthModule {

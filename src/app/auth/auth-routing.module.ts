@@ -1,9 +1,12 @@
 import {RouterModule, Routes} from '@angular/router';
 import {NgModule} from '@angular/core';
+// app
+import {AnonymousGuard} from './shared/guards/anonymous/anonymous.guard';
 
 const routes: Routes = [
   {
     path: 'auth',
+    canActivateChild: [AnonymousGuard],
     children: [
       {path: '', pathMatch: 'full', redirectTo: 'login'},
       {path: 'login', loadChildren: './login/login.module#LoginModule'},

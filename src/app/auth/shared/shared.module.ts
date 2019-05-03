@@ -15,6 +15,8 @@ import {UserEffects} from './store/user/effects/user.effects';
 import {UserService} from './services/user.service';
 import {AuthResource} from './resources/auth.resource';
 import {environment} from '../../../environments/environment';
+import {AuthGuard} from './guards/auth/auth.guard';
+import {AnonymousGuard} from './guards/anonymous/anonymous.guard';
 
 @NgModule({
   declarations: [
@@ -52,7 +54,9 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         UserService,
-        AuthResource
+        AuthResource,
+        AuthGuard,
+        AnonymousGuard
       ]
     };
   }
