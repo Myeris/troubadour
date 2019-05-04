@@ -5,6 +5,11 @@ import {User} from '../models/user.model';
 
 @Injectable()
 export class UserService {
+  private userKey = 'user';
+
+  public get persistedUser(): User {
+    return JSON.parse(localStorage.getItem(this.userKey));
+  }
 
   constructor() {
   }
@@ -16,5 +21,13 @@ export class UserService {
       authenticated: true,
       verified: userCreds.user.emailVerified
     };
+  }
+
+  public persistUser(user: User): void {
+    localStorage.setItem(this.userKey, JSON.stringify(user));
+  }
+
+  public removePersistedUser(): void {
+    localStorage.removeItem(this.userKey);
   }
 }

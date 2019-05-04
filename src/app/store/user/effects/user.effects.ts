@@ -38,9 +38,10 @@ export class UserEffects {
     );
 
   @Effect({ dispatch: false })
-  redirectConnectedUser$: Observable<Action> = this.actions$
+  redirectConnectedUser$: Observable<void> = this.actions$
     .pipe(
       ofType<LogInSuccess | RegisterSuccess>(UserActionsTypes.LogInSuccess || UserActionsTypes.RegisterSuccess),
+      map((action) => this.userService.persistUser(action.payload.user)),
       tap(() => this.router.navigate(['/']))
     );
 

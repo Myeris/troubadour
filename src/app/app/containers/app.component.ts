@@ -1,4 +1,10 @@
-import {Component, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Store} from '@ngrx/store';
+// app
+import {UserService} from '../../auth/shared/services/user.service';
+import {User} from '../../auth/shared/models/user.model';
+import {AppState} from '../../store/app.reducer';
+import {LogInSuccess} from '../../store/user/actions/user.actions';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +12,19 @@ import {Component, ViewEncapsulation} from '@angular/core';
   styleUrls: ['./app.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'troubadour';
+  public user: User;
+
+  constructor(private userService: UserService,
+              private store: Store<AppState>) {
+  }
+
+  ngOnInit(): void {
+    this.user = this.userService.persistedUser;
+
+    if (this.user) {
+      this.store.dispatch(new LogInSuccess({user: this.user}));
+    }
+  }
 }
