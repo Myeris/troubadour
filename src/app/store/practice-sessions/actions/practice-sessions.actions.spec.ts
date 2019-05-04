@@ -3,7 +3,7 @@ import {
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
   PracticeSessionListLoadSuccess,
-  PracticeSessionsActionsTypes
+  PracticeSessionsActionsTypes, PracticeSessionSelect
 } from './practice-sessions.actions';
 
 describe('PracticeSessionsActions', () => {
@@ -46,6 +46,13 @@ describe('PracticeSessionsActions', () => {
     it('should create an action', () => {
       const action = new PracticeSessionDeleteFail({error: 'error'});
       expect(action.type).toBe(PracticeSessionsActionsTypes.DeleteFail);
+    });
+  });
+
+  describe('PracticeSessionSelect', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionSelect({id: 'id'});
+      expect(action.type).toBe(PracticeSessionsActionsTypes.Select);
     });
   });
 });

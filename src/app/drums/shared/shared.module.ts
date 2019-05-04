@@ -1,16 +1,22 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {RouterModule} from '@angular/router';
 // app
 import {PracticeSessionsResource} from './resources/practice-sessions/practice-sessions.resource';
 import {PracticeSessionsService} from './services/practice-sessions/practice-sessions.service';
 import {SearchPipe} from './pipes/search/search.pipe';
-import { DurationPipe } from './pipes/duration/duration.pipe';
+import {DurationPipe} from './pipes/duration/duration.pipe';
+import {BreadcrumbComponent} from './components/breadcrumb/breadcrumb.component';
+import {OptionsPipe} from './pipes/options/options.pipe';
+import {TabDisplayComponent} from './components/tab-display/tab-display.component';
+import {TabsResource} from './resources/tabs/tabs.resource';
 
 @NgModule({
-  declarations: [SearchPipe, DurationPipe],
-  exports: [SearchPipe, DurationPipe],
+  declarations: [SearchPipe, DurationPipe, BreadcrumbComponent, OptionsPipe, TabDisplayComponent],
+  exports: [SearchPipe, DurationPipe, BreadcrumbComponent, OptionsPipe, TabDisplayComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class SharedModule {
@@ -19,7 +25,8 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         PracticeSessionsResource,
-        PracticeSessionsService
+        PracticeSessionsService,
+        TabsResource
       ]
     };
   }

@@ -26,3 +26,11 @@ export const getError = createSelector(
   getPracticeSessionState,
   state => state.error
 );
+
+export const getSelectedPracticeSession = createSelector(
+  getPracticeSessionState,
+  state => {
+    // console.log(state.entities, state.selectedId);
+    return state.entities[state.selectedId];
+  }
+);

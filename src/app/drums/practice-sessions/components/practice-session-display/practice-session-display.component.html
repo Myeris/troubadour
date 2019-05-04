@@ -1,0 +1,134 @@
+<div
+  class="practice-session">
+  <div class="wrapper">
+    <div class="practice-session__title">
+      <h1>
+        <app-svg-icon name="Drummer icon" path="assets/img/drums/drummer.svg"></app-svg-icon>
+        <span>
+					{{ session.name }}
+				</span>
+      </h1>
+
+      <a
+        class="edit"
+        [routerLink]="['../', session.$key, 'edit']">
+        <mat-icon>edit</mat-icon>
+      </a>
+    </div>
+
+    <div class="practice-session__details">
+      <div class="duration">
+        <mat-icon>query_builder</mat-icon>
+        <span>{{ session.duration | duration }}</span>
+      </div>
+
+      <div class="exercises">
+        <app-svg-icon name="Exercises" path="assets/img/drums/library.svg"></app-svg-icon>
+        {{ session.exercises.length }} exercises
+      </div>
+
+      <div class="repeat"
+           [title]="'Repeat the session ' + session.repeat + ' times'">
+        <mat-icon>settings_backup_restore</mat-icon>
+        {{ session.repeat }} times
+      </div>
+
+      <div class="drumkit">
+        <app-svg-icon name="Drumkit" path="assets/img/drums/snare.svg"></app-svg-icon>
+        {{ session.drumkit ? 'Drumkit' : 'No drumkit' }} required
+      </div>
+    </div>
+
+    <div class="practice-session__exercises">
+      <div
+        class="exercise {{ i !== inPlayIndex && this.state === 'running' ? 'empty' : '' }}"
+        [id]="'exercise-' + i"
+        *ngFor="let e of session.exercises; let i = index;">
+
+        <h4
+          (click)="inPlayIndex = i; this.state === 'running' ? play() : scrollIntoView()">
+          Exercise #{{ i + 1 }} - {{ e.tab?.name }}
+
+          <span class="exercise__options">
+						{{ e | options }}
+					</span>
+        </h4>
+          <app-tab-display
+            *ngIf="e.tab"
+            [exercise]="e">
+          </app-tab-display>
+      </div>
+    </div>
+  </div>
+
+  <div class="practice-session__controls">
+    <div
+      class="playing"
+      [style.width]="playTime + '%'">
+    </div>
+
+    <div class="content">
+      <div
+        class="cover"
+        (click)="scrollIntoView()">
+        #{{ inPlayIndex + 1 }}
+      </div>
+
+      <div
+        class="title"
+        (click)="scrollIntoView()">
+        <p>
+          {{ session.exercises[inPlayIndex].tab?.name }}
+
+          <span>
+					{{ session.exercises[inPlayIndex] | options }}
+				</span>
+        </p>
+      </div>
+
+      <div class="play-stop">
+        <button
+          class="button previous"
+          type="button"
+          (click)="playPrevious();"
+          [style.opacity]="inPlayIndex === 0 ? '0.5' : '1'">
+          <mat-icon>skip_previous</mat-icon>
+        </button>
+
+        <button
+          type="button"
+          class="button play"
+          (click)="playPause()">
+          <mat-icon *ngIf="state !== 'running'">play_arrow</mat-icon>
+          <mat-icon *ngIf="state === 'running'">pause</mat-icon>
+        </button>
+
+        <button
+          type="button"
+          class="button stop"
+          (click)="stop()">
+          <mat-icon>stop</mat-icon>
+        </button>
+
+        <button
+          class="button next"
+          type="button"
+          (click)="playNext();"
+          [style.opacity]="inPlayIndex === (session.exercises.length - 1) ? '0.5' : '1'">
+          <mat-icon>skip_next</mat-icon>
+        </button>
+      </div>
+
+      <div class="sound">
+        <mat-icon>volume_up</mat-icon>
+
+        <input
+          type="range"
+          max="100"
+          min="0"
+          value="75"
+          (input)="changeVolume($event)">
+      </div>
+    </div>
+  </div>
+</div>

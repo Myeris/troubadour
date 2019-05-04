@@ -9,7 +9,9 @@ export enum PracticeSessionsActionsTypes {
 
   Delete = '[Practice session list page] Remove practice session',
   DeleteSuccess = '[PracticeSessionsAPI] Remove practice session success',
-  DeleteFail = '[PracticeSessionsAPI] Remove practice session fail'
+  DeleteFail = '[PracticeSessionsAPI] Remove practice session fail',
+
+  Select = '[Practice session item page] Select a practice session'
 }
 
 export class PracticeSessionListLoad implements Action {
@@ -48,10 +50,18 @@ export class PracticeSessionDeleteFail implements Action {
   }
 }
 
+export class PracticeSessionSelect implements Action {
+  public readonly type = PracticeSessionsActionsTypes.Select;
+
+  constructor(public payload: { id: string }) {
+  }
+}
+
 export type PracticeSessionsActions =
   | PracticeSessionListLoad
   | PracticeSessionListLoadSuccess
   | PracticeSessionListLoadFail
   | PracticeSessionDelete
   | PracticeSessionDeleteSuccess
-  | PracticeSessionDeleteFail;
+  | PracticeSessionDeleteFail
+  | PracticeSessionSelect;

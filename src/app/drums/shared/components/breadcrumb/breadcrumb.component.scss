@@ -1,0 +1,14 @@
+div {
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+
+  a {
+    color: #8ea6bd;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: #333;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+}

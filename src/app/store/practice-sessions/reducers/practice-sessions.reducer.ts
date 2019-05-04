@@ -27,6 +27,8 @@ export function practiceSessionsReducer(
         selectedId: null,
         error: null
       });
+    case PracticeSessionsActionsTypes.Select:
+      return {...state, isLoading: false, selectedId: action.payload.id, error: null};
     default:
       return state;
   }

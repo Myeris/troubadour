@@ -5,7 +5,7 @@ import {
   PracticeSessionDeleteFail, PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
-  PracticeSessionListLoadSuccess
+  PracticeSessionListLoadSuccess, PracticeSessionSelect
 } from '../actions/practice-sessions.actions';
 import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
 
@@ -83,9 +83,6 @@ describe('PracticeSessionsReducer', () => {
 
   describe('LoadListSuccess', () => {
     it('should set the state', () => {
-      const sessions: PracticeSession[] = [
-        {$key: 'id'} as PracticeSession
-      ];
       const action = new PracticeSessionListLoadSuccess({practiceSessionList: sessions});
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
@@ -136,6 +133,17 @@ describe('PracticeSessionsReducer', () => {
       expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
+    });
+  });
+
+  describe('Select', () => {
+    it('should set the state', () => {
+      const action = new PracticeSessionSelect({id: 'id'});
+      const state = practiceSessionsReducer(initialPracticeSessionState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBe('id');
     });
   });
 });

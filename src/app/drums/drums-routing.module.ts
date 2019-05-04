@@ -6,7 +6,7 @@ import {AuthGuard} from '../auth/shared/guards/auth/auth.guard';
 const routes: Route[] = [
   {
     path: 'practice-sessions',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     loadChildren: './practice-sessions/practice-sessions.module#PracticeSessionsModule'
   },
   // {path: 'exercises', canActivate: [AuthGuard], loadChildren: './exercises/exercises.module#ExercisesModule'},

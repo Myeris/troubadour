@@ -1,0 +1,242 @@
+:host {
+  width: 100%;
+  display: block;
+}
+
+.wrapper {
+  max-width: 1000px;
+  width: 100%;
+  padding: 2rem;
+}
+
+.practice-session {
+  &__title {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0 2rem 0;
+
+    h1 {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+
+      app-svg-icon {
+        margin: 0 0.5rem 0 0;
+      }
+    }
+
+    .edit {
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease-in-out;
+      color: #4CAF50;
+
+      &:hover {
+        color: #1B5E20;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+
+  &__details {
+    padding: 1rem;
+    border: 1px solid #535D6E;
+    display: flex;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    app-svg-icon {
+      margin: -0.1rem 0.25rem;
+    }
+
+    .duration, .repeat, .drumkit, .exercises {
+      margin-right: 1rem;
+      flex: auto;
+      text-align: center;
+    }
+  }
+
+  &__controls {
+
+    .playing {
+      width: 0;
+      height: 0.2rem;
+      background: #CCFF00;
+      z-index: 999;
+      position: fixed;
+      bottom: 2.8rem;
+      left: 0;
+    }
+
+    .content {
+      display: flex;
+      text-align: center;
+      height: 3rem;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      background: white;
+      width: 100%;
+      box-shadow: 0 1px 4px 0 rgba(0,0,0,0.37);
+
+      .cover {
+        background: #CCFF00;
+        color: #333;
+        width: 3rem;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .title {
+        padding: 0 1rem;
+        cursor: pointer;
+        width: 41%;
+
+        p {
+          float: left;
+          width: 100%;
+          font-weight: bold;
+          text-align: left;
+          padding: 0.3rem;
+          margin: 0;
+          font-size: 1rem;
+          transition: all 0.2s ease-in-out;
+
+          span {
+            float: left;
+            width: 100%;
+            font-weight: 300;
+            font-size: 0.75rem;
+          }
+
+          &:hover {
+            text-decoration: underline;
+            transition: all 0.2s ease-in-out;
+          }
+        }
+      }
+
+      .play-stop {
+        width: 18%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sound {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 41%;
+
+        app-svg-icon {
+          opacity: 0.75;
+        }
+      }
+    }
+  }
+
+  &__exercises {
+    margin-top: 2.5rem;
+
+    .exercise {
+      padding-bottom: 1rem;
+
+      h4 {
+        cursor: pointer;
+      }
+
+      &.empty {
+        opacity: 0.25;
+      }
+
+      &:not(:first-of-type) {
+        padding-top: 2rem;
+      }
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid #dadada;
+      }
+
+      &__options {
+        color: #8ea6bd;
+        width: 100%;
+        float: left;
+        font-weight: normal;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+.button {
+  text-align: center;
+  cursor: pointer;
+  outline: 0;
+  border: 0;
+  padding: 0.45rem 0.45rem 0.3rem 0.5rem;
+  transition: all 0.2s ease-in-out;
+  display: inline-block;
+  margin: 0.5rem;
+
+
+  &.play, &.stop {
+    border-radius: 100%;
+  }
+
+  &.play {
+    color: #39a1e7;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: #01579B;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &.stop {
+    color: #ce2a39;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: #B71C1C;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+
+  &.previous, &.next {
+    border-radius: 100%;
+    background: transparent;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background: #eff4f9;
+      transition: all 0.2s ease-in-out;
+    }
+  }
+}
+
+/* (1920x1080) Full HD Display */
+@media  screen and (min-width: 1600px) and (max-width: 1920px) {
+  .wrapper {
+    max-width: 1500px;
+  }
+}
+
+/* (1600x900) HD+ Display */
+@media  screen and (min-width: 1920px) {
+  .wrapper {
+    max-width: 1500px;
+  }
+}

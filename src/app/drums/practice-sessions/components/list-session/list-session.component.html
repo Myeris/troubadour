@@ -1,10 +1,10 @@
 <div class="list-session">
   <div
     class="type">
-    <app-svg-icon *ngIf="session.drumkit" [name]="'Drumkit required'"
-                  [path]="'assets/img/drums/drumkit.svg'"></app-svg-icon>
-    <app-svg-icon *ngIf="!session.drumkit" [name]="'No drumkit required'"
-                  [path]="'assets/img/drums/snare.svg'"></app-svg-icon>
+    <app-svg-icon *ngIf="session.drumkit" name="Drumkit required"
+                  path="assets/img/drums/drumkit.svg"></app-svg-icon>
+    <app-svg-icon *ngIf="!session.drumkit" name="No drumkit required"
+                  path="assets/img/drums/snare.svg"></app-svg-icon>
   </div>
 
   <a
