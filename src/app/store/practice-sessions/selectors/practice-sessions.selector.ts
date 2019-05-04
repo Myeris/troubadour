@@ -1,5 +1,6 @@
-import {AppState} from '../../app.reducer';
 import {createSelector} from '@ngrx/store';
+// app
+import {AppState} from '../../app.reducer';
 import {practiceSessionsEntityAdapter} from '../practice-sessions.state';
 
 export const seletPracticeSession = (state: AppState) => state.practiceSession;
