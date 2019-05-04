@@ -3,18 +3,21 @@ import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {FormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
-import {StoreModule} from '@ngrx/store';
+import {Store, StoreModule} from '@ngrx/store';
 // app
 import {PracticeSessionsComponent} from './practice-sessions.component';
-import {appReducers} from '../../../../store/app.reducer';
+import {appReducers, AppState} from '../../../../store/app.reducer';
 import {SearchPipe} from '../../../shared/pipes/search/search.pipe';
+import {PracticeSession} from '../../../shared/models/practice-session.model';
+import {PracticeSessionDelete} from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 
 describe('PracticeSessionsComponent', () => {
   let component: PracticeSessionsComponent;
   let fixture: ComponentFixture<PracticeSessionsComponent>;
+  let store: Store<AppState>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
+    const bed = TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         FormsModule,
@@ -23,17 +26,25 @@ describe('PracticeSessionsComponent', () => {
       ],
       declarations: [PracticeSessionsComponent, SearchPipe],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
-  }));
+    });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(PracticeSessionsComponent);
+    fixture = bed.createComponent(PracticeSessionsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    store = bed.get(Store);
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('onRemove', () => {
+    it('should dispatch an event', () => {
+      spyOn(store, 'dispatch').and.callFake(() => {
+      });
+
+      component.onRemove({$key: 'a'} as PracticeSession);
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(new PracticeSessionDelete({id: 'a'}));
+    });
   });
 });
