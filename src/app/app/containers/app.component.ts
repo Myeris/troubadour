@@ -13,7 +13,6 @@ import {LogInSuccess} from '../../store/user/actions/user.actions';
   encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-  title = 'troubadour';
   public user: User;
 
   constructor(private userService: UserService,

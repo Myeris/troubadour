@@ -32,6 +32,7 @@ export class PracticeSessionsComponent extends LifecycleComponent implements OnI
   }
 
   public onRemove(event: PracticeSession): void {
+    console.log('coucou', event);
     // TODO dispatch action to remove session
     //   try {
     //     await this.practiceSessionsService.removeSession(event.$key);

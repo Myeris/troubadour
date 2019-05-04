@@ -1,6 +1,13 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { PracticeSessionsComponent } from './practice-sessions.component';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {RouterTestingModule} from '@angular/router/testing';
+import {FormsModule} from '@angular/forms';
+import {NgxPaginationModule} from 'ngx-pagination';
+import {StoreModule} from '@ngrx/store';
+// app
+import {PracticeSessionsComponent} from './practice-sessions.component';
+import {appReducers} from '../../../../store/app.reducer';
+import {SearchPipe} from '../../../shared/pipes/search/search.pipe';
 
 describe('PracticeSessionsComponent', () => {
   let component: PracticeSessionsComponent;
@@ -8,9 +15,16 @@ describe('PracticeSessionsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PracticeSessionsComponent ]
+      imports: [
+        RouterTestingModule,
+        FormsModule,
+        NgxPaginationModule,
+        StoreModule.forRoot({...appReducers})
+      ],
+      declarations: [PracticeSessionsComponent, SearchPipe],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

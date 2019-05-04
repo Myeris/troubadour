@@ -13,6 +13,7 @@ import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
 import {getActions, TestActions} from '../../../shared/utils/test-actions/test-actions.utils';
 import {AuthResource} from '../../../auth/shared/resources/auth.resource';
 import {UserService} from '../../../auth/shared/services/user.service';
+import {RouterTestingModule} from '@angular/router/testing';
 
 class AuthResourceMock {
   login() {
@@ -34,7 +35,7 @@ describe('UserEffects', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(appReducers)],
+      imports: [StoreModule.forRoot(appReducers), RouterTestingModule],
       providers: [
         UserEffects,
         UserService,
