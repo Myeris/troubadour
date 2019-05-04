@@ -7,6 +7,7 @@ import {FirebaseError} from 'firebase';
 // app
 import {AppState} from '../../app.reducer';
 import {
+  PracticeSessionDelete, PracticeSessionDeleteFail, PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
   PracticeSessionListLoadSuccess,
@@ -26,6 +27,16 @@ export class PracticeSessionsEffects {
       switchMap(([action, currentUser]) => this.practiceSessionResource.getSessionList$(currentUser.id)),
       map((sessionList: PracticeSession[]) => new PracticeSessionListLoadSuccess({practiceSessionList: sessionList})),
       catchError((error: FirebaseError) => of(new PracticeSessionListLoadFail({error: error.message})))
+    );
+
+  @Effect()
+  removePracticeSession$: Observable<Action> = this.actions$
+    .pipe(
+      ofType<PracticeSessionDelete>(PracticeSessionsActionsTypes.Delete),
+      withLatestFrom(this.store$.select(getCurrentUser)),
+      switchMap(([action, currentUser]) => this.practiceSessionResource.removeSession(currentUser.id, action.payload.id)),
+      map(() => new PracticeSessionDeleteSuccess()),
+      catchError((error: FirebaseError) => of(new PracticeSessionDeleteFail({error: error.message})))
     );
 
   constructor(private actions$: Actions,

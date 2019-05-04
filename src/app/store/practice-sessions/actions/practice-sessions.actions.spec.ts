@@ -1,4 +1,5 @@
 import {
+  PracticeSessionDelete, PracticeSessionDeleteFail, PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
   PracticeSessionListLoadSuccess,
@@ -24,6 +25,27 @@ describe('PracticeSessionsActions', () => {
     it('should create an action', () => {
       const action = new PracticeSessionListLoadFail({error: 'error'});
       expect(action.type).toBe(PracticeSessionsActionsTypes.LoadListFail);
+    });
+  });
+
+  describe('PracticeSessionDelete', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionDelete({id: 'id'});
+      expect(action.type).toBe(PracticeSessionsActionsTypes.Delete);
+    });
+  });
+
+  describe('PracticeSessionDeleteSuccess', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionDeleteSuccess();
+      expect(action.type).toBe(PracticeSessionsActionsTypes.DeleteSuccess);
+    });
+  });
+
+  describe('PracticeSessionDeleteFail', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionDeleteFail({error: 'error'});
+      expect(action.type).toBe(PracticeSessionsActionsTypes.DeleteFail);
     });
   });
 });

@@ -19,4 +19,9 @@ export class PracticeSessionsResource {
       .snapshotChanges()
       .pipe(map((actions: SnapshotAction<PracticeSession>[]) => this.practiceSessionsService.mapSessionListFromSnapshotAction(actions)));
   }
+
+  removeSession(uid: string, key: string): Promise<void> {
+    return this.db.list(`${this.colName}/${uid}`)
+      .remove(key);
+  }
 }
