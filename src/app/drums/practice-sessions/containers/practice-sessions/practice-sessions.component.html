@@ -1,5 +1,65 @@
-<p>
-  practice-sessions works!
+<div class="practice-sessions">
+  <div class="wrapper">
+    <div class="practice-sessions__title">
+      <h1>
+        <app-svg-icon [name]="'Practices sessions logo, two crossed sticks'"
+                      [path]="'assets/img/drums/drumsticks.svg'"></app-svg-icon>
+        My practice sessions
+      </h1>
 
-  {{ (sessionList$ | async) | json }}
-</p>
+      <a class="btn__add"
+         [routerLink]="['../practice-sessions/new']">
+        <mat-icon>add</mat-icon>
+        New practice session
+      </a>
+    </div>
+
+    <div *ngIf="(sessionList$ | async)?.length" class="count">
+      {{ (sessionList$ | async)?.length }} practice sessions found
+    </div>
+
+    <div
+      *ngIf="sessionList$ | async as sessions; else loading;"
+      [class]="'practice-sessions__list' + (!sessions.length ? ' empty' : '')">
+      <div
+        *ngIf="!sessions.length"
+        class="message">
+        <app-svg-icon [name]="'No practice session'" [path]="'assets/img/utils/empty.svg'"></app-svg-icon>
+        No practice sessions found
+      </div>
+
+      <div
+        *ngIf="sessions.length"
+        class="search">
+        <label>
+          <input
+            [(ngModel)]="searchText"
+            type="text"
+            placeholder="Searching for...">
+        </label>
+        <a
+          (click)="searchText = null"
+          *ngIf="searchText">
+          <mat-icon>close</mat-icon>
+        </a>
+      </div>
+
+      <app-list-session
+        *ngFor="let session of sessions | search: 'name' : searchText | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.current }"
+        [session]="session"
+        (remove)="onRemove($event)">
+      </app-list-session>
+    </div>
+
+    <div class="pagination" *ngIf="(sessionList$ | async)?.length">
+      <pagination-controls (pageChange)="pagination.current = $event"></pagination-controls>
+    </div>
+
+    <ng-template #loading>
+      <div class="message">
+        <app-svg-icon [name]="'Loading'" [path]="'assets/img/utils/loading.svg'"></app-svg-icon>
+        Fetching practice sessions...
+      </div>
+    </ng-template>
+  </div>
+</div>

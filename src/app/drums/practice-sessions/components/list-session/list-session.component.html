@@ -1,0 +1,50 @@
+<div class="list-session">
+  <div
+    class="type">
+    <app-svg-icon *ngIf="session.drumkit" [name]="'Drumkit required'"
+                  [path]="'assets/img/drums/drumkit.svg'"></app-svg-icon>
+    <app-svg-icon *ngIf="!session.drumkit" [name]="'No drumkit required'"
+                  [path]="'assets/img/drums/snare.svg'"></app-svg-icon>
+  </div>
+
+  <a
+    [routerLink]="['../practice-sessions', session.$key]">
+    <p class="list-session__name">
+      {{ session.name }}
+    </p>
+
+    <p class="list-session__exercises">
+			<span>
+				{{ session.exercises.length }} exercises, {{ session.duration | duration }}
+        , {{ session.drumkit ? 'drumkit ' : 'no drumkit' }} required
+			</span>
+    </p>
+  </a>
+
+  <div
+    class="list-session__delete"
+    *ngIf="toggled">
+    <p>
+      Delete practice session?
+    </p>
+    <button
+      class="confirm"
+      type="button"
+      (click)="removeSession()">
+      Yes
+    </button>
+    <button
+      class="cancel"
+      type="button"
+      (click)="toggle()">
+      No
+    </button>
+  </div>
+
+  <button
+    class="trash"
+    type="button"
+    (click)="toggle()">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>

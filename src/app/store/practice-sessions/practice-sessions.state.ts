@@ -1,6 +1,6 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 // app
-import {PracticeSession} from '../../drums/shared/models/models/practice-session.model';
+import {PracticeSession} from '../../drums/shared/models/practice-session.model';
 
 export interface PracticeSessionsState extends EntityState<PracticeSession> {
   selectedId: string;

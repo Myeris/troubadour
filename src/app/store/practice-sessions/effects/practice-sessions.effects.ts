@@ -14,7 +14,7 @@ import {
 } from '../actions/practice-sessions.actions';
 import {getCurrentUser} from '../../user/selectors/user.selectors';
 import {PracticeSessionsResource} from '../../../drums/shared/resources/practice-sessions/practice-sessions.resource';
-import {PracticeSession} from '../../../drums/shared/models/models/practice-session.model';
+import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
 
 @Injectable()
 export class PracticeSessionsEffects {

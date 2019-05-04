@@ -3,28 +3,20 @@ import {AngularFireDatabase, SnapshotAction} from '@angular/fire/database';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 // app
-import {PracticeSession} from '../../models/models/practice-session.model';
+import {PracticeSession} from '../../models/practice-session.model';
+import {PracticeSessionsService} from '../../services/practice-sessions/practice-sessions.service';
 
 @Injectable()
 export class PracticeSessionsResource {
   private colName = 'practice-sessions';
 
-  constructor(private db: AngularFireDatabase) {
+  constructor(private db: AngularFireDatabase,
+              private practiceSessionsService: PracticeSessionsService) {
   }
 
   getSessionList$(uid: string): Observable<PracticeSession[]> {
-    console.log('ici');
     return this.db.list<PracticeSession>(`${this.colName}/${uid}`)
       .snapshotChanges()
-      .pipe(
-        map((actions: SnapshotAction<PracticeSession>[]) => {
-          return  actions.map((a: SnapshotAction<PracticeSession>) => {
-            const data = a.payload.val();
-            const $key = a.payload.key;
-
-            return {$key, ...data};
-          });
-        })
-      );
+      .pipe(map((actions: SnapshotAction<PracticeSession>[]) => this.practiceSessionsService.mapSessionListFromSnapshotAction(actions)));
   }
 }

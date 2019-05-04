@@ -9,7 +9,7 @@ import {getActions, TestActions} from '../../../shared/utils/test-actions/test-a
 import {AppState} from '../../app.reducer';
 import {PracticeSessionsResource} from '../../../drums/shared/resources/practice-sessions/practice-sessions.resource';
 import {PracticeSessionsEffects} from './practice-sessions.effects';
-import {PracticeSession} from '../../../drums/shared/models/models/practice-session.model';
+import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
 import {PracticeSessionListLoad, PracticeSessionListLoadFail, PracticeSessionListLoadSuccess} from '../actions/practice-sessions.actions';
 import {User} from '../../../auth/shared/models/user.model';
 import {FirebaseError} from 'firebase';

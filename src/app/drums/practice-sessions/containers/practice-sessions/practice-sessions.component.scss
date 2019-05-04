@@ -1,0 +1,159 @@
+:host {
+  width: 100%;
+  display: block;
+}
+
+.wrapper {
+  max-width: 1200px;
+  width: 100%;
+}
+
+.invert {
+  filter: invert(1);
+}
+
+.btn {
+  &__add {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    background: #97c747;
+    border-radius: 0.2rem;
+    padding: 0.25rem 1rem;
+    text-transform: uppercase;
+    font: {
+      weight: 600;
+      size: 0.75rem;
+    }
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      background-color: darken(#97c747, 10%);
+      transition: all 0.2s ease-in-out;
+    }
+
+    img {
+      width: 0.75rem;
+      margin: 0 0.5rem 0 0;
+    }
+  }
+}
+
+.practice-sessions {
+  &__title {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+
+      app-svg-icon {
+        height: 1rem;
+        margin-right: 0.75rem;
+      }
+    }
+  }
+
+  &__list {
+    background: #ffffff;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+    margin-top: 0.5rem;
+  }
+
+  .message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+
+    img {
+      margin: 0 0.5rem 0 0;
+      height: 1rem;
+    }
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+
+    label {
+      flex-grow: 1;
+      display: flex;
+
+      input {
+        outline: 0;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        margin: 0;
+        background: #fff;
+        color: #545e6f;
+        flex-grow: 1;
+        border-bottom: 1px solid #d1deeb;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-radius: 0;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem;
+      border-bottom: 1px solid #d1deeb;
+      cursor: pointer;
+      color: #F44336;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        transition: all .2s ease-in-out;
+        color: #B71C1C;
+      }
+    }
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & /deep/ .ngx-pagination {
+    border-radius: 0.1rem;
+
+    .current {
+      background: #333333;
+      color: #CCFF00;
+    }
+  }
+}
+
+.count {
+  font-size: 0.8rem;
+  font-style: italic;
+  text-align: right;
+  padding: 0.25rem 0;
+  margin-top: 1rem;
+}
+
+/* (1920x1080) Full HD Display */
+@media screen and (min-width: 1600px) and (max-width: 1920px) {
+  .wrapper {
+    max-width: 1500px;
+  }
+}
+
+/* (1600x900) HD+ Display */
+@media screen and (min-width: 1920px) {
+  .wrapper {
+    max-width: 1500px;
+  }
+}

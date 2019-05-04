@@ -1,7 +1,7 @@
 import {initialPracticeSessionState} from '../practice-sessions.state';
 import {practiceSessionsReducer} from './practice-sessions.reducer';
 import {PracticeSessionListLoad, PracticeSessionListLoadFail, PracticeSessionListLoadSuccess} from '../actions/practice-sessions.actions';
-import {PracticeSession} from '../../../drums/shared/models/models/practice-session.model';
+import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
 
 describe('PracticeSessionsReducer', () => {
   describe('undefined actions', () => {
