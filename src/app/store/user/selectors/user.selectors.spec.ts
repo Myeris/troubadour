@@ -2,11 +2,17 @@ import {TestBed} from '@angular/core/testing';
 import {Store, StoreModule} from '@ngrx/store';
 // app
 import {appReducers, AppState} from '../../app.reducer';
-import {getError, isLoading, isLoggedIn} from './user.selectors';
+import {getCurrentUser, getError, isLoading, isLoggedIn} from './user.selectors';
 import {LogIn, LogInFail, LogInSuccess} from '../actions/user.actions';
 import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
 import {User} from '../../../auth/shared/models/user.model';
 
+const user: User = {
+  email: 'email',
+  id: '123',
+  authenticated: true,
+  verified: true
+};
 
 describe('UserSelectors', () => {
   let store: Store<AppState>;
@@ -86,6 +92,21 @@ describe('UserSelectors', () => {
 
       store.dispatch(new LogInSuccess({user: {} as User}));
       expect(result).toBeNull();
+    });
+  });
+
+  describe('getCurrentUser', () => {
+    it('should return the current user', () => {
+      let result = null;
+
+      store
+        .select(getCurrentUser)
+        .subscribe(value => result = value);
+
+      expect(result).toBeNull();
+
+      store.dispatch(new LogInSuccess({user}));
+      expect(result).toEqual(user);
     });
   });
 });

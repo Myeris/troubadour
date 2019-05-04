@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {Actions, Effect, ofType} from '@ngrx/effects';
 import {Observable, of} from 'rxjs';
-import UserCredential = firebase.auth.UserCredential;
-import {catchError, map, pluck, switchMap} from 'rxjs/operators';
+import {catchError, map, pluck, switchMap, tap} from 'rxjs/operators';
 import {Action, Store} from '@ngrx/store';
+import {Router} from '@angular/router';
+import UserCredential = firebase.auth.UserCredential;
 import FirestoreError = firebase.firestore.FirestoreError;
 // app
 import {AppState} from '../../app.reducer';
@@ -36,8 +37,16 @@ export class UserEffects {
       catchError((fe: FirestoreError) => of(new RegisterFail({error: fe.message})))
     );
 
+  @Effect({ dispatch: false })
+  redirectConnectedUser$: Observable<Action> = this.actions$
+    .pipe(
+      ofType<LogInSuccess | RegisterSuccess>(UserActionsTypes.LogInSuccess || UserActionsTypes.RegisterSuccess),
+      tap(() => this.router.navigate(['/']))
+    );
+
   constructor(private actions$: Actions,
               private store$: Store<AppState>,
+              private router: Router,
               private authResource: AuthResource,
               private userService: UserService) {
   }

@@ -31,3 +31,8 @@ export const getError = createSelector(
   getUserState,
   state => state.error
 );
+
+export const getCurrentUser = createSelector(
+  getUserState,
+  state => state.selectedId ? state.entities[state.selectedId] : null
+);

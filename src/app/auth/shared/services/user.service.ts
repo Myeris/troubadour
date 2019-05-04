@@ -12,7 +12,7 @@ export class UserService {
   public mapLoginResponse(userCreds: UserCredential): User {
     return {
       email: userCreds.user.email,
-      uid: userCreds.user.uid,
+      id: userCreds.user.uid,
       authenticated: true,
       verified: userCreds.user.emailVerified
     };

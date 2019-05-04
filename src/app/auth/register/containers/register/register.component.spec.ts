@@ -2,12 +2,12 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Store, StoreModule} from '@ngrx/store';
+import {FormGroup} from '@angular/forms';
 // app
 import {RegisterComponent} from './register.component';
-import {appReducers, AppState} from '../../../shared/store/app.reducer';
-import {getError} from '../../../shared/store/user/selectors/user.selectors';
-import {FormGroup} from '@angular/forms';
-import {Register} from '../../../shared/store/user/actions/user.actions';
+import {appReducers, AppState} from '../../../../store/app.reducer';
+import {getError} from '../../../../store/user/selectors/user.selectors';
+import {Register} from '../../../../store/user/actions/user.actions';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;

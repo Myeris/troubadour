@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
@@ -7,6 +7,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {environment} from '../../environments/environment';
 import {appReducers} from './app.reducer';
 import {UserEffects} from './user/effects/user.effects';
+import {PracticeSessionsEffects} from './practice-sessions/effects/practice-sessions.effects';
 
 @NgModule({
   declarations: [],
@@ -18,7 +19,8 @@ import {UserEffects} from './user/effects/user.effects';
       logOnly: environment.production, // Restrict extension to log-only mode
     }),
     EffectsModule.forRoot([
-      UserEffects
+      UserEffects,
+      PracticeSessionsEffects
     ])
   ]
 })

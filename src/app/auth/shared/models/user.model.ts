@@ -1,6 +1,6 @@
 export interface User {
   email: string;
-  uid: string;
+  id: string;
   authenticated: boolean;
   verified: boolean;
 }

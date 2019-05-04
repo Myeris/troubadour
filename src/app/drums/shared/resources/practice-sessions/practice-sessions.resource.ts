@@ -13,6 +13,7 @@ export class PracticeSessionsResource {
   }
 
   getSessionList$(uid: string): Observable<PracticeSession[]> {
+    console.log('ici');
     return this.db.list<PracticeSession>(`${this.colName}/${uid}`)
       .snapshotChanges()
       .pipe(

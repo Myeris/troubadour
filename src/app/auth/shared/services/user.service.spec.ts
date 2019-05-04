@@ -30,7 +30,7 @@ describe('UserService', () => {
 
       expect(service.mapLoginResponse(userCreds)).toEqual({
         email: 'email',
-        uid: '123',
+        id: '123',
         authenticated: true,
         verified: true
       });
