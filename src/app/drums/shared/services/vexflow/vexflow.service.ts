@@ -19,7 +19,9 @@ export class VexflowService {
   private renderer: Renderer;
   private INIT_ERROR_MESSAGE = 'VEXFLOW: Renderer is not init';
   private STAVE_WIDTH = 850;
+  private STAVE_HEIGHT = 125;
   private RENDERER_WIDTH = 855;
+  private width: number;
 
   public get context(): IRenderContext {
     if (!this.renderer) {
@@ -31,7 +33,7 @@ export class VexflowService {
   constructor() {
   }
 
-  public initVexflow(divId: string, width?: number, height?: number): Promise<any> {
+  public initVexflow(divId: string): Promise<any> {
     return new Promise((resolve, reject) => {
       const div = document.getElementById(divId);
 
@@ -39,10 +41,12 @@ export class VexflowService {
         return reject(`Cannot find div with ID ${divId}`);
       }
 
+      this.width = div.offsetWidth;
+
       div.innerHTML = ''; // make sure the div is empty
       this.renderer = new this.VF.Renderer(div, this.VF.Renderer.Backends.SVG);
 
-      this.renderer.resize(width || this.RENDERER_WIDTH, height || 125);
+      this.renderer.resize(this.width || this.RENDERER_WIDTH, this.STAVE_HEIGHT);
 
       return resolve();
     });
@@ -156,12 +160,12 @@ export class VexflowService {
     return beams;
   }
 
-  public createStave(timeSignature: string, x?: number, y?: number, width?: number): Stave {
+  public createStave(timeSignature: string, x?: number, y?: number): Stave {
     if (!this.renderer) {
       throw new Error(this.INIT_ERROR_MESSAGE);
     }
 
-    const stave = new this.VF.Stave(x || 0, y || 0, width || this.STAVE_WIDTH);
+    const stave = new this.VF.Stave(x || 0, y || 0, this.width || this.STAVE_WIDTH);
     stave
       .addClef(this.clef)
       .addTimeSignature(timeSignature);
