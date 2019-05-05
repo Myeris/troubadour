@@ -7,7 +7,7 @@ import {AppComponent} from './app.component';
 import {UserService} from '../../auth/shared/services/user.service';
 import {appReducers, AppState} from '../../store/app.reducer';
 import {User} from '../../auth/shared/models/user.model';
-import {LogInSuccess} from '../../store/user/actions/user.actions';
+import {LogInSuccess, LogOut} from '../../store/user/actions/user.actions';
 import {TabListLoad} from '../../store/tabs/actions/tabs.actions';
 
 describe('AppComponent', () => {
@@ -64,6 +64,23 @@ describe('AppComponent', () => {
 
       component.ngOnInit();
       expect(store.dispatch).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('logout', () => {
+    it('should dispatch an event if user is defined', () => {
+      const user: User = {
+        email: 'email',
+        id: 'id',
+        verified: true,
+        authenticated: true
+      };
+      spyOnProperty(service, 'persistedUser').and.returnValue(user);
+      spyOn(store, 'dispatch').and.callThrough();
+
+      component.logout();
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(new LogOut());
     });
   });
 });

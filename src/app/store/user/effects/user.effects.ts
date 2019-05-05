@@ -8,7 +8,17 @@ import UserCredential = firebase.auth.UserCredential;
 import FirestoreError = firebase.firestore.FirestoreError;
 // app
 import {AppState} from '../../app.reducer';
-import {LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess, UserActionsTypes} from '../actions/user.actions';
+import {
+  LogIn,
+  LogInFail,
+  LogInSuccess,
+  LogOut,
+  LogOutSuccess,
+  Register,
+  RegisterFail,
+  RegisterSuccess,
+  UserActionsTypes
+} from '../actions/user.actions';
 import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
 import {AuthResource} from '../../../auth/shared/resources/auth.resource';
 import {UserService} from '../../../auth/shared/services/user.service';
@@ -37,12 +47,21 @@ export class UserEffects {
       catchError((fe: FirestoreError) => of(new RegisterFail({error: fe.message})))
     );
 
-  @Effect({ dispatch: false })
+  @Effect({dispatch: false})
   redirectConnectedUser$: Observable<void> = this.actions$
     .pipe(
       ofType<LogInSuccess | RegisterSuccess>(UserActionsTypes.LogInSuccess || UserActionsTypes.RegisterSuccess),
       map((action) => this.userService.persistUser(action.payload.user)),
       tap(() => this.router.navigate(['/']))
+    );
+
+  @Effect()
+  logoutUser$: Observable<Action> = this.actions$
+    .pipe(
+      ofType<LogOut>(UserActionsTypes.LogOut),
+      map(() => this.userService.removePersistedUser()),
+      map(() => new LogOutSuccess()),
+      tap(() => this.router.navigate(['/auth']))
     );
 
   constructor(private actions$: Actions,

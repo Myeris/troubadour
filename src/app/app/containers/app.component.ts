@@ -4,7 +4,7 @@ import {Store} from '@ngrx/store';
 import {UserService} from '../../auth/shared/services/user.service';
 import {User} from '../../auth/shared/models/user.model';
 import {AppState} from '../../store/app.reducer';
-import {LogInSuccess} from '../../store/user/actions/user.actions';
+import {LogInSuccess, LogOut} from '../../store/user/actions/user.actions';
 import {TabListLoad} from '../../store/tabs/actions/tabs.actions';
 
 @Component({
@@ -26,6 +26,16 @@ export class AppComponent implements OnInit {
     if (this.user) {
       this.store.dispatch(new LogInSuccess({user: this.user}));
       this.store.dispatch(new TabListLoad());
+    }
+  }
+
+  logout(): void {
+    if (!this.user) {
+      this.user = this.userService.persistedUser;
+    }
+
+    if (this.user) {
+      this.store.dispatch(new LogOut());
     }
   }
 }

@@ -7,11 +7,15 @@ import {User} from '../../../auth/shared/models/user.model';
 export enum UserActionsTypes {
   LogIn = '[Login page] Log user in',
   LogInSuccess = '[AuthService] User logged in',
-  LogInFail = '[AuthService] User log in failure',
+  LogInFail = '[AuthResourceAPI] User log in failure',
 
   Register = '[Register page] Register user',
-  RegisterSuccess = '[AuthService] User registered',
-  RegisterFail = '[AuthService] User registration failed'
+  RegisterSuccess = '[AuthResourceAPI] User registered',
+  RegisterFail = '[AuthResourceAPI] User registration failed',
+
+  LogOut = '[App header bar] Log out',
+  LogOutSuccess = '[AuthResourceAPI] Log out success',
+  LogOutFail = '[AuthResourceAPI] Log out fail'
 }
 
 export class LogIn implements Action {
@@ -56,10 +60,20 @@ export class RegisterFail implements Action {
   }
 }
 
+export class LogOut implements Action {
+  public readonly type = UserActionsTypes.LogOut;
+}
+
+export class LogOutSuccess implements Action {
+  public readonly type = UserActionsTypes.LogOutSuccess;
+}
+
 export type UserActions =
   | LogIn
   | LogInSuccess
   | LogInFail
   | Register
   | RegisterSuccess
-  | RegisterFail;
+  | RegisterFail
+  | LogOut
+  | LogOutSuccess;

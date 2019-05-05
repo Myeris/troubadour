@@ -1,6 +1,6 @@
 import {initialUserState} from '../user.state';
 import {userReducer} from './user.reducer';
-import {LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess} from '../actions/user.actions';
+import {LogIn, LogInFail, LogInSuccess, LogOut, Register, RegisterFail, RegisterSuccess} from '../actions/user.actions';
 import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
 import {User} from '../../../auth/shared/models/user.model';
 
@@ -95,6 +95,19 @@ describe('userReducer', () => {
       expect(state.isLoggedIn).toBeFalsy();
       expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('LogOut', () => {
+    it('should set the state', () => {
+      const action = new LogOut();
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.isLoggedIn).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+      expect(state.ids.length).toBe(0);
     });
   });
 });

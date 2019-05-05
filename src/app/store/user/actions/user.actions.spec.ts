@@ -1,5 +1,14 @@
 import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
-import {LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess, UserActionsTypes} from './user.actions';
+import {
+  LogIn,
+  LogInFail,
+  LogInSuccess,
+  LogOut, LogOutSuccess,
+  Register,
+  RegisterFail,
+  RegisterSuccess,
+  UserActionsTypes
+} from './user.actions';
 import {User} from '../../../auth/shared/models/user.model';
 
 const authRequest: AuthRequest = {email: 'email', password: 'password'};
@@ -48,6 +57,20 @@ describe('UserActions', () => {
       const error = 'this is an error';
       const action = new RegisterFail({error});
       expect(action.type).toBe(UserActionsTypes.RegisterFail);
+    });
+  });
+
+  describe('LogOut', () => {
+    it('should create an action', () => {
+      const action = new LogOut();
+      expect(action.type).toBe(UserActionsTypes.LogOut);
+    });
+  });
+
+  describe('LogOutSuccess', () => {
+    it('should create an action', () => {
+      const action = new LogOutSuccess();
+      expect(action.type).toBe(UserActionsTypes.LogOutSuccess);
     });
   });
 });

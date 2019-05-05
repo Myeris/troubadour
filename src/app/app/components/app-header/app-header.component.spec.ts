@@ -26,4 +26,12 @@ describe('AppHeaderComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('logout', () => {
+    it('should emit an event', () => {
+      spyOn(component.loggingOut, 'emit').and.callThrough();
+      component.logout();
+      expect(component.loggingOut.emit).toHaveBeenCalledTimes(1);
+    });
+  });
 });

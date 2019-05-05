@@ -21,6 +21,8 @@ export function userReducer(
         isLoading: false,
         error: null
       });
+    case UserActionsTypes.LogOutSuccess:
+      return userEntityAdapter.removeAll({...state, isLoggedIn: false, isLoading: false, selectedId: null, error: null});
     default:
       return state;
   }
