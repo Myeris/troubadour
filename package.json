@@ -35,6 +35,7 @@
     "ngx-pagination": "^3.2.1",
     "rxjs": "~6.3.3",
     "tslib": "^1.9.0",
+    "vexflow": "^1.2.89",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

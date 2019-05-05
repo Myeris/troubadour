@@ -11,6 +11,7 @@ import {OptionsPipe} from './pipes/options/options.pipe';
 import {TabDisplayComponent} from './components/tab-display/tab-display.component';
 import {TabsResource} from './resources/tabs/tabs.resource';
 import {TabsService} from './services/tabs/tabs.service';
+import {VexflowService} from './services/vexflow/vexflow.service';
 
 @NgModule({
   declarations: [SearchPipe, DurationPipe, BreadcrumbComponent, OptionsPipe, TabDisplayComponent],
@@ -28,7 +29,8 @@ export class SharedModule {
         PracticeSessionsResource,
         PracticeSessionsService,
         TabsResource,
-        TabsService
+        TabsService,
+        VexflowService
       ]
     };
   }

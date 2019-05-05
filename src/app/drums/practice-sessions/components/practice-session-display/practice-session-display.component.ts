@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 // app
 import {Tab} from '../../../shared/models/tab.model';
 import {PracticeSession} from '../../../shared/models/practice-session.model';
+import {Exercise} from '../../../shared/models/exercise.model';
 
 @Component({
   selector: 'app-practice-session-display',
@@ -20,7 +21,7 @@ export class PracticeSessionDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.tabs);
+    this.assignTab();
   }
 
   public async play(): Promise<void> {
@@ -95,5 +96,9 @@ export class PracticeSessionDisplayComponent implements OnInit {
     // this.inPlayIndex = 0;
     // this.playTime = 0;
     // this.scrollIntoView();
+  }
+
+  private assignTab() {
+    this.session.exercises.map((exercise: Exercise) => exercise.tab = this.tabs.find((tab: Tab) => tab.$key === exercise.tabRef));
   }
 }
