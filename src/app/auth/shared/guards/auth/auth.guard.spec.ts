@@ -14,11 +14,12 @@ describe('AuthGuard', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      providers: [AuthGuard, RouterTestingModule],
+      providers: [AuthGuard],
       imports: [
         StoreModule.forRoot({
           ...appReducers
-        })
+        }),
+        RouterTestingModule
       ]
     });
 

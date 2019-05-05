@@ -89,7 +89,7 @@ describe('PracticeSessionsReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
       expect(state.selectedId).toBeNull();
-      expect(state.ids.length).toBe(1);
+      expect(state.ids.length).toBe(3);
     });
   });
 
