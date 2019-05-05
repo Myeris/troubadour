@@ -11,6 +11,7 @@ import {Tag} from '../../../shared/models/tag.model';
 import {AppState} from '../../../../store/app.reducer';
 import {getSelectedPracticeSession} from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import {PracticeSessionSelect} from '../../../../store/practice-sessions/actions/practice-sessions.actions';
+import {selectAll} from 'src/app/store/tabs/selectors/tabs.selector';
 
 @Component({
   selector: 'app-practice-session',
@@ -37,6 +38,8 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   ngOnInit() {
     this.exerciseId = this.route.snapshot.params.id;
     this.session$ = this.store.select(getSelectedPracticeSession)
+      .pipe(takeUntil(this.componentDestroyed$));
+    this.tabs$ = this.store.select(selectAll)
       .pipe(takeUntil(this.componentDestroyed$));
 
     this.store.dispatch(new PracticeSessionSelect({id: this.exerciseId}));

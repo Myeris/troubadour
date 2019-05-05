@@ -6,6 +6,7 @@ import {AuthGuard} from './auth.guard';
 import {User} from '../../models/user.model';
 import {appReducers, AppState} from '../../../../store/app.reducer';
 import {LogInSuccess} from '../../../../store/user/actions/user.actions';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('AuthGuard', () => {
   let guard: AuthGuard;
@@ -13,7 +14,7 @@ describe('AuthGuard', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      providers: [AuthGuard],
+      providers: [AuthGuard, RouterTestingModule],
       imports: [
         StoreModule.forRoot({
           ...appReducers

@@ -20,6 +20,7 @@ export class PracticeSessionDisplayComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.tabs);
   }
 
   public async play(): Promise<void> {

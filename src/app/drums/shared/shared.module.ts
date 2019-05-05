@@ -10,6 +10,7 @@ import {BreadcrumbComponent} from './components/breadcrumb/breadcrumb.component'
 import {OptionsPipe} from './pipes/options/options.pipe';
 import {TabDisplayComponent} from './components/tab-display/tab-display.component';
 import {TabsResource} from './resources/tabs/tabs.resource';
+import {TabsService} from './services/tabs/tabs.service';
 
 @NgModule({
   declarations: [SearchPipe, DurationPipe, BreadcrumbComponent, OptionsPipe, TabDisplayComponent],
@@ -26,7 +27,8 @@ export class SharedModule {
       providers: [
         PracticeSessionsResource,
         PracticeSessionsService,
-        TabsResource
+        TabsResource,
+        TabsService
       ]
     };
   }

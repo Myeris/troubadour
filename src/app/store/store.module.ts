@@ -8,6 +8,7 @@ import {environment} from '../../environments/environment';
 import {appReducers} from './app.reducer';
 import {UserEffects} from './user/effects/user.effects';
 import {PracticeSessionsEffects} from './practice-sessions/effects/practice-sessions.effects';
+import {TabsEffects} from './tabs/effects/tabs.effects';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import {PracticeSessionsEffects} from './practice-sessions/effects/practice-sess
     }),
     EffectsModule.forRoot([
       UserEffects,
-      PracticeSessionsEffects
+      PracticeSessionsEffects,
+      TabsEffects
     ])
   ]
 })

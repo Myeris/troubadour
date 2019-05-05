@@ -5,6 +5,7 @@ import {UserService} from '../../auth/shared/services/user.service';
 import {User} from '../../auth/shared/models/user.model';
 import {AppState} from '../../store/app.reducer';
 import {LogInSuccess} from '../../store/user/actions/user.actions';
+import {TabListLoad} from '../../store/tabs/actions/tabs.actions';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ export class AppComponent implements OnInit {
 
     if (this.user) {
       this.store.dispatch(new LogInSuccess({user: this.user}));
+      this.store.dispatch(new TabListLoad());
     }
   }
 }

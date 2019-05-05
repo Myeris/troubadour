@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot} from '@angular/router';
+import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot} from '@angular/router';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {map, take} from 'rxjs/operators';
+import {map, take, tap} from 'rxjs/operators';
 // app
 import {AppState} from '../../../../store/app.reducer';
 import {isLoggedIn} from '../../../../store/user/selectors/user.selectors';
@@ -10,13 +10,19 @@ import {isLoggedIn} from '../../../../store/user/selectors/user.selectors';
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>,
+              private router: Router) {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.store.select(isLoggedIn)
       .pipe(
         map((loggedIn: boolean) => loggedIn),
+        tap((loggedIn: boolean) => {
+          if (!loggedIn) {
+            this.router.navigate(['/auth']);
+          }
+        }),
         take(1)
       );
   }
