@@ -12,6 +12,8 @@ import {TabDisplayComponent} from './components/tab-display/tab-display.componen
 import {TabsResource} from './resources/tabs/tabs.resource';
 import {TabsService} from './services/tabs/tabs.service';
 import {VexflowService} from './services/vexflow/vexflow.service';
+import {ExerciseService} from './services/exercise/exercise.service';
+import {MetronomeService} from './services/metronome/metronome.service';
 
 @NgModule({
   declarations: [SearchPipe, DurationPipe, BreadcrumbComponent, OptionsPipe, TabDisplayComponent],
@@ -26,6 +28,8 @@ export class SharedModule {
     return {
       ngModule: SharedModule,
       providers: [
+        ExerciseService,
+        MetronomeService,
         PracticeSessionsResource,
         PracticeSessionsService,
         TabsResource,

@@ -41,7 +41,7 @@
 
     <div class="practice-session__exercises">
       <div
-        class="exercise {{ i !== inPlayIndex && this.state === 'running' ? 'empty' : '' }}"
+        class="exercise {{ i !== inPlayIndex && (this.state === 'running' || this.state === 'suspended')? 'empty' : '' }}"
         [id]="'exercise-' + i"
         *ngFor="let e of session.exercises; let i = index;">
 
@@ -67,7 +67,7 @@
       [style.width]="playTime + '%'">
     </div>
 
-    <div class="content">
+    <div class="content" *ngIf="session.exercises.length">
       <div
         class="cover"
         (click)="scrollIntoView()">
