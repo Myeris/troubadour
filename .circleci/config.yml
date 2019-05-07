@@ -27,18 +27,6 @@ jobs:
           command: npm run test:ci
           when: always
       - run:
-          name: copy the karma test results
-          command: |
-            sudo mkdir -p --verbose ~/junit/karma
-            sudo cp -v ./src/test-results.xml ~/junit/karma
-          when: always
-      - store_artifacts:
-          path: ~/junit/karma/test-results.xml
-      - run:
           name: angular-lint
           command: npm lint
-      - store_artifacts:
-          path: tslint.xml
-      - store_test_results:
-          path: ~/junit
 prefix: lint
