@@ -28,5 +28,5 @@ jobs:
           when: always
       - run:
           name: angular-lint
-          command: npm lint
+          command: npm run lint
 prefix: lint
