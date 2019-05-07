@@ -17,8 +17,8 @@ jobs:
             - ~/.cache/npm
             - ./node_modules
       - run:
-        name: rebuild node-sass
-        command: npm rebuild node-sass
+          name: rebuild node-sass
+          command: npm rebuild node-sass
       - run:
           name: angular-build
           command: npm build
