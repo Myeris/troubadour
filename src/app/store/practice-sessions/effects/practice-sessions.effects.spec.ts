@@ -151,11 +151,12 @@ describe('PracticeSessionsEffects', () => {
     }));
 
     it('should return an error message on failure', async(() => {
+      const id = 'id';
+      const error = 'this is an error';
+
       spyOn(practiceSessionsResource, 'removeSession').and.callFake(() => throwError({message: error} as FirestoreError));
 
-      const id = 'id';
       const action = new PracticeSessionDelete({id});
-      const error = 'this is an error';
 
       const completion = new PracticeSessionDeleteFail({error});
 

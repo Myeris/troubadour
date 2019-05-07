@@ -21,7 +21,10 @@ describe('AuthGuard', () => {
         StoreModule.forRoot({
           ...appReducers
         }),
-        RouterTestingModule.withRoutes([{path: 'auth', component: class BlankComponent{}}])
+        RouterTestingModule.withRoutes([{
+          path: 'auth', component: class BlankComponent {
+          }
+        }])
       ]
     });
 

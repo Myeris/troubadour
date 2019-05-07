@@ -16,10 +16,12 @@ export class OptionsPipe extends DurationPipe implements PipeTransform {
     }
 
     if (value.bpmScale) {
+      // tslint:disable-next-line:max-line-length
       res = `From ${value.bpmScale.start} bpm to ${value.bpmScale.stop} bpm with a step of ${value.bpmScale.step}. Start with ${value.hand === 'L' ? 'left' : 'right'} hand. Duration: ${super.transform(value.duration)}. ${value.soundOptions.metronomeOnly ? 'Metronome only (' + value.soundOptions.metronomeSettings.subdivision + 'th)' : 'Play along'}.`;
     }
 
     if (value.bpm) {
+      // tslint:disable-next-line:max-line-length
       res = `${value.bpm} bpm. Start with ${value.hand === 'L' ? 'left' : 'right'} hand. Duration: ${super.transform(value.duration)}. ${value.soundOptions.metronomeOnly ? 'Metronome only' : 'Play along'}.`;
     }
 

@@ -62,7 +62,8 @@ describe('OptionsPipe', () => {
         }
       };
       fixture.detectChanges();
-      expect(el.textContent).toContain('From 90 bpm to 120 bpm with a step of 5. Start with right hand. Duration: 16 seconds. Play along.');
+      expect(el.textContent)
+        .toContain('From 90 bpm to 120 bpm with a step of 5. Start with right hand. Duration: 16 seconds. Play along.');
     });
   });
 
@@ -105,7 +106,8 @@ describe('OptionsPipe', () => {
         }
       };
 
-      expect(pipe.transform(exercise)).toBe('From 90 bpm to 120 bpm with a step of 5. Start with right hand. Duration: 16 seconds. Play along.');
+      expect(pipe.transform(exercise))
+        .toBe('From 90 bpm to 120 bpm with a step of 5. Start with right hand. Duration: 16 seconds. Play along.');
     });
   });
 });
