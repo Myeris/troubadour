@@ -18,7 +18,7 @@ jobs:
             - ./node_modules
       - run:
           name: angular-build
-          command: ng build
+          command: npm build
       - run:
           name: angular-test
           command: npm test
@@ -27,7 +27,7 @@ jobs:
           prefix: tests
       - run:
           name: angular-lint
-          command: ng lint
+          command: npm lint
       - store_artifacts:
           path: tslint.xml
 prefix: lint
