@@ -116,7 +116,6 @@ export class PracticeSessionDisplayComponent implements OnChanges {
 
   private assignTab() {
     if (this.session.exercises.length > 0) {
-      console.log('hein');
       this.session.exercises
         .map((exercise: Exercise) => exercise.tab = this.tabs.find((tab: Tab) => tab.$key === exercise.tabRef));
     }

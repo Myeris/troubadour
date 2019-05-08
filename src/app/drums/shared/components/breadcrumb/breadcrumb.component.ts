@@ -1,4 +1,7 @@
 import {Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
+// app
+import {Breadcrumb} from '../../models/breadcrumb.model';
 
 @Component({
   selector: 'app-breadcrumb',
@@ -7,5 +10,13 @@ import {Component, Input} from '@angular/core';
 })
 
 export class BreadcrumbComponent {
-  @Input() public breadcrumb: { label: string, route: string[] };
+  @Input() public breadcrumb: Breadcrumb;
+
+  constructor(private router: Router) {
+  }
+
+  public navigate() {
+    console.log(this.breadcrumb);
+    this.router.navigate([this.breadcrumb.route, this.breadcrumb.params]);
+  }
 }

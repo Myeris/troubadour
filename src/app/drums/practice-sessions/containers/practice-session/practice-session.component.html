@@ -6,17 +6,17 @@
   </ng-template>
 
   <div *ngIf="session$ | async as session; else loading;">
-<!--    <practice-session-form-->
-<!--      *ngIf="showForm"-->
-<!--      [session]="session"-->
-<!--      [tabs]="tabs$ | async"-->
-<!--      [types]="types$ | async"-->
-<!--      [exerciseId]="exerciseId"-->
-<!--      [feedback]="feedback"-->
-<!--      (created)="onCreate($event)"-->
-<!--      (updated)="onUpdate($event)"-->
-<!--      (removed)="onRemove($event)">-->
-<!--    </practice-session-form>-->
+    <app-practice-session-form
+      *ngIf="showForm"
+      [session]="session"
+      [tabs]="tabs$ | async"
+      [types]="types$ | async"
+      [exerciseId]="exerciseId"
+      [feedback]="feedback"
+      (created)="onCreate($event)"
+      (updated)="onUpdate($event)"
+      (removed)="onRemove($event)">
+    </app-practice-session-form>
 
     <app-practice-session-display
       *ngIf="!showForm"

@@ -1,0 +1,203 @@
+<div class="exercise-form" id="exerciseForm">
+
+  <div class="exercise-form__title">
+    <h1>
+      <app-svg-icon name="Drumsticks icon" path="assets/img/drums/drumsticks.svg"></app-svg-icon>
+      <span>
+				 Add an exercise
+			</span>
+    </h1>
+  </div>
+
+  <form class="tunnel" [formGroup]="form">
+    <div class="tunnel__step">
+      <div class="tunnel__step__title">
+				<span>
+					1
+				</span>
+        <h3>
+          {{ showFullForm ? 'Selected exercise: ' + selectedTabName : 'Select an exercise' }}
+        </h3>
+        <a *ngIf="showFullForm" (click)="selectExercise(null)">
+          Change exercise
+        </a>
+      </div>
+
+      <div class="tunnel__step__content" *ngIf="!showFullForm">
+        <div class="tunnel__step__content__types">
+          <div
+            class="type"
+            style="background: #333"
+            [style.boxShadow]="!activeFilter"
+            [style.opacity]="!activeFilter ? 1 : 0.5"
+            (click)="filter(null)">
+            all
+          </div>
+
+          <div
+            *ngFor="let type of types"
+            class="type"
+            [style.background]="type.color"
+            [style.boxShadow]="activeFilter === type"
+            [style.opacity]="activeFilter === type ? 1 : 0.5"
+            (click)="filter(type)">
+            {{ type.name }}
+          </div>
+        </div>
+
+        <div
+          *ngIf="tabs?.length"
+          class="search">
+          <label>
+            <input
+              [(ngModel)]="searchText"
+              [ngModelOptions]="{standalone: true}"
+              type="text"
+              placeholder="Searching for...">
+          </label>
+          <a
+            (click)="searchText = null"
+            *ngIf="searchText">
+            <mat-icon>close</mat-icon>
+          </a>
+        </div>
+
+        <div class="tabs-list">
+          <div
+            *ngFor="let tab of filteredTabs | orderTabs: types | search: 'name' : searchText | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.current }"
+            class="tab">
+            <div>
+              <a (click)="selectExercise(tab)">
+                <div class="gif"
+                     [style.opacity]="tabImgs.get(tab.$key).includes('gif') ? 1 : 0.5"
+                     (mouseover)="getTabImg(tab, true)"
+                     (mouseout)="getTabImg(tab, false)">
+                  <img [src]="tabImgs.get(tab.$key)"
+                       alt="Gif not found">
+                </div>
+
+                <div class="content"
+                     [style.borderTop]="'4px solid ' + tab.typeObject?.color">
+                  {{ tab.name }}
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="pagination">
+          <pagination-controls (pageChange)="pagination.current = $event"></pagination-controls>
+        </div>
+      </div>
+
+      <div class="tunnel__step__content" *ngIf="showFullForm">
+        <app-tab-display
+          *ngIf="selectedExercise"
+          [exercise]="selectedExercise">
+        </app-tab-display>
+      </div>
+    </div>
+
+    <div class="tunnel__step" *ngIf="showFullForm">
+      <div class="tunnel__step__title">
+				<span>
+					2
+				</span>
+        <h3>
+          Hand settings
+        </h3>
+      </div>
+      <div class="tunnel__step__content">
+        <div>
+          <!--          <hand-form-->
+          <!--            [initValue]="form.get('hand').value"-->
+          <!--            (submitted)="setFormControl('hand', $event)"-->
+          <!--            (invalid)="handleInvalidForm('hand', $event)">-->
+          <!--          </hand-form>-->
+        </div>
+      </div>
+    </div>
+
+    <div class="tunnel__step" *ngIf="showFullForm">
+      <div class="tunnel__step__title">
+				<span>
+					3
+				</span>
+        <h3>
+          Practice type
+        </h3>
+      </div>
+      <div class="tunnel__step__content">
+        <div>
+          <div class="options">
+            <label>
+              <input
+                type="radio"
+                name="practiceType"
+                value="0"
+                [checked]="selectedType === 0"
+                (change)="onTypeChange($event)"> BPM & Duration
+            </label>
+
+            <label>
+              <input
+                type="radio"
+                name="practiceType"
+                value="1"
+                [checked]="selectedType === 1"
+                (change)="onTypeChange($event)"> BPM scale
+            </label>
+          </div>
+
+          <!--          <bpm-duration-form-->
+          <!--            *ngIf="selectedType === 0"-->
+          <!--            [initBpm]="form.get('bpm').value"-->
+          <!--            [initDuration]="form.get('duration').value"-->
+          <!--            (submitted)="setFormControl('bpm', $event); setFormControl('duration', $event);"-->
+          <!--            (invalid)="handleInvalidForm('bpmDuration', $event)">-->
+          <!--          </bpm-duration-form>-->
+          <!--          <bpm-scale-form-->
+          <!--            *ngIf="selectedType === 1"-->
+          <!--            [bpmScale]="form.get('bpmScale')"-->
+          <!--            (submitted)="setFormGroup('bpmScale', $event)"-->
+          <!--            (invalid)="handleInvalidForm('bpmScale', $event)">-->
+          <!--          </bpm-scale-form>-->
+        </div>
+      </div>
+    </div>
+
+    <div class="tunnel__step" *ngIf="showFullForm">
+      <div class="tunnel__step__title">
+				<span>
+					4
+				</span>
+        <h3>
+          Sound options
+        </h3>
+      </div>
+      <div class="tunnel__step__content">
+        <div>
+          <!--          <sound-options-->
+          <!--            [initValue]="form.get('soundOptions')"-->
+          <!--            (submitted)="onSoundOptionsChange($event)"-->
+          <!--            (invalid)="handleInvalidForm('soundOptions', $event)"></sound-options>-->
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="exercise-form__submit">
+    <button
+      *ngIf="selectedExercise"
+      type="button"
+      class="button"
+      (click)="addExercise()">
+      {{ editedExercise ? 'Edit' : 'Add' }} exercise
+    </button>
+    <a
+      class="button--cancel"
+      (click)="cancel()">
+      Cancel
+    </a>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<div class="practice-session-form" *ngIf="!showExerciseForm">
+  <div class="practice-session-form__title">
+    <h1>
+      <app-svg-icon name="Drummer icon" path="assets/img/drums/drummer.svg"></app-svg-icon>
+      <span>
+				 {{  exists ? 'Edit your practice session' : 'Create a practice session' }}
+			</span>
+    </h1>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="practice-session-form__name">
+      <div>
+        <h3>
+          Session name
+        </h3>
+        <input
+          type="text"
+          placeholder="e.g. Weak hand practice"
+          formControlName="name" />
+        <div
+          class="error"
+          *ngIf="formNameInvalid">
+          This field is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="practice-session-form__exercises">
+      <div class="practice-session-form__subtitle">
+        <h3>
+          Exercises
+        </h3>
+        <button
+          type="button"
+          class="practice-session-form__add"
+          (click)="addExercise()">
+          <mat-icon>add</mat-icon>
+          Add exercise
+        </button>
+      </div>
+
+      <div formArrayName="exercises">
+        <label
+          *ngFor="let c of formExercises.value; index as i;"
+          (click)="editExercise(c, i)">
+          <input
+            value="{{ c.tab?.name }} - {{ c | options }}"
+            disabled>
+          <span
+            class="practice-session-form__remove"
+            (click)="removeExercise(i)">
+            <mat-icon>close</mat-icon>
+						</span>
+        </label>
+
+        <div class="message"
+             *ngIf="!formExercises.value.length && !showExerciseForm">
+          <app-svg-icon name="Empty" path="/assets/img/utils/empty"></app-svg-icon>
+          No exercises. You need to add at least one to create a session.
+        </div>
+      </div>
+    </div>
+
+    <div class="practice-session-form__summary">
+      <h3>
+        Summary
+      </h3>
+
+      <div class="content">
+        <p>
+          <b>Duration:</b> {{ form.get('duration').value | duration }}
+        </p>
+        <p>
+          <b>Exercises:</b> {{ formExercises.length }}
+        </p>
+        <p>
+          <b>Requires a drumkit:</b> {{ form.get('drumkit').value ? 'yes' : 'no' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="practice-session-form__submit">
+      <div
+        *ngIf="feedback"
+        [class]="feedback.success ? 'message' : 'error'">
+        {{ feedback.message }}
+      </div>
+
+      <div>
+        <button
+          *ngIf="!exists"
+          type="button"
+          class="button"
+          (click)="createSession()"
+          [disabled]="formNameInvalid || !formExercises.length">
+          Create session
+        </button>
+        <button
+          *ngIf="exists"
+          type="button"
+          class="button"
+          (click)="updateSession()"
+          [disabled]="formNameInvalid || !formExercises.length">
+          Save
+        </button>
+        <a
+          class="button--cancel"
+          [routerLink]="['../']">
+          Cancel
+        </a>
+      </div>
+      <div class="practice-session-form__delete"
+           *ngIf="exists">
+        <div *ngIf="toggled">
+          <p>Delete item?</p>
+          <button
+            class="confirm"
+            type="button"
+            (click)="removeSession()">
+            Yes
+          </button>
+          <button
+            class="cancel"
+            type="button"
+            (click)="toggle()">
+            No
+          </button>
+        </div>
+
+        <button
+          class="button button--delete"
+          type="button"
+          (click)="toggle()">
+          Delete
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<app-exercise-form
+  *ngIf="showExerciseForm"
+  [tabs]="tabs"
+  [types]="types"
+  [selected]="null"
+  [editedExercise]="editedExercise"
+  (added)="addExerciseToForm($event)"
+  (edited)="editExerciseInForm($event)"
+  (cancelled)="cancelAddExercise()">
+</app-exercise-form>

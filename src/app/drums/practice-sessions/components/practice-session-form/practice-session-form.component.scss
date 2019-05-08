@@ -1,0 +1,270 @@
+%button {
+  outline: 0;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+}
+
+.confirm,
+.cancel {
+  @extend %button;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0 0 0.25rem;
+  font-size: 0.8rem;
+}
+
+.error {
+  color: #a94442;
+  background: #f2dede;
+  border: 1px solid #e4b3b3;
+  border-radius: 0.2rem;
+  padding: 8px;
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 10px 0 0;
+}
+
+.confirm {
+  color: #fff;
+  background: #d73a49;
+  border-radius: 0.2rem;
+  transition: all .2s ease-in-out;
+
+  &:hover {
+    background: darken(#d73a49, 10%);
+    transition: all .2s ease-in-out;
+  }
+}
+
+.practice-session-form {
+  &__title {
+    display: flex;
+    align-items: center;
+    padding: 2rem 2rem 0.5rem 2rem;
+
+    h1 {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+
+      app-svg-icon {
+        margin: 0 0.5rem 0 0;
+      }
+    }
+
+
+    .edit {
+      display: flex;
+      align-items: center;
+      opacity: 0.5;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        opacity: 1;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+
+  &__name,
+  &__exercises,
+  &__summary,
+  &__repeat {
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #d1deeb;
+  }
+
+  &__summary {
+    .content {
+      display: flex;
+
+      p {
+        flex: auto;
+      }
+    }
+  }
+
+  &__subtitle {
+    display: flex;
+    align-items: center;
+
+    h3 {
+      margin: 1.5rem 0;
+      flex-grow: 1;
+    }
+  }
+
+  &__delete {
+    display: flex;
+    align-items: center;
+
+    > div {
+      display: flex;
+      align-items: center;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .cancel {
+      margin: 0 1.5rem 0 0;
+    }
+  }
+
+  &__add {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    background: #97c747;
+    border-radius: 0.2rem;
+    padding: 0.25rem 1rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 0.8rem;
+    transition: all .2s ease-in-out;
+
+    img {
+      width: 0.75rem;
+      margin: 0 0.5rem 0 0;
+    }
+
+    &:hover {
+      background: darken(#97c747, 10%);
+    }
+  }
+
+  &__remove {
+    cursor: pointer;
+    background-color: #eff4f9;
+    width: 2.4rem;
+    height: 2.4rem;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    border-left: 1px solid #d1deeb;
+    transition: all .2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: darken(#eff4f9, 10%);
+      transition: all .2s ease-in-out;
+    }
+  }
+
+  &__submit {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+  }
+
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  label {
+    position: relative;
+    display: flex;
+    margin: 0 0 1.1rem;
+  }
+
+  input {
+    outline: 0;
+    font-size: 1rem;
+    padding: 0.63rem 1rem;
+    margin: 0;
+    width: 100%;
+    background: #fff;
+    color: #545e6f;
+    flex-grow: 1;
+    border: 1px solid #d1deeb;
+    border-radius: 0.2rem;
+    transition: all 0.2s ease-in-out;
+
+    &:focus {
+      border-color: #a5b9ce;
+      transition: all .2s ease-in-out;
+    }
+
+    &::-webkit-input-placeholder {
+      color: #aaa;
+    }
+  }
+
+  .button {
+    cursor: pointer;
+    outline: 0;
+    border: 0;
+    border-radius: 0.2rem;
+    background: #39a1e7;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+    display: inline-block;
+
+    &:hover {
+      background: darken(#39a1e7, 10%);
+      transition: all .2s ease-in-out;
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    &--cancel {
+      background: #fff;
+      color: #545e6f;
+      padding: 0.5rem 1rem;
+      border-radius: 0.2rem;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        background: darken(#fff, 10%);
+        transition: all .2s ease-in-out;
+      }
+    }
+
+    &--delete {
+      background: #d73a49;
+      align-self: flex-start;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        background: darken(#d73a49, 10%);
+        transition: all .2s ease-in-out;
+      }
+    }
+  }
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+
+  img {
+    margin: 0 0.5rem 0 0;
+    height: 1rem;
+  }
+}
+
+.invert {
+  filter: invert(1);
+}

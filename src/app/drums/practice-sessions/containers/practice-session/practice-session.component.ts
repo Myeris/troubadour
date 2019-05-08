@@ -13,6 +13,7 @@ import {getSelectedPracticeSession} from '../../../../store/practice-sessions/se
 import {PracticeSessionSelect} from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import {selectAll} from 'src/app/store/tabs/selectors/tabs.selector';
 import {TabListLoad} from '../../../../store/tabs/actions/tabs.actions';
+import {Breadcrumb} from '../../../shared/models/breadcrumb.model';
 
 @Component({
   selector: 'app-practice-session',
@@ -25,11 +26,13 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   public types$: Observable<Tag[]>;
   public exerciseId: string;
   public showForm = false;
-  public breadcrumb: { label: string, route: string[] } = {
-    label: 'Practice sessions',
-    route: ['/practice-sessions']
-  };
   public feedback: { success: boolean, message: string };
+
+  public get breadcrumb(): Breadcrumb {
+    return this.showForm ?
+      {label: 'Back', route: 'practice-session', params: {id: this.exerciseId}} :
+      {label: 'Practice sessions', route: 'practice-sessions'};
+  }
 
   constructor(private store: Store<AppState>,
               private route: ActivatedRoute,
@@ -39,6 +42,11 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
 
   ngOnInit() {
     this.exerciseId = this.route.snapshot.params.id;
+
+    if (this.route.snapshot.url.length === 2) {
+      this.showForm = this.route.snapshot.url[1].path === 'edit';
+    }
+
     this.session$ = this.store.select(getSelectedPracticeSession)
       .pipe(takeUntil(this.componentDestroyed$));
     this.tabs$ = this.store.select(selectAll)

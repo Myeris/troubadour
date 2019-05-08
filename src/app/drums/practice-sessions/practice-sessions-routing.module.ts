@@ -8,7 +8,7 @@ const routes: Route[] = [
   {path: '', component: PracticeSessionsComponent},
   // {path: 'new', component: PracticeSessionComponent},
   {path: ':id', component: PracticeSessionComponent},
-  // {path: ':id/edit', component: PracticeSessionComponent}
+  {path: ':id/edit', component: PracticeSessionComponent}
 ];
 
 @NgModule({
