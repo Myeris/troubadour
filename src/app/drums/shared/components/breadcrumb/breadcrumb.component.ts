@@ -16,7 +16,6 @@ export class BreadcrumbComponent {
   }
 
   public navigate() {
-    console.log(this.breadcrumb);
     this.router.navigate([this.breadcrumb.route, this.breadcrumb.params]);
   }
 }

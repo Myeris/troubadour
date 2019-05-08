@@ -6,7 +6,7 @@ import {PracticeSessionComponent} from './containers/practice-session/practice-s
 
 const routes: Route[] = [
   {path: '', component: PracticeSessionsComponent},
-  // {path: 'new', component: PracticeSessionComponent},
+  {path: 'new', component: PracticeSessionComponent},
   {path: ':id', component: PracticeSessionComponent},
   {path: ':id/edit', component: PracticeSessionComponent}
 ];

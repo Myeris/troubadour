@@ -24,8 +24,10 @@
       <div
         *ngIf="!sessions.length"
         class="message">
-        <app-svg-icon [name]="'No practice session'" [path]="'assets/img/utils/empty.svg'"></app-svg-icon>
-        No practice sessions found
+        <mat-icon>inbox</mat-icon>
+        <p>
+          No practice sessions found
+        </p>
       </div>
 
       <div

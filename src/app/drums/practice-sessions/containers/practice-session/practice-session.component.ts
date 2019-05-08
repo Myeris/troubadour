@@ -9,7 +9,7 @@ import {PracticeSession} from '../../../shared/models/practice-session.model';
 import {Tab} from '../../../shared/models/tab.model';
 import {Tag} from '../../../shared/models/tag.model';
 import {AppState} from '../../../../store/app.reducer';
-import {getSelectedPracticeSession} from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
+import {getSelectedPracticeSession, isLoading} from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import {PracticeSessionSelect} from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import {selectAll} from 'src/app/store/tabs/selectors/tabs.selector';
 import {TabListLoad} from '../../../../store/tabs/actions/tabs.actions';
@@ -24,14 +24,13 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   public session$: Observable<PracticeSession>;
   public tabs$: Observable<Tab[]>;
   public types$: Observable<Tag[]>;
+  public isLoading$: Observable<boolean>;
   public exerciseId: string;
   public showForm = false;
   public feedback: { success: boolean, message: string };
 
   public get breadcrumb(): Breadcrumb {
-    return this.showForm ?
-      {label: 'Back', route: 'practice-session', params: {id: this.exerciseId}} :
-      {label: 'Practice sessions', route: 'practice-sessions'};
+    return {label: 'Practice sessions', route: 'practice-sessions', params: {}};
   }
 
   constructor(private store: Store<AppState>,
@@ -43,16 +42,21 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   ngOnInit() {
     this.exerciseId = this.route.snapshot.params.id;
 
-    if (this.route.snapshot.url.length === 2) {
-      this.showForm = this.route.snapshot.url[1].path === 'edit';
+    if (this.route.snapshot.url.length > 0) {
+      this.showForm = ['new', 'edit'].indexOf(this.route.snapshot.url.map((u) => u.path)[0]) > -1;
     }
 
     this.session$ = this.store.select(getSelectedPracticeSession)
       .pipe(takeUntil(this.componentDestroyed$));
     this.tabs$ = this.store.select(selectAll)
       .pipe(takeUntil(this.componentDestroyed$));
+    this.isLoading$ = this.store.select(isLoading)
+      .pipe(takeUntil(this.componentDestroyed$));
 
-    this.store.dispatch(new PracticeSessionSelect({id: this.exerciseId}));
+    if (this.exerciseId) {
+      this.store.dispatch(new PracticeSessionSelect({id: this.exerciseId}));
+    }
+
     this.store.dispatch(new TabListLoad());
   }
 

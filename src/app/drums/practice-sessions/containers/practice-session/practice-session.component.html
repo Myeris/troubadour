@@ -5,7 +5,7 @@
     Loading
   </ng-template>
 
-  <div *ngIf="session$ | async as session; else loading;">
+  <div *ngIf="session$ | async as session">
     <app-practice-session-form
       *ngIf="showForm"
       [session]="session"
@@ -25,10 +25,20 @@
     </app-practice-session-display>
   </div>
 
-  <ng-template #loading>
-    <div class="message">
-      <app-svg-icon name="Fetching practice session" path="assets/img/utils/loading.svg"></app-svg-icon>
-      Fetching practice session...
-    </div>
-  </ng-template>
+  <app-practice-session-form
+    *ngIf="showForm && !(session$ | async)"
+    [session]="null"
+    [tabs]="tabs$ | async"
+    [types]="types$ | async"
+    [exerciseId]="null"
+    [feedback]="feedback"
+    (created)="onCreate($event)"
+    (updated)="onUpdate($event)"
+    (removed)="onRemove($event)">
+  </app-practice-session-form>
+
+  <div class="message" *ngIf="isLoading$ | async">
+    <app-svg-icon name="Fetching practice session" path="assets/img/utils/loading.svg"></app-svg-icon>
+    Fetching practice session...
+  </div>
 </div>
