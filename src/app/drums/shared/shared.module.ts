@@ -20,6 +20,12 @@ import {MetronomeService} from './services/metronome/metronome.service';
 import {ExerciseFormComponent} from './components/exercise-form/exercise-form.component';
 import {OrderTabsPipe} from './pipes/order-tabs/order-tabs.pipe';
 import {AppSharedModule} from '../../shared/shared.module';
+import { BpmDurationFormComponent } from './components/bpm-duration-form/bpm-duration-form.component';
+import { BpmScaleFormComponent } from './components/bpm-scale-form/bpm-scale-form.component';
+import { SoundOptionsComponent } from './components/sound-options/sound-options.component';
+import { MetronomeSettingsComponent } from './components/metronome-settings/metronome-settings.component';
+import { NumberToCollectionPipe } from './pipes/number-to-collection/number-to-collection.pipe';
+import { NoteCountPipe } from './pipes/note-count/note-count.pipe';
 
 @NgModule({
   declarations: [
@@ -27,18 +33,28 @@ import {AppSharedModule} from '../../shared/shared.module';
     DurationPipe,
     OptionsPipe,
     OrderTabsPipe,
+    NumberToCollectionPipe,
+    NoteCountPipe,
     BreadcrumbComponent,
     TabDisplayComponent,
-    ExerciseFormComponent
+    ExerciseFormComponent,
+    BpmDurationFormComponent,
+    BpmScaleFormComponent,
+    SoundOptionsComponent,
+    MetronomeSettingsComponent
   ],
   exports: [
     SearchPipe,
     DurationPipe,
     OptionsPipe,
     OrderTabsPipe,
+    NumberToCollectionPipe,
+    NoteCountPipe,
     BreadcrumbComponent,
     TabDisplayComponent,
-    ExerciseFormComponent
+    ExerciseFormComponent,
+    BpmDurationFormComponent,
+    SoundOptionsComponent
   ],
   imports: [
     CommonModule,

@@ -56,14 +56,16 @@ export class ExerciseFormComponent implements OnChanges {
     tabRef: null
   });
 
+  public get formAccents(): FormArray {
+    return this.form.get('soundOptions').get('metronomeSettings').get('accents') as FormArray;
+  }
+
   constructor(private fb: FormBuilder,
               private exerciseService: ExerciseService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selected && this.tabs) {
-      console.log(this.editedExercise, this.tabs);
-
       const tab = this.tabs.filter((t: Tab) => t.$key === this.editedExercise.tabRef);
 
       if (!tab.length) {
@@ -98,10 +100,6 @@ export class ExerciseFormComponent implements OnChanges {
       this.tabs.forEach((tab: Tab) => this.tabImgs.set(tab.$key, this.getTabImg(tab, false)));
       this.filteredTabs = this.tabs;
     }
-  }
-
-  public get formAccents(): FormArray {
-    return this.form.get('soundOptions').get('metronomeSettings').get('accents') as FormArray;
   }
 
   public onTabChange($event: any): void {

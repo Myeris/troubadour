@@ -149,19 +149,20 @@
             </label>
           </div>
 
-          <!--          <bpm-duration-form-->
-          <!--            *ngIf="selectedType === 0"-->
-          <!--            [initBpm]="form.get('bpm').value"-->
-          <!--            [initDuration]="form.get('duration').value"-->
-          <!--            (submitted)="setFormControl('bpm', $event); setFormControl('duration', $event);"-->
-          <!--            (invalid)="handleInvalidForm('bpmDuration', $event)">-->
-          <!--          </bpm-duration-form>-->
-          <!--          <bpm-scale-form-->
-          <!--            *ngIf="selectedType === 1"-->
-          <!--            [bpmScale]="form.get('bpmScale')"-->
-          <!--            (submitted)="setFormGroup('bpmScale', $event)"-->
-          <!--            (invalid)="handleInvalidForm('bpmScale', $event)">-->
-          <!--          </bpm-scale-form>-->
+          <app-bpm-duration-form
+            *ngIf="selectedType === 0"
+            [initBpm]="form.get('bpm').value"
+            [initDuration]="form.get('duration').value"
+            (submitted)="setFormControl('bpm', $event); setFormControl('duration', $event);"
+            (invalid)="handleInvalidForm('bpmDuration', $event)">
+          </app-bpm-duration-form>
+
+          <app-bpm-scale-form
+            *ngIf="selectedType === 1"
+            [bpmScale]="form.get('bpmScale')"
+            (submitted)="setFormGroup('bpmScale', $event)"
+            (invalid)="handleInvalidForm('bpmScale', $event)">
+          </app-bpm-scale-form>
         </div>
       </div>
     </div>
@@ -177,10 +178,10 @@
       </div>
       <div class="tunnel__step__content">
         <div>
-          <!--          <sound-options-->
-          <!--            [initValue]="form.get('soundOptions')"-->
-          <!--            (submitted)="onSoundOptionsChange($event)"-->
-          <!--            (invalid)="handleInvalidForm('soundOptions', $event)"></sound-options>-->
+          <app-sound-options
+            [initValue]="form.get('soundOptions')"
+            (submitted)="onSoundOptionsChange($event)"
+            (invalid)="handleInvalidForm('soundOptions', $event)"></app-sound-options>
         </div>
       </div>
     </div>

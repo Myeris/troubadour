@@ -1,0 +1,18 @@
+.sound-options {
+  display: flex;
+  align-items: center;
+
+  p {
+    margin: 0.5rem 0;
+  }
+
+  label {
+    margin-right: 1rem;
+  }
+
+  input {
+    padding: 0;
+    margin: 0 0.5rem;
+    width: auto;
+  }
+}

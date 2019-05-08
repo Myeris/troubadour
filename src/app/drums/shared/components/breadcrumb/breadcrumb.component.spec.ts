@@ -32,7 +32,7 @@ describe('BreadcrumbComponent', () => {
   it('should be displayed', () => {
     component.breadcrumb = {
       label: 'Route 1',
-      route: ['/route1']
+      route: '/route1'
     };
     fixture.detectChanges();
     expect(el.query(By.css('a')).nativeElement.textContent).toContain('◀ Route 1');

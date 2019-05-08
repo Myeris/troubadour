@@ -1,0 +1,42 @@
+<div
+  [formGroup]="form">
+  <label>
+    Start
+
+    <input
+      type="number"
+      formControlName="start"
+      min="40"
+      max="250"
+      (change)="onChange()">
+  </label>
+  <label>
+    Stop
+
+    <input
+      type="number"
+      formControlName="stop"
+      min="40"
+      max="250"
+      (change)="onChange()">
+  </label>
+  <label>
+    Step
+
+    <input
+      type="number"
+      formControlName="step"
+      min="1"
+      (change)="onChange()">
+  </label>
+
+  <label>
+    Repeat
+
+    <input
+      type="number"
+      formControlName="repeat"
+      min="1"
+      (change)="onChange()">
+  </label>
+</div>

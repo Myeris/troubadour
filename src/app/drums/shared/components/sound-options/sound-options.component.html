@@ -1,0 +1,38 @@
+<div
+  class="sound-options"
+  [formGroup]="form">
+  <p>
+    Sound options
+  </p>
+
+  <div>
+    <label>
+      <input
+        type="radio"
+        name="type"
+        value="0"
+        formControlName="type"
+        [checked]="type === 0"
+        (change)="onTypeChange()"> Play along
+    </label>
+
+    <label>
+      <input
+        type="radio"
+        name="type"
+        value="1"
+        formControlName="type"
+        [checked]="type === 1"
+        (change)="onTypeChange()"> Metronome only
+    </label>
+  </div>
+</div>
+
+<div
+  class="settings"
+  *ngIf="selectedType === 1">
+  <app-metronome-settings
+    [initValue]="form.get('settings')"
+    (changed)="onMetronomeSettingsChange($event)">
+  </app-metronome-settings>
+</div>
