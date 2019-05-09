@@ -109,11 +109,11 @@
       </div>
       <div class="tunnel__step__content">
         <div>
-          <!--          <hand-form-->
-          <!--            [initValue]="form.get('hand').value"-->
-          <!--            (submitted)="setFormControl('hand', $event)"-->
-          <!--            (invalid)="handleInvalidForm('hand', $event)">-->
-          <!--          </hand-form>-->
+          <app-hand-form
+            [initValue]="form.get('hand').value"
+            (submitted)="setFormControl('hand', $event)"
+            (invalid)="handleInvalidForm('hand', $event)">
+          </app-hand-form>
         </div>
       </div>
     </div>

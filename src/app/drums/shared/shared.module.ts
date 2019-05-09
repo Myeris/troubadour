@@ -28,6 +28,7 @@ import { NumberToCollectionPipe } from './pipes/number-to-collection/number-to-c
 import { NoteCountPipe } from './pipes/note-count/note-count.pipe';
 import {TypesResource} from './resources/types/types.resource';
 import {TypesService} from './services/types/types.service';
+import { HandFormComponent } from './components/hand-form/hand-form.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import {TypesService} from './services/types/types.service';
     BpmDurationFormComponent,
     BpmScaleFormComponent,
     SoundOptionsComponent,
-    MetronomeSettingsComponent
+    MetronomeSettingsComponent,
+    HandFormComponent
   ],
   exports: [
     SearchPipe,
@@ -56,7 +58,8 @@ import {TypesService} from './services/types/types.service';
     TabDisplayComponent,
     ExerciseFormComponent,
     BpmDurationFormComponent,
-    SoundOptionsComponent
+    SoundOptionsComponent,
+    HandFormComponent
   ],
   imports: [
     CommonModule,
