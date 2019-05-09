@@ -9,6 +9,7 @@ import {appReducers} from './app.reducer';
 import {UserEffects} from './user/effects/user.effects';
 import {PracticeSessionsEffects} from './practice-sessions/effects/practice-sessions.effects';
 import {TabsEffects} from './tabs/effects/tabs.effects';
+import {TypesEffects} from './types/effects/types.effects';
 
 @NgModule({
   declarations: [],
@@ -22,7 +23,8 @@ import {TabsEffects} from './tabs/effects/tabs.effects';
     EffectsModule.forRoot([
       UserEffects,
       PracticeSessionsEffects,
-      TabsEffects
+      TabsEffects,
+      TypesEffects
     ])
   ]
 })

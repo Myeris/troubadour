@@ -6,6 +6,7 @@ import {cold, hot} from 'jasmine-marbles';
 import SpyObj = jasmine.SpyObj;
 import {FirebaseError} from 'firebase';
 import FirestoreError = firebase.firestore.FirestoreError;
+import {RouterTestingModule} from '@angular/router/testing';
 // app
 import {getActions, TestActions} from '../../../shared/utils/test-actions/test-actions.utils';
 import {AppState} from '../../app.reducer';
@@ -13,6 +14,7 @@ import {PracticeSessionsResource} from '../../../drums/shared/resources/practice
 import {PracticeSessionsEffects} from './practice-sessions.effects';
 import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
 import {
+  PracticeSessionCreate, PracticeSessionCreateFail, PracticeSessionCreateSuccess,
   PracticeSessionDelete, PracticeSessionDeleteFail, PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
@@ -69,6 +71,9 @@ class PracticeSessionsResourceMock {
 
   removeSession() {
   }
+
+  createSession() {
+  }
 }
 
 describe('PracticeSessionsEffects', () => {
@@ -84,7 +89,8 @@ describe('PracticeSessionsEffects', () => {
         {provide: PracticeSessionsResource, useFactory: () => new PracticeSessionsResourceMock()},
         {provide: Actions, useFactory: getActions},
         {provide: Store, useValue: jasmine.createSpyObj('store', ['select'])}
-      ]
+      ],
+      imports: [RouterTestingModule]
     });
 
     store = bed.get(Store);
@@ -168,6 +174,42 @@ describe('PracticeSessionsEffects', () => {
       const expected = cold('-(c|)', {c: completion});
 
       expect(effects.removePracticeSession$).toBeObservable(expected);
+    }));
+  });
+
+  describe('createPracticeSession$', () => {
+    it('should return a Success event', async(() => {
+      spyOn(practiceSessionsResource, 'createSession').and.returnValue(of({}));
+
+      const practiceSession = {} as PracticeSession;
+      const action = new PracticeSessionCreate({practiceSession});
+      const completion = new PracticeSessionCreateSuccess();
+
+      store.select.and.returnValue(cold('r', {r: user})); // Initializing the mock
+
+      effects = TestBed.get(PracticeSessionsEffects); // Instantiate effects here so they can use the mock
+
+      actions$.stream = hot('-a', {a: action});
+      const expected = cold('-b', {b: completion});
+
+      expect(effects.createPracticeSession$).toBeObservable(expected);
+    }));
+
+    it('should return an error message on failure', async(() => {
+      const error = 'this is an error';
+      spyOn(practiceSessionsResource, 'createSession').and.callFake(() => throwError({message: error} as FirestoreError));
+
+      const action = new PracticeSessionCreate({practiceSession: {} as PracticeSession});
+      const completion = new PracticeSessionCreateFail({error});
+
+      store.select.and.returnValue(cold('r', {r: user})); // Initializing the mock
+
+      effects = TestBed.get(PracticeSessionsEffects);
+
+      actions$.stream = hot('-a', {a: action});
+      const expected = cold('-(c|)', {c: completion});
+
+      expect(effects.createPracticeSession$).toBeObservable(expected);
     }));
   });
 });

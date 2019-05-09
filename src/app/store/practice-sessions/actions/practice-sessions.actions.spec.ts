@@ -1,10 +1,17 @@
 import {
-  PracticeSessionDelete, PracticeSessionDeleteFail, PracticeSessionDeleteSuccess,
+  PracticeSessionCreate,
+  PracticeSessionCreateFail,
+  PracticeSessionCreateSuccess,
+  PracticeSessionDelete,
+  PracticeSessionDeleteFail,
+  PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
   PracticeSessionListLoadSuccess,
-  PracticeSessionsActionsTypes, PracticeSessionSelect
+  PracticeSessionsActionsTypes,
+  PracticeSessionSelect
 } from './practice-sessions.actions';
+import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
 
 describe('PracticeSessionsActions', () => {
   describe('PracticeSessionListLoad', () => {
@@ -53,6 +60,27 @@ describe('PracticeSessionsActions', () => {
     it('should create an action', () => {
       const action = new PracticeSessionSelect({id: 'id'});
       expect(action.type).toBe(PracticeSessionsActionsTypes.Select);
+    });
+  });
+
+  describe('PracticeSessionCreate', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionCreate({practiceSession: {} as PracticeSession});
+      expect(action.type).toBe(PracticeSessionsActionsTypes.Create);
+    });
+  });
+
+  describe('PracticeSessionCreateSuccess', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionCreateSuccess();
+      expect(action.type).toBe(PracticeSessionsActionsTypes.CreateSuccess);
+    });
+  });
+
+  describe('PracticeSessionCreateFail', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionCreateFail({error: 'error'});
+      expect(action.type).toBe(PracticeSessionsActionsTypes.CreateFail);
     });
   });
 });

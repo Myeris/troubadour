@@ -1,6 +1,7 @@
 import {initialPracticeSessionState} from '../practice-sessions.state';
 import {practiceSessionsReducer} from './practice-sessions.reducer';
 import {
+  PracticeSessionCreate, PracticeSessionCreateFail, PracticeSessionCreateSuccess,
   PracticeSessionDelete,
   PracticeSessionDeleteFail, PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
@@ -144,6 +145,41 @@ describe('PracticeSessionsReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
       expect(state.selectedId).toBe('id');
+    });
+  });
+
+  describe('Create', () => {
+    it('should set the state', () => {
+      const action = new PracticeSessionCreate({practiceSession: {} as PracticeSession});
+      const state = practiceSessionsReducer(initialPracticeSessionState, action);
+
+      expect(state.isLoading).toBeTruthy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('CreateFail', () => {
+    it('should set the state', () => {
+      const error = 'error';
+      const action = new PracticeSessionCreateFail({error});
+      const state = practiceSessionsReducer(initialPracticeSessionState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBe(error);
+      expect(state.selectedId).toBeNull();
+      expect(state.ids.length).toBe(0);
+    });
+  });
+
+  describe('CreateSuccess', () => {
+    it('should set the state', () => {
+      const action = new PracticeSessionCreateSuccess();
+      const state = practiceSessionsReducer(initialPracticeSessionState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
     });
   });
 });

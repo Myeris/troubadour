@@ -98,21 +98,18 @@
       &__content {
         padding: 0 2rem 1rem;
 
-        & > div {
-
-        }
-
         &__types {
           display: flex;
           padding: 1rem 0;
+          justify-content: end;
 
           .type {
             color: #fff;
             padding: 0.25rem 0.5rem;
-            margin-right: 0.5rem;
             font-weight: 500;
             border-radius: 0.2rem;
             cursor: pointer;
+            margin: 0.25em;
           }
         }
 
@@ -220,10 +217,9 @@
       align-items: center;
       padding: 0.8rem;
       border-bottom: 0;
-      //border-bottom: 1px solid #d1deeb;
       cursor: pointer;
 
-      img	{
+      img {
         height: 1rem;
       }
     }

@@ -26,6 +26,8 @@ import { SoundOptionsComponent } from './components/sound-options/sound-options.
 import { MetronomeSettingsComponent } from './components/metronome-settings/metronome-settings.component';
 import { NumberToCollectionPipe } from './pipes/number-to-collection/number-to-collection.pipe';
 import { NoteCountPipe } from './pipes/note-count/note-count.pipe';
+import {TypesResource} from './resources/types/types.resource';
+import {TypesService} from './services/types/types.service';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ export class SharedModule {
         PracticeSessionsService,
         TabsResource,
         TabsService,
+        TypesResource,
+        TypesService,
         VexflowService
       ]
     };

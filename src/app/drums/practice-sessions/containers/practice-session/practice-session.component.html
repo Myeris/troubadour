@@ -15,7 +15,7 @@
       [feedback]="feedback"
       (created)="onCreate($event)"
       (updated)="onUpdate($event)"
-      (removed)="onRemove($event)">
+      (removed)="onRemove()">
     </app-practice-session-form>
 
     <app-practice-session-display
@@ -34,7 +34,7 @@
     [feedback]="feedback"
     (created)="onCreate($event)"
     (updated)="onUpdate($event)"
-    (removed)="onRemove($event)">
+    (removed)="onRemove()">
   </app-practice-session-form>
 
   <div class="message" *ngIf="isLoading$ | async">
