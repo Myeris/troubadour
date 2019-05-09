@@ -1,9 +1,9 @@
-import {AngularFireAuth} from '@angular/fire/auth';
-import {async, TestBed} from '@angular/core/testing';
-import UserCredential = firebase.auth.UserCredential;
+import { AngularFireAuth } from '@angular/fire/auth';
+import { async, TestBed } from '@angular/core/testing';
 // app
-import {AuthResource} from './auth.resource';
-import {AuthRequest} from '../models/auth-request.model';
+import { AuthResource } from './auth.resource';
+import { AuthRequest } from '../models/auth-request.model';
+import UserCredential = firebase.auth.UserCredential;
 
 class AfAuthMock {
   public auth = {
@@ -12,7 +12,7 @@ class AfAuthMock {
   };
 }
 
-const req: AuthRequest = {email: 'email', password: 'password'};
+const req: AuthRequest = { email: 'email', password: 'password' };
 
 describe('AuthResource', () => {
   let resource: AuthResource;
@@ -22,7 +22,7 @@ describe('AuthResource', () => {
     const bed = TestBed.configureTestingModule({
       providers: [
         AuthResource,
-        {provide: AngularFireAuth, useFactory: () => new AfAuthMock()}
+        { provide: AngularFireAuth, useFactory: () => new AfAuthMock() }
       ]
     });
 

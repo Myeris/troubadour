@@ -1,25 +1,25 @@
-import {Component, OnInit} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {ActivatedRoute, Params, Router} from '@angular/router';
-import {Observable} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 // app
-import {LifecycleComponent} from '../../../../shared/components/lifecycle/lifecycle.component';
-import {PracticeSession} from '../../../shared/models/practice-session.model';
-import {Tab} from '../../../shared/models/tab.model';
-import {Tag} from '../../../shared/models/tag.model';
-import {AppState} from '../../../../store/app.reducer';
-import {getSelectedPracticeSession, isLoading} from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
+import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
+import { Tab } from '../../../shared/models/tab.model';
+import { Tag } from '../../../shared/models/tag.model';
+import { AppState } from '../../../../store/app.reducer';
+import { getSelectedPracticeSession, isLoading } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import {
   PracticeSessionCreate,
   PracticeSessionDelete,
   PracticeSessionSelect
 } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
-import {selectAll as selectAllTabs} from 'src/app/store/tabs/selectors/tabs.selector';
-import {selectAll as selectAllTypes} from 'src/app/store/types/selectors/types.selector';
-import {TabListLoad} from '../../../../store/tabs/actions/tabs.actions';
-import {Breadcrumb} from '../../../shared/models/breadcrumb.model';
-import {TypesListLoad} from '../../../../store/types/actions/types.actions';
+import { selectAll as selectAllTabs } from 'src/app/store/tabs/selectors/tabs.selector';
+import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types.selector';
+import { TabListLoad } from '../../../../store/tabs/actions/tabs.actions';
+import { Breadcrumb } from '../../../shared/models/breadcrumb.model';
+import { TypesListLoad } from '../../../../store/types/actions/types.actions';
 
 @Component({
   selector: 'app-practice-session',
@@ -35,14 +35,14 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   public showForm = false;
   public feedback: { success: boolean, message: string };
 
-  public get breadcrumb(): Breadcrumb {
-    return {label: 'Practice sessions', route: 'practice-sessions', params: {}};
-  }
-
   constructor(private store: Store<AppState>,
               private route: ActivatedRoute,
               private router: Router) {
     super();
+  }
+
+  public get breadcrumb(): Breadcrumb {
+    return { label: 'Practice sessions', route: 'practice-sessions', params: {} };
   }
 
   ngOnInit() {
@@ -68,7 +68,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
       .subscribe((params: Params) => this.exerciseId = params.exercise);
 
     if (this.route.snapshot.params.id) {
-      this.store.dispatch(new PracticeSessionSelect({id: this.route.snapshot.params.id}));
+      this.store.dispatch(new PracticeSessionSelect({ id: this.route.snapshot.params.id }));
     }
 
     this.store.dispatch(new TabListLoad());
@@ -76,7 +76,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   }
 
   public onCreate(practiceSession: PracticeSession): void {
-    this.store.dispatch(new PracticeSessionCreate({practiceSession}));
+    this.store.dispatch(new PracticeSessionCreate({ practiceSession }));
   }
 
   public async onUpdate(event: PracticeSession): Promise<void> {
@@ -94,7 +94,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
 
   public onRemove(): void {
     const id = this.route.snapshot.params.id;
-    this.store.dispatch(new PracticeSessionDelete({id}));
+    this.store.dispatch(new PracticeSessionDelete({ id }));
   }
 
   private backToPracticeSessions(): void {

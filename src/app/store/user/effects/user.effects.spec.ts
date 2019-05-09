@@ -1,19 +1,19 @@
-import {async, TestBed} from '@angular/core/testing';
-import {StoreModule} from '@ngrx/store';
-import {Actions} from '@ngrx/effects';
-import {cold, hot} from 'jasmine-marbles';
-import {of, throwError} from 'rxjs';
+import { async, TestBed } from '@angular/core/testing';
+import { StoreModule } from '@ngrx/store';
+import { Actions } from '@ngrx/effects';
+import { cold, hot } from 'jasmine-marbles';
+import { of, throwError } from 'rxjs';
+// app
+import { UserEffects } from './user.effects';
+import { appReducers } from '../../app.reducer';
+import { LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess } from '../actions/user.actions';
+import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
+import { getActions, TestActions } from '../../../shared/utils/test-actions/test-actions.utils';
+import { AuthResource } from '../../../auth/shared/resources/auth.resource';
+import { UserService } from '../../../auth/shared/services/user.service';
+import { RouterTestingModule } from '@angular/router/testing';
 import UserCredential = firebase.auth.UserCredential;
 import FirestoreError = firebase.firestore.FirestoreError;
-// app
-import {UserEffects} from './user.effects';
-import {appReducers} from '../../app.reducer';
-import {LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess} from '../actions/user.actions';
-import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
-import {getActions, TestActions} from '../../../shared/utils/test-actions/test-actions.utils';
-import {AuthResource} from '../../../auth/shared/resources/auth.resource';
-import {UserService} from '../../../auth/shared/services/user.service';
-import {RouterTestingModule} from '@angular/router/testing';
 
 class AuthResourceMock {
   login() {
@@ -25,7 +25,7 @@ class AuthResourceMock {
   }
 }
 
-const req: AuthRequest = {email: 'email', password: 'password'};
+const req: AuthRequest = { email: 'email', password: 'password' };
 
 describe('UserEffects', () => {
   let actions$: TestActions;
@@ -39,8 +39,8 @@ describe('UserEffects', () => {
       providers: [
         UserEffects,
         UserService,
-        {provide: AuthResource, useFactory: () => new AuthResourceMock()},
-        {provide: Actions, useFactory: getActions}
+        { provide: AuthResource, useFactory: () => new AuthResourceMock() },
+        { provide: Actions, useFactory: getActions }
       ]
     });
 
@@ -66,24 +66,24 @@ describe('UserEffects', () => {
 
       spyOn(authResource, 'login').and.returnValue(of(userCreds));
 
-      const action = new LogIn({authRequest: req});
-      const completion = new LogInSuccess({user: userService.mapLoginResponse(userCreds)});
+      const action = new LogIn({ authRequest: req });
+      const completion = new LogInSuccess({ user: userService.mapLoginResponse(userCreds) });
 
-      actions$.stream = hot('-a', {a: action});
-      const expected = cold('-b', {b: completion});
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
 
       expect(effects.authenticateUser$).toBeObservable(expected);
     }));
 
     it('should return an error message on failure', async(() => {
-      const action = new LogIn({authRequest: req});
+      const action = new LogIn({ authRequest: req });
       const error = 'this is an error';
-      const completion = new LogInFail({error});
+      const completion = new LogInFail({ error });
 
-      spyOn(authResource, 'login').and.callFake(() => throwError({message: error} as FirestoreError));
+      spyOn(authResource, 'login').and.callFake(() => throwError({ message: error } as FirestoreError));
 
-      actions$.stream = hot('-a', {a: action});
-      const expected = cold('-(c|)', {c: completion});
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-(c|)', { c: completion });
 
       expect(effects.authenticateUser$).toBeObservable(expected);
     }));
@@ -101,24 +101,24 @@ describe('UserEffects', () => {
 
       spyOn(authResource, 'register').and.returnValue(of(userCreds));
 
-      const action = new Register({authRequest: req});
-      const completion = new RegisterSuccess({user: userService.mapLoginResponse(userCreds)});
+      const action = new Register({ authRequest: req });
+      const completion = new RegisterSuccess({ user: userService.mapLoginResponse(userCreds) });
 
-      actions$.stream = hot('-a', {a: action});
-      const expected = cold('-b', {b: completion});
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
 
       expect(effects.registerUser$).toBeObservable(expected);
     }));
 
     it('should return an error message on failure', async(() => {
-      const action = new Register({authRequest: req});
+      const action = new Register({ authRequest: req });
       const error = 'this is an error';
-      const completion = new RegisterFail({error});
+      const completion = new RegisterFail({ error });
 
-      spyOn(authResource, 'register').and.callFake(() => throwError({message: error} as FirestoreError));
+      spyOn(authResource, 'register').and.callFake(() => throwError({ message: error } as FirestoreError));
 
-      actions$.stream = hot('-a', {a: action});
-      const expected = cold('-(c|)', {c: completion});
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-(c|)', { c: completion });
 
       expect(effects.registerUser$).toBeObservable(expected);
     }));

@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {TestBed, ComponentFixture} from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 // app
-import {SearchPipe} from './search.pipe';
+import { SearchPipe } from './search.pipe';
 
 describe('SearchPipe', () => {
 
@@ -14,9 +14,9 @@ describe('SearchPipe', () => {
     })
     class TestComponent {
       list: { name: string }[] = [
-        {name: 'ABC'},
-        {name: 'DEF'},
-        {name: 'GHI'}
+        { name: 'ABC' },
+        { name: 'DEF' },
+        { name: 'GHI' }
       ];
       searchText: string;
     }
@@ -60,13 +60,13 @@ describe('SearchPipe', () => {
     const pipe = new SearchPipe();
 
     const list = [
-      {name: 'ABC'},
-      {name: 'DEF'},
-      {name: 'GHI'}
+      { name: 'ABC' },
+      { name: 'DEF' },
+      { name: 'GHI' }
     ];
 
     it('should filter the list', () => {
-      expect(JSON.stringify(pipe.transform(list, 'name', 'ABC'))).toBe(JSON.stringify([{name: 'ABC'}]));
+      expect(JSON.stringify(pipe.transform(list, 'name', 'ABC'))).toBe(JSON.stringify([{ name: 'ABC' }]));
     });
   });
 });

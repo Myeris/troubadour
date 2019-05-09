@@ -1,12 +1,12 @@
-import {initialTabsState} from '../tabs.state';
-import {tabsReducer} from './tabs.reducer';
-import {TabListLoad, TabListLoadFail, TabListLoadSuccess} from '../actions/tabs.actions';
-import {Tab} from '../../../drums/shared/models/tab.model';
+import { initialTabsState } from '../tabs.state';
+import { tabsReducer } from './tabs.reducer';
+import { TabListLoad, TabListLoadFail, TabListLoadSuccess } from '../actions/tabs.actions';
+import { Tab } from '../../../drums/shared/models/tab.model';
 
 const tabs: Tab[] = [
-  {name: 'Single roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'a'},
-  {name: 'Double roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'b'},
-  {name: 'Flams', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [], $key: 'c'},
+  { name: 'Single roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'a' },
+  { name: 'Double roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'b' },
+  { name: 'Flams', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [], $key: 'c' }
 ];
 
 describe('TabsReducer', () => {
@@ -33,7 +33,7 @@ describe('TabsReducer', () => {
 
   describe('ListLoadSuccess', () => {
     it('should set the state', () => {
-      const action = new TabListLoadSuccess({tabList: tabs});
+      const action = new TabListLoadSuccess({ tabList: tabs });
       const state = tabsReducer(initialTabsState, action);
 
       console.log(state.entities);
@@ -47,7 +47,7 @@ describe('TabsReducer', () => {
   describe('ListLoadFail', () => {
     it('should set the state', () => {
       const error = 'error';
-      const action = new TabListLoadFail({error});
+      const action = new TabListLoadFail({ error });
       const state = tabsReducer(initialTabsState, action);
 
       expect(state.isLoading).toBeFalsy();

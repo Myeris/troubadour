@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {AngularFireDatabase, SnapshotAction} from '@angular/fire/database';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase, SnapshotAction } from '@angular/fire/database';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // app
-import {PracticeSession} from '../../models/practice-session.model';
-import {PracticeSessionsService} from '../../services/practice-sessions/practice-sessions.service';
-import {Exercise} from '../../models/exercise.model';
+import { PracticeSession } from '../../models/practice-session.model';
+import { PracticeSessionsService } from '../../services/practice-sessions/practice-sessions.service';
+import { Exercise } from '../../models/exercise.model';
 import ThenableReference = firebase.database.ThenableReference;
 
 @Injectable()

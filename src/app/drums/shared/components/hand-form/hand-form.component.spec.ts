@@ -1,9 +1,9 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {DebugElement} from '@angular/core';
-import {ReactiveFormsModule} from '@angular/forms';
-import {By} from '@angular/platform-browser';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 // app
-import {HandFormComponent} from './hand-form.component';
+import { HandFormComponent } from './hand-form.component';
 
 describe('HandFormComponent', () => {
   let component: HandFormComponent;

@@ -1,4 +1,4 @@
-import {TypesActionsTypes, TypesListLoad, TypesListLoadFail, TypesListLoadSuccess} from './types.actions';
+import { TypesActionsTypes, TypesListLoad, TypesListLoadFail, TypesListLoadSuccess } from './types.actions';
 
 describe('TypesAction', () => {
   describe('TypesListLoad', () => {
@@ -10,14 +10,14 @@ describe('TypesAction', () => {
 
   describe('TypesListLoadSuccess', () => {
     it('should create an action', () => {
-      const action = new TypesListLoadSuccess({types: []});
+      const action = new TypesListLoadSuccess({ types: [] });
       expect(action.type).toBe(TypesActionsTypes.LoadListSuccess);
     });
   });
 
   describe('TypesListLoadFail', () => {
     it('should create an action', () => {
-      const action = new TypesListLoadFail({error: 'error'});
+      const action = new TypesListLoadFail({ error: 'error' });
       expect(action.type).toBe(TypesActionsTypes.LoadListFail);
     });
   });

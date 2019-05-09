@@ -1,9 +1,9 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 // app
-import {Tab} from '../../../shared/models/tab.model';
-import {PracticeSession} from '../../../shared/models/practice-session.model';
-import {Exercise} from '../../../shared/models/exercise.model';
-import {MetronomeService} from '../../../shared/services/metronome/metronome.service';
+import { Tab } from '../../../shared/models/tab.model';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
+import { Exercise } from '../../../shared/models/exercise.model';
+import { MetronomeService } from '../../../shared/services/metronome/metronome.service';
 
 @Component({
   selector: 'app-practice-session-display',
@@ -104,7 +104,7 @@ export class PracticeSessionDisplayComponent implements OnChanges {
   }
 
   public scrollIntoView(): void {
-    document.getElementById(`exercise-${this.inPlayIndex}`).scrollIntoView({behavior: 'smooth'});
+    document.getElementById(`exercise-${this.inPlayIndex}`).scrollIntoView({ behavior: 'smooth' });
   }
 
   private reset(): void {

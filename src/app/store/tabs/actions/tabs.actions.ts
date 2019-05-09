@@ -1,6 +1,6 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 // app
-import {Tab} from '../../../drums/shared/models/tab.model';
+import { Tab } from '../../../drums/shared/models/tab.model';
 
 export enum TabsActionsTypes {
   LoadList = '[AppComponent] Load tab list',

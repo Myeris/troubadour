@@ -1,6 +1,6 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 // app
-import {Tag} from '../../../drums/shared/models/tag.model';
+import { Tag } from '../../../drums/shared/models/tag.model';
 
 export enum TypesActionsTypes {
   LoadList = '[Practice session page] Load types list',

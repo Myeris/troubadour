@@ -1,10 +1,10 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {RouterTestingModule} from '@angular/router/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 // app
-import {ListSessionComponent} from './list-session.component';
-import {SharedModule} from '../../../shared/shared.module';
-import {PracticeSession} from '../../../shared/models/practice-session.model';
+import { ListSessionComponent } from './list-session.component';
+import { SharedModule } from '../../../shared/shared.module';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
 
 const session: PracticeSession = {
   name: 'Session1',

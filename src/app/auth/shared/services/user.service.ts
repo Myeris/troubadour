@@ -1,17 +1,17 @@
-import {Injectable} from '@angular/core';
-import UserCredential = firebase.auth.UserCredential;
+import { Injectable } from '@angular/core';
 // app
-import {User} from '../models/user.model';
+import { User } from '../models/user.model';
+import UserCredential = firebase.auth.UserCredential;
 
 @Injectable()
 export class UserService {
   private userKey = 'user';
 
-  public get persistedUser(): User {
-    return JSON.parse(localStorage.getItem(this.userKey));
+  constructor() {
   }
 
-  constructor() {
+  public get persistedUser(): User {
+    return JSON.parse(localStorage.getItem(this.userKey));
   }
 
   public mapLoginResponse(userCreds: UserCredential): User {

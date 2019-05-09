@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {Store} from '@ngrx/store';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Store } from '@ngrx/store';
 // app
-import {UserService} from '../../auth/shared/services/user.service';
-import {User} from '../../auth/shared/models/user.model';
-import {AppState} from '../../store/app.reducer';
-import {LogInSuccess, LogOut} from '../../store/user/actions/user.actions';
+import { UserService } from '../../auth/shared/services/user.service';
+import { User } from '../../auth/shared/models/user.model';
+import { AppState } from '../../store/app.reducer';
+import { LogInSuccess, LogOut } from '../../store/user/actions/user.actions';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     this.user = this.userService.persistedUser;
 
     if (this.user) {
-      this.store.dispatch(new LogInSuccess({user: this.user}));
+      this.store.dispatch(new LogInSuccess({ user: this.user }));
     }
   }
 

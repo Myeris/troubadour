@@ -1,20 +1,20 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange} from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination';
 // app
-import {ExerciseFormComponent} from './exercise-form.component';
-import {Tab} from '../../models/tab.model';
-import {Exercise} from '../../models/exercise.model';
-import {SearchPipe} from '../../pipes/search/search.pipe';
-import {OrderTabsPipe} from '../../pipes/order-tabs/order-tabs.pipe';
-import {ExerciseService} from '../../services/exercise/exercise.service';
+import { ExerciseFormComponent } from './exercise-form.component';
+import { Tab } from '../../models/tab.model';
+import { Exercise } from '../../models/exercise.model';
+import { SearchPipe } from '../../pipes/search/search.pipe';
+import { OrderTabsPipe } from '../../pipes/order-tabs/order-tabs.pipe';
+import { ExerciseService } from '../../services/exercise/exercise.service';
 
 const tabs: Tab[] = [
-  {name: 'Tab 1', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '1'},
-  {name: 'Tab 2', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '2'},
-  {name: 'Tab 3', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '3'}
+  { name: 'Tab 1', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '1' },
+  { name: 'Tab 2', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '2' },
+  { name: 'Tab 3', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '3' }
 ];
 
 const editedExercise: Exercise = {
@@ -52,7 +52,7 @@ describe('ExerciseFormComponent', () => {
         OrderTabsPipe
       ],
       providers: [
-        {provide: ExerciseService, useClass: MockExercise},
+        { provide: ExerciseService, useClass: MockExercise }
       ],
       imports: [
         FormsModule,
@@ -89,13 +89,13 @@ describe('ExerciseFormComponent', () => {
     expect(component.editedExercise).toBeUndefined();
 
     component.tabs = tabs;
-    component.ngOnChanges({name: new SimpleChange(null, component.tabs, true)});
+    component.ngOnChanges({ name: new SimpleChange(null, component.tabs, true) });
     fixture.detectChanges();
     expect(component.tabs.length).toBe(3);
 
     component.selected = null;
     component.editedExercise = editedExercise;
-    component.ngOnChanges({name: new SimpleChange(null, component.editedExercise, true)});
+    component.ngOnChanges({ name: new SimpleChange(null, component.editedExercise, true) });
     fixture.detectChanges();
     expect(component.selected).toBeNull();
     expect(component.editedExercise).toEqual(editedExercise);
@@ -103,13 +103,13 @@ describe('ExerciseFormComponent', () => {
   });
 
   it('should handle on type change events', () => {
-    component.onTypeChange({target: {value: '0'}});
+    component.onTypeChange({ target: { value: '0' } });
     expect(component.selectedType).toBe(0);
     expect(component.form.get('bpm').value).toBe(90);
     expect(component.form.get('duration').value).toBe(60);
     expect(component.form.get('bpmScale')).toBeNull();
 
-    component.onTypeChange({target: {value: '1'}});
+    component.onTypeChange({ target: { value: '1' } });
     expect(component.selectedType).toBe(1);
     expect(component.form.get('bpm')).toBeNull();
     expect(component.form.get('duration')).toBeNull();
@@ -136,8 +136,8 @@ describe('ExerciseFormComponent', () => {
 
     component.editedExercise = editedExercise;
     component.selectedExercise = editedExercise;
-    component.ngOnChanges({name: new SimpleChange(null, component.editedExercise, true)});
-    component.onTypeChange({target: {value: '0'}});
+    component.ngOnChanges({ name: new SimpleChange(null, component.editedExercise, true) });
+    component.onTypeChange({ target: { value: '0' } });
 
     component.form.get('repeat').setValue(30);
     component.form.get('bpm').setValue(120);

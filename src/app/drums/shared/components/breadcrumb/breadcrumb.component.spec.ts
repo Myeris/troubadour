@@ -1,9 +1,9 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {DebugElement} from '@angular/core';
-import {By} from '@angular/platform-browser';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
 // app
-import {BreadcrumbComponent} from './breadcrumb.component';
+import { BreadcrumbComponent } from './breadcrumb.component';
 
 describe('BreadcrumbComponent', () => {
   let component: BreadcrumbComponent;

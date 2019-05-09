@@ -1,15 +1,15 @@
-import {Store, StoreModule} from '@ngrx/store';
-import {TestBed} from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
+import { TestBed } from '@angular/core/testing';
 // app
-import {appReducers, AppState} from '../../app.reducer';
-import {getError, getSelectedPracticeSession, isLoading} from './practice-sessions.selector';
+import { appReducers, AppState } from '../../app.reducer';
+import { getError, getSelectedPracticeSession, isLoading } from './practice-sessions.selector';
 import {
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
   PracticeSessionListLoadSuccess,
   PracticeSessionSelect
 } from '../actions/practice-sessions.actions';
-import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
+import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
 
 const sessions: PracticeSession[] = [
   {
@@ -52,7 +52,7 @@ describe('PracticeSessionsSelectors', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({...appReducers})]
+      imports: [StoreModule.forRoot({ ...appReducers })]
     });
 
     store = bed.get(Store);
@@ -71,13 +71,13 @@ describe('PracticeSessionsSelectors', () => {
       store.dispatch(new PracticeSessionListLoad());
       expect(result).toBeTruthy();
 
-      store.dispatch(new PracticeSessionListLoadFail({error: 'error'}));
+      store.dispatch(new PracticeSessionListLoadFail({ error: 'error' }));
       expect(result).toBeFalsy();
 
       store.dispatch(new PracticeSessionListLoad());
       expect(result).toBeTruthy();
 
-      store.dispatch(new PracticeSessionListLoadSuccess({practiceSessionList: []}));
+      store.dispatch(new PracticeSessionListLoadSuccess({ practiceSessionList: [] }));
       expect(result).toBeFalsy();
     });
   });
@@ -93,16 +93,16 @@ describe('PracticeSessionsSelectors', () => {
 
       expect(result).toBeNull();
 
-      store.dispatch(new PracticeSessionListLoadFail({error}));
+      store.dispatch(new PracticeSessionListLoadFail({ error }));
       expect(result).toBe(error);
 
       store.dispatch(new PracticeSessionListLoad());
       expect(result).toBeNull();
 
-      store.dispatch(new PracticeSessionListLoadFail({error}));
+      store.dispatch(new PracticeSessionListLoadFail({ error }));
       expect(result).toBe(error);
 
-      store.dispatch(new PracticeSessionListLoadSuccess({practiceSessionList: []}));
+      store.dispatch(new PracticeSessionListLoadSuccess({ practiceSessionList: [] }));
       expect(result).toBeNull();
     });
   });
@@ -118,9 +118,9 @@ describe('PracticeSessionsSelectors', () => {
 
       expect(result).toBeUndefined();
 
-      store.dispatch(new PracticeSessionListLoadSuccess({practiceSessionList: sessions}));
+      store.dispatch(new PracticeSessionListLoadSuccess({ practiceSessionList: sessions }));
 
-      store.dispatch(new PracticeSessionSelect({id}));
+      store.dispatch(new PracticeSessionSelect({ id }));
       expect(result).toEqual(sessions[0]);
     });
   });

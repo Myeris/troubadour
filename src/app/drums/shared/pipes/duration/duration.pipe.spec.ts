@@ -1,7 +1,7 @@
-import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {Component} from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 // app
-import {DurationPipe} from './duration.pipe';
+import { DurationPipe } from './duration.pipe';
 
 describe('DurationPipe', () => {
   /**

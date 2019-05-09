@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {AngularFireDatabase, SnapshotAction} from '@angular/fire/database';
-import {Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { AngularFireDatabase, SnapshotAction } from '@angular/fire/database';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // app
-import {Tag} from '../../models/tag.model';
-import {TypesService} from '../../services/types/types.service';
+import { Tag } from '../../models/tag.model';
+import { TypesService } from '../../services/types/types.service';
 
 @Injectable()
 export class TypesResource {

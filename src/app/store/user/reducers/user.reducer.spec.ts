@@ -1,8 +1,8 @@
-import {initialUserState} from '../user.state';
-import {userReducer} from './user.reducer';
-import {LogIn, LogInFail, LogInSuccess, LogOut, Register, RegisterFail, RegisterSuccess} from '../actions/user.actions';
-import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
-import {User} from '../../../auth/shared/models/user.model';
+import { initialUserState } from '../user.state';
+import { userReducer } from './user.reducer';
+import { LogIn, LogInFail, LogInSuccess, LogOut, Register, RegisterFail, RegisterSuccess } from '../actions/user.actions';
+import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
+import { User } from '../../../auth/shared/models/user.model';
 
 const user: User = {
   email: 'email',
@@ -24,7 +24,7 @@ describe('userReducer', () => {
 
   describe('LogIn', () => {
     it('should set the state', () => {
-      const action = new LogIn({authRequest: {} as AuthRequest});
+      const action = new LogIn({ authRequest: {} as AuthRequest });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeTruthy();
@@ -36,7 +36,7 @@ describe('userReducer', () => {
 
   describe('LogInSuccess', () => {
     it('should set the state', () => {
-      const action = new LogInSuccess({user});
+      const action = new LogInSuccess({ user });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
@@ -50,7 +50,7 @@ describe('userReducer', () => {
   describe('LogInFail', () => {
     it('should set the state', () => {
       const error = 'error';
-      const action = new LogInFail({error});
+      const action = new LogInFail({ error });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
@@ -62,7 +62,7 @@ describe('userReducer', () => {
 
   describe('Register', () => {
     it('should set the state', () => {
-      const action = new Register({authRequest: {} as AuthRequest});
+      const action = new Register({ authRequest: {} as AuthRequest });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeTruthy();
@@ -74,7 +74,7 @@ describe('userReducer', () => {
 
   describe('RegisterSuccess', () => {
     it('should set the state', () => {
-      const action = new RegisterSuccess({user});
+      const action = new RegisterSuccess({ user });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
@@ -88,7 +88,7 @@ describe('userReducer', () => {
   describe('RegisterFail', () => {
     it('should set the state', () => {
       const error = 'error';
-      const action = new RegisterFail({error});
+      const action = new RegisterFail({ error });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();

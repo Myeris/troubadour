@@ -1,14 +1,18 @@
-import {initialPracticeSessionState} from '../practice-sessions.state';
-import {practiceSessionsReducer} from './practice-sessions.reducer';
+import { initialPracticeSessionState } from '../practice-sessions.state';
+import { practiceSessionsReducer } from './practice-sessions.reducer';
 import {
-  PracticeSessionCreate, PracticeSessionCreateFail, PracticeSessionCreateSuccess,
+  PracticeSessionCreate,
+  PracticeSessionCreateFail,
+  PracticeSessionCreateSuccess,
   PracticeSessionDelete,
-  PracticeSessionDeleteFail, PracticeSessionDeleteSuccess,
+  PracticeSessionDeleteFail,
+  PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
-  PracticeSessionListLoadSuccess, PracticeSessionSelect
+  PracticeSessionListLoadSuccess,
+  PracticeSessionSelect
 } from '../actions/practice-sessions.actions';
-import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
+import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
 
 const sessions: PracticeSession[] = [
   {
@@ -72,7 +76,7 @@ describe('PracticeSessionsReducer', () => {
   describe('LoadListFail', () => {
     it('should set the state', () => {
       const error = 'error';
-      const action = new PracticeSessionListLoadFail({error});
+      const action = new PracticeSessionListLoadFail({ error });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
@@ -84,7 +88,7 @@ describe('PracticeSessionsReducer', () => {
 
   describe('LoadListSuccess', () => {
     it('should set the state', () => {
-      const action = new PracticeSessionListLoadSuccess({practiceSessionList: sessions});
+      const action = new PracticeSessionListLoadSuccess({ practiceSessionList: sessions });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
@@ -97,7 +101,7 @@ describe('PracticeSessionsReducer', () => {
   describe('Delete', () => {
     it('should set the state', () => {
       const id = 'id';
-      const action = new PracticeSessionDelete({id});
+      const action = new PracticeSessionDelete({ id });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeTruthy();
@@ -115,7 +119,7 @@ describe('PracticeSessionsReducer', () => {
         b: sessions[1]
       };
       const ids = ['a', 'b'];
-      const state = practiceSessionsReducer({...initialPracticeSessionState, entities, ids, selectedId}, action);
+      const state = practiceSessionsReducer({ ...initialPracticeSessionState, entities, ids, selectedId }, action);
 
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
@@ -127,7 +131,7 @@ describe('PracticeSessionsReducer', () => {
   describe('DeleteFail', () => {
     it('should set the state', () => {
       const error = 'error';
-      const action = new PracticeSessionDeleteFail({error});
+      const action = new PracticeSessionDeleteFail({ error });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
@@ -139,7 +143,7 @@ describe('PracticeSessionsReducer', () => {
 
   describe('Select', () => {
     it('should set the state', () => {
-      const action = new PracticeSessionSelect({id: 'id'});
+      const action = new PracticeSessionSelect({ id: 'id' });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
@@ -150,7 +154,7 @@ describe('PracticeSessionsReducer', () => {
 
   describe('Create', () => {
     it('should set the state', () => {
-      const action = new PracticeSessionCreate({practiceSession: {} as PracticeSession});
+      const action = new PracticeSessionCreate({ practiceSession: {} as PracticeSession });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeTruthy();
@@ -162,7 +166,7 @@ describe('PracticeSessionsReducer', () => {
   describe('CreateFail', () => {
     it('should set the state', () => {
       const error = 'error';
-      const action = new PracticeSessionCreateFail({error});
+      const action = new PracticeSessionCreateFail({ error });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();

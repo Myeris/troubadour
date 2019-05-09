@@ -1,11 +1,11 @@
-import {TestBed} from '@angular/core/testing';
-import {Store, StoreModule} from '@ngrx/store';
+import { TestBed } from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
 // app
-import {appReducers, AppState} from '../../app.reducer';
-import {getCurrentUser, getError, isLoading, isLoggedIn} from './user.selectors';
-import {LogIn, LogInFail, LogInSuccess} from '../actions/user.actions';
-import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
-import {User} from '../../../auth/shared/models/user.model';
+import { appReducers, AppState } from '../../app.reducer';
+import { getCurrentUser, getError, isLoading, isLoggedIn } from './user.selectors';
+import { LogIn, LogInFail, LogInSuccess } from '../actions/user.actions';
+import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
+import { User } from '../../../auth/shared/models/user.model';
 
 const user: User = {
   email: 'email',
@@ -21,7 +21,7 @@ describe('UserSelectors', () => {
     const bed = TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({
-          ...appReducers,
+          ...appReducers
         })
       ]
     });
@@ -39,16 +39,16 @@ describe('UserSelectors', () => {
 
       expect(result).toBeFalsy();
 
-      store.dispatch(new LogIn({authRequest: {} as AuthRequest}));
+      store.dispatch(new LogIn({ authRequest: {} as AuthRequest }));
       expect(result).toBeTruthy();
 
-      store.dispatch(new LogInSuccess({user: {} as User}));
+      store.dispatch(new LogInSuccess({ user: {} as User }));
       expect(result).toBeFalsy();
 
-      store.dispatch(new LogIn({authRequest: {} as AuthRequest}));
+      store.dispatch(new LogIn({ authRequest: {} as AuthRequest }));
       expect(result).toBeTruthy();
 
-      store.dispatch(new LogInFail({error: 'toto'}));
+      store.dispatch(new LogInFail({ error: 'toto' }));
       expect(result).toBeFalsy();
     });
   });
@@ -63,13 +63,13 @@ describe('UserSelectors', () => {
 
       expect(result).toBeFalsy();
 
-      store.dispatch(new LogIn({authRequest: {} as AuthRequest}));
+      store.dispatch(new LogIn({ authRequest: {} as AuthRequest }));
       expect(result).toBeFalsy();
 
-      store.dispatch(new LogInSuccess({user: {} as User}));
+      store.dispatch(new LogInSuccess({ user: {} as User }));
       expect(result).toBeTruthy();
 
-      store.dispatch(new LogInFail({error: 'toto'}));
+      store.dispatch(new LogInFail({ error: 'toto' }));
       expect(result).toBeFalsy();
     });
   });
@@ -84,13 +84,13 @@ describe('UserSelectors', () => {
 
       expect(result).toBeNull();
 
-      store.dispatch(new LogIn({authRequest: {} as AuthRequest}));
+      store.dispatch(new LogIn({ authRequest: {} as AuthRequest }));
       expect(result).toBeNull();
 
-      store.dispatch(new LogInFail({error: 'toto'}));
+      store.dispatch(new LogInFail({ error: 'toto' }));
       expect(result).toBe('toto');
 
-      store.dispatch(new LogInSuccess({user: {} as User}));
+      store.dispatch(new LogInSuccess({ user: {} as User }));
       expect(result).toBeNull();
     });
   });
@@ -105,7 +105,7 @@ describe('UserSelectors', () => {
 
       expect(result).toBeNull();
 
-      store.dispatch(new LogInSuccess({user}));
+      store.dispatch(new LogInSuccess({ user }));
       expect(result).toEqual(user);
     });
   });

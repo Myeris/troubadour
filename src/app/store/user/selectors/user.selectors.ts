@@ -1,7 +1,7 @@
-import {createSelector} from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 // app
-import {AppState} from '../../app.reducer';
-import {userEntityAdapter} from '../user.state';
+import { AppState } from '../../app.reducer';
+import { userEntityAdapter } from '../user.state';
 
 export const selectUser = (state: AppState) => state.user;
 

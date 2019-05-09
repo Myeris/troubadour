@@ -1,9 +1,9 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {MatIconModule} from '@angular/material';
-import {RouterTestingModule} from '@angular/router/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatIconModule } from '@angular/material';
+import { RouterTestingModule } from '@angular/router/testing';
 // app
-import {AppHeaderComponent} from './app-header.component';
-import {AppSharedModule} from '../../../shared/shared.module';
+import { AppHeaderComponent } from './app-header.component';
+import { AppSharedModule } from '../../../shared/shared.module';
 
 describe('AppHeaderComponent', () => {
   let component: AppHeaderComponent;

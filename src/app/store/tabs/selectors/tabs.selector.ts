@@ -1,7 +1,7 @@
-import {createSelector} from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 // app
-import {AppState} from '../../app.reducer';
-import {tabsEntityAdapter} from '../tabs.state';
+import { AppState } from '../../app.reducer';
+import { tabsEntityAdapter } from '../tabs.state';
 
 export const selectTab = (state: AppState) => state.tab;
 

@@ -1,13 +1,13 @@
-import {TestBed, async, ComponentFixture} from '@angular/core/testing';
-import {RouterTestingModule} from '@angular/router/testing';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {Store, StoreModule} from '@ngrx/store';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Store, StoreModule } from '@ngrx/store';
 // app
-import {AppComponent} from './app.component';
-import {UserService} from '../../auth/shared/services/user.service';
-import {appReducers, AppState} from '../../store/app.reducer';
-import {User} from '../../auth/shared/models/user.model';
-import {LogInSuccess, LogOut} from '../../store/user/actions/user.actions';
+import { AppComponent } from './app.component';
+import { UserService } from '../../auth/shared/services/user.service';
+import { appReducers, AppState } from '../../store/app.reducer';
+import { User } from '../../auth/shared/models/user.model';
+import { LogInSuccess, LogOut } from '../../store/user/actions/user.actions';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -19,7 +19,7 @@ describe('AppComponent', () => {
     const bed = TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        StoreModule.forRoot({...appReducers})
+        StoreModule.forRoot({ ...appReducers })
       ],
       providers: [
         UserService
@@ -53,7 +53,7 @@ describe('AppComponent', () => {
 
       component.ngOnInit();
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(new LogInSuccess({user: component.user}));
+      expect(store.dispatch).toHaveBeenCalledWith(new LogInSuccess({ user: component.user }));
     }));
 
     it('should not dispatch an action if user is not defined', () => {

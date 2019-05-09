@@ -1,9 +1,9 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component} from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 // app
-import {OrderTabsPipe} from './order-tabs.pipe';
-import {Tab} from '../../models/tab.model';
-import {Tag} from '../../models/tag.model';
+import { OrderTabsPipe } from './order-tabs.pipe';
+import { Tab } from '../../models/tab.model';
+import { Tag } from '../../models/tag.model';
 
 describe('OrderTabsPipe', () => {
 
@@ -16,21 +16,21 @@ describe('OrderTabsPipe', () => {
     })
     class TestComponent {
       tabs: Tab[] = [
-        {name: 'Paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Single stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Flam', type: 'flams', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Double stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Triple paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Flam drag', type: 'flams', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Eleven stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Double paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Flam tap', type: 'flams', drumkit: false, timeSignature: '4/4', notes: []}
+        { name: 'Paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Single stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Flam', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Double stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Triple paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Flam drag', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Eleven stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Double paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Flam tap', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] }
       ];
 
       types: Tag[] = [
-        {name: 'rolls', weight: 0, color: 'blue'},
-        {name: 'paradiddles', weight: 1, color: 'green'},
-        {name: 'flams', weight: 2, color: 'red'}
+        { name: 'rolls', weight: 0, color: 'blue' },
+        { name: 'paradiddles', weight: 1, color: 'green' },
+        { name: 'flams', weight: 2, color: 'red' }
       ];
     }
 
@@ -56,7 +56,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'rolls', weight: 0, color: 'blue'}
+          typeObject: { name: 'rolls', weight: 0, color: 'blue' }
         },
         {
           name: 'Eleven stroke roll',
@@ -64,7 +64,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'rolls', weight: 0, color: 'blue'}
+          typeObject: { name: 'rolls', weight: 0, color: 'blue' }
         },
         {
           name: 'Single stroke roll',
@@ -72,7 +72,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'rolls', weight: 0, color: 'blue'}
+          typeObject: { name: 'rolls', weight: 0, color: 'blue' }
         },
         {
           name: 'Double paradiddle',
@@ -80,7 +80,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'paradiddles', weight: 1, color: 'green'}
+          typeObject: { name: 'paradiddles', weight: 1, color: 'green' }
         },
         {
           name: 'Paradiddle',
@@ -88,7 +88,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'paradiddles', weight: 1, color: 'green'}
+          typeObject: { name: 'paradiddles', weight: 1, color: 'green' }
         },
         {
           name: 'Triple paradiddle',
@@ -96,7 +96,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'paradiddles', weight: 1, color: 'green'}
+          typeObject: { name: 'paradiddles', weight: 1, color: 'green' }
         },
         {
           name: 'Flam',
@@ -104,7 +104,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'flams', weight: 2, color: 'red'}
+          typeObject: { name: 'flams', weight: 2, color: 'red' }
         },
         {
           name: 'Flam drag',
@@ -112,7 +112,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'flams', weight: 2, color: 'red'}
+          typeObject: { name: 'flams', weight: 2, color: 'red' }
         },
         {
           name: 'Flam tap',
@@ -120,7 +120,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'flams', weight: 2, color: 'red'}
+          typeObject: { name: 'flams', weight: 2, color: 'red' }
         }
       ];
 
@@ -137,21 +137,21 @@ describe('OrderTabsPipe', () => {
 
     it('should order a list of tabs by type, weight and name', () => {
       const tabs: Tab[] = [
-        {name: 'Paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Single stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Flam', type: 'flams', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Double stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Triple paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Flam drag', type: 'flams', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Eleven stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Double paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: []},
-        {name: 'Flam tap', type: 'flams', drumkit: false, timeSignature: '4/4', notes: []}
+        { name: 'Paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Single stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Flam', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Double stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Triple paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Flam drag', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Eleven stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Double paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        { name: 'Flam tap', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] }
       ];
 
       const types: Tag[] = [
-        {name: 'rolls', weight: 0, color: 'blue'},
-        {name: 'paradiddles', weight: 1, color: 'green'},
-        {name: 'flams', weight: 2, color: 'red'}
+        { name: 'rolls', weight: 0, color: 'blue' },
+        { name: 'paradiddles', weight: 1, color: 'green' },
+        { name: 'flams', weight: 2, color: 'red' }
       ];
 
       const expected: Tab[] = [
@@ -161,7 +161,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'rolls', weight: 0, color: 'blue'}
+          typeObject: { name: 'rolls', weight: 0, color: 'blue' }
         },
         {
           name: 'Eleven stroke roll',
@@ -169,7 +169,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'rolls', weight: 0, color: 'blue'}
+          typeObject: { name: 'rolls', weight: 0, color: 'blue' }
         },
         {
           name: 'Single stroke roll',
@@ -177,7 +177,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'rolls', weight: 0, color: 'blue'}
+          typeObject: { name: 'rolls', weight: 0, color: 'blue' }
         },
         {
           name: 'Double paradiddle',
@@ -185,7 +185,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'paradiddles', weight: 1, color: 'green'}
+          typeObject: { name: 'paradiddles', weight: 1, color: 'green' }
         },
         {
           name: 'Paradiddle',
@@ -193,7 +193,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'paradiddles', weight: 1, color: 'green'}
+          typeObject: { name: 'paradiddles', weight: 1, color: 'green' }
         },
         {
           name: 'Triple paradiddle',
@@ -201,7 +201,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'paradiddles', weight: 1, color: 'green'}
+          typeObject: { name: 'paradiddles', weight: 1, color: 'green' }
         },
         {
           name: 'Flam',
@@ -209,7 +209,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'flams', weight: 2, color: 'red'}
+          typeObject: { name: 'flams', weight: 2, color: 'red' }
         },
         {
           name: 'Flam drag',
@@ -217,7 +217,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'flams', weight: 2, color: 'red'}
+          typeObject: { name: 'flams', weight: 2, color: 'red' }
         },
         {
           name: 'Flam tap',
@@ -225,7 +225,7 @@ describe('OrderTabsPipe', () => {
           drumkit: false,
           timeSignature: '4/4',
           notes: [],
-          typeObject: {name: 'flams', weight: 2, color: 'red'}
+          typeObject: { name: 'flams', weight: 2, color: 'red' }
         }
       ];
 

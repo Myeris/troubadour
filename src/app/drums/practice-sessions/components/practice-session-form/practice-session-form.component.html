@@ -1,4 +1,4 @@
-<div class="practice-session-form" *ngIf="!showExerciseForm">
+<div *ngIf="!showExerciseForm" class="practice-session-form">
   <div class="practice-session-form__title">
     <h1>
       <app-svg-icon name="Drummer icon" path="assets/img/drums/drummer.svg"></app-svg-icon>
@@ -15,12 +15,12 @@
           Session name
         </h3>
         <input
-          type="text"
+          formControlName="name"
           placeholder="e.g. Weak hand practice"
-          formControlName="name" />
+          type="text"/>
         <div
-          class="error"
-          *ngIf="formNameInvalid">
+          *ngIf="formNameInvalid"
+          class="error">
           This field is required.
         </div>
       </div>
@@ -32,9 +32,9 @@
           Exercises
         </h3>
         <button
-          type="button"
+          (click)="addExercise()"
           class="practice-session-form__add"
-          (click)="addExercise()">
+          type="button">
           <mat-icon>add</mat-icon>
           Add exercise
         </button>
@@ -42,20 +42,20 @@
 
       <div formArrayName="exercises">
         <label
-          *ngFor="let c of formExercises.value; index as i;"
-          (click)="editExercise(c, i)">
+          (click)="editExercise(c, i)"
+          *ngFor="let c of formExercises.value; index as i;">
           <input
-            value="{{ c.tab?.name }} - {{ c | options }}"
-            disabled>
+            disabled
+            value="{{ c.tab?.name }} - {{ c | options }}">
           <span
-            class="practice-session-form__remove"
-            (click)="removeExercise(i)">
+            (click)="removeExercise(i)"
+            class="practice-session-form__remove">
             <mat-icon>close</mat-icon>
 						</span>
         </label>
 
-        <div class="message"
-             *ngIf="!formExercises.value.length && !showExerciseForm">
+        <div *ngIf="!formExercises.value.length && !showExerciseForm"
+             class="message">
           <mat-icon>inbox</mat-icon>
           No exercises. You need to add at least one to create a session.
         </div>
@@ -89,49 +89,49 @@
 
       <div>
         <button
-          *ngIf="!exists"
-          type="button"
-          class="button"
           (click)="createSession()"
-          [disabled]="formNameInvalid || !formExercises.length">
+          *ngIf="!exists"
+          [disabled]="formNameInvalid || !formExercises.length"
+          class="button"
+          type="button">
           Create session
         </button>
         <button
-          *ngIf="exists"
-          type="button"
-          class="button"
           (click)="updateSession()"
-          [disabled]="formNameInvalid || !formExercises.length">
+          *ngIf="exists"
+          [disabled]="formNameInvalid || !formExercises.length"
+          class="button"
+          type="button">
           Save
         </button>
         <a
-          class="button--cancel"
-          [routerLink]="['../']">
+          [routerLink]="['../']"
+          class="button--cancel">
           Cancel
         </a>
       </div>
-      <div class="practice-session-form__delete"
-           *ngIf="exists">
+      <div *ngIf="exists"
+           class="practice-session-form__delete">
         <div *ngIf="toggled">
           <p>Delete item?</p>
           <button
+            (click)="removeSession()"
             class="confirm"
-            type="button"
-            (click)="removeSession()">
+            type="button">
             Yes
           </button>
           <button
+            (click)="toggle()"
             class="cancel"
-            type="button"
-            (click)="toggle()">
+            type="button">
             No
           </button>
         </div>
 
         <button
+          (click)="toggle()"
           class="button button--delete"
-          type="button"
-          (click)="toggle()">
+          type="button">
           Delete
         </button>
       </div>
@@ -140,12 +140,12 @@
 </div>
 
 <app-exercise-form
-  *ngIf="showExerciseForm"
-  [tabs]="tabs"
-  [types]="types"
-  [selected]="null"
-  [editedExercise]="editedExercise"
   (added)="addExerciseToForm($event)"
+  (cancelled)="cancelAddExercise()"
   (edited)="editExerciseInForm($event)"
-  (cancelled)="cancelAddExercise()">
+  *ngIf="showExerciseForm"
+  [editedExercise]="editedExercise"
+  [selected]="null"
+  [tabs]="tabs"
+  [types]="types">
 </app-exercise-form>

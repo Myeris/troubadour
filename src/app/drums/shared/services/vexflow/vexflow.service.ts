@@ -1,5 +1,6 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as Vex from 'vexflow';
+import { Note } from '../../models/note.model';
 import Renderer = Vex.Flow.Renderer;
 import Stave = Vex.Flow.Stave;
 import StaveNote = Vex.Flow.StaveNote;
@@ -8,7 +9,6 @@ import IRenderContext = Vex.IRenderContext;
 import Tuplet = Vex.Flow.Tuplet;
 import GraceNote = Vex.Flow.GraceNote;
 import StaveTie = Vex.Flow.StaveTie;
-import {Note} from '../../models/note.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,14 +23,14 @@ export class VexflowService {
   private RENDERER_WIDTH = 855;
   private width: number;
 
+  constructor() {
+  }
+
   public get context(): IRenderContext {
     if (!this.renderer) {
       throw new Error(this.INIT_ERROR_MESSAGE);
     }
     return this.renderer.getContext();
-  }
-
-  constructor() {
   }
 
   public initVexflow(divId: string): Promise<any> {
@@ -77,10 +77,10 @@ export class VexflowService {
       staveNote.addModifier(0, new this.VF.Annotation(annotation));
 
       if (annotation === 'L') {
-        staveNote.setStyle({fillStyle: 'tomato'});
+        staveNote.setStyle({ fillStyle: 'tomato' });
       }
       if (annotation === 'R') {
-        staveNote.setStyle({fillStyle: 'cornflowerblue'});
+        staveNote.setStyle({ fillStyle: 'cornflowerblue' });
       }
     }
 

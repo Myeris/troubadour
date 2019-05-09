@@ -1,13 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {RouterTestingModule} from '@angular/router/testing';
-import {Store, StoreModule} from '@ngrx/store';
-import {FormGroup} from '@angular/forms';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Store, StoreModule } from '@ngrx/store';
+import { FormGroup } from '@angular/forms';
 // app
-import {RegisterComponent} from './register.component';
-import {appReducers, AppState} from '../../../../store/app.reducer';
-import {getError} from '../../../../store/user/selectors/user.selectors';
-import {Register} from '../../../../store/user/actions/user.actions';
+import { RegisterComponent } from './register.component';
+import { appReducers, AppState } from '../../../../store/app.reducer';
+import { getError } from '../../../../store/user/selectors/user.selectors';
+import { Register } from '../../../../store/user/actions/user.actions';
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -51,11 +51,11 @@ describe('RegisterComponent', () => {
   describe('registerUser', () => {
     it('should dispatch a Register action', () => {
       spyOn(store, 'dispatch').and.callThrough();
-      const value = {email: 'email', password: 'password'};
+      const value = { email: 'email', password: 'password' };
 
-      component.registerUser({value} as FormGroup);
+      component.registerUser({ value } as FormGroup);
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(new Register({authRequest: value}));
+      expect(store.dispatch).toHaveBeenCalledWith(new Register({ authRequest: value }));
     });
   });
 });

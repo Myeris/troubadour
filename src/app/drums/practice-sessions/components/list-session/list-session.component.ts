@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {PracticeSession} from '../../../shared/models/practice-session.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
 
 @Component({
   selector: 'app-list-session',

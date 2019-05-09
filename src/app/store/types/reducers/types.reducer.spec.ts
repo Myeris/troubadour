@@ -1,7 +1,7 @@
-import {initialTypesState} from '../types.state';
-import {typesReducer} from './types.reducer';
-import {TypesListLoad, TypesListLoadFail, TypesListLoadSuccess} from '../actions/types.actions';
-import {Tag} from '../../../drums/shared/models/tag.model';
+import { initialTypesState } from '../types.state';
+import { typesReducer } from './types.reducer';
+import { TypesListLoad, TypesListLoadFail, TypesListLoadSuccess } from '../actions/types.actions';
+import { Tag } from '../../../drums/shared/models/tag.model';
 
 describe('TypesReducer', () => {
   describe('undefined actions', () => {
@@ -28,7 +28,7 @@ describe('TypesReducer', () => {
   describe('LoadListFail', () => {
     it('should set the state', () => {
       const error = 'error';
-      const action = new TypesListLoadFail({error});
+      const action = new TypesListLoadFail({ error });
       const state = typesReducer(initialTypesState, action);
 
       expect(state.isLoading).toBeFalsy();
@@ -39,8 +39,8 @@ describe('TypesReducer', () => {
 
   describe('ListLoadSuccess', () => {
     it('should set the state', () => {
-      const types: Tag[] = [{name: 'name', color: 'red'}];
-      const action = new TypesListLoadSuccess({types});
+      const types: Tag[] = [{ name: 'name', color: 'red' }];
+      const action = new TypesListLoadSuccess({ types });
       const state = typesReducer(initialTypesState, action);
 
       console.log(state.entities);

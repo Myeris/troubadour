@@ -1,14 +1,14 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
-import {RouterTestingModule} from '@angular/router/testing';
-import {By} from '@angular/platform-browser';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 // app
-import {PracticeSessionDisplayComponent} from './practice-session-display.component';
-import {SharedModule} from '../../../shared/shared.module';
-import {PracticeSession} from '../../../shared/models/practice-session.model';
-import {MetronomeService} from '../../../shared/services/metronome/metronome.service';
-import {Tab} from '../../../shared/models/tab.model';
-import {VexflowService} from '../../../shared/services/vexflow/vexflow.service';
+import { PracticeSessionDisplayComponent } from './practice-session-display.component';
+import { SharedModule } from '../../../shared/shared.module';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
+import { MetronomeService } from '../../../shared/services/metronome/metronome.service';
+import { Tab } from '../../../shared/models/tab.model';
+import { VexflowService } from '../../../shared/services/vexflow/vexflow.service';
 
 const tabs: Tab[] = [
   {
@@ -17,22 +17,22 @@ const tabs: Tab[] = [
     drumkit: false,
     timeSignature: '4/4',
     notes: [
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']}
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] }
     ],
     $key: '1',
     $exist: () => true
@@ -43,22 +43,22 @@ const tabs: Tab[] = [
     drumkit: false,
     timeSignature: '4/4',
     notes: [
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']}
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] }
     ],
     $key: '2',
     $exist: () => true
@@ -67,7 +67,7 @@ const tabs: Tab[] = [
 const session: PracticeSession = {
   name: 'Session1',
   exercises: [
-    {hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1}
+    { hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 }
   ],
   repeat: 1,
   created: new Date().valueOf(),
@@ -114,8 +114,8 @@ describe('PracticeSessionDisplayComponent', () => {
         PracticeSessionDisplayComponent
       ],
       providers: [
-        {provide: MetronomeService, useClass: MetronomeServiceMock},
-        {provide: VexflowService, useClass: VexflowServiceMock},
+        { provide: MetronomeService, useClass: MetronomeServiceMock },
+        { provide: VexflowService, useClass: VexflowServiceMock }
       ],
       imports: [
         SharedModule,

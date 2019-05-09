@@ -1,9 +1,9 @@
-import {Store, StoreModule} from '@ngrx/store';
-import {TestBed} from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
+import { TestBed } from '@angular/core/testing';
 // app
-import {appReducers, AppState} from '../../app.reducer';
-import {getError, isLoading} from './tabs.selector';
-import {TabListLoad, TabListLoadFail, TabListLoadSuccess} from '../actions/tabs.actions';
+import { appReducers, AppState } from '../../app.reducer';
+import { getError, isLoading } from './tabs.selector';
+import { TabListLoad, TabListLoadFail, TabListLoadSuccess } from '../actions/tabs.actions';
 
 describe('TabsSelectors', () => {
   let store: Store<AppState>;
@@ -29,13 +29,13 @@ describe('TabsSelectors', () => {
       store.dispatch(new TabListLoad());
       expect(result).toBeTruthy();
 
-      store.dispatch(new TabListLoadFail({error: 'error'}));
+      store.dispatch(new TabListLoadFail({ error: 'error' }));
       expect(result).toBeFalsy();
 
       store.dispatch(new TabListLoad());
       expect(result).toBeTruthy();
 
-      store.dispatch(new TabListLoadSuccess({tabList: []}));
+      store.dispatch(new TabListLoadSuccess({ tabList: [] }));
       expect(result).toBeFalsy();
     });
   });
@@ -51,16 +51,16 @@ describe('TabsSelectors', () => {
 
       expect(result).toBeNull();
 
-      store.dispatch(new TabListLoadFail({error}));
+      store.dispatch(new TabListLoadFail({ error }));
       expect(result).toBe(error);
 
       store.dispatch(new TabListLoad());
       expect(result).toBeNull();
 
-      store.dispatch(new TabListLoadFail({error}));
+      store.dispatch(new TabListLoadFail({ error }));
       expect(result).toBe(error);
 
-      store.dispatch(new TabListLoadSuccess({tabList: []}));
+      store.dispatch(new TabListLoadSuccess({ tabList: [] }));
       expect(result).toBeNull();
     });
   });

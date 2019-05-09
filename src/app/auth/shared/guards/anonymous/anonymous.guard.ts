@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot} from '@angular/router';
-import {Observable} from 'rxjs';
-import {Store} from '@ngrx/store';
-import {map, take} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, RouterStateSnapshot } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { map, take } from 'rxjs/operators';
 // app
-import {AppState} from '../../../../store/app.reducer';
-import {isLoggedIn} from '../../../../store/user/selectors/user.selectors';
+import { AppState } from '../../../../store/app.reducer';
+import { isLoggedIn } from '../../../../store/user/selectors/user.selectors';
 
 @Injectable()
 export class AnonymousGuard implements CanActivate, CanActivateChild {

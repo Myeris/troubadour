@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {SnapshotAction} from '@angular/fire/database';
+import { Injectable } from '@angular/core';
+import { SnapshotAction } from '@angular/fire/database';
 // app
-import {PracticeSession} from '../../models/practice-session.model';
-import {Exercise} from '../../models/exercise.model';
+import { PracticeSession } from '../../models/practice-session.model';
+import { Exercise } from '../../models/exercise.model';
 
 @Injectable()
 export class PracticeSessionsService {
@@ -15,7 +15,7 @@ export class PracticeSessionsService {
       const data = a.payload.val();
       const $key = a.payload.key;
 
-      return {$key, ...data};
+      return { $key, ...data };
     });
   }
 

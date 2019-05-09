@@ -1,6 +1,6 @@
-import {Action} from '@ngrx/store';
+import { Action } from '@ngrx/store';
 // app
-import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
+import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
 
 export enum PracticeSessionsActionsTypes {
   LoadList = '[Practice session list page] Load list',

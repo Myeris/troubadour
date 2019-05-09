@@ -1,7 +1,7 @@
-import {createSelector} from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 // app
-import {AppState} from '../../app.reducer';
-import {typesEntityAdapter} from '../types.state';
+import { AppState } from '../../app.reducer';
+import { typesEntityAdapter } from '../types.state';
 
 export const selectType = (state: AppState) => state.type;
 

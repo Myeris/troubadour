@@ -1,15 +1,15 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {FormGroup} from '@angular/forms';
-import {Store} from '@ngrx/store';
-import {Observable} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 // app
-import {AuthRequest} from '../../../shared/models/auth-request.model';
-import {LifecycleComponent} from '../../../../shared/components/lifecycle/lifecycle.component';
-import {AppState} from '../../../../store/app.reducer';
-import {getError} from '../../../../store/user/selectors/user.selectors';
-import {Register} from '../../../../store/user/actions/user.actions';
+import { AuthRequest } from '../../../shared/models/auth-request.model';
+import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
+import { AppState } from '../../../../store/app.reducer';
+import { getError } from '../../../../store/user/selectors/user.selectors';
+import { Register } from '../../../../store/user/actions/user.actions';
 
 
 @Component({
@@ -32,6 +32,6 @@ export class RegisterComponent extends LifecycleComponent implements OnInit {
 
   public registerUser(event: FormGroup): void {
     const authRequest: AuthRequest = event.value;
-    this.store.dispatch(new Register({authRequest}));
+    this.store.dispatch(new Register({ authRequest }));
   }
 }

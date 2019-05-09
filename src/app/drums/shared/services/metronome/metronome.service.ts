@@ -1,12 +1,12 @@
-import {Injectable} from '@angular/core';
-import {NavigationStart, Router} from '@angular/router';
-import Timer = NodeJS.Timer;
-import {filter, take, tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
+import { filter, take, tap } from 'rxjs/operators';
 // app
-import {Exercise} from '../../models/exercise.model';
-import {Note} from '../../models/note.model';
-import {BufferLoader} from '../../utils/buffer-loader';
-import {ExerciseService} from '../exercise/exercise.service';
+import { Exercise } from '../../models/exercise.model';
+import { Note } from '../../models/note.model';
+import { BufferLoader } from '../../utils/buffer-loader';
+import { ExerciseService } from '../exercise/exercise.service';
+import Timer = NodeJS.Timer;
 
 @Injectable()
 export class MetronomeService {
@@ -63,25 +63,6 @@ export class MetronomeService {
     });
   }
 
-  private playSound(buffer: AudioBuffer, time: number, loop: boolean = false): void {
-    if (!this.gainNode) {
-      this.gainNode = this.context.createGain();
-    }
-
-    const source = this.context.createBufferSource();
-    source.buffer = buffer;
-    source.loop = loop;
-    source.connect(this.gainNode);
-    this.gainNode.connect(this.context.destination);
-    this.changeVolume({value: 75, max: 100});
-
-    try {
-      source.start(time);
-    } catch (e) {
-      throw new Error(e);
-    }
-  }
-
   public playExercise(exercise: Exercise, addClickCounter: boolean = true, isScaleExercise: boolean = false): Promise<any> {
     return new Promise((resolve, reject) => {
       // if context is suspended, resume. Else create the exercise
@@ -119,8 +100,8 @@ export class MetronomeService {
     const click = this.bufferLoader.bufferList[0];
     const accent = this.bufferLoader.bufferList[1];
     const startTime = this.context.currentTime + 0.100;
-    const noteTime = this.getNoteTime(form.bpm, {keys: ['c/5'], duration: form.subdivision.toString()});
-    const beatNoteTime = this.getNoteTime(form.bpm, {keys: ['c/5'], duration: form.beat.toString()});
+    const noteTime = this.getNoteTime(form.bpm, { keys: ['c/5'], duration: form.subdivision.toString() });
+    const beatNoteTime = this.getNoteTime(form.bpm, { keys: ['c/5'], duration: form.beat.toString() });
     const denominator: number = form.subdivision / form.beat;
     const accents: number[] = [];
     const repeat = 10;
@@ -156,9 +137,61 @@ export class MetronomeService {
     }, totalDuration * 1000));
   }
 
+  public async pause(): Promise<void> {
+    await this.context.suspend();
+    this.timeouts.forEach(timeout => clearTimeout(timeout));
+  }
+
+  public async resume(): Promise<void> {
+    await this.context.resume();
+  }
+
+  public async stop(): Promise<number> {
+    await this.close();
+    const bpm = this.currentBpm;
+
+    this.timeouts.forEach(timeout => clearTimeout(timeout));
+
+    // reinit properties
+    this.context = null;
+    this.bufferLoader = null;
+    this.gainNode = null;
+    this.currentBpm = null;
+
+    return bpm;
+  }
+
+  public changeVolume(element: any): void {
+    if (!this.gainNode) {
+      this.gainNode = this.context.createGain();
+    }
+
+    const fraction = parseInt(element.value, 16) / parseInt(element.max, 16);
+    this.gainNode.gain.value = fraction * fraction;
+  }
+
+  private playSound(buffer: AudioBuffer, time: number, loop: boolean = false): void {
+    if (!this.gainNode) {
+      this.gainNode = this.context.createGain();
+    }
+
+    const source = this.context.createBufferSource();
+    source.buffer = buffer;
+    source.loop = loop;
+    source.connect(this.gainNode);
+    this.gainNode.connect(this.context.destination);
+    this.changeVolume({ value: 75, max: 100 });
+
+    try {
+      source.start(time);
+    } catch (e) {
+      throw new Error(e);
+    }
+  }
+
   private async handleBpmScaleExercise(exercise: Exercise): Promise<void> {
     const bpmExercises: Exercise[] = [];
-    const {start, stop, step} = Object.assign(exercise.bpmScale);
+    const { start, stop, step } = Object.assign(exercise.bpmScale);
 
     for (let bpm = start; bpm <= stop; bpm += step) {
       const bpmExercise: Exercise = {
@@ -168,7 +201,7 @@ export class MetronomeService {
         duration: this.exerciseService.getExerciseDuration(exercise.tab.timeSignature, exercise.repeat, bpm),
         tabRef: exercise.tab.$key,
         tab: exercise.tab,
-        soundOptions: exercise.soundOptions || {playAlong: true, metronomeOnly: false}
+        soundOptions: exercise.soundOptions || { playAlong: true, metronomeOnly: false }
       };
 
       bpmExercises.push(bpmExercise);
@@ -216,12 +249,12 @@ export class MetronomeService {
       if (exercise.tab.name === 'Multiple bounce roll') {
         exercise.tab.notes = [];
         for (let i = 0; i < 32; i++) {
-          exercise.tab.notes.push({duration: '32', keys: ['c/5']});
+          exercise.tab.notes.push({ duration: '32', keys: ['c/5'] });
         }
       }
 
       if (!exercise.soundOptions) {
-        exercise.soundOptions = {metronomeOnly: false, playAlong: true};
+        exercise.soundOptions = { metronomeOnly: false, playAlong: true };
       }
 
       let nextTime: number = null;
@@ -237,7 +270,7 @@ export class MetronomeService {
         } else {
           if (exercise.soundOptions.metronomeOnly) {
             const subdivision: number = parseInt(exercise.soundOptions.metronomeSettings.subdivision, 16);
-            const noteTime: number = this.getNoteTime(exercise.bpm, {keys: ['c/5'], duration: subdivision.toString()});
+            const noteTime: number = this.getNoteTime(exercise.bpm, { keys: ['c/5'], duration: subdivision.toString() });
 
             for (let i = 0; i < subdivision; i++) {
               const time = nextTime || startTime + 0.100;
@@ -298,39 +331,6 @@ export class MetronomeService {
         }
       }
     });
-  }
-
-  public async pause(): Promise<void> {
-    await this.context.suspend();
-    this.timeouts.forEach(timeout => clearTimeout(timeout));
-  }
-
-  public async resume(): Promise<void> {
-    await this.context.resume();
-  }
-
-  public async stop(): Promise<number> {
-    await this.close();
-    const bpm = this.currentBpm;
-
-    this.timeouts.forEach(timeout => clearTimeout(timeout));
-
-    // reinit properties
-    this.context = null;
-    this.bufferLoader = null;
-    this.gainNode = null;
-    this.currentBpm = null;
-
-    return bpm;
-  }
-
-  public changeVolume(element: any): void {
-    if (!this.gainNode) {
-      this.gainNode = this.context.createGain();
-    }
-
-    const fraction = parseInt(element.value, 16) / parseInt(element.max, 16);
-    this.gainNode.gain.value = fraction * fraction;
   }
 
   private finishedLoading(bufferList: AudioBuffer[]): void {

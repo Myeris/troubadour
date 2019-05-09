@@ -1,4 +1,4 @@
-import {MetronomeSettings} from './metronome-settings.model';
+import { MetronomeSettings } from './metronome-settings.model';
 
 export interface SoundOptions {
   playAlong?: boolean;

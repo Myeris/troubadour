@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 // app
-import {NumberToCollectionPipe} from './number-to-collection.pipe';
+import { NumberToCollectionPipe } from './number-to-collection.pipe';
 
 describe('NumberToCollectionPipe', () => {
   describe('Shallow NumberToCollectionPipe test', () => {

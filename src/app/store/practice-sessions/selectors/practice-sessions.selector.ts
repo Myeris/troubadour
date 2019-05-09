@@ -1,7 +1,7 @@
-import {createSelector} from '@ngrx/store';
+import { createSelector } from '@ngrx/store';
 // app
-import {AppState} from '../../app.reducer';
-import {practiceSessionsEntityAdapter} from '../practice-sessions.state';
+import { AppState } from '../../app.reducer';
+import { practiceSessionsEntityAdapter } from '../practice-sessions.state';
 
 export const selectPracticeSession = (state: AppState) => state.practiceSession;
 

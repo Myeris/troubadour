@@ -1,8 +1,8 @@
 export class BufferLoader {
+  public bufferList: any[];
   private context: any;
   private urlList: any;
   private onload: any;
-  public bufferList: any[];
   private loadCount: number;
 
   constructor(context: any, urlList: string[], callback: any) {

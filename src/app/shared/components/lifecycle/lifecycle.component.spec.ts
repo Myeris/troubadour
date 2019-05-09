@@ -1,6 +1,6 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 // app
-import {LifecycleComponent} from './lifecycle.component';
+import { LifecycleComponent } from './lifecycle.component';
 
 const componentDestroyed$ = 'componentDestroyed$';
 

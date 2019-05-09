@@ -1,5 +1,5 @@
-import {initialTabsState, tabsEntityAdapter, TabsState} from '../tabs.state';
-import {TabsActions, TabsActionsTypes} from '../actions/tabs.actions';
+import { initialTabsState, tabsEntityAdapter, TabsState } from '../tabs.state';
+import { TabsActions, TabsActionsTypes } from '../actions/tabs.actions';
 
 export function tabsReducer(
   state: TabsState = initialTabsState,
@@ -7,7 +7,7 @@ export function tabsReducer(
 ) {
   switch (action.type) {
     case TabsActionsTypes.LoadList:
-      return {...state, isLoading: true, error: null};
+      return { ...state, isLoading: true, error: null };
     case TabsActionsTypes.LoadListSuccess:
       return tabsEntityAdapter.addAll(action.payload.tabList, {
         ...state,
@@ -15,7 +15,7 @@ export function tabsReducer(
         error: null
       });
     case TabsActionsTypes.LoadListFail:
-      return {...state, isLoading: false, error: action.payload.error};
+      return { ...state, isLoading: false, error: action.payload.error };
     default:
       return state;
   }

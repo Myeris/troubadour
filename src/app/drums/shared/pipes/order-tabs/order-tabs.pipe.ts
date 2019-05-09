@@ -1,7 +1,7 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 // app
-import {Tab} from '../../models/tab.model';
-import {Tag} from '../../models/tag.model';
+import { Tab } from '../../models/tab.model';
+import { Tag } from '../../models/tag.model';
 
 @Pipe({
   name: 'orderTabs'

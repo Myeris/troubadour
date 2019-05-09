@@ -1,8 +1,8 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
-import {TabsResource} from './tabs.resource';
-import {TabsService} from '../../services/tabs/tabs.service';
-import {AngularFireDatabase} from '@angular/fire/database';
+import { TabsResource } from './tabs.resource';
+import { TabsService } from '../../services/tabs/tabs.service';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 class AfDbMock {
   list() {
@@ -22,7 +22,7 @@ describe('TabsResource', () => {
       providers: [
         TabsResource,
         TabsService,
-        {provide: AngularFireDatabase, useFactory: () => new AfDbMock()},
+        { provide: AngularFireDatabase, useFactory: () => new AfDbMock() }
       ]
     });
 

@@ -1,7 +1,7 @@
-import {Pipe, PipeTransform} from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
 // app
-import {Exercise} from '../../models/exercise.model';
-import {DurationPipe} from '../duration/duration.pipe';
+import { Exercise } from '../../models/exercise.model';
+import { DurationPipe } from '../duration/duration.pipe';
 
 @Pipe({
   name: 'options'
@@ -12,7 +12,7 @@ export class OptionsPipe extends DurationPipe implements PipeTransform {
     let res = 'Undefined options exercises.';
 
     if (!value.hasOwnProperty('soundOptions')) {
-      value.soundOptions = {playAlong: true};
+      value.soundOptions = { playAlong: true };
     }
 
     if (value.bpmScale) {

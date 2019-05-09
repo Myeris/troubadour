@@ -1,8 +1,8 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 // app
-import {UserService} from './user.service';
+import { UserService } from './user.service';
+import { User } from '../models/user.model';
 import UserCredential = firebase.auth.UserCredential;
-import {User} from '../models/user.model';
 
 const user: User = {
   email: 'email',

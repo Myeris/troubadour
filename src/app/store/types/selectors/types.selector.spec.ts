@@ -1,9 +1,9 @@
-import {Store, StoreModule} from '@ngrx/store';
-import {TestBed} from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
+import { TestBed } from '@angular/core/testing';
 // app
-import {appReducers, AppState} from '../../app.reducer';
-import {getError, isLoading} from './types.selector';
-import {TypesListLoad, TypesListLoadFail, TypesListLoadSuccess} from '../actions/types.actions';
+import { appReducers, AppState } from '../../app.reducer';
+import { getError, isLoading } from './types.selector';
+import { TypesListLoad, TypesListLoadFail, TypesListLoadSuccess } from '../actions/types.actions';
 
 describe('TypesSelector', () => {
   let store: Store<AppState>;
@@ -29,13 +29,13 @@ describe('TypesSelector', () => {
       store.dispatch(new TypesListLoad());
       expect(result).toBeTruthy();
 
-      store.dispatch(new TypesListLoadFail({error: 'error'}));
+      store.dispatch(new TypesListLoadFail({ error: 'error' }));
       expect(result).toBeFalsy();
 
       store.dispatch(new TypesListLoad());
       expect(result).toBeTruthy();
 
-      store.dispatch(new TypesListLoadSuccess({types: []}));
+      store.dispatch(new TypesListLoadSuccess({ types: [] }));
       expect(result).toBeFalsy();
     });
   });
@@ -51,16 +51,16 @@ describe('TypesSelector', () => {
 
       expect(result).toBeNull();
 
-      store.dispatch(new TypesListLoadFail({error}));
+      store.dispatch(new TypesListLoadFail({ error }));
       expect(result).toBe(error);
 
       store.dispatch(new TypesListLoad());
       expect(result).toBeNull();
 
-      store.dispatch(new TypesListLoadFail({error}));
+      store.dispatch(new TypesListLoadFail({ error }));
       expect(result).toBe(error);
 
-      store.dispatch(new TypesListLoadSuccess({types: []}));
+      store.dispatch(new TypesListLoadSuccess({ types: [] }));
       expect(result).toBeNull();
     });
   });

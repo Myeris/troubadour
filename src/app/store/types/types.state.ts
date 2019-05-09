@@ -1,6 +1,6 @@
-import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 // app
-import {Tag} from '../../drums/shared/models/tag.model';
+import { Tag } from '../../drums/shared/models/tag.model';
 
 export interface TypesState extends EntityState<Tag> {
   isLoading: boolean;

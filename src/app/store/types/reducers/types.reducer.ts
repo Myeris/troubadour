@@ -1,5 +1,5 @@
-import {initialTypesState, typesEntityAdapter, TypesState} from '../types.state';
-import {TypesActions, TypesActionsTypes} from '../actions/types.actions';
+import { initialTypesState, typesEntityAdapter, TypesState } from '../types.state';
+import { TypesActions, TypesActionsTypes } from '../actions/types.actions';
 
 export function typesReducer(
   state: TypesState = initialTypesState,
@@ -7,7 +7,7 @@ export function typesReducer(
 ) {
   switch (action.type) {
     case TypesActionsTypes.LoadList:
-      return {...state, isLoading: true, error: null};
+      return { ...state, isLoading: true, error: null };
     case TypesActionsTypes.LoadListSuccess:
       return typesEntityAdapter.addAll(action.payload.types, {
         ...state,
@@ -15,7 +15,7 @@ export function typesReducer(
         error: null
       });
     case TypesActionsTypes.LoadListFail:
-      return {...state, isLoading: false, error: action.payload.error};
+      return { ...state, isLoading: false, error: action.payload.error };
     default:
       return state;
   }

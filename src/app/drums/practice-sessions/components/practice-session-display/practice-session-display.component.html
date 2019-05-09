@@ -9,7 +9,7 @@
 				</span>
       </h1>
 
-      <a class="edit" [routerLink]="['../', session.$key, 'edit']">
+      <a [routerLink]="['../', session.$key, 'edit']" class="edit">
         <mat-icon>edit</mat-icon>
       </a>
     </div>
@@ -25,8 +25,8 @@
         {{ session.exercises.length }} exercises
       </div>
 
-      <div class="repeat"
-           [title]="'Repeat the session ' + session.repeat + ' times'">
+      <div [title]="'Repeat the session ' + session.repeat + ' times'"
+           class="repeat">
         <mat-icon>settings_backup_restore</mat-icon>
         {{ session.repeat }} times
       </div>
@@ -39,9 +39,9 @@
 
     <div class="practice-session__exercises">
       <div
-        class="exercise {{ i !== inPlayIndex && (this.state === 'running' || this.state === 'suspended')? 'empty' : '' }}"
+        *ngFor="let e of session.exercises; let i = index;"
         [id]="'exercise-' + i"
-        *ngFor="let e of session.exercises; let i = index;">
+        class="exercise {{ i !== inPlayIndex && (this.state === 'running' || this.state === 'suspended')? 'empty' : '' }}">
 
         <h4
           (click)="inPlayIndex = i; this.state === 'running' ? play() : scrollIntoView()">
@@ -51,30 +51,30 @@
 						{{ e | options }}
 					</span>
         </h4>
-          <app-tab-display
-            *ngIf="e.tab"
-            [exercise]="e">
-          </app-tab-display>
+        <app-tab-display
+          *ngIf="e.tab"
+          [exercise]="e">
+        </app-tab-display>
       </div>
     </div>
   </div>
 
   <div class="practice-session__controls">
     <div
-      class="playing"
-      [style.width]="playTime + '%'">
+      [style.width]="playTime + '%'"
+      class="playing">
     </div>
 
-    <div class="content" *ngIf="session.exercises.length">
+    <div *ngIf="session.exercises.length" class="content">
       <div
-        class="cover"
-        (click)="scrollIntoView()">
+        (click)="scrollIntoView()"
+        class="cover">
         #{{ inPlayIndex + 1 }}
       </div>
 
       <div
-        class="title"
-        (click)="scrollIntoView()">
+        (click)="scrollIntoView()"
+        class="title">
         <p>
           {{ session.exercises[inPlayIndex].tab?.name }}
 
@@ -86,33 +86,33 @@
 
       <div class="play-stop">
         <button
-          class="button previous"
-          type="button"
           (click)="playPrevious();"
-          [style.opacity]="inPlayIndex === 0 ? '0.5' : '1'">
+          [style.opacity]="inPlayIndex === 0 ? '0.5' : '1'"
+          class="button previous"
+          type="button">
           <mat-icon>skip_previous</mat-icon>
         </button>
 
         <button
-          type="button"
+          (click)="playPause()"
           class="button play"
-          (click)="playPause()">
+          type="button">
           <mat-icon *ngIf="state !== 'running'">play_arrow</mat-icon>
           <mat-icon *ngIf="state === 'running'">pause</mat-icon>
         </button>
 
         <button
-          type="button"
+          (click)="stop()"
           class="button stop"
-          (click)="stop()">
+          type="button">
           <mat-icon>stop</mat-icon>
         </button>
 
         <button
-          class="button next"
-          type="button"
           (click)="playNext();"
-          [style.opacity]="inPlayIndex === (session.exercises.length - 1) ? '0.5' : '1'">
+          [style.opacity]="inPlayIndex === (session.exercises.length - 1) ? '0.5' : '1'"
+          class="button next"
+          type="button">
           <mat-icon>skip_next</mat-icon>
         </button>
       </div>
@@ -121,11 +121,11 @@
         <mat-icon>volume_up</mat-icon>
 
         <input
-          type="range"
+          (input)="changeVolume($event)"
           max="100"
           min="0"
-          value="75"
-          (input)="changeVolume($event)">
+          type="range"
+          value="75">
       </div>
     </div>
   </div>

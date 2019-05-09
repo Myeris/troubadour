@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-sound-options',
@@ -24,15 +24,15 @@ export class SoundOptionsComponent implements OnChanges {
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() invalid: EventEmitter<string> = new EventEmitter<string>();
 
+  constructor(private fb: FormBuilder) {
+  }
+
   public get formAccents(): FormArray {
     return this.form.get('settings').get('accents') as FormArray;
   }
 
   public get type(): number {
     return this.form.get('type').value;
-  }
-
-  constructor(private fb: FormBuilder) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {

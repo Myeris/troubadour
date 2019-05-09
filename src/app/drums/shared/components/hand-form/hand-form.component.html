@@ -1,24 +1,24 @@
 <div
-  class="hand-form"
-  [formGroup]="form">
+  [formGroup]="form"
+  class="hand-form">
   <p>
     Start with
   </p>
   <label>
     <input
-      type="radio"
-      name="hand"
-      value="R"
+      (change)="onChange()"
       formControlName="hand"
-      (change)="onChange()"> Right hand
+      name="hand"
+      type="radio"
+      value="R"> Right hand
   </label>
 
   <label>
     <input
-      type="radio"
-      name="hand"
-      value="L"
+      (change)="onChange()"
       formControlName="hand"
-      (change)="onChange()"> Left hand
+      name="hand"
+      type="radio"
+      value="L"> Left hand
   </label>
 </div>

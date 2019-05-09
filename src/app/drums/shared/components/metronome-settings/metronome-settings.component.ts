@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-metronome-settings',
@@ -19,6 +19,14 @@ export class MetronomeSettingsComponent implements OnChanges {
   constructor(private fb: FormBuilder) {
   }
 
+  public get subdivision(): number {
+    return parseInt(this.form.get('subdivision').value, 16);
+  }
+
+  public get accents(): FormArray {
+    return this.form.get('accents') as FormArray;
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (this.initValue) {
       this.form.patchValue(this.initValue.value);
@@ -29,14 +37,6 @@ export class MetronomeSettingsComponent implements OnChanges {
 
       this.changed.emit(this.form);
     }
-  }
-
-  public get subdivision(): number {
-    return parseInt(this.form.get('subdivision').value, 16);
-  }
-
-  public get accents(): FormArray {
-    return this.form.get('accents') as FormArray;
   }
 
   public onChange(): void {

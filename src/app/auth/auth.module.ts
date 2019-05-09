@@ -1,11 +1,11 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {AngularFireDatabaseModule} from '@angular/fire/database';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 // app
-import {AuthRoutingModule} from './auth-routing.module';
-import {SharedModule} from './shared/shared.module';
+import { AuthRoutingModule } from './auth-routing.module';
+import { SharedModule } from './shared/shared.module';
 
 export const firebaseConfig = {
   apiKey: 'AIzaSyAAPo3qoSzFGJkEeWMd7cq8a2UuPT8xYTI',

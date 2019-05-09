@@ -1,7 +1,7 @@
-import {Component, Input} from '@angular/core';
-import {Router} from '@angular/router';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 // app
-import {Breadcrumb} from '../../models/breadcrumb.model';
+import { Breadcrumb } from '../../models/breadcrumb.model';
 
 @Component({
   selector: 'app-breadcrumb',

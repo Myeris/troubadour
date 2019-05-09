@@ -1,11 +1,11 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {DebugElement} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {ReactiveFormsModule} from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 // app
-import {MetronomeSettingsComponent} from './metronome-settings.component';
-import {NumberToCollectionPipe} from '../../pipes/number-to-collection/number-to-collection.pipe';
-import {NoteCountPipe} from '../../pipes/note-count/note-count.pipe';
+import { MetronomeSettingsComponent } from './metronome-settings.component';
+import { NumberToCollectionPipe } from '../../pipes/number-to-collection/number-to-collection.pipe';
+import { NoteCountPipe } from '../../pipes/note-count/note-count.pipe';
 
 describe('MetronomeSettingsComponent', () => {
   let component: MetronomeSettingsComponent;
@@ -60,7 +60,7 @@ describe('MetronomeSettingsComponent', () => {
 
   it('should emit an event on accent changes', () => {
     const spy = spyOn(component.changed, 'emit');
-    component.onAccentChange(4, {target: {value: {checked: true}}});
+    component.onAccentChange(4, { target: { value: { checked: true } } });
     expect(spy).toHaveBeenCalled();
   });
 });

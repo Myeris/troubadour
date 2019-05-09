@@ -13,11 +13,11 @@
     Login
   </button>
 
-  <div class="error" *ngIf="(error$ | async)">
+  <div *ngIf="(error$ | async)" class="error">
     {{ (error$ | async) }}
     <a
-      *ngIf="showEmailVerificationButton"
-      (click)="resendVerificationEmail()">
+      (click)="resendVerificationEmail()"
+      *ngIf="showEmailVerificationButton">
       Resend the verification email?
     </a>
   </div>

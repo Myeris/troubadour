@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 // app
-import {Exercise} from '../../../shared/models/exercise.model';
-import {Tag} from '../../../shared/models/tag.model';
-import {PracticeSession} from '../../../shared/models/practice-session.model';
-import {Tab} from '../../../shared/models/tab.model';
-import {PracticeSessionsService} from '../../../shared/services/practice-sessions/practice-sessions.service';
+import { Exercise } from '../../../shared/models/exercise.model';
+import { Tag } from '../../../shared/models/tag.model';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
+import { Tab } from '../../../shared/models/tab.model';
+import { PracticeSessionsService } from '../../../shared/services/practice-sessions/practice-sessions.service';
 
 @Component({
   selector: 'app-practice-session-form',
@@ -41,6 +41,10 @@ export class PracticeSessionFormComponent implements OnChanges {
     shared: [false, Validators.required]
   });
 
+  constructor(private fb: FormBuilder,
+              private practiceSessionsService: PracticeSessionsService) {
+  }
+
   public get formExercises(): FormArray {
     return this.form.get('exercises') as FormArray;
   }
@@ -48,10 +52,6 @@ export class PracticeSessionFormComponent implements OnChanges {
   public get formNameInvalid(): boolean {
     const control = this.form.get('name');
     return control.hasError('required') && control.touched;
-  }
-
-  constructor(private fb: FormBuilder,
-              private practiceSessionsService: PracticeSessionsService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {

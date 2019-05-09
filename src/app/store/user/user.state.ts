@@ -1,6 +1,6 @@
-import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 // app
-import {User} from '../../auth/shared/models/user.model';
+import { User } from '../../auth/shared/models/user.model';
 
 export interface UserState extends EntityState<User> {
   selectedId: string;

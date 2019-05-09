@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import UserCredential = firebase.auth.UserCredential;
-import {AngularFireAuth} from '@angular/fire/auth';
+import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 // app
-import {AuthRequest} from '../models/auth-request.model';
+import { AuthRequest } from '../models/auth-request.model';
+import UserCredential = firebase.auth.UserCredential;
 
 @Injectable()
 export class AuthResource {

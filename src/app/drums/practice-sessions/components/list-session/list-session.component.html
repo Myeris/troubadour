@@ -22,29 +22,29 @@
   </a>
 
   <div
-    class="list-session__delete"
-    *ngIf="toggled">
+    *ngIf="toggled"
+    class="list-session__delete">
     <p>
       Delete practice session?
     </p>
     <button
+      (click)="removeSession()"
       class="confirm"
-      type="button"
-      (click)="removeSession()">
+      type="button">
       Yes
     </button>
     <button
+      (click)="toggle()"
       class="cancel"
-      type="button"
-      (click)="toggle()">
+      type="button">
       No
     </button>
   </div>
 
   <button
+    (click)="toggle()"
     class="trash"
-    type="button"
-    (click)="toggle()">
+    type="button">
     <mat-icon>delete</mat-icon>
   </button>
 </div>

@@ -7,37 +7,37 @@
 
   <div *ngIf="session$ | async as session">
     <app-practice-session-form
+      (created)="onCreate($event)"
+      (removed)="onRemove()"
+      (updated)="onUpdate($event)"
       *ngIf="showForm"
-      [session]="session"
-      [tabs]="tabs$ | async"
-      [types]="types$ | async"
       [exerciseId]="exerciseId"
       [feedback]="feedback"
-      (created)="onCreate($event)"
-      (updated)="onUpdate($event)"
-      (removed)="onRemove()">
+      [session]="session"
+      [tabs]="tabs$ | async"
+      [types]="types$ | async">
     </app-practice-session-form>
 
     <app-practice-session-display
       *ngIf="!showForm"
-      [tabs]="tabs$ | async"
-      [session]="session">
+      [session]="session"
+      [tabs]="tabs$ | async">
     </app-practice-session-display>
   </div>
 
   <app-practice-session-form
+    (created)="onCreate($event)"
+    (removed)="onRemove()"
+    (updated)="onUpdate($event)"
     *ngIf="showForm && !(session$ | async)"
-    [session]="null"
-    [tabs]="tabs$ | async"
-    [types]="types$ | async"
     [exerciseId]="null"
     [feedback]="feedback"
-    (created)="onCreate($event)"
-    (updated)="onUpdate($event)"
-    (removed)="onRemove()">
+    [session]="null"
+    [tabs]="tabs$ | async"
+    [types]="types$ | async">
   </app-practice-session-form>
 
-  <div class="message" *ngIf="isLoading$ | async">
+  <div *ngIf="isLoading$ | async" class="message">
     <app-svg-icon name="Fetching practice session" path="assets/img/utils/loading.svg"></app-svg-icon>
     Fetching practice session...
   </div>

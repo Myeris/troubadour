@@ -1,12 +1,12 @@
-import {ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as Vex from 'vexflow';
+// app
+import { Exercise } from '../../models/exercise.model';
+import { VexflowService } from '../../services/vexflow/vexflow.service';
 import StaveNote = Vex.Flow.StaveNote;
 import Tuplet = Vex.Flow.Tuplet;
 import Beam = Vex.Flow.Beam;
 import StaveTie = Vex.Flow.StaveTie;
-// app
-import {Exercise} from '../../models/exercise.model';
-import {VexflowService} from '../../services/vexflow/vexflow.service';
 
 @Component({
   selector: 'app-tab-display',

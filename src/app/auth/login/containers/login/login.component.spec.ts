@@ -1,13 +1,13 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {RouterTestingModule} from '@angular/router/testing';
-import {Store, StoreModule} from '@ngrx/store';
-import {FormGroup} from '@angular/forms';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Store, StoreModule } from '@ngrx/store';
+import { FormGroup } from '@angular/forms';
 // app
-import {LoginComponent} from './login.component';
-import {appReducers, AppState} from '../../../../store/app.reducer';
-import {getError} from '../../../../store/user/selectors/user.selectors';
-import {LogIn} from '../../../../store/user/actions/user.actions';
+import { LoginComponent } from './login.component';
+import { appReducers, AppState } from '../../../../store/app.reducer';
+import { getError } from '../../../../store/user/selectors/user.selectors';
+import { LogIn } from '../../../../store/user/actions/user.actions';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -51,11 +51,11 @@ describe('LoginComponent', () => {
   describe('loginUser', () => {
     it('should dispatch a LogIn action', () => {
       spyOn(store, 'dispatch').and.callThrough();
-      const value = {email: 'email', password: 'password'};
+      const value = { email: 'email', password: 'password' };
 
-      component.loginUser({value} as FormGroup);
+      component.loginUser({ value } as FormGroup);
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(new LogIn({authRequest: value}));
+      expect(store.dispatch).toHaveBeenCalledWith(new LogIn({ authRequest: value }));
     });
   });
 });

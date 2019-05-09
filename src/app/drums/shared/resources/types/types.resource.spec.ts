@@ -1,8 +1,8 @@
-import {TestBed} from '@angular/core/testing';
-import {AngularFireDatabase} from '@angular/fire/database';
+import { TestBed } from '@angular/core/testing';
+import { AngularFireDatabase } from '@angular/fire/database';
 // app
-import {TypesResource} from './types.resource';
-import {TypesService} from '../../services/types/types.service';
+import { TypesResource } from './types.resource';
+import { TypesService } from '../../services/types/types.service';
 
 class AfBdMock {
 }
@@ -15,7 +15,7 @@ describe('TypesResource', () => {
       providers: [
         TypesResource,
         TypesService,
-        {provide: AngularFireDatabase, useClass: AfBdMock},
+        { provide: AngularFireDatabase, useClass: AfBdMock }
       ]
     });
 

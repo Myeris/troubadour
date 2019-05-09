@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup} from '@angular/forms';
-import {Tab} from '../../models/tab.model';
-import {Tag} from '../../models/tag.model';
-import {Exercise} from '../../models/exercise.model';
-import {Pagination} from '../../models/pagination.model';
-import {ExerciseService} from '../../services/exercise/exercise.service';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { Tab } from '../../models/tab.model';
+import { Tag } from '../../models/tag.model';
+import { Exercise } from '../../models/exercise.model';
+import { Pagination } from '../../models/pagination.model';
+import { ExerciseService } from '../../services/exercise/exercise.service';
 
 @Component({
   selector: 'app-exercise-form',
@@ -31,7 +31,7 @@ export class ExerciseFormComponent implements OnChanges {
   public activeFilter: Tag;
   public filteredTabs: Tab[];
   public searchText: string;
-  public pagination: Pagination = {current: 1, itemsPerPage: 8};
+  public pagination: Pagination = { current: 1, itemsPerPage: 8 };
 
   public form: FormGroup = this.fb.group({
     bpm: 60,
@@ -56,12 +56,12 @@ export class ExerciseFormComponent implements OnChanges {
     tabRef: null
   });
 
-  public get formAccents(): FormArray {
-    return this.form.get('soundOptions').get('metronomeSettings').get('accents') as FormArray;
-  }
-
   constructor(private fb: FormBuilder,
               private exerciseService: ExerciseService) {
+  }
+
+  public get formAccents(): FormArray {
+    return this.form.get('soundOptions').get('metronomeSettings').get('accents') as FormArray;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -80,7 +80,7 @@ export class ExerciseFormComponent implements OnChanges {
       this.selectedType = this.editedExercise.bpm ? 0 : 1;
 
       // init UI
-      this.onTabChange({target: {value: this.selectedTabName}});
+      this.onTabChange({ target: { value: this.selectedTabName } });
 
       // patch form values
       this.form.patchValue(this.editedExercise);
@@ -172,7 +172,7 @@ export class ExerciseFormComponent implements OnChanges {
 
     // set the duration for bpm scale
     if (this.selectedType === 1) {
-      const {start, stop, step, repeat} = this.form.value.bpmScale;
+      const { start, stop, step, repeat } = this.form.value.bpmScale;
       let duration = 0;
 
       for (let i = start; i <= stop; i += step) {
@@ -245,7 +245,7 @@ export class ExerciseFormComponent implements OnChanges {
     if (type === 0) {
       soundOptionsForm.get('playAlong').setValue(true);
       soundOptionsForm.get('metronomeOnly').setValue(false);
-      soundOptionsForm.get('metronomeSettings').patchValue({subdivision: '4', accents: [0]});
+      soundOptionsForm.get('metronomeSettings').patchValue({ subdivision: '4', accents: [0] });
     }
 
     if (type === 1) {

@@ -1,7 +1,7 @@
-import {TestBed} from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 // app
-import {PracticeSessionsService} from './practice-sessions.service';
-import {Exercise} from '../../models/exercise.model';
+import { PracticeSessionsService } from './practice-sessions.service';
+import { Exercise } from '../../models/exercise.model';
 
 describe('PracticeSessionsService', () => {
   let service: PracticeSessionsService;
@@ -37,7 +37,7 @@ describe('PracticeSessionsService', () => {
         repeat: 30,
         duration: 120,
         tabRef: 'tab',
-        tab: {name: 'Ex1', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: []}
+        tab: { name: 'Ex1', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] }
       });
       exercises.push({
         hand: 'R',
@@ -45,7 +45,7 @@ describe('PracticeSessionsService', () => {
         repeat: 30,
         duration: 120,
         tabRef: 'tab',
-        tab: {name: 'Ex1', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: []}
+        tab: { name: 'Ex1', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] }
       });
       expect(service.doesSessionRequiresDrumkit(exercises)).toBeFalsy();
 
@@ -55,7 +55,7 @@ describe('PracticeSessionsService', () => {
         repeat: 30,
         duration: 120,
         tabRef: 'tab',
-        tab: {name: 'Ex1', type: 'rolls', drumkit: true, timeSignature: '4/4', notes: []}
+        tab: { name: 'Ex1', type: 'rolls', drumkit: true, timeSignature: '4/4', notes: [] }
       });
       expect(service.doesSessionRequiresDrumkit(exercises)).toBeTruthy();
     });

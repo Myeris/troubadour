@@ -1,23 +1,27 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {Action, Store} from '@ngrx/store';
-import {Observable, of} from 'rxjs';
-import {catchError, map, switchMap, tap, withLatestFrom} from 'rxjs/operators';
-import {FirebaseError} from 'firebase';
+import { Injectable } from '@angular/core';
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { Action, Store } from '@ngrx/store';
+import { Observable, of } from 'rxjs';
+import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { FirebaseError } from 'firebase';
 // app
-import {AppState} from '../../app.reducer';
+import { AppState } from '../../app.reducer';
 import {
-  PracticeSessionCreate, PracticeSessionCreateFail, PracticeSessionCreateSuccess,
-  PracticeSessionDelete, PracticeSessionDeleteFail, PracticeSessionDeleteSuccess,
+  PracticeSessionCreate,
+  PracticeSessionCreateFail,
+  PracticeSessionCreateSuccess,
+  PracticeSessionDelete,
+  PracticeSessionDeleteFail,
+  PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
   PracticeSessionListLoadSuccess,
   PracticeSessionsActionsTypes
 } from '../actions/practice-sessions.actions';
-import {getCurrentUser} from '../../user/selectors/user.selectors';
-import {PracticeSessionsResource} from '../../../drums/shared/resources/practice-sessions/practice-sessions.resource';
-import {PracticeSession} from '../../../drums/shared/models/practice-session.model';
-import {Router} from '@angular/router';
+import { getCurrentUser } from '../../user/selectors/user.selectors';
+import { PracticeSessionsResource } from '../../../drums/shared/resources/practice-sessions/practice-sessions.resource';
+import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class PracticeSessionsEffects {
@@ -27,8 +31,8 @@ export class PracticeSessionsEffects {
       ofType<PracticeSessionListLoad>(PracticeSessionsActionsTypes.LoadList),
       withLatestFrom(this.store$.select(getCurrentUser)),
       switchMap(([action, currentUser]) => this.practiceSessionResource.getSessionList$(currentUser.id)),
-      map((sessionList: PracticeSession[]) => new PracticeSessionListLoadSuccess({practiceSessionList: sessionList})),
-      catchError((error: FirebaseError) => of(new PracticeSessionListLoadFail({error: error.message})))
+      map((sessionList: PracticeSession[]) => new PracticeSessionListLoadSuccess({ practiceSessionList: sessionList })),
+      catchError((error: FirebaseError) => of(new PracticeSessionListLoadFail({ error: error.message })))
     );
 
   @Effect()
@@ -38,7 +42,7 @@ export class PracticeSessionsEffects {
       withLatestFrom(this.store$.select(getCurrentUser)),
       switchMap(([action, currentUser]) => this.practiceSessionResource.removeSession(currentUser.id, action.payload.id)),
       map(() => new PracticeSessionDeleteSuccess()),
-      catchError((error: FirebaseError) => of(new PracticeSessionDeleteFail({error: error.message})))
+      catchError((error: FirebaseError) => of(new PracticeSessionDeleteFail({ error: error.message })))
     );
 
   @Effect()
@@ -48,10 +52,10 @@ export class PracticeSessionsEffects {
       withLatestFrom(this.store$.select(getCurrentUser)),
       switchMap(([action, currentUser]) => this.practiceSessionResource.createSession(currentUser.id, action.payload.practiceSession)),
       map(() => new PracticeSessionCreateSuccess()),
-      catchError((error: FirebaseError) => of(new PracticeSessionCreateFail({error: error.message})))
+      catchError((error: FirebaseError) => of(new PracticeSessionCreateFail({ error: error.message })))
     );
 
-  @Effect({dispatch: false})
+  @Effect({ dispatch: false })
   redirectToList$: Observable<Action> = this.actions$
     .pipe(
       ofType<PracticeSessionCreateSuccess | PracticeSessionDeleteSuccess>(

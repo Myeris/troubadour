@@ -1,9 +1,9 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 // app
-import {BpmScaleFormComponent} from './bpm-scale-form.component';
+import { BpmScaleFormComponent } from './bpm-scale-form.component';
 
 describe('BpmScaleFormComponent', () => {
   let component: BpmScaleFormComponent;

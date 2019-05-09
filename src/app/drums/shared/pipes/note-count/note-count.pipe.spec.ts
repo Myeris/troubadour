@@ -1,7 +1,7 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component} from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 // app
-import {NoteCountPipe} from './note-count.pipe';
+import { NoteCountPipe } from './note-count.pipe';
 
 describe('NoteCountPipe', () => {
 

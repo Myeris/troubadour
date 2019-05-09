@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 // app
-import {RegisterComponent} from './containers/register/register.component';
-import {SharedModule} from '../shared/shared.module';
-import {RegisterRoutingModule} from './register-routing.module';
+import { RegisterComponent } from './containers/register/register.component';
+import { SharedModule } from '../shared/shared.module';
+import { RegisterRoutingModule } from './register-routing.module';
 
 @NgModule({
   declarations: [RegisterComponent],

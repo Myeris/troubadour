@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {Component} from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component } from '@angular/core';
 // app
-import {OptionsPipe} from './options.pipe';
-import {Exercise} from '../../models/exercise.model';
+import { OptionsPipe } from './options.pipe';
+import { Exercise } from '../../models/exercise.model';
 
 describe('OptionsPipe', () => {
   /**

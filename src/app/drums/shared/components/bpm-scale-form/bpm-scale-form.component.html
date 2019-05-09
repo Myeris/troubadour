@@ -4,39 +4,39 @@
     Start
 
     <input
-      type="number"
+      (change)="onChange()"
       formControlName="start"
-      min="40"
       max="250"
-      (change)="onChange()">
+      min="40"
+      type="number">
   </label>
   <label>
     Stop
 
     <input
-      type="number"
+      (change)="onChange()"
       formControlName="stop"
-      min="40"
       max="250"
-      (change)="onChange()">
+      min="40"
+      type="number">
   </label>
   <label>
     Step
 
     <input
-      type="number"
+      (change)="onChange()"
       formControlName="step"
       min="1"
-      (change)="onChange()">
+      type="number">
   </label>
 
   <label>
     Repeat
 
     <input
-      type="number"
+      (change)="onChange()"
       formControlName="repeat"
       min="1"
-      (change)="onChange()">
+      type="number">
   </label>
 </div>

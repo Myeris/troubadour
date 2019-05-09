@@ -9,7 +9,7 @@
     </h1>
   </div>
 
-  <form class="tunnel" [formGroup]="form">
+  <form [formGroup]="form" class="tunnel">
     <div class="tunnel__step">
       <div class="tunnel__step__title">
 				<span>
@@ -18,29 +18,29 @@
         <h3>
           {{ showFullForm ? 'Selected exercise: ' + selectedTabName : 'Select an exercise' }}
         </h3>
-        <a *ngIf="showFullForm" (click)="selectExercise(null)">
+        <a (click)="selectExercise(null)" *ngIf="showFullForm">
           Change exercise
         </a>
       </div>
 
-      <div class="tunnel__step__content" *ngIf="!showFullForm">
+      <div *ngIf="!showFullForm" class="tunnel__step__content">
         <div class="tunnel__step__content__types">
           <div
-            class="type"
-            style="background: #333"
+            (click)="filter(null)"
             [style.boxShadow]="!activeFilter"
             [style.opacity]="!activeFilter ? 1 : 0.5"
-            (click)="filter(null)">
+            class="type"
+            style="background: #333">
             all
           </div>
 
           <div
+            (click)="filter(type)"
             *ngFor="let type of types"
-            class="type"
             [style.background]="type.color"
             [style.boxShadow]="activeFilter === type"
             [style.opacity]="activeFilter === type ? 1 : 0.5"
-            (click)="filter(type)">
+            class="type">
             {{ type.name }}
           </div>
         </div>
@@ -52,8 +52,8 @@
             <input
               [(ngModel)]="searchText"
               [ngModelOptions]="{standalone: true}"
-              type="text"
-              placeholder="Searching for...">
+              placeholder="Searching for..."
+              type="text">
           </label>
           <a
             (click)="searchText = null"
@@ -68,16 +68,16 @@
             class="tab">
             <div>
               <a (click)="selectExercise(tab)">
-                <div class="gif"
-                     [style.opacity]="tabImgs.get(tab.$key).includes('gif') ? 1 : 0.5"
+                <div (mouseout)="getTabImg(tab, false)"
                      (mouseover)="getTabImg(tab, true)"
-                     (mouseout)="getTabImg(tab, false)">
+                     [style.opacity]="tabImgs.get(tab.$key).includes('gif') ? 1 : 0.5"
+                     class="gif">
                   <img [src]="tabImgs.get(tab.$key)"
                        alt="Gif not found">
                 </div>
 
-                <div class="content"
-                     [style.borderTop]="'4px solid ' + tab.typeObject?.color">
+                <div [style.borderTop]="'4px solid ' + tab.typeObject?.color"
+                     class="content">
                   {{ tab.name }}
                 </div>
               </a>
@@ -90,7 +90,7 @@
         </div>
       </div>
 
-      <div class="tunnel__step__content" *ngIf="showFullForm">
+      <div *ngIf="showFullForm" class="tunnel__step__content">
         <app-tab-display
           *ngIf="selectedExercise"
           [exercise]="selectedExercise">
@@ -98,7 +98,7 @@
       </div>
     </div>
 
-    <div class="tunnel__step" *ngIf="showFullForm">
+    <div *ngIf="showFullForm" class="tunnel__step">
       <div class="tunnel__step__title">
 				<span>
 					2
@@ -110,15 +110,15 @@
       <div class="tunnel__step__content">
         <div>
           <app-hand-form
-            [initValue]="form.get('hand').value"
+            (invalid)="handleInvalidForm('hand', $event)"
             (submitted)="setFormControl('hand', $event)"
-            (invalid)="handleInvalidForm('hand', $event)">
+            [initValue]="form.get('hand').value">
           </app-hand-form>
         </div>
       </div>
     </div>
 
-    <div class="tunnel__step" *ngIf="showFullForm">
+    <div *ngIf="showFullForm" class="tunnel__step">
       <div class="tunnel__step__title">
 				<span>
 					3
@@ -132,42 +132,42 @@
           <div class="options">
             <label>
               <input
-                type="radio"
-                name="practiceType"
-                value="0"
+                (change)="onTypeChange($event)"
                 [checked]="selectedType === 0"
-                (change)="onTypeChange($event)"> BPM & Duration
+                name="practiceType"
+                type="radio"
+                value="0"> BPM & Duration
             </label>
 
             <label>
               <input
-                type="radio"
-                name="practiceType"
-                value="1"
+                (change)="onTypeChange($event)"
                 [checked]="selectedType === 1"
-                (change)="onTypeChange($event)"> BPM scale
+                name="practiceType"
+                type="radio"
+                value="1"> BPM scale
             </label>
           </div>
 
           <app-bpm-duration-form
+            (invalid)="handleInvalidForm('bpmDuration', $event)"
+            (submitted)="setFormControl('bpm', $event); setFormControl('duration', $event);"
             *ngIf="selectedType === 0"
             [initBpm]="form.get('bpm').value"
-            [initDuration]="form.get('duration').value"
-            (submitted)="setFormControl('bpm', $event); setFormControl('duration', $event);"
-            (invalid)="handleInvalidForm('bpmDuration', $event)">
+            [initDuration]="form.get('duration').value">
           </app-bpm-duration-form>
 
           <app-bpm-scale-form
-            *ngIf="selectedType === 1"
-            [bpmScale]="form.get('bpmScale')"
+            (invalid)="handleInvalidForm('bpmScale', $event)"
             (submitted)="setFormGroup('bpmScale', $event)"
-            (invalid)="handleInvalidForm('bpmScale', $event)">
+            *ngIf="selectedType === 1"
+            [bpmScale]="form.get('bpmScale')">
           </app-bpm-scale-form>
         </div>
       </div>
     </div>
 
-    <div class="tunnel__step" *ngIf="showFullForm">
+    <div *ngIf="showFullForm" class="tunnel__step">
       <div class="tunnel__step__title">
 				<span>
 					4
@@ -179,9 +179,9 @@
       <div class="tunnel__step__content">
         <div>
           <app-sound-options
-            [initValue]="form.get('soundOptions')"
+            (invalid)="handleInvalidForm('soundOptions', $event)"
             (submitted)="onSoundOptionsChange($event)"
-            (invalid)="handleInvalidForm('soundOptions', $event)"></app-sound-options>
+            [initValue]="form.get('soundOptions')"></app-sound-options>
         </div>
       </div>
     </div>
@@ -189,15 +189,15 @@
 
   <div class="exercise-form__submit">
     <button
+      (click)="addExercise()"
       *ngIf="selectedExercise"
-      type="button"
       class="button"
-      (click)="addExercise()">
+      type="button">
       {{ editedExercise ? 'Edit' : 'Add' }} exercise
     </button>
     <a
-      class="button--cancel"
-      (click)="cancel()">
+      (click)="cancel()"
+      class="button--cancel">
       Cancel
     </a>
   </div>

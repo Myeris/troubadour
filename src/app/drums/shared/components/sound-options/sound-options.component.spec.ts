@@ -1,9 +1,9 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {By} from '@angular/platform-browser';
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {CUSTOM_ELEMENTS_SCHEMA, DebugElement} from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 // app
-import {SoundOptionsComponent} from './sound-options.component';
+import { SoundOptionsComponent } from './sound-options.component';
 
 describe('SoundOptionsComponent', () => {
   let component: SoundOptionsComponent;

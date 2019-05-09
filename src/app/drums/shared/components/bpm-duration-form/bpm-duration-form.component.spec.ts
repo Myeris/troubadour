@@ -1,8 +1,8 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {DebugElement} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
-import {By} from '@angular/platform-browser';
-import {BpmDurationFormComponent} from './bpm-duration-form.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { DebugElement } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { BpmDurationFormComponent } from './bpm-duration-form.component';
 // app
 
 describe('BpmDurationFormComponent', () => {

@@ -1,5 +1,5 @@
-import {Actions} from '@ngrx/effects';
-import {Observable, EMPTY} from 'rxjs';
+import { Actions } from '@ngrx/effects';
+import { EMPTY, Observable } from 'rxjs';
 
 export class TestActions extends Actions {
   public source;

@@ -1,17 +1,17 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange} from '@angular/core';
-import {By} from '@angular/platform-browser';
-import {ReactiveFormsModule} from '@angular/forms';
-import {RouterTestingModule} from '@angular/router/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
+import { By } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 // app
-import {PracticeSessionFormComponent} from './practice-session-form.component';
-import {Tab} from '../../../shared/models/tab.model';
-import {Exercise} from '../../../shared/models/exercise.model';
-import {PracticeSessionsService} from '../../../shared/services/practice-sessions/practice-sessions.service';
-import {ExerciseService} from '../../../shared/services/exercise/exercise.service';
-import {VexflowService} from '../../../shared/services/vexflow/vexflow.service';
-import {SharedModule} from '../../../shared/shared.module';
-import {PracticeSession} from '../../../shared/models/practice-session.model';
+import { PracticeSessionFormComponent } from './practice-session-form.component';
+import { Tab } from '../../../shared/models/tab.model';
+import { Exercise } from '../../../shared/models/exercise.model';
+import { PracticeSessionsService } from '../../../shared/services/practice-sessions/practice-sessions.service';
+import { ExerciseService } from '../../../shared/services/exercise/exercise.service';
+import { VexflowService } from '../../../shared/services/vexflow/vexflow.service';
+import { SharedModule } from '../../../shared/shared.module';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
 
 const tabs: Tab[] = [
   {
@@ -20,22 +20,22 @@ const tabs: Tab[] = [
     drumkit: false,
     timeSignature: '4/4',
     notes: [
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']}
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] }
     ],
     $key: '1',
     $exist: () => true
@@ -46,22 +46,22 @@ const tabs: Tab[] = [
     drumkit: false,
     timeSignature: '4/4',
     notes: [
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']},
-      {annotation: 'R', duration: '16', keys: ['c/5']},
-      {annotation: 'L', duration: '16', keys: ['c/5']}
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] },
+      { annotation: 'R', duration: '16', keys: ['c/5'] },
+      { annotation: 'L', duration: '16', keys: ['c/5'] }
     ],
     $key: '2',
     $exist: () => true
@@ -70,7 +70,7 @@ const tabs: Tab[] = [
 const session: PracticeSession = {
   name: 'Session1',
   exercises: [
-    {hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1}
+    { hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 }
   ],
   repeat: 1,
   created: new Date().valueOf(),
@@ -83,8 +83,8 @@ const session: PracticeSession = {
 };
 const exerciseId = '1';
 const exercises: Exercise[] = [
-  {hand: 'R', bpm: 100, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1},
-  {hand: 'R', bpm: 100, duration: 60, tabRef: '2', tab: tabs[1], repeat: 1},
+  { hand: 'R', bpm: 100, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 },
+  { hand: 'R', bpm: 100, duration: 60, tabRef: '2', tab: tabs[1], repeat: 1 }
 ];
 
 class MockSessionService {
@@ -109,9 +109,9 @@ describe('PracticeSessionFormComponent', () => {
         PracticeSessionFormComponent
       ],
       providers: [
-        {provide: PracticeSessionsService, useClass: MockSessionService},
-        {provide: ExerciseService, useClass: MockExercise},
-        {provide: VexflowService, useClass: MockVexflow},
+        { provide: PracticeSessionsService, useClass: MockSessionService },
+        { provide: ExerciseService, useClass: MockExercise },
+        { provide: VexflowService, useClass: MockVexflow }
       ],
       imports: [
         ReactiveFormsModule,

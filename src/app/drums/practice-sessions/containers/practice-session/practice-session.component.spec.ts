@@ -1,11 +1,11 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {StoreModule} from '@ngrx/store';
-import {RouterTestingModule} from '@angular/router/testing';
-import {Router} from '@angular/router';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { StoreModule } from '@ngrx/store';
+import { RouterTestingModule } from '@angular/router/testing';
+import { Router } from '@angular/router';
 // app
-import {PracticeSessionComponent} from './practice-session.component';
-import {appReducers} from '../../../../store/app.reducer';
+import { PracticeSessionComponent } from './practice-session.component';
+import { appReducers } from '../../../../store/app.reducer';
 
 describe('PracticeSessionComponent', () => {
   let component: PracticeSessionComponent;

@@ -1,13 +1,14 @@
-import {TestBed} from '@angular/core/testing';
-import {AngularFireDatabase} from '@angular/fire/database';
+import { TestBed } from '@angular/core/testing';
+import { AngularFireDatabase } from '@angular/fire/database';
 // app
-import {PracticeSessionsResource} from './practice-sessions.resource';
-import {PracticeSessionsService} from '../../services/practice-sessions/practice-sessions.service';
+import { PracticeSessionsResource } from './practice-sessions.resource';
+import { PracticeSessionsService } from '../../services/practice-sessions/practice-sessions.service';
 
 class AfDbMock {
   list() {
     return {
-      snapshotChanges: () => {}
+      snapshotChanges: () => {
+      }
     };
   }
 }
@@ -21,7 +22,7 @@ describe('PracticeSessionsResource', () => {
     const bed = TestBed.configureTestingModule({
       providers: [
         PracticeSessionsResource,
-        {provide: AngularFireDatabase, useFactory: () => new AfDbMock()},
+        { provide: AngularFireDatabase, useFactory: () => new AfDbMock() },
         PracticeSessionsService
       ]
     });

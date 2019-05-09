@@ -1,7 +1,7 @@
-import {BpmScale} from './bpm-scale.model';
-import {Tag} from './tag.model';
-import {Tab} from './tab.model';
-import {SoundOptions} from './sound-options.model';
+import { BpmScale } from './bpm-scale.model';
+import { Tag } from './tag.model';
+import { Tab } from './tab.model';
+import { SoundOptions } from './sound-options.model';
 
 export interface Exercise {
   hand: string;

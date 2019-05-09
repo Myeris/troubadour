@@ -1,11 +1,11 @@
-import {async, TestBed} from '@angular/core/testing';
-import {Store, StoreModule} from '@ngrx/store';
-import {of} from 'rxjs';
+import { async, TestBed } from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
+import { of } from 'rxjs';
 // app
-import {AnonymousGuard} from './anonymous.guard';
-import {User} from '../../models/user.model';
-import {appReducers, AppState} from '../../../../store/app.reducer';
-import {LogInSuccess} from '../../../../store/user/actions/user.actions';
+import { AnonymousGuard } from './anonymous.guard';
+import { User } from '../../models/user.model';
+import { appReducers, AppState } from '../../../../store/app.reducer';
+import { LogInSuccess } from '../../../../store/user/actions/user.actions';
 
 describe('AnonymousGuard', () => {
   let guard: AnonymousGuard;
@@ -42,7 +42,7 @@ describe('AnonymousGuard', () => {
     it('should not grand access to logged in user', () => {
       let result = null;
 
-      store.dispatch(new LogInSuccess({user: {} as User}));
+      store.dispatch(new LogInSuccess({ user: {} as User }));
 
       guard.canActivate(null, null)
         .subscribe((value) => result = value);

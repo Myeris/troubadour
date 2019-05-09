@@ -1,5 +1,5 @@
-import {initialUserState, userEntityAdapter, UserState} from '../user.state';
-import {UserActions, UserActionsTypes} from '../actions/user.actions';
+import { initialUserState, userEntityAdapter, UserState } from '../user.state';
+import { UserActions, UserActionsTypes } from '../actions/user.actions';
 
 export function userReducer(
   state: UserState = initialUserState,
@@ -8,10 +8,10 @@ export function userReducer(
   switch (action.type) {
     case UserActionsTypes.LogIn:
     case UserActionsTypes.Register:
-      return {...state, isLoggedIn: false, isLoading: true, error: null, selectedId: null};
+      return { ...state, isLoggedIn: false, isLoading: true, error: null, selectedId: null };
     case UserActionsTypes.LogInFail:
     case UserActionsTypes.RegisterFail:
-      return {...state, isLoggedIn: false, isLoading: false, error: action.payload.error, selectedId: null};
+      return { ...state, isLoggedIn: false, isLoading: false, error: action.payload.error, selectedId: null };
     case UserActionsTypes.LogInSuccess:
     case UserActionsTypes.RegisterSuccess:
       return userEntityAdapter.addOne(action.payload.user, {
@@ -22,7 +22,7 @@ export function userReducer(
         error: null
       });
     case UserActionsTypes.LogOutSuccess:
-      return userEntityAdapter.removeAll({...state, isLoggedIn: false, isLoading: false, selectedId: null, error: null});
+      return userEntityAdapter.removeAll({ ...state, isLoggedIn: false, isLoading: false, selectedId: null, error: null });
     default:
       return state;
   }

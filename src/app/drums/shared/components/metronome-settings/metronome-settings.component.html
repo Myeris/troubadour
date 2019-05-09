@@ -4,8 +4,8 @@
       Subdivision
 
       <select
-        formControlName="subdivision"
-        (change)="onChange()">
+        (change)="onChange()"
+        formControlName="subdivision">
         <option value="4">Quarter</option>
         <option value="8">Eighth</option>
         <option value="16">Sixteenth</option>
@@ -18,9 +18,9 @@
 
     <label *ngFor="let beat of (subdivision | numberToCollection)">
       <input
-        type="checkbox"
+        (change)="onAccentChange(beat, $event)"
         [checked]="isAccent(beat)"
-        (change)="onAccentChange(beat, $event)"> {{ beat | noteCount: subdivision }}
+        type="checkbox"> {{ beat | noteCount: subdivision }}
     </label>
   </div>
 </form>

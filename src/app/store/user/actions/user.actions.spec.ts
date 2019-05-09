@@ -1,22 +1,23 @@
-import {AuthRequest} from '../../../auth/shared/models/auth-request.model';
+import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import {
   LogIn,
   LogInFail,
   LogInSuccess,
-  LogOut, LogOutSuccess,
+  LogOut,
+  LogOutSuccess,
   Register,
   RegisterFail,
   RegisterSuccess,
   UserActionsTypes
 } from './user.actions';
-import {User} from '../../../auth/shared/models/user.model';
+import { User } from '../../../auth/shared/models/user.model';
 
-const authRequest: AuthRequest = {email: 'email', password: 'password'};
+const authRequest: AuthRequest = { email: 'email', password: 'password' };
 
 describe('UserActions', () => {
   describe('Login', () => {
     it('should create an action', () => {
-      const action = new LogIn({authRequest});
+      const action = new LogIn({ authRequest });
       expect(action.type).toBe(UserActionsTypes.LogIn);
     });
   });
@@ -24,7 +25,7 @@ describe('UserActions', () => {
   describe('LogInSuccess', () => {
     it('should create an action', () => {
       const user = {} as User;
-      const action = new LogInSuccess({user});
+      const action = new LogInSuccess({ user });
       expect(action.type).toBe(UserActionsTypes.LogInSuccess);
     });
   });
@@ -32,14 +33,14 @@ describe('UserActions', () => {
   describe('LogInFail', () => {
     it('should create an action', () => {
       const error = 'this is an error';
-      const action = new LogInFail({error});
+      const action = new LogInFail({ error });
       expect(action.type).toBe(UserActionsTypes.LogInFail);
     });
   });
 
   describe('Register', () => {
     it('should create an action', () => {
-      const action = new Register({authRequest});
+      const action = new Register({ authRequest });
       expect(action.type).toBe(UserActionsTypes.Register);
     });
   });
@@ -47,7 +48,7 @@ describe('UserActions', () => {
   describe('RegisterSuccess', () => {
     it('should create an action', () => {
       const user = {} as User;
-      const action = new RegisterSuccess({user});
+      const action = new RegisterSuccess({ user });
       expect(action.type).toBe(UserActionsTypes.RegisterSuccess);
     });
   });
@@ -55,7 +56,7 @@ describe('UserActions', () => {
   describe('RegisterFail', () => {
     it('should create an action', () => {
       const error = 'this is an error';
-      const action = new RegisterFail({error});
+      const action = new RegisterFail({ error });
       expect(action.type).toBe(UserActionsTypes.RegisterFail);
     });
   });
