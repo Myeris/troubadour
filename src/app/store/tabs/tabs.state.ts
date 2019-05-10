@@ -6,6 +6,7 @@ export interface TabsState extends EntityState<Tab> {
   isLoading: boolean;
   error: string;
   selectedId: string;
+  selectedType: string;
 }
 
 export const tabsEntityAdapter: EntityAdapter<Tab> = createEntityAdapter<Tab>({
@@ -15,5 +16,6 @@ export const tabsEntityAdapter: EntityAdapter<Tab> = createEntityAdapter<Tab>({
 export const initialTabsState: TabsState = tabsEntityAdapter.getInitialState({
   isLoading: false,
   error: null,
-  selectedId: null
+  selectedId: null,
+  selectedType: null
 });

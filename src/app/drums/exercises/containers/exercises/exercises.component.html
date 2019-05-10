@@ -29,7 +29,7 @@
     </div>
 
     <div
-      *ngIf="tabs$ | async | orderTabs:(types$ | async) as tabs; else loading;"
+      *ngIf="filteredTabs$ | async | orderTabs:(types$ | async) as tabs; else loading;"
       class="exercises__list">
 
       <div

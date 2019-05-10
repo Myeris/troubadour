@@ -10,10 +10,10 @@ import { Tab } from '../../../shared/models/tab.model';
 import { Pagination } from '../../../shared/models/pagination.model';
 import { AppState } from '../../../../store/app.reducer';
 import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types.selector';
-import { selectAll as selectAllTabs } from 'src/app/store/tabs/selectors/tabs.selector';
+import { getTabsBySelectedType } from 'src/app/store/tabs/selectors/tabs.selector';
 import { selectAll as selectAllSessions } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 import { TypesListLoad } from '../../../../store/types/actions/types.actions';
-import { TabListLoad } from '../../../../store/tabs/actions/tabs.actions';
+import { TabListLoad, TabSelectType } from '../../../../store/tabs/actions/tabs.actions';
 import { PracticeSessionListLoad } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 
 @Component({
@@ -24,7 +24,7 @@ import { PracticeSessionListLoad } from '../../../../store/practice-sessions/act
 export class ExercisesComponent extends LifecycleComponent implements OnInit {
   public searchText = '';
   public types$: Observable<Tag[]>;
-  public tabs$: Observable<Tab[]>;
+  public filteredTabs$: Observable<Tab[]>;
   public sessions$: Observable<PracticeSession[]>;
   public activeFilter: Tag;
   public pagination: Pagination = { current: 1, itemsPerPage: 8 };
@@ -36,7 +36,7 @@ export class ExercisesComponent extends LifecycleComponent implements OnInit {
   ngOnInit(): void {
     this.types$ = this.store.select(selectAllTypes)
       .pipe(takeUntil(this.componentDestroyed$));
-    this.tabs$ = this.store.select(selectAllTabs)
+    this.filteredTabs$ = this.store.select(getTabsBySelectedType)
       .pipe(takeUntil(this.componentDestroyed$));
     this.sessions$ = this.store.select(selectAllSessions)
       .pipe(takeUntil(this.componentDestroyed$));
@@ -48,6 +48,6 @@ export class ExercisesComponent extends LifecycleComponent implements OnInit {
 
   public filter(type: Tag): void {
     this.activeFilter = type;
+    this.store.dispatch(new TabSelectType({ type: type ? type.$key : null }));
   }
-
 }

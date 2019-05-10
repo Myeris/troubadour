@@ -19,6 +19,8 @@ export function tabsReducer(
       return { ...state, isLoading: false, error: action.payload.error, selectedId: null };
     case TabsActionsTypes.Select:
       return { ...state, isLoading: false, error: null, selectedId: action.payload.id };
+    case TabsActionsTypes.SelectType:
+      return { ...state, isLoading: false, error: null, selectedId: null, selectedType: action.payload.type };
     default:
       return state;
   }

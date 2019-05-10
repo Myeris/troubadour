@@ -2,8 +2,8 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TestBed } from '@angular/core/testing';
 // app
 import { appReducers, AppState } from '../../app.reducer';
-import { getError, getSelectedTab, isLoading } from './tabs.selector';
-import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabSelect } from '../actions/tabs.actions';
+import { getError, getSelectedTab, getTabsBySelectedType, isLoading } from './tabs.selector';
+import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabSelect, TabSelectType } from '../actions/tabs.actions';
 import { Tab } from '../../../drums/shared/models/tab.model';
 
 const tabs: Tab[] = [
@@ -86,6 +86,23 @@ describe('TabsSelectors', () => {
 
       store.dispatch(new TabSelect({ id }));
       expect(result).toEqual(tabs[0]);
+    });
+  });
+
+  describe('getTabsBySelectedType', () => {
+    it('should return the tabs by type', () => {
+      const type = 'rolls';
+      let result = null;
+
+      store
+        .select(getTabsBySelectedType)
+        .subscribe(value => result = value);
+
+      expect(result).toBeNull();
+      store.dispatch(new TabListLoadSuccess({ tabList: tabs }));
+
+      store.dispatch(new TabSelectType({ type }));
+      expect(result.length).toBe(2);
     });
   });
 });

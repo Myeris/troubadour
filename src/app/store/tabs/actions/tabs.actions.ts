@@ -7,7 +7,8 @@ export enum TabsActionsTypes {
   LoadListSuccess = '[TabsResourceAPI] Load tab list success',
   LoadListFail = '[TabsResourceAPI] Load tab list fail',
 
-  Select = '[Exercise page] Select a tab'
+  Select = '[Exercise page] Select a tab',
+  SelectType = '[Exercise list page] Select a type'
 }
 
 export class TabListLoad implements Action {
@@ -35,8 +36,16 @@ export class TabSelect implements Action {
   }
 }
 
+export class TabSelectType implements Action {
+  public readonly type = TabsActionsTypes.SelectType;
+
+  constructor(public payload: { type: string }) {
+  }
+}
+
 export type TabsActions =
   | TabListLoad
   | TabListLoadSuccess
   | TabListLoadFail
-  | TabSelect;
+  | TabSelect
+  | TabSelectType;

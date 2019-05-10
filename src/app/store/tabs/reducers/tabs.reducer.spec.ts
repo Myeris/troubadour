@@ -1,6 +1,6 @@
 import { initialTabsState } from '../tabs.state';
 import { tabsReducer } from './tabs.reducer';
-import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabSelect } from '../actions/tabs.actions';
+import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabSelect, TabSelectType } from '../actions/tabs.actions';
 import { Tab } from '../../../drums/shared/models/tab.model';
 
 const tabs: Tab[] = [
@@ -65,6 +65,18 @@ describe('TabsReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
       expect(state.selectedId).toBe(id);
+    });
+  });
+
+  describe('SelectType', () => {
+    it('should set the state', () => {
+      const type = 'type';
+      const action = new TabSelectType({ type });
+      const state = tabsReducer(initialTabsState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedType).toBe(type);
     });
   });
 });
