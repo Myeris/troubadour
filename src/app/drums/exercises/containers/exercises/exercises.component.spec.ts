@@ -106,7 +106,7 @@ describe('ExercisesComponent', () => {
   });
 
   it('should be init', () => {
-    expect(component.tabs$.toString()).toEqual(of(tabs).toString());
+    expect(component.filteredTabs$.toString()).toEqual(of(tabs).toString());
     expect(component.types$.toString()).toEqual(of(types).toString());
     expect(component.sessions$.toString()).toEqual(of(sessions).toString());
   });
