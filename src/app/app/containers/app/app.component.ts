@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Store } from '@ngrx/store';
 // app
-import { UserService } from '../../auth/shared/services/user.service';
-import { User } from '../../auth/shared/models/user.model';
-import { AppState } from '../../store/app.reducer';
-import { LogInSuccess, LogOut } from '../../store/user/actions/user.actions';
+import { UserService } from '../../../auth/shared/services/user.service';
+import { User } from '../../../auth/shared/models/user.model';
+import { AppState } from '../../../store/app.reducer';
+import { LogInSuccess, LogOut } from '../../../store/user/actions/user.actions';
 
 @Component({
   selector: 'app-root',

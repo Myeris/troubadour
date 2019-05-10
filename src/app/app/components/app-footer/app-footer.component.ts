@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './app-footer.component.html',
   styleUrls: ['./app-footer.component.scss']
 })
-export class AppFooterComponent implements OnInit {
+export class AppFooterComponent {
+  public get copyrightDate(): string {
+    const start = '2018';
+    const end = new Date();
 
-  constructor() {
+    return `${start} - ${end.getFullYear()}`;
   }
-
-  ngOnInit() {
-  }
-
 }

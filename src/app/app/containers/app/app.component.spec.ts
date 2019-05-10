@@ -4,10 +4,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { Store, StoreModule } from '@ngrx/store';
 // app
 import { AppComponent } from './app.component';
-import { UserService } from '../../auth/shared/services/user.service';
-import { appReducers, AppState } from '../../store/app.reducer';
-import { User } from '../../auth/shared/models/user.model';
-import { LogInSuccess, LogOut } from '../../store/user/actions/user.actions';
+import { UserService } from '../../../auth/shared/services/user.service';
+import { appReducers, AppState } from '../../../store/app.reducer';
+import { User } from '../../../auth/shared/models/user.model';
+import { LogInSuccess, LogOut } from '../../../store/user/actions/user.actions';
 
 describe('AppComponent', () => {
   let component: AppComponent;

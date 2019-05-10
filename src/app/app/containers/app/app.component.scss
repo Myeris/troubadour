@@ -8,3 +8,12 @@ a {
   text-decoration: none;
   color: #333333;
 }
+
+p {
+  a {
+    background-image: linear-gradient(#CCFF00,#CCFF00);
+    background-size: 100% .5em;
+    background-repeat: no-repeat;
+    background-position: left 0 bottom -40%;
+  }
+}
