@@ -1,4 +1,4 @@
-import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabsActionsTypes } from './tabs.actions';
+import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabsActionsTypes, TabSelect } from './tabs.actions';
 
 describe('TabsActions', () => {
   describe('TabListLoad', () => {
@@ -19,6 +19,13 @@ describe('TabsActions', () => {
     it('should create an action', () => {
       const action = new TabListLoadFail({ error: 'error' });
       expect(action.type).toBe(TabsActionsTypes.LoadListFail);
+    });
+  });
+
+  describe('TabSelect', () => {
+    it('should create an action', () => {
+      const action = new TabSelect({ id: 'id' });
+      expect(action.type).toBe(TabsActionsTypes.Select);
     });
   });
 });

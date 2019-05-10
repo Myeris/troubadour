@@ -7,15 +7,18 @@ export function tabsReducer(
 ) {
   switch (action.type) {
     case TabsActionsTypes.LoadList:
-      return { ...state, isLoading: true, error: null };
+      return { ...state, isLoading: true, error: null, selectedId: null };
     case TabsActionsTypes.LoadListSuccess:
       return tabsEntityAdapter.addAll(action.payload.tabList, {
         ...state,
         isLoading: false,
-        error: null
+        error: null,
+        selectedId: null
       });
     case TabsActionsTypes.LoadListFail:
-      return { ...state, isLoading: false, error: action.payload.error };
+      return { ...state, isLoading: false, error: action.payload.error, selectedId: null };
+    case TabsActionsTypes.Select:
+      return { ...state, isLoading: false, error: null, selectedId: action.payload.id };
     default:
       return state;
   }

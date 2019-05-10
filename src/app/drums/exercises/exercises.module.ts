@@ -10,10 +10,25 @@ import { SharedModule } from '../shared/shared.module';
 import { AppSharedModule } from '../../shared/shared.module';
 import { LibraryListComponent } from './components/library-list/library-list.component';
 import { ExerciseAssignComponent } from './components/exercise-assign/exercise-assign.component';
+import { ExerciseComponent } from './containers/exercise/exercise.component';
+import { ExerciseDisplayComponent } from './components/exercise-display/exercise-display.component';
+import { ExercisePracticeFormComponent } from './components/exercise-practice-form/exercise-practice-form.component';
 
 @NgModule({
-  declarations: [ExercisesComponent, LibraryListComponent, ExerciseAssignComponent],
-  exports: [ExercisesComponent, LibraryListComponent, ExerciseAssignComponent],
+  declarations: [
+    ExercisesComponent,
+    LibraryListComponent,
+    ExerciseAssignComponent,
+    ExerciseComponent,
+    ExerciseDisplayComponent,
+    ExercisePracticeFormComponent
+  ],
+  exports: [
+    ExercisesComponent,
+    LibraryListComponent,
+    ExerciseAssignComponent,
+    ExerciseDisplayComponent
+  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,

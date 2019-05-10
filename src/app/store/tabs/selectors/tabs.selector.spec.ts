@@ -2,8 +2,15 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TestBed } from '@angular/core/testing';
 // app
 import { appReducers, AppState } from '../../app.reducer';
-import { getError, isLoading } from './tabs.selector';
-import { TabListLoad, TabListLoadFail, TabListLoadSuccess } from '../actions/tabs.actions';
+import { getError, getSelectedTab, isLoading } from './tabs.selector';
+import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabSelect } from '../actions/tabs.actions';
+import { Tab } from '../../../drums/shared/models/tab.model';
+
+const tabs: Tab[] = [
+  { name: 'Single roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'a' },
+  { name: 'Double roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'b' },
+  { name: 'Flams', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [], $key: 'c' }
+];
 
 describe('TabsSelectors', () => {
   let store: Store<AppState>;
@@ -62,6 +69,23 @@ describe('TabsSelectors', () => {
 
       store.dispatch(new TabListLoadSuccess({ tabList: [] }));
       expect(result).toBeNull();
+    });
+  });
+
+  describe('getSelectedTab', () => {
+    it('should return the selectedTab', () => {
+      const id = 'a';
+      let result = null;
+
+      store
+        .select(getSelectedTab)
+        .subscribe(value => result = value);
+
+      expect(result).toBeNull();
+      store.dispatch(new TabListLoadSuccess({ tabList: tabs }));
+
+      store.dispatch(new TabSelect({ id }));
+      expect(result).toEqual(tabs[0]);
     });
   });
 });

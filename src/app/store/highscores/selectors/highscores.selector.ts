@@ -1,12 +1,12 @@
 import { createSelector } from '@ngrx/store';
 // app
 import { AppState } from '../../app.reducer';
-import { tabsEntityAdapter } from '../tabs.state';
+import { highscoresEntityAdapter } from '../highscores.state';
 
-export const selectTab = (state: AppState) => state.tab;
+export const selectHighscore = (state: AppState) => state.highscore;
 
-export const getTabState = createSelector(
-  selectTab,
+export const getHighscoreState = createSelector(
+  selectHighscore,
   state => state
 );
 
@@ -15,19 +15,19 @@ export const {
   selectAll,
   selectEntities,
   selectTotal
-} = tabsEntityAdapter.getSelectors(getTabState);
+} = highscoresEntityAdapter.getSelectors(getHighscoreState);
 
 export const isLoading = createSelector(
-  getTabState,
+  getHighscoreState,
   state => state.isLoading
 );
 
 export const getError = createSelector(
-  getTabState,
+  getHighscoreState,
   state => state.error
 );
 
-export const getSelectedTab = createSelector(
-  getTabState,
+export const getSelectedHighscore = createSelector(
+  getHighscoreState,
   state => state.selectedId ? state.entities[state.selectedId] : null
 );

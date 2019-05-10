@@ -1,0 +1,70 @@
+import { Highscore } from '../../../drums/shared/models/highscore.model';
+import { initialHighscoresState } from '../highscores.state';
+import { highscoreReducer } from './highscores.reducer';
+import { HighscoreListLoad, HighscoreListLoadFail, HighscoreListLodSuccess, HighscoreSelect } from '../actions/highscores.actions';
+
+const highscores: Highscore[] = [
+  { $key: '1', name: 'Single stroke roll', highscore: 130, date: new Date().valueOf() },
+  { $key: '2', name: 'Double stroke roll', highscore: 100, date: new Date().valueOf() },
+  { $key: '3', name: 'Triple stroke roll', highscore: 80, date: new Date().valueOf() }
+];
+
+describe('HighscoreReducer', () => {
+  describe('undefined actions', () => {
+    it('should return the default state', () => {
+      const initialState = initialHighscoresState;
+      const action = {};
+      // @ts-ignore because I'm trying to fool the reducer by passing non sense but TS keeps crying
+      const state = highscoreReducer(undefined, action);
+      expect(state).toBe(initialState);
+    });
+  });
+
+  describe('LoadList', () => {
+    it('should set the state', () => {
+      const action = new HighscoreListLoad();
+      const state = highscoreReducer(initialHighscoresState, action);
+
+      expect(state.isLoading).toBeTruthy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+      expect(state.ids.length).toBe(0);
+    });
+  });
+
+  describe('LoadListFail', () => {
+    it('should set the state', () => {
+      const error = 'error';
+      const action = new HighscoreListLoadFail({ error });
+      const state = highscoreReducer(initialHighscoresState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBe(error);
+      expect(state.selectedId).toBeNull();
+      expect(state.ids.length).toBe(0);
+    });
+  });
+
+  describe('LoadListSuccess', () => {
+    it('should set the state', () => {
+      const action = new HighscoreListLodSuccess({ highscores });
+      const state = highscoreReducer(initialHighscoresState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+      expect(state.ids.length).toBe(3);
+    });
+  });
+
+  describe('Select', () => {
+    it('should set the state', () => {
+      const action = new HighscoreSelect({ id: 'id' });
+      const state = highscoreReducer(initialHighscoresState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBe('id');
+    });
+  });
+});

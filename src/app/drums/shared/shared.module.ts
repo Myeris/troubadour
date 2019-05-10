@@ -31,6 +31,11 @@ import { TypesService } from './services/types/types.service';
 import { HandFormComponent } from './components/hand-form/hand-form.component';
 import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
 import { TimerPipe } from './pipes/timer/timer.pipe';
+import { HighscoresService } from './services/highscores/highscores.service';
+import { HighscoresResource } from './resources/highscores/highscores.resource';
+import { CapitalizePipe } from './pipes/capitalize/capitalize.pipe';
+import { ToFailureFormComponent } from './components/to-failure-form/to-failure-form.component';
+import { ToFailureResultComponent } from './components/to-failure-result/to-failure-result.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +45,7 @@ import { TimerPipe } from './pipes/timer/timer.pipe';
     OrderTabsPipe,
     NumberToCollectionPipe,
     NoteCountPipe,
+    CapitalizePipe,
     TimerPipe,
     BreadcrumbComponent,
     TabDisplayComponent,
@@ -49,7 +55,9 @@ import { TimerPipe } from './pipes/timer/timer.pipe';
     SoundOptionsComponent,
     MetronomeSettingsComponent,
     HandFormComponent,
-    StopwatchComponent
+    StopwatchComponent,
+    ToFailureFormComponent,
+    ToFailureResultComponent
   ],
   exports: [
     SearchPipe,
@@ -58,14 +66,19 @@ import { TimerPipe } from './pipes/timer/timer.pipe';
     OrderTabsPipe,
     NumberToCollectionPipe,
     NoteCountPipe,
+    CapitalizePipe,
     TimerPipe,
     BreadcrumbComponent,
     TabDisplayComponent,
     ExerciseFormComponent,
     BpmDurationFormComponent,
+    BpmScaleFormComponent,
     SoundOptionsComponent,
+    MetronomeSettingsComponent,
+    HandFormComponent,
     StopwatchComponent,
-    HandFormComponent
+    ToFailureFormComponent,
+    ToFailureResultComponent
   ],
   imports: [
     CommonModule,
@@ -83,6 +96,8 @@ export class SharedModule {
       ngModule: SharedModule,
       providers: [
         ExerciseService,
+        HighscoresResource,
+        HighscoresService,
         MetronomeService,
         PracticeSessionsResource,
         PracticeSessionsService,

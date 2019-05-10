@@ -1,0 +1,24 @@
+<div
+  [formGroup]="form">
+  <label>
+    BPM (starting value)
+
+    <input
+      type="number"
+      formControlName="bpm"
+      min="40"
+      max="250"
+      (change)="onChange()">
+  </label>
+
+
+  <label>
+    Step
+
+    <input
+      type="number"
+      formControlName="step"
+      min="1"
+      (change)="onChange()">
+  </label>
+</div>
