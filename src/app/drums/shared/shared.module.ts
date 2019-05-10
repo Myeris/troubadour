@@ -29,6 +29,8 @@ import { NoteCountPipe } from './pipes/note-count/note-count.pipe';
 import { TypesResource } from './resources/types/types.resource';
 import { TypesService } from './services/types/types.service';
 import { HandFormComponent } from './components/hand-form/hand-form.component';
+import { StopwatchComponent } from './components/stopwatch/stopwatch.component';
+import { TimerPipe } from './pipes/timer/timer.pipe';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { HandFormComponent } from './components/hand-form/hand-form.component';
     OrderTabsPipe,
     NumberToCollectionPipe,
     NoteCountPipe,
+    TimerPipe,
     BreadcrumbComponent,
     TabDisplayComponent,
     ExerciseFormComponent,
@@ -45,7 +48,8 @@ import { HandFormComponent } from './components/hand-form/hand-form.component';
     BpmScaleFormComponent,
     SoundOptionsComponent,
     MetronomeSettingsComponent,
-    HandFormComponent
+    HandFormComponent,
+    StopwatchComponent
   ],
   exports: [
     SearchPipe,
@@ -54,11 +58,13 @@ import { HandFormComponent } from './components/hand-form/hand-form.component';
     OrderTabsPipe,
     NumberToCollectionPipe,
     NoteCountPipe,
+    TimerPipe,
     BreadcrumbComponent,
     TabDisplayComponent,
     ExerciseFormComponent,
     BpmDurationFormComponent,
     SoundOptionsComponent,
+    StopwatchComponent,
     HandFormComponent
   ],
   imports: [

@@ -1,0 +1,15 @@
+<div class="metronome">
+  <div class="wrapper">
+    <div class="metronome__title">
+      <h1>
+        <app-svg-icon name="Metronome" path="assets/img/drums/metronome.svg"></app-svg-icon>
+        Metronome
+      </h1>
+    </div>
+
+    <app-metronome-options
+      (played)="onPlay($event)"
+      (stopped)="onStop()">
+    </app-metronome-options>
+  </div>
+</div>

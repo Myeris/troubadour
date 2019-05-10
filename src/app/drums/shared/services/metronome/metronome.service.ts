@@ -274,7 +274,6 @@ export class MetronomeService {
 
             for (let i = 0; i < subdivision; i++) {
               const time = nextTime || startTime + 0.100;
-              console.log(time);
               this.playSound(exercise.soundOptions.metronomeSettings.accents.indexOf(i % subdivision) > -1 ? clickAccent : click, time);
 
               nextTime = time + noteTime;
@@ -320,8 +319,6 @@ export class MetronomeService {
               }
 
               if (bar === exercise.repeat - 1 && i === exercise.tab.notes.length - 1) {
-                console.log(timeout);
-
                 this.timeouts.push(setTimeout(() => {
                   return resolve();
                 }, timeout * 1000)); // resolve promise when exercise has ended and add a bit of delay
