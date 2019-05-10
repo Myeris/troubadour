@@ -1,0 +1,83 @@
+<div class="exercises">
+  <div class="wrapper">
+    <div class="exercises__title">
+      <h1>
+        <app-svg-icon name="Library" path="assets/img/drums/library.svg"></app-svg-icon>
+        Library
+      </h1>
+    </div>
+
+    <div class="exercises__types">
+      <div
+        class="type"
+        style="background: #333"
+        [style.boxShadow]="!activeFilter"
+        [style.opacity]="!activeFilter ? 1 : 0.5"
+        (click)="filter(null)">
+        all
+      </div>
+
+      <div
+        *ngFor="let type of (types$ | async)"
+        class="type"
+        [style.background]="type.color"
+        [style.boxShadow]="activeFilter === type"
+        [style.opacity]="activeFilter === type ? 1 : 0.5"
+        (click)="filter(type)">
+        {{ type.name }}
+      </div>
+    </div>
+
+    <div
+      *ngIf="tabs$ | async | orderTabs:(types$ | async) as tabs; else loading;"
+      class="exercises__list">
+
+      <div
+        *ngIf="!tabs.length"
+        class="message">
+        <mat-icon>inbox</mat-icon>
+        No exercises found.
+      </div>
+
+      <div class="count">
+        {{ (tabs | search: 'name' : searchText).length }} exercises found
+      </div>
+
+      <div
+        *ngIf="tabs.length"
+        class="search">
+        <label>
+          <input
+            [(ngModel)]="searchText"
+            type="text"
+            placeholder="Searching for...">
+        </label>
+        <a
+          (click)="searchText = null"
+          *ngIf="searchText">
+          <mat-icon>close</mat-icon>
+        </a>
+      </div>
+
+      <div class="library-list">
+        <app-library-list
+          *ngFor="let tab of tabs | search: 'name' : searchText | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.current }"
+          [tab]="tab"
+          [sessions]="sessions$ | async"
+          [types]="types$ | async">
+        </app-library-list>
+      </div>
+
+      <div class="pagination">
+        <pagination-controls (pageChange)="pagination.current = $event"></pagination-controls>
+      </div>
+    </div>
+
+    <ng-template #loading>
+      <div class="message">
+        <app-svg-icon name="Loading" path="assets/img/utils/loading.svg"></app-svg-icon>
+        Fetching library...
+      </div>
+    </ng-template>
+  </div>
+</div>

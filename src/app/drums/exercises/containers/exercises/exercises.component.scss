@@ -1,0 +1,124 @@
+.wrapper {
+  max-width: 1200px;
+  padding: 0 1em;
+}
+
+.exercises {
+  &__title {
+    display: flex;
+    align-items: center;
+
+    h1 {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      font-size: 1.25rem;
+      text-transform: uppercase;
+
+      app-svg-icon {
+        margin-right: 0.75rem;
+      }
+    }
+  }
+
+  .message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+
+    mat-icon {
+      margin: 0 0.5rem 0;
+    }
+  }
+
+  &__list {
+    margin-top: 1rem;
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+
+    label {
+      flex-grow: 1;
+      display: flex;
+
+      input {
+        outline: 0;
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        margin: 0;
+        background: #fff;
+        color: #545e6f;
+        flex-grow: 1;
+        border-bottom: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        border-radius: 0;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+      padding: 0.8rem;
+      border-bottom: 0;
+      cursor: pointer;
+
+      img {
+        height: 1rem;
+      }
+    }
+  }
+
+  &__types {
+    display: flex;
+    padding: 1rem 0;
+    justify-content: flex-end;
+
+    .type {
+      color: #fff;
+      padding: 0.25rem 0.5rem;
+      font-weight: 500;
+      border-radius: 0.2rem;
+      cursor: pointer;
+      margin: 0.5em;
+    }
+  }
+
+  .library-list {
+    display: flex;
+    flex-flow: wrap;
+    margin-top: 1rem;
+  }
+
+  .count {
+    font-size: 0.8rem;
+    font-style: italic;
+    text-align: right;
+    padding: 0.25rem 0;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    & /deep/ .ngx-pagination {
+      border-radius: 0.1rem;
+
+      .current {
+        background: #333333;
+        color: #CCFF00;
+      }
+    }
+  }
+}

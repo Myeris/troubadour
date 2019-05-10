@@ -1,0 +1,31 @@
+<div class="list-exercise">
+  <div>
+    <a [routerLink]="['../exercises', tab.$key]">
+      <div class="gif"
+           [style.opacity]="img.includes('gif') ? 1 : 0.5"
+           (mouseover)="onImgMouseAction(true)"
+           (mouseout)="onImgMouseAction(false)">
+        <img [src]="img"
+             alt="Gif not found">
+      </div>
+
+      <div class="content"
+           [style.borderTop]="'4px solid ' + tab.typeObject?.color">
+        {{ tab.name }}
+      </div>
+    </a>
+    <div class="buttons">
+      <a (click)="assignExercise()">
+        <mat-icon>add</mat-icon> Assign to a session
+      </a>
+    </div>
+  </div>
+
+  <app-exercise-assign
+    *ngIf="assignOpen"
+    [sessions]="sessions"
+    [tab]="tab"
+    (update)="onUpdate($event)"
+    (cancel)="onCancel()">
+  </app-exercise-assign>
+</div>

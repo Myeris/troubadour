@@ -1,0 +1,51 @@
+<div class="exercise-assign">
+  <div class="exercise-assign__modal">
+    <div class="exercise-assign__title">
+      <h1>
+        <app-svg-icon name="Snare icon" path="assets/img/drums/snare.svg"></app-svg-icon>
+        Assign {{ tab.name }} exercise
+      </h1>
+
+      <a
+        class="btn_add"
+        (click)="updateAssign()">
+        <mat-icon>add</mat-icon>
+        New practice session
+      </a>
+    </div>
+
+    <div class="exercise-assign__list">
+			<span
+        *ngIf="!sessions?.length"
+        class="exercise-assign__empty">
+        <mat-icon>inbox</mat-icon>
+				Nothing here to assign
+			</span>
+
+      <div *ngFor="let session of sessions"
+           (click)="toggleItem(session.$key)">
+        <mat-icon *ngIf="exists(session.$key)">check_circle</mat-icon>
+        <mat-icon *ngIf="!exists(session.$key)">check_circle_outline</mat-icon>
+        {{ session.name }}
+      </div>
+    </div>
+
+    <div class="exercise-assign__submit">
+      <div>
+        <button
+          type="button"
+          class="button"
+          (click)="updateAssign()">
+          Update
+        </button>
+
+        <button
+          type="button"
+          class="button button--cancel"
+          (click)="cancelAssign()">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

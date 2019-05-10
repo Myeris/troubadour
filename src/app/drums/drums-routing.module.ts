@@ -9,8 +9,16 @@ const routes: Route[] = [
     canActivate: [AuthGuard],
     loadChildren: './practice-sessions/practice-sessions.module#PracticeSessionsModule'
   },
-  // {path: 'exercises', canActivate: [AuthGuard], loadChildren: './exercises/exercises.module#ExercisesModule'},
-  { path: 'metronome', canActivate: [AuthGuard], loadChildren: './metronome/metronome.module#MetronomeModule' }
+  {
+    path: 'exercises',
+    canActivate: [AuthGuard],
+    loadChildren: './exercises/exercises.module#ExercisesModule'
+  },
+  {
+    path: 'metronome',
+    canActivate: [AuthGuard],
+    loadChildren: './metronome/metronome.module#MetronomeModule'
+  }
 ];
 
 @NgModule({
