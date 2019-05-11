@@ -1,6 +1,6 @@
 import { initialUserState } from '../user.state';
 import { userReducer } from './user.reducer';
-import { LogIn, LogInFail, LogInSuccess, LogOut, Register, RegisterFail, RegisterSuccess } from '../actions/user.actions';
+import { LogIn, LogInFail, LogInSuccess, LogOut, Register, RegisterFail, RegisterSuccess, SetPersistedUser } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { User } from '../../../auth/shared/models/user.model';
 
@@ -121,5 +121,18 @@ describe('userReducer', () => {
 
   describe('ChangePasswordFail', () => {
     // TODO
+  });
+
+  describe('SetPersistedUser', () => {
+    it('should set the state', () => {
+      const action = new SetPersistedUser({ user });
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.isLoggedIn).toBeTruthy();
+      expect(state.error).toBeNull();
+      expect(state.entities[user.id]).toEqual(user);
+      expect(state.selectedId).toBe(user.id);
+    });
   });
 });

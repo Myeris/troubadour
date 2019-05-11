@@ -6,7 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { UserService } from '../../../auth/shared/services/user.service';
 import { User } from '../../../auth/shared/models/user.model';
 import { AppState } from '../../../store/app.reducer';
-import { LogInSuccess, LogOut } from '../../../store/user/actions/user.actions';
+import { LogOut, SetPersistedUser } from '../../../store/user/actions/user.actions';
 import { getCurrentUser } from '../../../store/user/selectors/user.selectors';
 import { LifecycleComponent } from '../../../shared/components/lifecycle/lifecycle.component';
 
@@ -32,7 +32,7 @@ export class AppComponent extends LifecycleComponent implements OnInit {
     this.user = this.userService.persistedUser;
 
     if (this.user) {
-      this.store.dispatch(new LogInSuccess({ user: this.user }));
+      this.store.dispatch(new SetPersistedUser({ user: this.user }));
     }
   }
 

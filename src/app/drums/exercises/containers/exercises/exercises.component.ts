@@ -27,7 +27,7 @@ export class ExercisesComponent extends LifecycleComponent implements OnInit {
   public filteredTabs$: Observable<Tab[]>;
   public sessions$: Observable<PracticeSession[]>;
   public activeFilter: Tag;
-  public pagination: Pagination = { current: 1, itemsPerPage: 8 };
+  public pagination: Pagination = { current: 1, itemsPerPage: 10 };
 
   constructor(private store: Store<AppState>) {
     super();

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NavigationStart, Router } from '@angular/router';
-import { filter, take, tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 // app
 import { Exercise } from '../../models/exercise.model';
 import { Note } from '../../models/note.model';
@@ -21,9 +21,8 @@ export class MetronomeService {
     // on navigation start, close context to prevent music from playing
     this.router.events
       .pipe(
-        filter(() => event instanceof NavigationStart),
-        tap(() => this.stop()),
-        take(1)
+        filter((event) => event instanceof NavigationStart),
+        tap(() => this.stop())
       )
       .subscribe();
   }

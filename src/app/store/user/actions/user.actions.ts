@@ -23,7 +23,9 @@ export enum UserActionsTypes {
 
   RemoveAccount = '[User profile page] Remove account',
   RemoveAccountSuccess = '[AuthResourceAPI] Remove account success',
-  RemoveAccountFail = '[AuthResourceAPI] Remove account fail'
+  RemoveAccountFail = '[AuthResourceAPI] Remove account fail',
+
+  SetPersistedUser = '[App root page] Set user using persisted object in localstorage'
 }
 
 export class LogIn implements Action {
@@ -109,6 +111,13 @@ export class RemoveAccountFail implements Action {
   }
 }
 
+export class SetPersistedUser implements Action {
+  public readonly type = UserActionsTypes.SetPersistedUser;
+
+  constructor(public payload: { user: User }) {
+  }
+}
+
 export type UserActions =
   | LogIn
   | LogInSuccess
@@ -123,4 +132,5 @@ export type UserActions =
   | ChangePasswordFail
   | RemoveAccount
   | RemoveAccountSuccess
-  | RemoveAccountFail;
+  | RemoveAccountFail
+  | SetPersistedUser;

@@ -14,6 +14,7 @@ import {
   RemoveAccount,
   RemoveAccountFail,
   RemoveAccountSuccess,
+  SetPersistedUser,
   UserActionsTypes
 } from './user.actions';
 import { User } from '../../../auth/shared/models/user.model';
@@ -120,6 +121,13 @@ describe('UserActions', () => {
     it('should create an action', () => {
       const action = new RemoveAccountFail({ error: 'error' });
       expect(action.type).toBe(UserActionsTypes.RemoveAccountFail);
+    });
+  });
+
+  describe('SetPersistedUser', () => {
+    it('should create an action', () => {
+      const action = new SetPersistedUser({ user: null });
+      expect(action.type).toBe(UserActionsTypes.SetPersistedUser);
     });
   });
 });

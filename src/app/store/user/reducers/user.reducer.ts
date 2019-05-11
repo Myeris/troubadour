@@ -16,6 +16,7 @@ export function userReducer(
       return { ...state, isLoggedIn: false, isLoading: false, error: action.payload.error, selectedId: null };
     case UserActionsTypes.LogInSuccess:
     case UserActionsTypes.RegisterSuccess:
+    case UserActionsTypes.SetPersistedUser:
       return userEntityAdapter.addOne(action.payload.user, {
         ...state,
         selectedId: action.payload.user.id,
