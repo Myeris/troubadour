@@ -99,7 +99,7 @@ export class RemoveAccount implements Action {
 }
 
 export class RemoveAccountSuccess implements Action {
-  public readonly type = UserActionsTypes.RegisterSuccess;
+  public readonly type = UserActionsTypes.RemoveAccountSuccess;
 }
 
 export class RemoveAccountFail implements Action {
