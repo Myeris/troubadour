@@ -53,7 +53,7 @@ describe('AppComponent', () => {
 
       component.ngOnInit();
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(new LogInSuccess({ user: component.user }));
+      expect(store.dispatch).toHaveBeenCalledWith(new LogInSuccess({ user: (component as any).user }));
     }));
 
     it('should not dispatch an action if user is not defined', () => {

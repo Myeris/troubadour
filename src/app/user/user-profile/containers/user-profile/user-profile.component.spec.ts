@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { Store, StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DebugElement } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 // app
 import { UserProfileComponent } from './user-profile.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
@@ -27,7 +27,8 @@ describe('UserProfileComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         StoreModule.forRoot({ ...appReducers })
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
     fixture = bed.createComponent(UserProfileComponent);
