@@ -1,6 +1,6 @@
-<app-header *ngIf="user" (loggingOut)="logout()"></app-header>
+<app-header *ngIf="user$ | async" (loggingOut)="logout()"></app-header>
 
-<app-nav *ngIf="user"></app-nav>
+<app-nav *ngIf="user$ | async"></app-nav>
 
 <router-outlet></router-outlet>
 

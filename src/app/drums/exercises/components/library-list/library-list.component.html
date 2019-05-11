@@ -1,12 +1,9 @@
 <div class="list-exercise">
   <div>
     <a [routerLink]="['../exercises', tab.$key]">
-      <div class="gif"
-           [style.opacity]="img.includes('gif') ? 1 : 0.5"
-           (mouseover)="onImgMouseAction(true)"
-           (mouseout)="onImgMouseAction(false)">
-        <img [src]="img"
-             alt="Gif not found">
+      <div class="gif">
+        <img src="assets/img/drums/drums.png"
+             alt="Drums photo">
       </div>
 
       <div class="content"

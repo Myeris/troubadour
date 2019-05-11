@@ -68,12 +68,9 @@
             class="tab">
             <div>
               <a (click)="selectExercise(tab)">
-                <div (mouseout)="getTabImg(tab, false)"
-                     (mouseover)="getTabImg(tab, true)"
-                     [style.opacity]="tabImgs.get(tab.$key).includes('gif') ? 1 : 0.5"
-                     class="gif">
-                  <img [src]="tabImgs.get(tab.$key)"
-                       alt="Gif not found">
+                <div class="gif">
+                  <img src="assets/img/drums/drums.png"
+                       alt="Drums photo">
                 </div>
 
                 <div [style.borderTop]="'4px solid ' + tab.typeObject?.color"
