@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { UserService } from '../../../auth/shared/services/user.service';
 import { appReducers, AppState } from '../../../store/app.reducer';
 import { User } from '../../../auth/shared/models/user.model';
-import { LogInSuccess, LogOut } from '../../../store/user/actions/user.actions';
+import { LogOut, SetPersistedUser } from '../../../store/user/actions/user.actions';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -53,7 +53,7 @@ describe('AppComponent', () => {
 
       component.ngOnInit();
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(new LogInSuccess({ user: (component as any).user }));
+      expect(store.dispatch).toHaveBeenCalledWith(new SetPersistedUser({ user: (component as any).user }));
     }));
 
     it('should not dispatch an action if user is not defined', () => {
