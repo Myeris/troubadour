@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, map, pluck, switchMap, tap } from 'rxjs/operators';
+import { catchError, map, pluck, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
-import { Router } from '@angular/router';
 // app
+import { Router } from '@angular/router';
 import { AppState } from '../../app.reducer';
 import {
+  ChangePassword,
+  ChangePasswordFail,
+  ChangePasswordSuccess,
   LogIn,
   LogInFail,
   LogInSuccess,
@@ -20,8 +23,11 @@ import {
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { AuthResource } from '../../../auth/shared/resources/auth.resource';
 import { UserService } from '../../../auth/shared/services/user.service';
-import UserCredential = firebase.auth.UserCredential;
+import { getCurrentUser } from '../selectors/user.selectors';
+import { User } from '../../../auth/shared/models/user.model';
+import { FirebaseError } from 'firebase';
 import FirestoreError = firebase.firestore.FirestoreError;
+import UserCredential = firebase.auth.UserCredential;
 
 @Injectable()
 export class UserEffects {
@@ -62,6 +68,16 @@ export class UserEffects {
       map(() => this.userService.removePersistedUser()),
       map(() => new LogOutSuccess()),
       tap(() => this.router.navigate(['/auth']))
+    );
+
+  @Effect()
+  changePassword$: Observable<Action> = this.actions$
+    .pipe(
+      ofType<ChangePassword>(UserActionsTypes.ChangePassword),
+      withLatestFrom(this.store$.select<User>(getCurrentUser)),
+      switchMap(([action, currentUser]) => this.authResource.changePassword(currentUser.email, action.payload.changePassword)),
+      map(() => new ChangePasswordSuccess()),
+      catchError((error: FirebaseError) => of(new ChangePasswordFail({ error: error.message })))
     );
 
   constructor(private actions$: Actions,

@@ -123,4 +123,8 @@ describe('UserEffects', () => {
       expect(effects.registerUser$).toBeObservable(expected);
     }));
   });
+
+  describe('changePassword$', () => {
+    // TODO
+  });
 });

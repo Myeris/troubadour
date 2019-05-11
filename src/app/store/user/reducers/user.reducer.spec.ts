@@ -110,4 +110,16 @@ describe('userReducer', () => {
       expect(state.ids.length).toBe(0);
     });
   });
+
+  describe('ChangePassword', () => {
+    // TODO
+  });
+
+  describe('ChangePasswordSuccess', () => {
+    // TODO
+  });
+
+  describe('ChangePasswordFail', () => {
+    // TODO
+  });
 });

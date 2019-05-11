@@ -1,0 +1,34 @@
+<div class="user-profile-form">
+  <div>
+    <h2>
+      Remove my account
+    </h2>
+
+    <div class="user-profile-form__delete">
+      <div *ngIf="toggled">
+        <p>
+          Are you sure you want to delete your account? This action is irreversible.
+        </p>
+        <button
+          class="confirm"
+          type="button"
+          (click)="removeAccount()">
+          Yes
+        </button>
+        <button
+          class="cancel"
+          type="button"
+          (click)="toggle()">
+          No
+        </button>
+      </div>
+
+      <button
+        class="button button--delete"
+        type="button"
+        (click)="toggle()">
+        Remove
+      </button>
+    </div>
+  </div>
+</div>

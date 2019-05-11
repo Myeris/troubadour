@@ -12,6 +12,7 @@ import { AppSharedModule } from '../shared/shared.module';
 import { DrumsModule } from '../drums/drums.module';
 import { AppStoreModule } from '../store/store.module';
 import { LegalsComponent } from './containers/legals/legals.component';
+import { UserModule } from '../user/user.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { LegalsComponent } from './containers/legals/legals.component';
     AppRoutingModule,
     AuthModule,
     DrumsModule,
+    UserModule,
     AppStoreModule,
     AppSharedModule
   ],

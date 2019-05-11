@@ -69,31 +69,6 @@
 
     <div class="about__content">
       <h2>
-        Changelog
-      </h2>
-
-      <div *ngFor="let i of changelog"
-           class="changelog">
-        <h3>
-          {{ i.version.id }} - {{ i.version.name }}
-        </h3>
-
-        <ul>
-          <li
-            *ngFor="let c of i.content">
-						<span [class]="'type ' + c.type">
-							{{ c.type }}
-						</span>
-            <span class="message">
-							{{ c.message }}
-						</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="about__content">
-      <h2>
         Terms of use
       </h2>
 

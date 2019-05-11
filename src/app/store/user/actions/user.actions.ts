@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 // app
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { User } from '../../../auth/shared/models/user.model';
-
+import { ChangePassword as ChangePasswordModel } from '../../../auth/shared/models/change-password.model';
 
 export enum UserActionsTypes {
   LogIn = '[Login page] Log user in',
@@ -15,7 +15,15 @@ export enum UserActionsTypes {
 
   LogOut = '[App header bar] Log out',
   LogOutSuccess = '[AuthResourceAPI] Log out success',
-  LogOutFail = '[AuthResourceAPI] Log out fail'
+  LogOutFail = '[AuthResourceAPI] Log out fail', // TODO
+
+  ChangePassword = '[User profile page] Change password',
+  ChangePasswordSuccess = '[AuthResourceAPI] Change password success',
+  ChangePasswordFail = '[AuthResourceAPI] Change password fail',
+
+  RemoveAccount = '[User profile page] Remove account',
+  RemoveAccountSuccess = '[AuthResourceAPI] Remove account success',
+  RemoveAccountFail = '[AuthResourceAPI] Remove account fail'
 }
 
 export class LogIn implements Action {
@@ -68,6 +76,39 @@ export class LogOutSuccess implements Action {
   public readonly type = UserActionsTypes.LogOutSuccess;
 }
 
+export class ChangePassword implements Action {
+  public readonly type = UserActionsTypes.ChangePassword;
+
+  constructor(public payload: { changePassword: ChangePasswordModel }) {
+  }
+}
+
+export class ChangePasswordSuccess implements Action {
+  public readonly type = UserActionsTypes.ChangePasswordSuccess;
+}
+
+export class ChangePasswordFail implements Action {
+  public readonly type = UserActionsTypes.ChangePasswordFail;
+
+  constructor(public payload: { error: string }) {
+  }
+}
+
+export class RemoveAccount implements Action {
+  public readonly type = UserActionsTypes.RemoveAccount;
+}
+
+export class RemoveAccountSuccess implements Action {
+  public readonly type = UserActionsTypes.RegisterSuccess;
+}
+
+export class RemoveAccountFail implements Action {
+  public readonly type = UserActionsTypes.RemoveAccountFail;
+
+  constructor(public payload: { error: string }) {
+  }
+}
+
 export type UserActions =
   | LogIn
   | LogInSuccess
@@ -76,4 +117,10 @@ export type UserActions =
   | RegisterSuccess
   | RegisterFail
   | LogOut
-  | LogOutSuccess;
+  | LogOutSuccess
+  | ChangePassword
+  | ChangePasswordSuccess
+  | ChangePasswordFail
+  | RemoveAccount
+  | RemoveAccountSuccess
+  | RemoveAccountFail;

@@ -1,5 +1,8 @@
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import {
+  ChangePassword,
+  ChangePasswordFail,
+  ChangePasswordSuccess,
   LogIn,
   LogInFail,
   LogInSuccess,
@@ -8,6 +11,9 @@ import {
   Register,
   RegisterFail,
   RegisterSuccess,
+  RemoveAccount,
+  RemoveAccountFail,
+  RemoveAccountSuccess,
   UserActionsTypes
 } from './user.actions';
 import { User } from '../../../auth/shared/models/user.model';
@@ -72,6 +78,48 @@ describe('UserActions', () => {
     it('should create an action', () => {
       const action = new LogOutSuccess();
       expect(action.type).toBe(UserActionsTypes.LogOutSuccess);
+    });
+  });
+
+  describe('ChangePassword', () => {
+    it('should create an action', () => {
+      const action = new ChangePassword({ changePassword: { old: 'old', new: 'new', confirmed: 'new' } });
+      expect(action.type).toBe(UserActionsTypes.ChangePassword);
+    });
+  });
+
+  describe('ChangePasswordSuccess', () => {
+    it('should create an action', () => {
+      const action = new ChangePasswordSuccess();
+      expect(action.type).toBe(UserActionsTypes.ChangePasswordSuccess);
+    });
+  });
+
+  describe('ChangePasswordFail', () => {
+    it('should create an action', () => {
+      const action = new ChangePasswordFail({ error: '' });
+      expect(action.type).toBe(UserActionsTypes.ChangePasswordFail);
+    });
+  });
+
+  describe('RemoveAccount', () => {
+    it('should create an action', () => {
+      const action = new RemoveAccount();
+      expect(action.type).toBe(UserActionsTypes.RemoveAccount);
+    });
+  });
+
+  describe('RemoveAccountSuccess', () => {
+    it('should create an action', () => {
+      const action = new RemoveAccountSuccess();
+      expect(action.type).toBe(UserActionsTypes.RemoveAccountSuccess);
+    });
+  });
+
+  describe('RemoveAccountFail', () => {
+    it('should create an action', () => {
+      const action = new RemoveAccountFail({ error: 'error' });
+      expect(action.type).toBe(UserActionsTypes.RemoveAccountFail);
     });
   });
 });
