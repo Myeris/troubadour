@@ -60,11 +60,12 @@ export class ExerciseComponent extends LifecycleComponent implements OnInit {
   }
 
   public async saveHighscore(highscore: Highscore): Promise<void> {
-    try {
-      // await this.highscoreService.update(highscore);
-    } catch (e) {
-      throw new Error(e);
-    }
+    // TODO
+    // try {
+    //   // await this.highscoreService.update(highscore);
+    // } catch (e) {
+    //   throw new Error(e);
+    // }
   }
 
   public assignExercise(): void {
