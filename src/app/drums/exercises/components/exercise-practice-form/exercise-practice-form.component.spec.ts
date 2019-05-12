@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 // app
 import { ExercisePracticeFormComponent } from './exercise-practice-form.component';
 import { SharedModule } from '../../../shared/shared.module';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
 
 describe('ExercisePracticeForm', () => {
   let component: ExercisePracticeFormComponent;
@@ -63,15 +64,142 @@ describe('ExercisePracticeForm', () => {
     expect(el.query(By.css('sound-options'))).toBeDefined();
   });
 
-  it('should emit an event on form submit', () => {
-    const spy = spyOn(component.submitted, 'emit');
-    component.submit();
-    expect(spy).toHaveBeenCalled();
+  describe('showSoundOptions', () => {
+    it('should return true if one of the forms is displayed', () => {
+      component.showForms.bpmScale = true;
+      expect(component.showSoundOptions).toBeTruthy();
+
+      component.showForms.bpmScale = false;
+      component.showForms.bpmDuration = true;
+      expect(component.showSoundOptions).toBeTruthy();
+
+      component.showForms.bpmDuration = false;
+      component.showForms.toFailure = true;
+      expect(component.showSoundOptions).toBeTruthy();
+    });
+
+    it('should return false if none of the forms is displayed', () => {
+      expect(component.showForms.toFailure).toBeFalsy();
+      expect(component.showForms.bpmDuration).toBeFalsy();
+      expect(component.showForms.bpmScale).toBeFalsy();
+      expect(component.showSoundOptions).toBeFalsy();
+    });
   });
 
-  it('should emit an event on form cancel', () => {
-    const spy = spyOn(component.cancelled, 'emit');
-    component.cancel();
-    expect(spy).toHaveBeenCalled();
+  describe('formAccents', () => {
+    it('should return the accents as a form array', () => {
+      // TODO
+    });
+  });
+
+  describe('onFormValueChange', () => {
+    it('should set the value to the form', () => {
+      spyOn(component.form, 'setControl').and.callFake(() => true);
+
+      const formData: FormGroup = new FormGroup({
+        bpm: new FormControl(90),
+        duration: new FormControl(60)
+      });
+
+      component.onFormValueChange('bpmDuration', formData);
+
+      expect(component.form.setControl).toHaveBeenCalledTimes(1);
+      expect(component.form.setControl).toHaveBeenCalledWith('bpmDuration', formData);
+    });
+  });
+
+  describe('toggleForm', () => {
+    it('should toggle the forms', () => {
+      expect(component.showForms.toFailure).toBeFalsy();
+      expect(component.showForms.bpmDuration).toBeFalsy();
+      expect(component.showForms.bpmScale).toBeFalsy();
+
+      component.toggleForm('toFailure');
+      expect(component.showForms.toFailure).toBeTruthy();
+      expect(component.showForms.bpmDuration).toBeFalsy();
+      expect(component.showForms.bpmScale).toBeFalsy();
+
+      component.toggleForm('bpmDuration');
+      expect(component.showForms.toFailure).toBeFalsy();
+      expect(component.showForms.bpmDuration).toBeTruthy();
+      expect(component.showForms.bpmScale).toBeFalsy();
+
+      component.toggleForm('bpmScale');
+      expect(component.showForms.toFailure).toBeFalsy();
+      expect(component.showForms.bpmDuration).toBeFalsy();
+      expect(component.showForms.bpmScale).toBeTruthy();
+    });
+  });
+
+  describe('isButtonDisabled', () => {
+    it('should return true if button is disabled', () => {
+      component.showForms.toFailure = true;
+      expect(component.isButtonDisabled()).toBeFalsy();
+    });
+
+    it('should return false if button is enabled', () => {
+      expect(component.isButtonDisabled()).toBeTruthy();
+    });
+  });
+
+  describe('cancel', () => {
+    it('should emit an event on form cancel', () => {
+      const spy = spyOn(component.cancelled, 'emit');
+      component.cancel();
+      expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('submit', () => {
+    it('should emit an event on form submit', () => {
+      spyOn(component.submitted, 'emit').and.callFake(() => true);
+      spyOn(component.form, 'removeControl').and.callFake(() => true);
+
+      component.submit();
+      expect(component.form.removeControl).toHaveBeenCalledTimes(3);
+      expect(component.submitted.emit).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('onSoundOptionsChange', () => {
+    it('should set options if type is 0', () => {
+      // const form: FormGroup = new FormGroup({
+      //   type: new FormControl(0),
+      //   settings: new FormGroup({
+      //     subdivision: new FormControl('4'),
+      //     accents: new FormArray([new FormControl(0)])
+      //   })
+      // });
+      //
+      // component.onSoundOptionsChange(form);
+      // TODO find how to test this
+    });
+
+    it('should set options if type is 1', () => {
+      spyOn((component as any), 'emptyAccents').and.callFake(() => true);
+      spyOn(component.formAccents, 'push').and.callFake(() => true);
+
+      const form: FormGroup = new FormGroup({
+        type: new FormControl(1),
+        settings: new FormGroup({
+          subdivision: new FormControl('4'),
+          accents: new FormArray([
+            new FormControl(0),
+            new FormControl(1)
+          ])
+        })
+      });
+
+      component.onSoundOptionsChange(form);
+
+      expect((component as any).emptyAccents).toHaveBeenCalledTimes(1);
+      expect(component.formAccents.push).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('emptyAccents', () => {
+    it('should remove all accents', () => {
+      // TODO
+    });
   });
 });
