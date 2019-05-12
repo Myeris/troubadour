@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { Router } from '@angular/router';
@@ -66,6 +66,7 @@ describe('LibraryListComponent', () => {
   let component: LibraryListComponent;
   let fixture: ComponentFixture<LibraryListComponent>;
   let el: DebugElement;
+  let router: Router;
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
@@ -82,6 +83,7 @@ describe('LibraryListComponent', () => {
     fixture = bed.createComponent(LibraryListComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement;
+    router = bed.get(Router);
 
     component.sessions = sessions;
     component.tab = tab;
@@ -99,30 +101,70 @@ describe('LibraryListComponent', () => {
     expect(el.query(By.css('exercise-assign'))).toBeDefined();
   });
 
-  it('should toggle the remove message', () => {
-    expect(component.toggled).toBeFalsy();
-    component.toggle();
-    expect(component.toggled).toBeTruthy();
+  describe('onChanges', () => {
+    it('should set the tab type if defined', () => {
+      component.ngOnChanges({});
+      expect(component.tabType).toEqual(component.types[0]);
+    });
+
+    it('should do nothing', () => {
+      component.tab = null;
+      component.types = [];
+      component.ngOnChanges({});
+      expect(component.tabType).toBeUndefined();
+    });
   });
 
-  it('should make the assignOpen prop true', () => {
-    expect(component.assignOpen).toBeFalsy();
-    component.assignExercise();
-    expect(component.assignOpen).toBeTruthy();
+  describe('toggle', () => {
+    it('should toggle the remove message', () => {
+      expect(component.toggled).toBeFalsy();
+      component.toggle();
+      expect(component.toggled).toBeTruthy();
+    });
   });
 
-  it('should redirect on update', (inject([Router], (router: Router) => {
-    const spy = spyOn(router, 'navigate');
-    component.onUpdate(sessions[0]);
-    expect(spy).toHaveBeenCalledWith(['practice-sessions', sessions[0].$key, 'edit'], { queryParams: { exercise: tab.$key } });
-  })));
+  describe('assignExercise', () => {
+    it('should make the assignOpen prop true', () => {
+      expect(component.assignOpen).toBeFalsy();
+      component.assignExercise();
+      expect(component.assignOpen).toBeTruthy();
+    });
+  });
 
-  it('should make the assignOpen prop false', () => {
-    component.assignOpen = true;
-    expect(component.assignOpen).toBeTruthy();
+  describe('onUpdate', () => {
+    beforeEach(() => {
+      spyOn(router, 'navigate').and.callFake(() => true);
+    });
 
-    component.onCancel();
-    expect(component.assignOpen).toBeFalsy();
+    it('should redirect to a new session', () => {
+      component.onUpdate(null);
+      expect(router.navigate).toHaveBeenCalledTimes(1);
+      expect(router.navigate)
+        .toHaveBeenCalledWith(
+          ['practice-sessions', 'new'],
+          { queryParams: { exercise: '1' } }
+        );
+    });
+
+    it('should redirect to the session edit', () => {
+      component.onUpdate(sessions[0]);
+      expect(router.navigate).toHaveBeenCalledTimes(1);
+      expect(router.navigate)
+        .toHaveBeenCalledWith(
+          ['practice-sessions', sessions[0].$key, 'edit'],
+          { queryParams: { exercise: '1' } }
+        );
+    });
+  });
+
+  describe('onCancel', () => {
+    it('should assignOpen to false', () => {
+      component.assignOpen = true;
+      expect(component.assignOpen).toBeTruthy();
+
+      component.onCancel();
+      expect(component.assignOpen).toBeFalsy();
+    });
   });
 });
 

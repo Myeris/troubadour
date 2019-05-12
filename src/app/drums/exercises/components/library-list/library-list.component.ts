@@ -11,11 +11,9 @@ import { PracticeSession } from '../../../shared/models/practice-session.model';
   styleUrls: ['./library-list.component.scss']
 })
 export class LibraryListComponent implements OnChanges {
-
   public toggled = false;
   public assignOpen = false;
   public tabType: Tag;
-  public img = '/img/drums/gifs/not-found/not-found.png';
 
   @Input() public tab: Tab;
   @Input() public sessions: PracticeSession[];
@@ -56,9 +54,4 @@ export class LibraryListComponent implements OnChanges {
   public onCancel(): void {
     this.assignOpen = false;
   }
-
-  public onImgMouseAction(animate: boolean): void {
-    this.img = `/img/drums/gifs/not-found/not-found.${animate ? 'gif' : 'png'}`; // TODO change this
-  }
-
 }
