@@ -27,4 +27,23 @@ describe('ResetPasswordComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('emailFormat', () => {
+    it('should return false if email is badly formatted', () => {
+      component.form.get('email').setValue('test');
+      expect(component.emailFormat).toBeFalsy();
+
+      component.form.get('email').setValue('test@test');
+      expect(component.emailFormat).toBeFalsy();
+    });
+
+    it('should return true if email is well formatted', () => {
+      component.form.get('email').setValue('test@test.fr');
+      expect(component.emailFormat).toBeFalsy();
+    });
+  });
+
+  describe('onSubmit', () => {
+    // TODO
+  });
 });

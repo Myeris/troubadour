@@ -13,12 +13,12 @@ export class ResetPasswordComponent {
 
   public feedback: { success: boolean, message: string };
 
-  constructor(private fb: FormBuilder) {
-  }
-
   public get emailFormat(): boolean {
     const control = this.form.get('email');
     return control.hasError('email') && control.touched;
+  }
+
+  constructor(private fb: FormBuilder) {
   }
 
   public async onSubmit(): Promise<void> {

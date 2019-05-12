@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import UserCredential = firebase.auth.UserCredential;
 // app
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthRequest } from '../models/auth-request.model';
 import { ChangePassword } from '../models/change-password.model';
-import UserCredential = firebase.auth.UserCredential;
 
 @Injectable()
 export class AuthResource {
@@ -18,7 +18,7 @@ export class AuthResource {
     return this.afAuth.auth.createUserWithEmailAndPassword(authRequest.email, authRequest.password);
   }
 
-  public changePassword(email: string, changePassword: ChangePassword) {
+  public changePassword(email: string, changePassword: ChangePassword): Promise<void> {
     return this.login({ email, password: changePassword.old })
       .then(() => this.afAuth.auth.currentUser.updatePassword(changePassword.new))
       .catch(err => new Promise((resolve, reject) => reject(err)));

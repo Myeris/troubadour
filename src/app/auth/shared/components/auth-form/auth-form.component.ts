@@ -14,17 +14,17 @@ export class AuthFormComponent {
     password: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder) {
-  }
-
   public get passwordInvalid(): boolean {
     const control = this.form.get('password');
     return control.hasError('required') && control.touched;
   }
 
-  public get emailFormat(): boolean {
+  public get emailFormatInvalid(): boolean {
     const control = this.form.get('email');
     return control.hasError('email') && control.touched;
+  }
+
+  constructor(private fb: FormBuilder) {
   }
 
   public onSubmit(): Error | void {
