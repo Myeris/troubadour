@@ -37,12 +37,6 @@ export class AppComponent extends LifecycleComponent implements OnInit {
   }
 
   logout(): void {
-    if (!this.user) {
-      this.user = this.userService.persistedUser;
-    }
-
-    if (this.user) {
-      this.store.dispatch(new LogOut());
-    }
+    this.store.dispatch(new LogOut());
   }
 }

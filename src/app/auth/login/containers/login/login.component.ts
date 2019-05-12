@@ -35,7 +35,7 @@ export class LoginComponent extends LifecycleComponent implements OnInit {
     this.store.dispatch(new LogIn({ authRequest }));
   }
 
-  public async resendVerificationEmail(): Promise<void> {
+  public resendVerificationEmail(): void {
     console.log('TODO'); // TODO
   }
 }

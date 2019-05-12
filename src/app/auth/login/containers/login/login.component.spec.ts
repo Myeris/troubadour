@@ -8,6 +8,7 @@ import { LoginComponent } from './login.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
 import { getError } from '../../../../store/user/selectors/user.selectors';
 import { LogIn } from '../../../../store/user/actions/user.actions';
+import { Observable, of } from 'rxjs';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -41,10 +42,11 @@ describe('LoginComponent', () => {
 
   describe('ngOnInit', () => {
     it('should set error$', () => {
-      spyOn(store, 'select').and.callThrough();
+      spyOn(store, 'select').and.returnValue(of('error'));
       component.ngOnInit();
       expect(store.select).toHaveBeenCalledTimes(1);
       expect(store.select).toHaveBeenCalledWith(getError);
+      expect(component.error$ instanceof Observable).toBeTruthy();
     });
   });
 
@@ -56,6 +58,12 @@ describe('LoginComponent', () => {
       component.loginUser({ value } as FormGroup);
       expect(store.dispatch).toHaveBeenCalledTimes(1);
       expect(store.dispatch).toHaveBeenCalledWith(new LogIn({ authRequest: value }));
+    });
+  });
+
+  describe('resendVerificationEmail', () => {
+    it('should send an action to resend a verification email', () => {
+      // TODO
     });
   });
 });
