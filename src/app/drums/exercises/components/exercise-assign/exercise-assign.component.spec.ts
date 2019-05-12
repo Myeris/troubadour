@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 // app
 import { ExerciseAssignComponent } from './exercise-assign.component';
 import { Tab } from '../../../shared/models/tab.model';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
 
 const tab: Tab = {
   name: 'Tab 1',
@@ -15,6 +16,28 @@ const tab: Tab = {
   $key: '1',
   $exist: () => true
 };
+const sessions: PracticeSession[] = [
+  {
+    name: 'Session 1',
+    exercises: [],
+    repeat: 1,
+    created: new Date().valueOf(),
+    updated: new Date().valueOf(),
+    shared: false,
+    drumkit: false,
+    $key: '1'
+  },
+  {
+    name: 'Session 2',
+    exercises: [],
+    repeat: 1,
+    created: new Date().valueOf(),
+    updated: new Date().valueOf(),
+    shared: false,
+    drumkit: false,
+    $key: '2'
+  }
+];
 
 describe('ExerciseAssignComponent', () => {
   let component: ExerciseAssignComponent;
@@ -51,142 +74,61 @@ describe('ExerciseAssignComponent', () => {
     expect(el.queryAll(By.css('button'))[1].nativeElement.textContent).toContain('Cancel');
   });
 
-  it('should capture an exception when trying to update an exercise that doesn\'t exist', () => {
-    // TODO fix this
-    // const spy = spyOn(sentry, 'captureException');
-    //
-    // component.sessions = [
-    //   {
-    //     name: 'Session 1',
-    //     exercises: [],
-    //     repeat: 1,
-    //     created: new Date().valueOf(),
-    //     updated: new Date().valueOf(),
-    //     shared: false,
-    //     drumkit: false,
-    //     $key: '1'
-    //   },
-    //   {
-    //     name: 'Session 2',
-    //     exercises: [],
-    //     repeat: 1,
-    //     created: new Date().valueOf(),
-    //     updated: new Date().valueOf(),
-    //     shared: false,
-    //     drumkit: false,
-    //     $key: '2'
-    //   }
-    // ];
-    // component.selected = '3';
-    //
-    // component.updateAssign();
-    // spy.and.returnValue('Session not found');
-    // expect(spy).toHaveBeenCalledWith('Session not found');
+  describe('updateAssign', () => {
+    it('should capture an exception when trying to update an exercise that doesn\'t exist', () => {
+      component.sessions = sessions;
+      component.selected = '3';
+
+      expect(() => component.updateAssign()).toThrow(new Error('Session not found'));
+    });
+
+    it('should capture an exception when trying to update an exercise which keys is a duplicate in the sessions list', () => {
+      component.sessions = [...sessions, { $key: '1' } as PracticeSession];
+      component.selected = '1';
+
+      expect(() => component.updateAssign()).toThrow(new Error('Session key not unique'));
+    });
+
+    it('should emit an event when assigning a session to an exercise', () => {
+      const spy = spyOn(component.update, 'emit');
+
+      component.sessions = sessions;
+      component.selected = '1';
+
+      component.updateAssign();
+      expect(spy).toHaveBeenCalled();
+    });
   });
 
-  it('should capture an exception when trying to update an exercise which keys is a duplicate in the sessions list', () => {
-    // TODO fix this
-    // const spy = spyOn(sentry, 'captureException');
-    //
-    // component.sessions = [
-    //   {
-    //     name: 'Session 1',
-    //     exercises: [],
-    //     repeat: 1,
-    //     created: new Date().valueOf(),
-    //     updated: new Date().valueOf(),
-    //     shared: false,
-    //     drumkit: false,
-    //     $key: '1'
-    //   },
-    //   {
-    //     name: 'Session 2',
-    //     exercises: [],
-    //     repeat: 1,
-    //     created: new Date().valueOf(),
-    //     updated: new Date().valueOf(),
-    //     shared: false,
-    //     drumkit: false,
-    //     $key: '1'
-    //   }
-    // ];
-    // component.selected = '1';
-    //
-    // component.updateAssign();
-    // spy.and.returnValue('Session key not unique');
-    // expect(spy).toHaveBeenCalledWith('Session key not unique');
+  describe('cancelAssign', () => {
+    it('should emit an event when canceling the assign action', () => {
+      const spy = spyOn(component.cancel, 'emit');
+
+      component.cancelAssign();
+      expect(spy).toHaveBeenCalled();
+    });
   });
 
-  it('should emit an event when assigning a session to an exercise', () => {
-    const spy = spyOn(component.update, 'emit');
+  describe('toggleItem', () => {
+    it('should toggle the item if it\'s selected', () => {
+      component.toggleItem('1');
+      expect(component.selected).toBe('1');
+    });
 
-    component.sessions = [
-      {
-        name: 'Session 1',
-        exercises: [],
-        repeat: 1,
-        created: new Date().valueOf(),
-        updated: new Date().valueOf(),
-        shared: false,
-        drumkit: false,
-        $key: '1'
-      },
-      {
-        name: 'Session 2',
-        exercises: [],
-        repeat: 1,
-        created: new Date().valueOf(),
-        updated: new Date().valueOf(),
-        shared: false,
-        drumkit: false,
-        $key: '2'
-      }
-    ];
-    component.selected = '1';
-
-    component.updateAssign();
-    expect(spy).toHaveBeenCalled();
+    it('should un-toggle the item if not selected', () => {
+      component.selected = '1';
+      component.toggleItem('1');
+      expect(component.selected).toBe('');
+    });
   });
 
-  it('should emit an event when canceling the assign action', () => {
-    const spy = spyOn(component.cancel, 'emit');
+  describe('exists', () => {
+    it('should tell if the selected object exists', () => {
+      component.selected = '1';
+      expect(component.exists('2')).toBeFalsy();
 
-    component.cancelAssign();
-    expect(spy).toHaveBeenCalled();
-  });
-
-  it('should toggle the item if it\'s selected', () => {
-    component.sessions = [
-      {
-        name: 'Session 1',
-        exercises: [],
-        repeat: 1,
-        created: new Date().valueOf(),
-        updated: new Date().valueOf(),
-        shared: false,
-        drumkit: false,
-        $key: '1'
-      },
-      {
-        name: 'Session 2',
-        exercises: [],
-        repeat: 1,
-        created: new Date().valueOf(),
-        updated: new Date().valueOf(),
-        shared: false,
-        drumkit: false,
-        $key: '2'
-      }
-    ];
-    component.toggleItem('1');
-    expect(component.selected).toBe('1');
-  });
-
-  it('should tell if the selected object exists', () => {
-    component.selected = '1';
-    expect(component.exists('2')).toBeFalsy();
-
-    component.selected = '2';
-    expect(component.exists('2')).toBeTruthy();
+      component.selected = '2';
+      expect(component.exists('2')).toBeTruthy();
+    });
   });
 });

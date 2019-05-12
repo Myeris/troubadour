@@ -5,6 +5,7 @@ import { MetronomeService } from '../../../shared/services/metronome/metronome.s
 import { ExerciseService } from '../../../shared/services/exercise/exercise.service';
 import { Highscore } from '../../../shared/models/highscore.model';
 import { Tab } from '../../../shared/models/tab.model';
+import { ExercisePracticeForm } from '../../../shared/models/exercise-practice-form.model';
 
 @Component({
   selector: 'app-exercise-display',
@@ -59,41 +60,41 @@ export class ExerciseDisplayComponent implements OnInit {
     this.showToFailureResult = false;
   }
 
-  public async onSubmit($event: any): Promise<void> {
+  public async onSubmit(exercisePracticeForm: ExercisePracticeForm): Promise<void> {
     this.showPracticeForm = false;
 
     // practice mode: bpm & duration
-    if ($event.hasOwnProperty('bpmDuration')) {
+    if (exercisePracticeForm.hasOwnProperty('bpmDuration')) {
       const oneRoundDuration = this.exercisesService
         .getExerciseDuration(
           this.exercise.tab.timeSignature,
           1,
-          $event.bpmDuration.bpm
+          exercisePracticeForm.bpmDuration.bpm
         );
       this.exercise = {
         hand: 'R',
-        bpm: $event.bpmDuration.bpm,
+        bpm: exercisePracticeForm.bpmDuration.bpm,
         tabRef: this.tab.$key,
         tab: this.tab,
-        repeat: Math.ceil($event.bpmDuration.duration / oneRoundDuration),
-        duration: $event.bpmDuration.duration
+        repeat: Math.ceil(exercisePracticeForm.bpmDuration.duration / oneRoundDuration),
+        duration: exercisePracticeForm.bpmDuration.duration
       };
 
       this.practiceMode = 'bpmDuration';
     }
 
     // practice mode: bpm scale
-    if ($event.hasOwnProperty('bpmScale')) {
+    if (exercisePracticeForm.hasOwnProperty('bpmScale')) {
       this.exercise = {
         hand: 'R',
         bpmScale: {
-          start: $event.bpmScale.start,
-          stop: $event.bpmScale.stop,
-          step: $event.bpmScale.step
+          start: exercisePracticeForm.bpmScale.start,
+          stop: exercisePracticeForm.bpmScale.stop,
+          step: exercisePracticeForm.bpmScale.step
         },
         tabRef: this.tab.$key,
         tab: this.tab,
-        repeat: $event.bpmScale.repeat
+        repeat: exercisePracticeForm.bpmScale.repeat
       };
 
       this.practiceMode = 'bpmScale';
@@ -102,11 +103,11 @@ export class ExerciseDisplayComponent implements OnInit {
     // practice mode: road to failure (user sets the starting bpm and step values.
     // The exercise stops at 250 bpm.
     // The user must repeat each step 20 times
-    if ($event.hasOwnProperty('toFailure')) {
+    if (exercisePracticeForm.hasOwnProperty('toFailure')) {
       this.exercise = {
         hand: 'R',
         bpmScale: {
-          start: $event.toFailure.bpm,
+          start: exercisePracticeForm.toFailure.bpm,
           stop: 250,
           step: 5
         },
@@ -118,8 +119,8 @@ export class ExerciseDisplayComponent implements OnInit {
       this.practiceMode = 'toFailure';
     }
 
-    if ($event.hasOwnProperty('soundOptions')) {
-      this.exercise.soundOptions = $event.soundOptions;
+    if (exercisePracticeForm.hasOwnProperty('soundOptions')) {
+      this.exercise.soundOptions = exercisePracticeForm.soundOptions;
     }
 
     await this.play(true);
