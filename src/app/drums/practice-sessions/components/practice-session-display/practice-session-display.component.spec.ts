@@ -100,6 +100,8 @@ class MetronomeServiceMock {
 }
 
 class VexflowServiceMock {
+  initVexflow() {
+  }
 }
 
 describe('PracticeSessionDisplayComponent', () => {
@@ -128,6 +130,9 @@ describe('PracticeSessionDisplayComponent', () => {
     component = fixture.componentInstance;
     el = fixture.debugElement;
     metronome = bed.get(MetronomeService);
+
+    component.session = session;
+    fixture.detectChanges();
   });
 
   it('should be defined', () => {
@@ -135,9 +140,6 @@ describe('PracticeSessionDisplayComponent', () => {
   });
 
   it('should be displayed', () => {
-    component.session = session;
-    fixture.detectChanges();
-
     expect(el.query(By.css('.duration')).nativeElement.textContent).toContain('1 minute');
     expect(el.query(By.css('.repeat')).nativeElement.textContent).toContain('1 times');
     expect(el.query(By.css('.drumkit')).nativeElement.textContent).toContain('No drumkit required');
@@ -146,42 +148,144 @@ describe('PracticeSessionDisplayComponent', () => {
     expect(el.query(By.css('tab-display'))).toBeDefined();
   });
 
-  it('should play the exercise', () => {
-    component.session = session;
-    component.tabs = tabs;
-    fixture.detectChanges();
+  describe('ngOnChanges', () => {
+    it('should call assignTab', () => {
+      spyOn((component as any), 'assignTab').and.callFake(() => true);
 
-    const scrollSpy = spyOn(component, 'scrollIntoView').and.callThrough();
-    const playSpy = spyOn(metronome, 'playExercise').and.callThrough();
-
-    component.play();
-    expect(scrollSpy).toHaveBeenCalled();
-    expect(playSpy).toHaveBeenCalled();
+      component.ngOnChanges();
+      expect((component as any).assignTab).toHaveBeenCalledTimes(1);
+    });
   });
 
-  it('should play/pause the exercise', () => {
-    const resumeSpy = spyOn(metronome, 'resume').and.callThrough();
-    const pauseSpy = spyOn(metronome, 'pause').and.callThrough();
+  describe('play', () => {
+    beforeEach(() => {
+      spyOn(component, 'stop').and.callFake(() => true);
+      spyOn(component, 'scrollIntoView').and.callFake(() => true);
+      spyOn(metronome, 'playExercise').and.callFake(() => true);
+      spyOn((component as any), 'reset').and.callFake(() => true);
+    });
 
-    component.state = 'running';
-    component.playPause();
-    expect(pauseSpy).toHaveBeenCalled();
+    it('should stop the exercise if state is running', () => {
+      component.state = 'running';
+      component.play();
+      expect(component.stop).toHaveBeenCalledTimes(1);
+    });
 
-    component.state = 'suspended';
-    component.playPause();
-    expect(resumeSpy).toHaveBeenCalled();
+    it('should play the exercise', () => {
+      component.session = session;
+      component.tabs = tabs;
+      fixture.detectChanges();
+
+      component.play();
+      expect(component.scrollIntoView).toHaveBeenCalled();
+      expect(metronome.playExercise).toHaveBeenCalled();
+    });
   });
 
-  it('should stop the exercise', () => {
-    const stopSpy = spyOn(metronome, 'stop');
+  describe('playPause', () => {
+    it('should play/pause the exercise', () => {
+      const playSpy = spyOn(component, 'play').and.callThrough();
+      const resumeSpy = spyOn(metronome, 'resume').and.callThrough();
+      const pauseSpy = spyOn(metronome, 'pause').and.callThrough();
 
-    component.stop();
-    expect(stopSpy).toHaveBeenCalled();
+      component.state = 'running';
+      component.playPause();
+      expect(pauseSpy).toHaveBeenCalled();
+
+      component.state = 'suspended';
+      component.playPause();
+      expect(resumeSpy).toHaveBeenCalled();
+
+      component.state = 'stopped';
+      component.playPause();
+      expect(playSpy).toHaveBeenCalled();
+    });
+
+    it('should handle no state', () => {
+      const playSpy = spyOn(component, 'play').and.callThrough();
+      const resumeSpy = spyOn(metronome, 'resume').and.callThrough();
+      const pauseSpy = spyOn(metronome, 'pause').and.callThrough();
+
+      component.state = '';
+      expect(pauseSpy).not.toHaveBeenCalled();
+      expect(resumeSpy).not.toHaveBeenCalled();
+      expect(playSpy).not.toHaveBeenCalled();
+    });
   });
 
-  it('should call the volume change method', () => {
-    const spy = spyOn(metronome, 'changeVolume').and.callThrough();
-    component.changeVolume({});
-    expect(spy).toHaveBeenCalled();
+  describe('stop', () => {
+    it('should stop the exercise', () => {
+      const stopSpy = spyOn(metronome, 'stop');
+
+      component.stop();
+      expect(stopSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('playNext', () => {
+    beforeEach(() => {
+      spyOn(component, 'stop').and.callFake(() => Promise.resolve(true));
+      spyOn(component, 'play').and.callFake(() => Promise.resolve(true));
+      spyOn(component, 'scrollIntoView').and.callFake(() => Promise.resolve(true));
+    });
+
+    it('should do nothing if exercise is the last', () => {
+      component.state = 'running';
+      component.playNext();
+      expect(component.stop).toHaveBeenCalled();
+      expect(component.play).not.toHaveBeenCalled();
+      expect(component.scrollIntoView).not.toHaveBeenCalled();
+    });
+
+    it('should call play if exercise is already playing', () => {
+      // TODO
+    });
+
+    it('should just scrollIntoView if exercise is not playing', () => {
+      // TODO
+    });
+  });
+
+  describe('playPrevious', () => {
+    beforeEach(() => {
+      spyOn(component, 'stop').and.callFake(() => Promise.resolve(true));
+      spyOn(component, 'play').and.callFake(() => Promise.resolve(true));
+      spyOn(component, 'scrollIntoView').and.callFake(() => Promise.resolve(true));
+    });
+
+    it('should do nothing if exercise is the last', () => {
+      component.state = 'running';
+      component.playPrevious();
+      expect(component.stop).toHaveBeenCalled();
+      expect(component.play).not.toHaveBeenCalled();
+      expect(component.scrollIntoView).not.toHaveBeenCalled();
+    });
+
+    it('should call play if exercise is already playing', () => {
+      // TODO
+    });
+
+    it('should just scrollIntoView if exercise is not playing', () => {
+      // TODO
+    });
+  });
+
+  describe('changeVolume', () => {
+    it('should call the volume change method', () => {
+      const spy = spyOn(metronome, 'changeVolume').and.callThrough();
+      component.changeVolume({});
+      expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('reset', () => {
+    it('should reset the properties', () => {
+      spyOn(component, 'scrollIntoView').and.callFake(() => true);
+      (component as any).reset();
+      expect(component.state).toBe('stopped');
+      expect(component.inPlayIndex).toBe(0);
+      expect(component.playTime).toBe(0);
+      expect(component.scrollIntoView).toHaveBeenCalledTimes(1);
+    });
   });
 });

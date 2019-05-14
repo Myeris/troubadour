@@ -74,10 +74,13 @@ export class PracticeSessionDisplayComponent implements OnChanges {
   public async playNext(): Promise<void> {
     const wasPlaying = this.state === 'running';
     await this.stop();
+
     if (this.inPlayIndex === (this.session.exercises.length - 1)) {
       return;
     }
+
     this.inPlayIndex = this.inPlayIndex + 1;
+
     if (wasPlaying) {
       await this.play();
     } else {
@@ -87,11 +90,15 @@ export class PracticeSessionDisplayComponent implements OnChanges {
 
   public async playPrevious(): Promise<void> {
     const wasPlaying = this.state === 'running';
+
     await this.stop();
+
     if (this.inPlayIndex === 0) {
       return;
     }
+
     this.inPlayIndex = this.inPlayIndex - 1;
+
     if (wasPlaying) {
       await this.play();
     } else {
@@ -114,7 +121,7 @@ export class PracticeSessionDisplayComponent implements OnChanges {
     this.scrollIntoView();
   }
 
-  private assignTab() {
+  private assignTab(): void {
     if (this.session.exercises.length > 0) {
       this.session.exercises
         .map((exercise: Exercise) => exercise.tab = this.tabs.find((tab: Tab) => tab.$key === exercise.tabRef));
