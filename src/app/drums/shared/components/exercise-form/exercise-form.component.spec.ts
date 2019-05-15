@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 // app
 import { ExerciseFormComponent } from './exercise-form.component';
@@ -10,11 +10,12 @@ import { Exercise } from '../../models/exercise.model';
 import { SearchPipe } from '../../pipes/search/search.pipe';
 import { OrderTabsPipe } from '../../pipes/order-tabs/order-tabs.pipe';
 import { ExerciseService } from '../../services/exercise/exercise.service';
+import { Tag } from '../../models/tag.model';
 
 const tabs: Tab[] = [
   { name: 'Tab 1', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '1' },
   { name: 'Tab 2', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '2' },
-  { name: 'Tab 3', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '3' }
+  { name: 'Tab 3', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [], $key: '3' }
 ];
 
 const editedExercise: Exercise = {
@@ -317,6 +318,145 @@ describe('ExerciseFormComponent', () => {
       const spy = spyOn(component.cancelled, 'emit').and.callThrough();
       component.cancel();
       expect(spy).toHaveBeenCalled();
+    });
+  });
+
+  describe('selectExercise', () => {
+    it('should reset everything if tab is undefined', () => {
+      component.selectExercise(null);
+      expect(component.showFullForm).toBeFalsy();
+      expect(component.selectedTabName).toBeNull();
+      expect(component.selectedTab).toBeNull();
+      expect(component.selectedExercise).toBeNull();
+      expect(component.form.get('tab').value).toBeNull();
+      expect(component.form.get('tabRef').value).toBeNull();
+    });
+
+    it('should set the selectedExercise if tab is defined', () => {
+      const tab = { ...tabs[0] };
+      component.selectExercise(tab);
+      expect(component.showFullForm).toBeTruthy();
+      expect(component.selectedTabName).toBe(tab.name);
+      expect(component.selectedTab).toEqual(tab);
+      expect(component.selectedExercise).toEqual({
+        hand: 'R',
+        bpm: 60,
+        duration: 60,
+        tab,
+        tabRef: tab.$key,
+        repeat: 1
+      });
+      expect(component.form.get('tab').value).toEqual(tab);
+      expect(component.form.get('tabRef').value).toEqual(tab.$key);
+    });
+  });
+
+  describe('setFormControl', () => {
+    it('should set a form control', () => {
+      expect(component.form.get('hand').value).toBe('R');
+      component.setFormControl('hand', new FormGroup({
+        hand: new FormControl('L')
+      }));
+      expect(component.form.get('hand').value).toBe('L');
+    });
+  });
+
+  describe('setFormGroup', () => {
+    it('should set a form group', () => {
+      const bpm = new FormGroup({
+          start: new FormControl(60),
+          stop: new FormControl(90),
+          step: new FormControl(5),
+          repeat: new FormControl(1)
+        }
+      );
+
+      expect(component.form.get('bpmScale').value).toEqual({
+        start: null,
+        stop: null,
+        step: null,
+        repeat: 1
+      });
+      component.setFormGroup('bpmScale', bpm);
+      expect(component.form.get('bpmScale').value).toEqual({
+        start: 60,
+        stop: 90,
+        step: 5,
+        repeat: 1
+      });
+    });
+  });
+
+  describe('handleInvalidForm', () => {
+    it('should set feedback', () => {
+      component.handleInvalidForm('name', 'message');
+      expect(component.feedback).toBe('name: message');
+    });
+  });
+
+  describe('onSoundOptionsChange', () => {
+    it('should set options for type 0', () => {
+      component.onSoundOptionsChange(new FormGroup({
+        type: new FormControl('0'),
+        soundOptions: new FormGroup({
+          playAlong: new FormControl(true),
+          metronomeOnly: new FormControl(false),
+          metronomeSettings: new FormGroup({
+            subdivision: new FormControl('4'),
+            accents: new FormArray([new FormControl(0)])
+          })
+        })
+      }));
+      expect(component.form.get('soundOptions').get('playAlong').value).toBeTruthy();
+      expect(component.form.get('soundOptions').get('metronomeOnly').value).toBeFalsy();
+      expect(component.form.get('soundOptions').get('metronomeSettings').value).toEqual({
+        subdivision: '4',
+        accents: [0]
+      });
+    });
+
+    it('should set options for type 1', () => {
+      spyOn((component as any), 'emptyAccents').and.callFake(() => true);
+
+      component.onSoundOptionsChange(new FormGroup({
+        type: new FormControl('1'),
+        settings: new FormGroup({
+          subdivision: new FormControl('4'),
+          accents: new FormArray([new FormControl(0)])
+        })
+      }));
+
+      expect(component.form.get('soundOptions').get('playAlong').value).toBeFalsy();
+      expect(component.form.get('soundOptions').get('metronomeOnly').value).toBeTruthy();
+      expect((component as any).emptyAccents).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('filter', () => {
+    it('should filter the tabs', () => {
+      component.tabs = tabs;
+
+      const roll = { name: 'rolls' } as Tag;
+      const flam = { name: 'flams' } as Tag;
+
+      component.filter(null);
+      expect(component.filteredTabs.length).toBe(3);
+
+      component.filter(roll);
+      expect(component.activeFilter).toEqual(roll);
+      expect(component.filteredTabs.length).toBe(2);
+
+      component.filter(flam);
+      expect(component.activeFilter).toEqual(flam);
+      expect(component.filteredTabs.length).toBe(1);
+    });
+  });
+
+  describe('emptyAccents', () => {
+    it('should empty all accents from form', () => {
+      expect(component.formAccents.length).toBe(1);
+      (component as any).emptyAccents();
+      expect(component.formAccents.length).toBe(0);
     });
   });
 });
