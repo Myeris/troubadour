@@ -16,15 +16,15 @@ export class MetronomeSettingsComponent implements OnChanges {
   @Input() initValue: FormGroup;
   @Output() changed: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
-  constructor(private fb: FormBuilder) {
-  }
-
   public get subdivision(): number {
     return parseInt(this.form.get('subdivision').value, 16);
   }
 
   public get accents(): FormArray {
     return this.form.get('accents') as FormArray;
+  }
+
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
