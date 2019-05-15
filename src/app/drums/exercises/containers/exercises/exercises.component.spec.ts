@@ -89,10 +89,6 @@ describe('ExercisesComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    component.ngOnDestroy();
-  });
-
   it('should be defined', () => {
     expect(component).toBeDefined();
   });

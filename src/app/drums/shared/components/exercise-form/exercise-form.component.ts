@@ -25,7 +25,6 @@ export class ExerciseFormComponent implements OnChanges {
   public selectedTabName: string;
   public selectedType = 0;
   public feedback: string;
-  public tabImgs: Map<string, string> = new Map();
   public showFullForm = false;
   public selectedTab: Tab;
   public activeFilter: Tag;
@@ -56,12 +55,12 @@ export class ExerciseFormComponent implements OnChanges {
     tabRef: null
   });
 
-  constructor(private fb: FormBuilder,
-              private exerciseService: ExerciseService) {
-  }
-
   public get formAccents(): FormArray {
     return this.form.get('soundOptions').get('metronomeSettings').get('accents') as FormArray;
+  }
+
+  constructor(private fb: FormBuilder,
+              private exerciseService: ExerciseService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -95,14 +94,10 @@ export class ExerciseFormComponent implements OnChanges {
       this.showFullForm = true;
     }
 
-    // get img for each tab
-    if (this.tabs) {
-      this.tabs.forEach((tab: Tab) => this.tabImgs.set(tab.$key, this.getTabImg(tab, false)));
-      this.filteredTabs = this.tabs;
-    }
+    this.filteredTabs = this.tabs ? this.tabs : null;
   }
 
-  public onTabChange($event: any): void {
+  public onTabChange($event: { target: { value: string } }): void {
     const tabName = $event.target.value;
     const filtered = this.tabs.filter((tab: Tab) => tab.name === tabName);
     const selectedTab = filtered.length ? filtered[0] : null;
@@ -157,7 +152,7 @@ export class ExerciseFormComponent implements OnChanges {
   }
 
   public addExercise(): void {
-    if (this.form.value.repeat === 0 || this.form.value.duration === 0) {
+    if (this.form.get('repeat').value === 0 || this.form.get('duration').value === 0) {
       throw new Error('Exercise needs a duration value or a repeat value');
     } // TODO handle error
 
@@ -192,12 +187,6 @@ export class ExerciseFormComponent implements OnChanges {
 
   public cancel(): void {
     this.cancelled.emit();
-  }
-
-  public getTabImg(tab: Tab, animate: boolean): string {
-    this.tabImgs.set(tab.$key, `/img/drums/gifs/not-found/not-found.${animate ? 'gif' : 'png'}`);
-
-    return `/img/drums/gifs/not-found/not-found.${animate ? 'gif' : 'png'}`;
   }
 
   public selectExercise(tab: Tab): void {
