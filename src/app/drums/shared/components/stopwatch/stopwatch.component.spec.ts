@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 // app
 import { StopwatchComponent } from './stopwatch.component';
 import { TimerPipe } from '../../pipes/timer/timer.pipe';
+import { of } from 'rxjs';
 
 describe('StopwatchComponent', () => {
   let component: StopwatchComponent;
@@ -32,6 +33,30 @@ describe('StopwatchComponent', () => {
   });
 
   describe('ngOnChanges', () => {
-    // TODO
+    it('should do nothing', () => {
+      component.ngOnChanges();
+      expect((component as any).startTime).toBe(0);
+      expect((component as any).timer$).toBeUndefined();
+      expect((component as any).subscription).toBeUndefined();
+      expect(component.timerValue).toBe(0);
+    });
+
+    it('should reset', () => {
+      component.isRunning = false;
+      component.timerValue = 10;
+      (component as any).startTime = 20;
+      (component as any).subscription = of({}).subscribe();
+
+      component.ngOnChanges();
+      expect((component as any).startTime).toBe(0);
+      expect(component.timerValue).toBe(0);
+    });
+
+    it('should start the timer', () => {
+      component.isRunning = true;
+      component.ngOnChanges();
+      expect((component as any).startTime).toBeGreaterThanOrEqual(0);
+      expect(component.timerValue).toBeGreaterThanOrEqual(0);
+    });
   });
 });
