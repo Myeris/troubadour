@@ -1,6 +1,19 @@
 import { initialUserState } from '../user.state';
 import { userReducer } from './user.reducer';
-import { LogIn, LogInFail, LogInSuccess, LogOut, Register, RegisterFail, RegisterSuccess, SetPersistedUser } from '../actions/user.actions';
+import {
+  ChangePassword,
+  ChangePasswordFail,
+  ChangePasswordSuccess,
+  LogIn,
+  LogInFail,
+  LogInSuccess,
+  LogOut,
+  LogOutSuccess,
+  Register,
+  RegisterFail,
+  RegisterSuccess,
+  SetPersistedUser
+} from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { User } from '../../../auth/shared/models/user.model';
 
@@ -111,16 +124,53 @@ describe('userReducer', () => {
     });
   });
 
+  describe('LogOutSuccess', () => {
+    it('should set the state', () => {
+      const action = new LogOutSuccess();
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.isLoggedIn).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
   describe('ChangePassword', () => {
-    // TODO
+    it('should set the state', () => {
+      const action = new ChangePassword({ changePassword: { old: 'a', new: 'b', confirmed: 'b' } });
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeTruthy();
+      expect(state.isLoggedIn).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
   });
 
   describe('ChangePasswordSuccess', () => {
-    // TODO
+    it('should set the state', () => {
+      const action = new ChangePasswordSuccess();
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.isLoggedIn).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
   });
 
   describe('ChangePasswordFail', () => {
-    // TODO
+    it('should set the state', () => {
+      const error = 'error';
+      const action = new ChangePasswordFail({ error });
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.isLoggedIn).toBeFalsy();
+      expect(state.error).toBe(error);
+      expect(state.selectedId).toBeNull();
+    });
   });
 
   describe('SetPersistedUser', () => {
