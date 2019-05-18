@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 // app
 import { StopwatchComponent } from './stopwatch.component';
 import { TimerPipe } from '../../pipes/timer/timer.pipe';
-import { of } from 'rxjs';
 
 describe('StopwatchComponent', () => {
   let component: StopwatchComponent;

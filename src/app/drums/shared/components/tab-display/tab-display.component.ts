@@ -6,7 +6,7 @@ import { VexflowService } from '../../services/vexflow/vexflow.service';
 import StaveNote = Vex.Flow.StaveNote;
 import Tuplet = Vex.Flow.Tuplet;
 import Beam = Vex.Flow.Beam;
-import StaveTie = Vex.Flow.StaveTie;
+import { not } from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-tab-display',
@@ -29,11 +29,13 @@ export class TabDisplayComponent implements OnChanges {
     }
   }
 
-  private createStave(): void {
-    this.vexflowService
+  private createStave(): Promise<void> {
+    return this.vexflowService
       .initVexflow('stave-' + this.rand)
       .then(() => this.drawStave())
-      .catch(err => console.warn(err));
+      .catch(err => {
+        throw new Error(err);
+      });
   }
 
   private drawStave(): void {
@@ -42,12 +44,12 @@ export class TabDisplayComponent implements OnChanges {
     const beamList: StaveNote[] = [];
     const triplets: Tuplet[] = [];
     const stave = this.vexflowService.createStave(this.exercise.tab.timeSignature);
-    let ties: StaveTie[] = [];
     let beams: Beam[] = [];
 
     this.exercise.tab.notes.forEach(note => {
       const staveNote: StaveNote = this.vexflowService.createNote(note, this.exercise.hand);
       notes.push(staveNote);
+
       if (note.triplet) {
         tripletList.push(staveNote);
       }
@@ -57,7 +59,7 @@ export class TabDisplayComponent implements OnChanges {
       }
     });
 
-    ties = this.vexflowService.createTies(this.exercise.tab.notes, notes);
+    const ties = this.vexflowService.createTies(this.exercise.tab.notes, notes);
 
     if (beamList.length) {
       beams = this.vexflowService.createBeams(this.exercise.tab.notes, notes);
@@ -74,12 +76,15 @@ export class TabDisplayComponent implements OnChanges {
     }
 
     this.vexflowService.formatAndDraw(stave, notes);
+
     if (beams.length) {
       this.vexflowService.drawBeams(beams);
     }
+
     if (triplets.length) {
       this.vexflowService.drawTuplets(triplets);
     }
+
     if (ties.length) {
       this.vexflowService.drawTies(ties);
     }
