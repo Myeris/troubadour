@@ -9,6 +9,9 @@ import { UserProfileComponent } from './user-profile.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
 import { PasswordFormComponent } from '../../components/password-form/password-form.component';
 import { RemoveFormComponent } from '../../components/remove-form/remove-form.component';
+import { getCurrentUser, getError } from '../../../../store/user/selectors/user.selectors';
+import { ChangePassword as ChangePasswordModel } from '../../../../auth/shared/models/change-password.model';
+import { ChangePassword } from '../../../../store/user/actions/user.actions';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -34,8 +37,10 @@ describe('UserProfileComponent', () => {
     fixture = bed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;
     el = fixture.debugElement;
-
     store = bed.get(Store);
+
+    spyOn(store, 'select').and.callThrough();
+    spyOn(store, 'dispatch').and.callThrough();
   });
 
   it('should be defined', () => {
@@ -48,7 +53,25 @@ describe('UserProfileComponent', () => {
     expect(el.query(By.css('remove-form'))).toBeDefined();
   });
 
-  it('should display an error when failing to update password', () => {
+  describe('ngOnInit', () => {
+    it('should get elements from store', () => {
+      component.ngOnInit();
+      expect(store.select).toHaveBeenCalledTimes(2);
+      expect(store.select).toHaveBeenCalledWith(getCurrentUser);
+      expect(store.select).toHaveBeenCalledWith(getError);
+    });
+  });
+
+  describe('onPasswordChange', () => {
+    it('should dispatch an event', () => {
+      const changePassword: ChangePasswordModel = { old: 'a', new: 'b', confirmed: 'b' };
+      component.onPasswordChange(changePassword);
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(new ChangePassword({ changePassword }));
+    });
+  });
+
+  describe('onAccountRemove', () => {
     // TODO
   });
 });
