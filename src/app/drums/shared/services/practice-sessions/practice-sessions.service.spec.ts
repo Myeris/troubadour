@@ -2,6 +2,8 @@ import { TestBed } from '@angular/core/testing';
 // app
 import { PracticeSessionsService } from './practice-sessions.service';
 import { Exercise } from '../../models/exercise.model';
+import { PracticeSession } from '../../models/practice-session.model';
+import { SnapshotAction } from '@angular/fire/database';
 
 describe('PracticeSessionsService', () => {
   let service: PracticeSessionsService;
@@ -16,6 +18,23 @@ describe('PracticeSessionsService', () => {
 
   it('should be created', () => {
     expect(service).toBeTruthy();
+  });
+
+  describe('mapSessionListFromSnapshotAction', () => {
+    it('should return a list of practice session from snapshot action', () => {
+      expect(service.mapSessionListFromSnapshotAction([
+        {
+          payload: {
+            key: 'qwe',
+            val(): PracticeSession {
+              return {
+                $key: 'a'
+              } as PracticeSession;
+            }
+          }
+        } as SnapshotAction<PracticeSession>
+      ]).length).toBe(1);
+    });
   });
 
   describe('getSessionDuration', () => {
