@@ -1,19 +1,33 @@
 import { async, TestBed } from '@angular/core/testing';
-import { StoreModule } from '@ngrx/store';
+import { Store, StoreModule } from '@ngrx/store';
 import { Actions } from '@ngrx/effects';
 import { cold, hot } from 'jasmine-marbles';
 import { of, throwError } from 'rxjs';
 // app
 import { UserEffects } from './user.effects';
-import { appReducers } from '../../app.reducer';
-import { LogIn, LogInFail, LogInSuccess, Register, RegisterFail, RegisterSuccess } from '../actions/user.actions';
+import { appReducers, AppState } from '../../app.reducer';
+import {
+  ChangePassword,
+  ChangePasswordFail,
+  ChangePasswordSuccess,
+  LogIn,
+  LogInFail,
+  LogInSuccess,
+  LogOut,
+  LogOutSuccess,
+  Register,
+  RegisterFail,
+  RegisterSuccess
+} from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { getActions, TestActions } from '../../../shared/utils/test-actions/test-actions.utils';
 import { AuthResource } from '../../../auth/shared/resources/auth.resource';
 import { UserService } from '../../../auth/shared/services/user.service';
 import { RouterTestingModule } from '@angular/router/testing';
+import { User } from '../../../auth/shared/models/user.model';
 import UserCredential = firebase.auth.UserCredential;
 import FirestoreError = firebase.firestore.FirestoreError;
+import SpyObj = jasmine.SpyObj;
 
 class AuthResourceMock {
   login() {
@@ -23,39 +37,57 @@ class AuthResourceMock {
   register() {
     return true;
   }
+
+  changePassword() {
+    return true;
+  }
+}
+
+class UserServiceMock {
+  removePersistedUser() {
+  }
 }
 
 const req: AuthRequest = { email: 'email', password: 'password' };
+const user: User = {
+  email: 'email',
+  id: '123',
+  verified: true,
+  authenticated: true
+};
 
 describe('UserEffects', () => {
   let actions$: TestActions;
   let authResource: AuthResource;
   let userService: UserService;
-  let effects: UserEffects;
+  let store: SpyObj<Store<AppState>>;
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
       imports: [StoreModule.forRoot(appReducers), RouterTestingModule],
       providers: [
         UserEffects,
-        UserService,
+        { provide: UserService, useFactory: () => new UserService() },
         { provide: AuthResource, useFactory: () => new AuthResourceMock() },
-        { provide: Actions, useFactory: getActions }
+        { provide: Actions, useFactory: getActions },
+        { provide: Store, useValue: jasmine.createSpyObj('store', ['select']) }
       ]
     });
 
-    effects = bed.get(UserEffects);
+    store = bed.get(Store);
     actions$ = bed.get(Actions);
     authResource = bed.get(AuthResource);
     userService = bed.get(UserService);
   });
 
   it('should be created', () => {
+    const effects: UserEffects = TestBed.get(UserEffects);
     expect(effects).toBeTruthy();
   });
 
   describe('authenticateUser$', () => {
     it('should return a UserCredential object on success', async(() => {
+      const effects: UserEffects = TestBed.get(UserEffects);
       const userCreds: UserCredential = {
         user: {
           email: 'email',
@@ -76,6 +108,7 @@ describe('UserEffects', () => {
     }));
 
     it('should return an error message on failure', async(() => {
+      const effects: UserEffects = TestBed.get(UserEffects);
       const action = new LogIn({ authRequest: req });
       const error = 'this is an error';
       const completion = new LogInFail({ error });
@@ -91,6 +124,7 @@ describe('UserEffects', () => {
 
   describe('registerUser$', () => {
     it('should return a UserCredential object on success', async(() => {
+      const effects: UserEffects = TestBed.get(UserEffects);
       const userCreds: UserCredential = {
         user: {
           email: 'email',
@@ -111,6 +145,7 @@ describe('UserEffects', () => {
     }));
 
     it('should return an error message on failure', async(() => {
+      const effects: UserEffects = TestBed.get(UserEffects);
       const action = new Register({ authRequest: req });
       const error = 'this is an error';
       const completion = new RegisterFail({ error });
@@ -124,7 +159,88 @@ describe('UserEffects', () => {
     }));
   });
 
+  describe('redirectConnectedUser$', () => {
+    it('should persistUser and redirect on LoginSuccess', () => {
+      spyOn(userService, 'persistUser').and.returnValue(true);
+      const action = new LogInSuccess({ user });
+
+      actions$.stream = hot('-a|', { a: action });
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      effects.redirectConnectedUser$.subscribe((x) => {
+        expect(userService.persistUser).toHaveBeenCalledTimes(1);
+      });
+      // TODO test redirect call
+    });
+
+    it('should persistUser and redirect on RegisterSuccess', () => {
+      spyOn(userService, 'persistUser').and.returnValue(true);
+      const action = new RegisterSuccess({ user });
+
+      actions$.stream = hot('-a|', { a: action });
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      effects.redirectConnectedUser$.subscribe((x) => {
+        expect(userService.persistUser).toHaveBeenCalledTimes(1);
+      });
+      // TODO test redirect call
+    });
+  });
+
+  describe('logoutUser', () => {
+    it('should log the user out and redirect', () => {
+      const action = new LogOut();
+      const completion = new LogOutSuccess();
+
+      spyOn(userService, 'removePersistedUser').and.returnValue(of(true));
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.logoutUser$).toBeObservable(expected);
+
+      // TODO test redirect call
+    });
+  });
+
   describe('changePassword$', () => {
-    // TODO
+    it('should return a success action', () => {
+      const changePassword = { old: 'a', new: 'b', confirmed: 'b' };
+
+      const action = new ChangePassword({ changePassword });
+      const completion = new ChangePasswordSuccess();
+
+      spyOn(authResource, 'changePassword').and.returnValue(of(true));
+
+      store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.changePassword$).toBeObservable(expected);
+    });
+
+    it('should return an error message', () => {
+      const action = new ChangePassword({ changePassword: { new: 'a', old: 'b', confirmed: 'b' } });
+      const error = 'error';
+      const completion = new ChangePasswordFail({ error });
+
+      spyOn(authResource, 'changePassword').and.returnValue(throwError({ message: error }));
+
+      store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-(c|)', { c: completion });
+
+      expect(effects.changePassword$).toBeObservable(expected);
+    });
   });
 });
