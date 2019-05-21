@@ -23,9 +23,6 @@ export class VexflowService {
   private RENDERER_WIDTH = 855;
   private width: number;
 
-  constructor() {
-  }
-
   public get context(): IRenderContext {
     if (!this.renderer) {
       throw new Error(this.INIT_ERROR_MESSAGE);
@@ -46,7 +43,7 @@ export class VexflowService {
       div.innerHTML = ''; // make sure the div is empty
       this.renderer = new this.VF.Renderer(div, this.VF.Renderer.Backends.SVG);
 
-      this.renderer.resize(this.width || this.RENDERER_WIDTH, this.STAVE_HEIGHT);
+      this.renderer.resize(this.width, this.STAVE_HEIGHT);
 
       return resolve();
     });
@@ -79,6 +76,7 @@ export class VexflowService {
       if (annotation === 'L') {
         staveNote.setStyle({ fillStyle: 'tomato' });
       }
+
       if (annotation === 'R') {
         staveNote.setStyle({ fillStyle: 'cornflowerblue' });
       }
@@ -87,9 +85,11 @@ export class VexflowService {
     if (note.tremolo) {
       staveNote.addArticulation(0, new this.VF.Tremolo(1));
     }
+
     if (note.accent) {
       staveNote.addModifier(0, new this.VF.Annotation('>'));
     }
+
     if (note.dotted) {
       staveNote.addDot(0);
     }
@@ -104,7 +104,7 @@ export class VexflowService {
 
     const triplets = new this.VF.Tuplet(notes, {
       num_notes: 3,
-      beats_occupied: 2
+      notes_occupied: 2
     });
 
     triplets.setTupletLocation(-1);
@@ -130,6 +130,10 @@ export class VexflowService {
   }
 
   public createBeams(notes: Note[], staveNotes: StaveNote[]): Beam[] {
+    if (!this.renderer) {
+      throw new Error(this.INIT_ERROR_MESSAGE);
+    }
+
     const beams: Beam[] = [];
     const beamIndexes: number[] = [];
 
@@ -176,6 +180,10 @@ export class VexflowService {
   }
 
   public createTies(notes: Note[], staveNotes: StaveNote[]): StaveTie[] {
+    if (!this.renderer) {
+      throw new Error(this.INIT_ERROR_MESSAGE);
+    }
+
     const ties: StaveTie[] = [];
     const tieIndexes: number[] = [];
 
@@ -235,7 +243,7 @@ export class VexflowService {
     });
   }
 
-  drawTuplets(tuplets: Tuplet[]): void {
+  public drawTuplets(tuplets: Tuplet[]): void {
     if (!this.renderer) {
       throw new Error(this.INIT_ERROR_MESSAGE);
     }
