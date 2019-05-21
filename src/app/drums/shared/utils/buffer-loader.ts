@@ -1,11 +1,11 @@
 export class BufferLoader {
-  public bufferList: any[];
-  private context: any;
-  private urlList: any;
-  private onload: any;
+  public bufferList: AudioBuffer[];
+  private context: (AudioContext | any);
+  private readonly urlList: string[];
+  private onload: (bufferList: AudioBuffer[]) => void;
   private loadCount: number;
 
-  constructor(context: any, urlList: string[], callback: any) {
+  constructor(context: (AudioContext | any), urlList: string[], callback: (bufferList: AudioBuffer[]) => void) {
     this.context = context;
     this.urlList = urlList;
     this.onload = callback;
@@ -22,7 +22,7 @@ export class BufferLoader {
     request.onload = () => {
       loader.context.decodeAudioData(
         request.response,
-        (buffer: Buffer) => {
+        (buffer: AudioBuffer) => {
           if (!buffer) {
             throw new Error(`Error decoding file data: ${url}`);
           }
