@@ -14,6 +14,9 @@ import {
   RemoveAccount,
   RemoveAccountFail,
   RemoveAccountSuccess,
+  ResetPassword,
+  ResetPasswordFail,
+  ResetPasswordSuccess,
   SetPersistedUser,
   UserActionsTypes
 } from './user.actions';
@@ -128,6 +131,27 @@ describe('UserActions', () => {
     it('should create an action', () => {
       const action = new SetPersistedUser({ user: null });
       expect(action.type).toBe(UserActionsTypes.SetPersistedUser);
+    });
+  });
+
+  describe('ResetPassword', () => {
+    it('should create an action', () => {
+      const action = new ResetPassword({ email: 'email' });
+      expect(action.type).toBe(UserActionsTypes.ResetPassword);
+    });
+  });
+
+  describe('ResetPasswordSuccess', () => {
+    it('should create an action', () => {
+      const action = new ResetPasswordSuccess();
+      expect(action.type).toBe(UserActionsTypes.ResetPasswordSuccess);
+    });
+  });
+
+  describe('ResetPasswordFail', () => {
+    it('should create an action', () => {
+      const action = new ResetPasswordFail({ error: 'error' });
+      expect(action.type).toBe(UserActionsTypes.ResetPasswordFail);
     });
   });
 });

@@ -9,10 +9,12 @@ export function userReducer(
     case UserActionsTypes.LogIn:
     case UserActionsTypes.Register:
     case UserActionsTypes.ChangePassword:
+    case UserActionsTypes.ResetPassword:
       return { ...state, isLoggedIn: false, isLoading: true, error: null, selectedId: null };
     case UserActionsTypes.LogInFail:
     case UserActionsTypes.RegisterFail:
     case UserActionsTypes.ChangePasswordFail:
+    case UserActionsTypes.ResetPasswordFail:
       return { ...state, isLoggedIn: false, isLoading: false, error: action.payload.error, selectedId: null };
     case UserActionsTypes.LogInSuccess:
     case UserActionsTypes.RegisterSuccess:
@@ -27,6 +29,7 @@ export function userReducer(
     case UserActionsTypes.LogOutSuccess:
       return userEntityAdapter.removeAll({ ...state, isLoggedIn: false, isLoading: false, selectedId: null, error: null });
     case UserActionsTypes.ChangePasswordSuccess:
+    case UserActionsTypes.ResetPasswordSuccess:
       return { ...state, isLoggedIn: false, isLoading: state.isLoading, error: null, selectedId: null };
     default:
       return state;

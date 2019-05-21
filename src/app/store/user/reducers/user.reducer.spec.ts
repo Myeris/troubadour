@@ -11,7 +11,7 @@ import {
   LogOutSuccess,
   Register,
   RegisterFail,
-  RegisterSuccess,
+  RegisterSuccess, ResetPassword, ResetPasswordFail, ResetPasswordSuccess,
   SetPersistedUser
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
@@ -183,6 +183,43 @@ describe('userReducer', () => {
       expect(state.error).toBeNull();
       expect(state.entities[user.id]).toEqual(user);
       expect(state.selectedId).toBe(user.id);
+    });
+  });
+
+  describe('ResetPassword', () => {
+    it('should set the state', () => {
+      const action = new ResetPassword({ email: 'email' });
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeTruthy();
+      expect(state.isLoggedIn).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('ResetPasswordFail', () => {
+    it('should set the state', () => {
+      const error = 'error';
+      const action = new ResetPasswordFail({ error });
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.isLoggedIn).toBeFalsy();
+      expect(state.error).toBe(error);
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('ResetPasswordSuccess', () => {
+    it('should set the state', () => {
+      const action = new ResetPasswordSuccess();
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.isLoggedIn).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
     });
   });
 });

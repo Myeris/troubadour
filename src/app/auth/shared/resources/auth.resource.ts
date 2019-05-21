@@ -27,4 +27,8 @@ export class AuthResource {
   public removeAccount(): Promise<void> {
     return this.afAuth.auth.currentUser.delete(); // TODO remove the user's content by using Cloud Functions
   }
+
+  public resetPassword(email: string): Promise<void> {
+    return this.afAuth.auth.sendPasswordResetEmail(email);
+  }
 }

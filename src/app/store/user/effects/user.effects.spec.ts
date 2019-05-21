@@ -17,7 +17,10 @@ import {
   LogOutSuccess,
   Register,
   RegisterFail,
-  RegisterSuccess
+  RegisterSuccess,
+  ResetPassword,
+  ResetPasswordFail,
+  ResetPasswordSuccess
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { getActions, TestActions } from '../../../shared/utils/test-actions/test-actions.utils';
@@ -39,6 +42,10 @@ class AuthResourceMock {
   }
 
   changePassword() {
+    return true;
+  }
+
+  resetPassword() {
     return true;
   }
 }
@@ -241,6 +248,37 @@ describe('UserEffects', () => {
       const expected = cold('-(c|)', { c: completion });
 
       expect(effects.changePassword$).toBeObservable(expected);
+    });
+  });
+
+  describe('resetPassword$', () => {
+    it('should return a success action', () => {
+      const action = new ResetPassword({ email: 'email' });
+      const completion = new ResetPasswordSuccess();
+
+      spyOn(authResource, 'resetPassword').and.returnValue(of({}));
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.resetPassword$).toBeObservable(expected);
+    });
+
+    it('should return an error message', () => {
+      const action = new ResetPassword({ email: 'email' });
+      const error = 'error';
+      const completion = new ResetPasswordFail({ error });
+
+      spyOn(authResource, 'resetPassword').and.returnValue(throwError({ message: error }));
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-(c|)', { c: completion });
+
+      expect(effects.resetPassword$).toBeObservable(expected);
     });
   });
 });

@@ -10,6 +10,7 @@ class AfAuthMock {
   public auth = {
     signInWithEmailAndPassword: () => true,
     createUserWithEmailAndPassword: () => true,
+    sendPasswordResetEmail: () => true,
     currentUser: {
       updatePassword: () => true,
       delete: () => true
@@ -123,6 +124,20 @@ describe('AuthResource', () => {
 
       resource.removeAccount();
       expect(afAuth.auth.currentUser.delete).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('resetPassword', () => {
+    it('should reset a password', () => {
+      spyOn(afAuth.auth, 'sendPasswordResetEmail').and.returnValue(Promise.resolve());
+
+      resource.resetPassword('email').then(() => expect(true).toBeTruthy());
+    });
+
+    it('should throw an error', () => {
+      spyOn(afAuth.auth, 'sendPasswordResetEmail').and.returnValue(Promise.reject('error'));
+
+      resource.resetPassword('email').catch((err) => expect(err).toBe('error'));
     });
   });
 });

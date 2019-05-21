@@ -18,6 +18,9 @@ import {
   Register,
   RegisterFail,
   RegisterSuccess,
+  ResetPassword,
+  ResetPasswordFail,
+  ResetPasswordSuccess,
   UserActionsTypes
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
@@ -78,6 +81,17 @@ export class UserEffects {
       switchMap(([action, currentUser]) => this.authResource.changePassword(currentUser.email, action.payload.changePassword)),
       map(() => new ChangePasswordSuccess()),
       catchError((error: FirebaseError) => of(new ChangePasswordFail({ error: error.message })))
+    );
+
+  @Effect()
+  resetPassword$: Observable<Action> = this.actions$
+    .pipe(
+      ofType<ResetPassword>(UserActionsTypes.ResetPassword),
+      pluck('payload'),
+      pluck('email'),
+      switchMap((email: string) => this.authResource.resetPassword(email)),
+      map(() => new ResetPasswordSuccess()),
+      catchError((error: FirebaseError) => of(new ResetPasswordFail({ error: error.message })))
     );
 
   constructor(private actions$: Actions,
