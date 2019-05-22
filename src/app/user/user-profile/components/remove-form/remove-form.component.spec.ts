@@ -24,9 +24,21 @@ describe('RemoveFormComponent', () => {
     expect(component).toBeDefined();
   });
 
-  it('should emit an event to remove an account', () => {
-    const spy = spyOn(component, 'removeAccount');
-    component.removeAccount();
-    expect(spy).toHaveBeenCalled();
+  describe('toggle', () => {
+    it('should toggle the toggled property', () => {
+      expect(component.toggled).toBeFalsy();
+      component.toggle();
+      expect(component.toggled).toBeTruthy();
+      component.toggle();
+      expect(component.toggled).toBeFalsy();
+    });
+  });
+
+  describe('removeAccount', () => {
+    it('should emit an event to remove an account', () => {
+      spyOn(component.removeUser, 'emit').and.callThrough();
+      component.removeAccount();
+      expect(component.removeUser.emit).toHaveBeenCalled();
+    });
   });
 });
