@@ -14,7 +14,7 @@ import { getSelectedTab } from '../../../../store/tabs/selectors/tabs.selector';
 import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
 import { TabSelect } from '../../../../store/tabs/actions/tabs.actions';
-import { HighscoreSelect } from '../../../../store/highscores/actions/highscores.actions';
+import { HighscoreSave, HighscoreSelect } from '../../../../store/highscores/actions/highscores.actions';
 
 const tabs: Tab[] = [
   {
@@ -117,7 +117,11 @@ describe('ExerciseComponent', () => {
 
   describe('saveHighscore', () => {
     it('should emit an action', () => {
-      // TODO
+      spyOn(store, 'dispatch').and.callThrough();
+      const highscore = { $key: 'a' } as Highscore;
+      component.saveHighscore(highscore);
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(new HighscoreSave({ highscore }));
     });
   });
 

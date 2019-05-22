@@ -21,4 +21,12 @@ export class HighscoresResource {
       .snapshotChanges()
       .pipe(map((actions: SnapshotAction<Highscore>[]) => this.highscoresService.mapHighscoreListFromSnapshotAction(actions)));
   }
+
+  public saveHighscore(uid: string, highscore: Highscore): Promise<void> {
+    const key = highscore.$key;
+    delete (highscore.$key);
+
+    return this.db.object(`${this.colName}/${uid}/${key}`)
+      .update(highscore);
+  }
 }

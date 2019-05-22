@@ -14,7 +14,7 @@ import { getSelectedTab } from '../../../../store/tabs/selectors/tabs.selector';
 import { TabSelect } from '../../../../store/tabs/actions/tabs.actions';
 import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
-import { HighscoreSelect } from '../../../../store/highscores/actions/highscores.actions';
+import { HighscoreSave, HighscoreSelect } from '../../../../store/highscores/actions/highscores.actions';
 
 @Component({
   selector: 'app-exercise',
@@ -59,13 +59,8 @@ export class ExerciseComponent extends LifecycleComponent implements OnInit {
       .subscribe();
   }
 
-  public async saveHighscore(highscore: Highscore): Promise<void> {
-    // TODO
-    // try {
-    //   // await this.highscoreService.update(highscore);
-    // } catch (e) {
-    //   throw new Error(e);
-    // }
+  public saveHighscore(highscore: Highscore): void {
+    this.store.dispatch(new HighscoreSave({highscore}));
   }
 
   public assignExercise(): void {

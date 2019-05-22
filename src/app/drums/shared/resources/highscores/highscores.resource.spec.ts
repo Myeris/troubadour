@@ -4,6 +4,7 @@ import { of } from 'rxjs';
 // app
 import { HighscoresResource } from './highscores.resource';
 import { HighscoresService } from '../../services/highscores/highscores.service';
+import { Highscore } from '../../models/highscore.model';
 
 class AfDbMock {
   list() {
@@ -11,6 +12,12 @@ class AfDbMock {
       snapshotChanges: () => {
         return of({});
       }
+    };
+  }
+
+  object() {
+    return {
+      update: () => Promise.resolve()
     };
   }
 }
@@ -49,6 +56,15 @@ describe('HighscoresResource', () => {
       resource.getHighscoreList$('uid').subscribe((x) => {
         expect(service.mapHighscoreListFromSnapshotAction).toHaveBeenCalledTimes(1);
       });
+    });
+  });
+
+  describe('saveHighscore', () => {
+    it('should call update', () => {
+      spyOn(db, 'object').and.callThrough();
+
+      resource.saveHighscore('uid', { $key: 'key' } as Highscore);
+      expect(db.object).toHaveBeenCalledTimes(1);
     });
   });
 });

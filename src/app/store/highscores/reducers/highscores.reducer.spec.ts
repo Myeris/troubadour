@@ -1,7 +1,13 @@
 import { Highscore } from '../../../drums/shared/models/highscore.model';
 import { initialHighscoresState } from '../highscores.state';
 import { highscoreReducer } from './highscores.reducer';
-import { HighscoreListLoad, HighscoreListLoadFail, HighscoreListLodSuccess, HighscoreSelect } from '../actions/highscores.actions';
+import {
+  HighscoreListLoad,
+  HighscoreListLoadFail,
+  HighscoreListLodSuccess,
+  HighscoreSave, HighscoreSaveFail, HighscoreSaveSuccess,
+  HighscoreSelect
+} from '../actions/highscores.actions';
 
 const highscores: Highscore[] = [
   { $key: '1', name: 'Single stroke roll', highscore: 130, date: new Date().valueOf() },
@@ -65,6 +71,42 @@ describe('HighscoreReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
       expect(state.selectedId).toBe('id');
+    });
+  });
+
+  describe('Save', () => {
+    it('should set the state', () => {
+      const action = new HighscoreSave({ highscore: {} as Highscore });
+      const state = highscoreReducer(initialHighscoresState, action);
+
+      expect(state.isLoading).toBeTruthy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+      expect(state.ids.length).toBe(0);
+    });
+  });
+
+  describe('SaveFail', () => {
+    it('should set the state', () => {
+      const error = 'error';
+      const action = new HighscoreSaveFail({ error });
+      const state = highscoreReducer(initialHighscoresState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBe(error);
+      expect(state.selectedId).toBeNull();
+      expect(state.ids.length).toBe(0);
+    });
+  });
+
+  describe('SaveSuccess', () => {
+    it('should set the state', () => {
+      const action = new HighscoreSaveSuccess();
+      const state = highscoreReducer(initialHighscoresState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
     });
   });
 });

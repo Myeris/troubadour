@@ -3,7 +3,6 @@ import { TestBed } from '@angular/core/testing';
 import { Actions } from '@ngrx/effects';
 import { of, throwError } from 'rxjs';
 import { FirebaseError } from 'firebase';
-import SpyObj = jasmine.SpyObj;
 // app
 import { cold, hot } from 'jasmine-marbles';
 import { getActions, TestActions } from '../../../shared/utils/test-actions/test-actions.utils';
@@ -11,8 +10,16 @@ import { HighscoresEffects } from './highscores.effects';
 import { AppState } from '../../app.reducer';
 import { HighscoresResource } from '../../../drums/shared/resources/highscores/highscores.resource';
 import { Highscore } from '../../../drums/shared/models/highscore.model';
-import { HighscoreListLoad, HighscoreListLoadFail, HighscoreListLodSuccess } from '../actions/highscores.actions';
+import {
+  HighscoreListLoad,
+  HighscoreListLoadFail,
+  HighscoreListLodSuccess,
+  HighscoreSave,
+  HighscoreSaveFail,
+  HighscoreSaveSuccess
+} from '../actions/highscores.actions';
 import { User } from '../../../auth/shared/models/user.model';
+import SpyObj = jasmine.SpyObj;
 
 const highscores: Highscore[] = [
   { $key: '1', name: 'Single stroke roll', highscore: 130, date: new Date().valueOf() },
@@ -29,6 +36,9 @@ const user: User = {
 
 class HighscoresResourceMock {
   getHighscoreList$() {
+  }
+
+  saveHighscore() {
   }
 }
 
@@ -90,6 +100,41 @@ describe('HighscoresEffects', () => {
       const expected = cold('-(c|)', { c: completion });
 
       expect(effects.loadHighscoreList$).toBeObservable(expected);
+    });
+  });
+
+  describe('saveHighscore$', () => {
+    it('should return a success action', () => {
+      spyOn(resource, 'saveHighscore').and.returnValue(of({}));
+
+      const action = new HighscoreSave({ highscore: {} as Highscore });
+      const completion = new HighscoreSaveSuccess();
+
+      store.select.and.returnValue(cold('r', { r: user }));
+
+      effects = TestBed.get(HighscoresEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.saveHighscore$).toBeObservable(expected);
+    });
+
+    it('should throw an error', () => {
+      const error: FirebaseError = { message: 'error' } as FirebaseError;
+      spyOn(resource, 'saveHighscore').and.returnValue(throwError(error));
+
+      const action = new HighscoreSave({ highscore: {} as Highscore });
+      const completion = new HighscoreSaveFail({ error: error.message });
+
+      store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
+
+      effects = TestBed.get(HighscoresEffects); // Instantiate effects here so they can use the mock
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-(c|)', { c: completion });
+
+      expect(effects.saveHighscore$).toBeObservable(expected);
     });
   });
 });

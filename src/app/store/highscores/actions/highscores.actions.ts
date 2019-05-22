@@ -7,7 +7,11 @@ export enum HighscoresActionsTypes {
   LoadListSuccess = '[HighscoreResourceAPI] Load highscore list success',
   LoadListFail = '[HighscoreResourceAPI] Load highscore list fail',
 
-  Select = '[Exercise page] Select highscore'
+  Select = '[Exercise page] Select highscore',
+
+  Save = '[Exercise page] Save highscore',
+  SaveSuccess = '[HighscoreResourceAPI] Save highscore success',
+  SaveFail = '[HighscoreResourceAPI] Save highscore fail'
 }
 
 export class HighscoreListLoad implements Action {
@@ -35,8 +39,29 @@ export class HighscoreSelect implements Action {
   }
 }
 
+export class HighscoreSave implements Action {
+  public readonly type = HighscoresActionsTypes.Save;
+
+  constructor(public payload: { highscore: Highscore }) {
+  }
+}
+
+export class HighscoreSaveSuccess implements Action {
+  public readonly type = HighscoresActionsTypes.SaveSuccess;
+}
+
+export class HighscoreSaveFail implements Action {
+  public readonly type = HighscoresActionsTypes.SaveFail;
+
+  constructor(public payload: { error: string }) {
+  }
+}
+
 export type HighscoresActions =
   | HighscoreListLoad
   | HighscoreListLodSuccess
   | HighscoreListLoadFail
-  | HighscoreSelect;
+  | HighscoreSelect
+  | HighscoreSave
+  | HighscoreSaveSuccess
+  | HighscoreSaveFail;
