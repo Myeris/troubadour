@@ -23,6 +23,7 @@ import {
   PracticeSessionListLoadSuccess
 } from '../actions/practice-sessions.actions';
 import { User } from '../../../auth/shared/models/user.model';
+import { Router } from '@angular/router';
 import SpyObj = jasmine.SpyObj;
 import FirestoreError = firebase.firestore.FirestoreError;
 
@@ -85,6 +86,7 @@ describe('PracticeSessionsEffects', () => {
   let practiceSessionsResource: PracticeSessionsResource;
   let effects: PracticeSessionsEffects;
   let store: SpyObj<Store<AppState>>;
+  let router: Router;
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
@@ -100,6 +102,7 @@ describe('PracticeSessionsEffects', () => {
     store = bed.get(Store);
     actions$ = bed.get(Actions);
     practiceSessionsResource = bed.get(PracticeSessionsResource);
+    router = bed.get(Router);
   });
 
   it('should be created', () => {
@@ -215,5 +218,19 @@ describe('PracticeSessionsEffects', () => {
 
       expect(effects.createPracticeSession$).toBeObservable(expected);
     }));
+  });
+
+  describe('redirectToList$', () => {
+    it('should redirect to list on create success', () => {
+      spyOn(router, 'navigate').and.callFake(() => true);
+      const action = new PracticeSessionCreateSuccess();
+
+      actions$.stream = hot('-a|', { a: action });
+      effects = TestBed.get(PracticeSessionsEffects);
+
+      effects.redirectToList$.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledTimes(1);
+      });
+    });
   });
 });

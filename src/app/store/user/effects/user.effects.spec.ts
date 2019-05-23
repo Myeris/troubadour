@@ -178,7 +178,6 @@ describe('UserEffects', () => {
       effects.redirectConnectedUser$.subscribe((x) => {
         expect(userService.persistUser).toHaveBeenCalledTimes(1);
       });
-      // TODO test redirect call
     });
 
     it('should persistUser and redirect on RegisterSuccess', () => {
@@ -192,7 +191,6 @@ describe('UserEffects', () => {
       effects.redirectConnectedUser$.subscribe((x) => {
         expect(userService.persistUser).toHaveBeenCalledTimes(1);
       });
-      // TODO test redirect call
     });
   });
 
