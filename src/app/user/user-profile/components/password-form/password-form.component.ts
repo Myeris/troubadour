@@ -41,5 +41,4 @@ export class PasswordFormComponent {
 
     this.changePassword.emit(this.password.value);
   }
-
 }

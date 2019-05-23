@@ -55,17 +55,58 @@ describe('PasswordFormComponent', () => {
     expect(el.queryAll(By.css('.error'))[2].nativeElement.textContent).toContain('Please confirm your new password');
   });
 
-  it('should emit an event to update the password', () => {
-    const spy = spyOn(component.changePassword, 'emit');
+  describe('displayPasswordError', () => {
+    it('should return true if there is an error', () => {
+      component.password.get('old').setValue('');
+      component.password.get('old').markAsTouched();
+      expect(component.displayPasswordError('old')).toBeTruthy();
 
-    component.password.get('old').setValue('azerty');
-    component.password.get('new').setValue('1234');
-    component.password.get('confirmed').setValue('1234');
-    component.password.get('old').markAsTouched();
-    component.password.get('new').markAsTouched();
-    component.password.get('confirmed').markAsTouched();
+      component.password.get('new').setValue('');
+      component.password.get('new').markAsTouched();
+      expect(component.displayPasswordError('new')).toBeTruthy();
 
-    component.updatePassword();
-    expect(spy).toHaveBeenCalled();
+      component.password.get('confirmed').setValue('');
+      component.password.get('confirmed').markAsTouched();
+      expect(component.displayPasswordError('confirmed')).toBeTruthy();
+    });
+
+    it('should return false if there is no error', () => {
+      component.password.get('old').setValue('apassword');
+      component.password.get('old').markAsTouched();
+      expect(component.displayPasswordError('old')).toBeFalsy();
+
+      component.password.get('new').setValue('apassword');
+      component.password.get('new').markAsTouched();
+      expect(component.displayPasswordError('old')).toBeFalsy();
+
+      component.password.get('confirmed').setValue('apassword');
+      component.password.get('confirmed').markAsTouched();
+      expect(component.displayPasswordError('old')).toBeFalsy();
+    });
+  });
+
+  describe('updatePassword', () => {
+    it('should throw an error if form is invalid', () => {
+      component.password.markAsTouched();
+      expect(() => component.updatePassword())
+        .toThrow(new Error('Password form invalid.'));
+    });
+
+    it('should throw an error if password mismatched', () => {
+      component.password.get('old').setValue('old');
+      component.password.get('new').setValue('new');
+      component.password.get('confirmed').setValue('notthesame');
+      expect(() => component.updatePassword())
+        .toThrow(new Error('Password mismatched.'));
+    });
+
+    it('should emit an event', () => {
+      spyOn(component.changePassword, 'emit').and.callThrough();
+      component.password.get('old').setValue('old');
+      component.password.get('new').setValue('new');
+      component.password.get('confirmed').setValue('new');
+      component.updatePassword();
+      expect(component.changePassword.emit).toHaveBeenCalledTimes(1);
+    });
   });
 });
