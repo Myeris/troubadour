@@ -116,6 +116,13 @@ describe('AuthResource', () => {
       expect(afAuth.auth.currentUser.updatePassword).toHaveBeenCalledTimes(1);
       expect(afAuth.auth.currentUser.updatePassword).toHaveBeenCalledWith(changePassword.new);
     }));
+
+    it('should handle Promise reject', () => {
+      spyOn(resource, 'login').and.returnValue(Promise.reject('error'));
+
+      resource.changePassword(userCreds.user.email, changePassword)
+        .catch((res) => expect(res).toBe('error'));
+    });
   });
 
   describe('removeAccount', () => {
