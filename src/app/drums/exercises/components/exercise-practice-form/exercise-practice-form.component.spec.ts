@@ -159,20 +159,35 @@ describe('ExercisePracticeForm', () => {
       expect(component.form.removeControl).toHaveBeenCalledTimes(3);
       expect(component.submitted.emit).toHaveBeenCalledTimes(1);
     });
+
+    it('should remove control', () => {
+      component.showForms = {
+        toFailure: true,
+        bpmDuration: false,
+        bpmScale: false
+      };
+
+      component.submit();
+      expect(component.form.get('toFailure').value).toBeDefined();
+      expect(component.form.get('bpmDuration')).toBeNull();
+      expect(component.form.get('bpmScale')).toBeNull();
+    });
   });
 
   describe('onSoundOptionsChange', () => {
     it('should set options if type is 0', () => {
-      // const form: FormGroup = new FormGroup({
-      //   type: new FormControl(0),
-      //   settings: new FormGroup({
-      //     subdivision: new FormControl('4'),
-      //     accents: new FormArray([new FormControl(0)])
-      //   })
-      // });
-      //
-      // component.onSoundOptionsChange(form);
-      // TODO find how to test this
+      const form: FormGroup = new FormGroup({
+        type: new FormControl(0),
+        settings: new FormGroup({
+          subdivision: new FormControl('4'),
+          accents: new FormArray([new FormControl(0)])
+        })
+      });
+
+      component.onSoundOptionsChange(form);
+
+      expect(component.form.get('soundOptions').get('playAlong').value).toBeTruthy();
+      expect(component.form.get('soundOptions').get('metronomeOnly').value).toBeFalsy();
     });
 
     it('should set options if type is 1', () => {
@@ -193,13 +208,17 @@ describe('ExercisePracticeForm', () => {
       component.onSoundOptionsChange(form);
 
       expect((component as any).emptyAccents).toHaveBeenCalledTimes(1);
+      expect(component.form.get('soundOptions').get('playAlong').value).toBeFalsy();
+      expect(component.form.get('soundOptions').get('metronomeOnly').value).toBeTruthy();
       expect(component.formAccents.push).toHaveBeenCalledTimes(2);
     });
   });
 
   describe('emptyAccents', () => {
-    it('should remove all accents', () => {
-      // TODO
+    it('should empty all accents from form', () => {
+      expect(component.formAccents.length).toBe(1);
+      (component as any).emptyAccents();
+      expect(component.formAccents.length).toBe(0);
     });
   });
 });
