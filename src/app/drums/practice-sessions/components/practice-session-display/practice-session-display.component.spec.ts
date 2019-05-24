@@ -183,22 +183,38 @@ describe('PracticeSessionDisplayComponent', () => {
   });
 
   describe('playPause', () => {
-    it('should play/pause the exercise', () => {
-      const playSpy = spyOn(component, 'play').and.callThrough();
-      const resumeSpy = spyOn(metronome, 'resume').and.callThrough();
+    it('should handle running case', () => {
       const pauseSpy = spyOn(metronome, 'pause').and.callThrough();
-
       component.state = 'running';
       component.playPause();
       expect(pauseSpy).toHaveBeenCalled();
+    });
 
+    it('should handle suspended case', () => {
+      const resumeSpy = spyOn(metronome, 'resume').and.callThrough();
       component.state = 'suspended';
       component.playPause();
       expect(resumeSpy).toHaveBeenCalled();
+    });
+
+    it('should handle stopped case', () => {
+      const playSpy = spyOn(component, 'play').and.callThrough();
 
       component.state = 'stopped';
       component.playPause();
       expect(playSpy).toHaveBeenCalled();
+    });
+
+    it('should default cases', () => {
+      const playSpy = spyOn(component, 'play').and.callThrough();
+      const resumeSpy = spyOn(metronome, 'resume').and.callThrough();
+      const pauseSpy = spyOn(metronome, 'pause').and.callThrough();
+
+      component.state = 'not a state';
+      component.playPause();
+      expect(pauseSpy).not.toHaveBeenCalled();
+      expect(resumeSpy).not.toHaveBeenCalled();
+      expect(playSpy).not.toHaveBeenCalled();
     });
 
     it('should handle no state', () => {
@@ -237,9 +253,24 @@ describe('PracticeSessionDisplayComponent', () => {
       expect(component.scrollIntoView).not.toHaveBeenCalled();
     });
 
-    it('should call play if exercise is already playing', () => {
-      // TODO
+    it('should return nothing if last exercise', () => {
+      component.inPlayIndex = 1;
+      component.playNext();
+      expect(component.play).not.toHaveBeenCalled();
+      expect(component.scrollIntoView).not.toHaveBeenCalled();
     });
+
+    // it('should call play if exercise is already playing', async(() => {
+    //   component.state = 'running';
+    //   component.inPlayIndex = 0;
+    //   component.session.exercises = [
+    //     { hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 },
+    //     { hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 },
+    //     { hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 }
+    //   ];
+    //   component.playNext()
+    //     .then(() => expect(component.play).toHaveBeenCalledTimes(1));
+    // }));
 
     it('should just scrollIntoView if exercise is not playing', () => {
       // TODO
@@ -257,6 +288,13 @@ describe('PracticeSessionDisplayComponent', () => {
       component.state = 'running';
       component.playPrevious();
       expect(component.stop).toHaveBeenCalled();
+      expect(component.play).not.toHaveBeenCalled();
+      expect(component.scrollIntoView).not.toHaveBeenCalled();
+    });
+
+    it('should return nothing if last exercise', () => {
+      component.inPlayIndex = 1;
+      component.playPrevious();
       expect(component.play).not.toHaveBeenCalled();
       expect(component.scrollIntoView).not.toHaveBeenCalled();
     });
@@ -286,6 +324,22 @@ describe('PracticeSessionDisplayComponent', () => {
       expect(component.inPlayIndex).toBe(0);
       expect(component.playTime).toBe(0);
       expect(component.scrollIntoView).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('assignTab', () => {
+    it('should assign the tab to the exercise', () => {
+      delete(component.session.exercises[0].tab);
+      component.tabs = tabs;
+      expect(component.session.exercises[0].tab).toBeUndefined();
+      (component as any).assignTab();
+      expect(component.session.exercises[0].tab).toEqual(tabs[0]);
+    });
+
+    it('should do nothing', () => {
+      component.session.exercises = [];
+      (component as any).assignTab();
+      expect(component.session.exercises.length).toEqual(0);
     });
   });
 });
