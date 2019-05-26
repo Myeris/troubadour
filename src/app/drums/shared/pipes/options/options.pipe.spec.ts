@@ -75,23 +75,23 @@ describe('OptionsPipe', () => {
 
     it('should transform a bpm exercise into a string displaying the options of the exercise', () => {
       const exercise: Exercise = {
-        hand: 'R',
+        hand: 'L',
         bpm: 60,
         duration: 60,
         tabRef: 'azerty',
         repeat: 1,
         soundOptions: {
           playAlong: true,
-          metronomeOnly: false
+          metronomeOnly: true
         }
       };
 
-      expect(pipe.transform(exercise)).toBe('60 bpm. Start with right hand. Duration: 1 minute. Play along.');
+      expect(pipe.transform(exercise)).toBe('60 bpm. Start with left hand. Duration: 1 minute. Metronome only.');
     });
 
     it('should transform a bpm scale exercise into a string displaying the options of the exercise', () => {
       const exercise: Exercise = {
-        hand: 'R',
+        hand: 'L',
         bpmScale: {
           start: 90,
           stop: 120,
@@ -107,7 +107,7 @@ describe('OptionsPipe', () => {
       };
 
       expect(pipe.transform(exercise))
-        .toBe('From 90 bpm to 120 bpm with a step of 5. Start with right hand. Duration: 16 seconds. Play along.');
+        .toBe('From 90 bpm to 120 bpm with a step of 5. Start with left hand. Duration: 16 seconds. Play along.');
     });
   });
 });
