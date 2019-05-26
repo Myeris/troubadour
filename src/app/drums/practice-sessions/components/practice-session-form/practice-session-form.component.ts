@@ -41,10 +41,6 @@ export class PracticeSessionFormComponent implements OnChanges {
     shared: [false, Validators.required]
   });
 
-  constructor(private fb: FormBuilder,
-              private practiceSessionsService: PracticeSessionsService) {
-  }
-
   public get formExercises(): FormArray {
     return this.form.get('exercises') as FormArray;
   }
@@ -52,6 +48,10 @@ export class PracticeSessionFormComponent implements OnChanges {
   public get formNameInvalid(): boolean {
     const control = this.form.get('name');
     return control.hasError('required') && control.touched;
+  }
+
+  constructor(private fb: FormBuilder,
+              private practiceSessionsService: PracticeSessionsService) {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
