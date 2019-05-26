@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 // app
 import { BpmScaleFormComponent } from './bpm-scale-form.component';
 
@@ -45,17 +45,47 @@ describe('BpmScaleFormComponent', () => {
     expect(el.queryAll(By.css('input'))[3].nativeElement.value).toBe('20');
   });
 
-  it('should emit an invalid event on input change if form is invalid', () => {
-    const spy = spyOn(component.invalid, 'emit').and.callThrough();
-    component.form.get('start').setValue(30);
-    component.onChange();
-    expect(spy).toHaveBeenCalled();
+  describe('ngOnChanges', () => {
+    it('should patch bpmScale value', () => {
+      component.bpmScale = new FormGroup({
+        start: new FormControl(60),
+        stop: new FormControl(90),
+        step: new FormControl(1),
+        repeat: new FormControl(2)
+      });
+      component.ngOnChanges({});
+      expect(component.form.get('start').value).toBe(60);
+      expect(component.form.get('stop').value).toBe(90);
+      expect(component.form.get('step').value).toBe(1);
+      expect(component.form.get('repeat').value).toBe(2);
+    });
+
+    it('should do nothing', () => {
+      expect(component.form.get('start').value).toBe(90);
+      expect(component.form.get('stop').value).toBe(120);
+      expect(component.form.get('step').value).toBe(5);
+      expect(component.form.get('repeat').value).toBe(20);
+      component.ngOnChanges({});
+      expect(component.form.get('start').value).toBe(90);
+      expect(component.form.get('stop').value).toBe(120);
+      expect(component.form.get('step').value).toBe(5);
+      expect(component.form.get('repeat').value).toBe(20);
+    });
   });
 
-  it('should emit a submitted event on input change if form is valid', () => {
-    const spy = spyOn(component.submitted, 'emit').and.callThrough();
-    component.form.get('start').setValue(110);
-    component.onChange();
-    expect(spy).toHaveBeenCalled();
+  describe('onChange', () => {
+    it('should emit an invalid event on input change if form is invalid', () => {
+      const spy = spyOn(component.invalid, 'emit').and.callThrough();
+      component.form.get('start').setValue(30);
+      component.onChange();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should emit a submitted event on input change if form is valid', () => {
+      const spy = spyOn(component.submitted, 'emit').and.callThrough();
+      component.form.get('start').setValue(110);
+      component.onChange();
+      expect(spy).toHaveBeenCalled();
+    });
   });
 });

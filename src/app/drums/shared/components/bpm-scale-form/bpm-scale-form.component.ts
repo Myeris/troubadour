@@ -14,7 +14,7 @@ export class BpmScaleFormComponent implements OnChanges {
     repeat: [20, Validators.min(1)]
   });
 
-  @Input() bpmScale: FormGroup;
+  @Input() public bpmScale: FormGroup;
 
   @Output() public submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() public invalid: EventEmitter<string> = new EventEmitter<string>();
