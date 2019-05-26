@@ -12,8 +12,8 @@ export class BpmDurationFormComponent implements OnChanges {
     duration: [60, Validators.min(0)]
   });
 
-  @Input() initBpm: number;
-  @Input() initDuration: number;
+  @Input() public initBpm: number;
+  @Input() public initDuration: number;
 
   @Output() public submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() public invalid: EventEmitter<string> = new EventEmitter<string>();

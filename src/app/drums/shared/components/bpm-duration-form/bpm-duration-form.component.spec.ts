@@ -41,17 +41,33 @@ describe('BpmDurationFormComponent', () => {
     expect(el.queryAll(By.css('input'))[1].nativeElement.value).toBe('60');
   });
 
-  it('should emit an invalid event on input change if form is invalid', () => {
-    const spy = spyOn(component.invalid, 'emit').and.callThrough();
-    component.form.get('bpm').setValue(30);
-    component.onChange();
-    expect(spy).toHaveBeenCalled();
+  describe('ngOnChanges', () => {
+    it('should set bpm', () => {
+      component.initBpm = 90;
+      component.ngOnChanges({});
+      expect(component.form.get('bpm').value).toBe(90);
+    });
+
+    it('should set duration', () => {
+      component.initDuration = 60;
+      component.ngOnChanges({});
+      expect(component.form.get('duration').value).toBe(60);
+    });
   });
 
-  it('should emit a submitted event on input change if form is valid', () => {
-    const spy = spyOn(component.submitted, 'emit').and.callThrough();
-    component.form.get('bpm').setValue(90);
-    component.onChange();
-    expect(spy).toHaveBeenCalled();
+  describe('onChange', () => {
+    it('should emit an invalid event on input change if form is invalid', () => {
+      const spy = spyOn(component.invalid, 'emit').and.callThrough();
+      component.form.get('bpm').setValue(30);
+      component.onChange();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should emit a submitted event on input change if form is valid', () => {
+      const spy = spyOn(component.submitted, 'emit').and.callThrough();
+      component.form.get('bpm').setValue(90);
+      component.onChange();
+      expect(spy).toHaveBeenCalled();
+    });
   });
 });
