@@ -43,27 +43,45 @@ describe('ToFailureResultComponent', () => {
     expect(el.queryAll(By.css('button'))[1].nativeElement.textContent).toContain('Cancel');
   });
 
-  it('should emit an event to save the highscore', () => {
-    const spy = spyOn(component.highscored, 'emit').and.callThrough();
-    component.bpm = 150;
-    component.newBpm = 150;
+  describe('ngOnChanges', () => {
+    it('should do nothing', () => {
+      expect(component.newBpm).toBeUndefined();
+      component.ngOnChanges({});
+      expect(component.newBpm).toBeUndefined();
+    });
 
-    component.saveHighscore();
-    expect(component.feedback).toBeNull();
-    expect(spy).toHaveBeenCalled();
+    it('should assign bpm', () => {
+      component.bpm = 90;
+      component.ngOnChanges({});
+      expect(component.newBpm).toBe(90);
+    });
   });
 
-  it('should set a feedback if newBpm > bpm', () => {
-    component.bpm = 150;
-    component.newBpm = 160;
+  describe('saveHighscore', () => {
+    it('should emit an event to save the highscore', () => {
+      const spy = spyOn(component.highscored, 'emit').and.callThrough();
+      component.bpm = 150;
+      component.newBpm = 150;
 
-    component.saveHighscore();
-    expect(component.feedback).toBe('Oh come one... No one likes a cheater.');
+      component.saveHighscore();
+      expect(component.feedback).toBeNull();
+      expect(spy).toHaveBeenCalled();
+    });
+
+    it('should set a feedback if newBpm > bpm', () => {
+      component.bpm = 150;
+      component.newBpm = 160;
+
+      component.saveHighscore();
+      expect(component.feedback).toBe('Oh come one... No one likes a cheater.');
+    });
   });
 
-  it('should emit a cancel event', () => {
-    const spy = spyOn(component.cancelled, 'emit').and.callThrough();
-    component.cancel();
-    expect(spy).toHaveBeenCalled();
+  describe('cancel', () => {
+    it('should emit a cancel event', () => {
+      const spy = spyOn(component.cancelled, 'emit').and.callThrough();
+      component.cancel();
+      expect(spy).toHaveBeenCalled();
+    });
   });
 });
