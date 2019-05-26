@@ -9,7 +9,9 @@ import { PracticeSessionsComponent } from './practice-sessions.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
 import { SearchPipe } from '../../../shared/pipes/search/search.pipe';
 import { PracticeSession } from '../../../shared/models/practice-session.model';
-import { PracticeSessionDelete } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
+import { PracticeSessionDelete, PracticeSessionListLoad } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
+import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
+import { of } from 'rxjs';
 
 describe('PracticeSessionsComponent', () => {
   let component: PracticeSessionsComponent;
@@ -35,6 +37,20 @@ describe('PracticeSessionsComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  describe('ngOnInit', () => {
+    it('should set things up', () => {
+      spyOn(store, 'select').and.returnValue(of({}));
+      spyOn(store, 'dispatch').and.returnValue(of({}));
+
+      component.ngOnInit();
+
+      expect(store.select).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.select).toHaveBeenCalledWith(selectAll);
+      expect(store.dispatch).toHaveBeenCalledWith(new PracticeSessionListLoad());
+    });
   });
 
   describe('onRemove', () => {
