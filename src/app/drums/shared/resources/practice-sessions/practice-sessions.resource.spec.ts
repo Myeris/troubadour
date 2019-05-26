@@ -76,7 +76,7 @@ describe('PracticeSessionsResource', () => {
   });
 
   describe('removeExercise', () => {
-    it('should remove ', () => {
+    it('should remove', () => {
       const session = {
         exercises: [
           { hand: 'R', tabRef: 'qwe', repeat: 1, tab: { name: 'name', type: 'type', drumkit: true, timeSignature: '4/4', notes: [] } },
@@ -94,6 +94,11 @@ describe('PracticeSessionsResource', () => {
       });
 
       expect(tabs.length).toBe(0);
+    });
+
+    it('should throw an error', () => {
+      expect(() => (resource as any).removeExercise({ exercises: [{}] }))
+        .toThrow(new Error('Missing tab ref'));
     });
   });
 });

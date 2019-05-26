@@ -37,8 +37,7 @@ export class PracticeSessionsResource {
   private removeExercise(session: PracticeSession): PracticeSession {
     session.exercises.forEach((exercise: Exercise) => {
       if (!exercise.tabRef) {
-        console.error('Missing tab ref');
-        return;
+        throw new Error('Missing tab ref');
       }
 
       delete exercise.tab;
