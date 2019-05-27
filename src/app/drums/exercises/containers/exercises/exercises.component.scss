@@ -96,6 +96,7 @@
 
   .library-list {
     display: flex;
+    justify-content: space-evenly;
     flex-flow: wrap;
     margin-top: 1rem;
   }

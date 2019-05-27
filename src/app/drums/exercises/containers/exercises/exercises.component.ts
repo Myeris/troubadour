@@ -15,11 +15,13 @@ import { selectAll as selectAllSessions } from 'src/app/store/practice-sessions/
 import { TypesListLoad } from '../../../../store/types/actions/types.actions';
 import { TabListLoad, TabSelectType } from '../../../../store/tabs/actions/tabs.actions';
 import { PracticeSessionListLoad } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
   selector: 'app-exercises',
   templateUrl: './exercises.component.html',
-  styleUrls: ['./exercises.component.scss']
+  styleUrls: ['./exercises.component.scss'],
+  animations: [fadeAnimation]
 })
 export class ExercisesComponent extends LifecycleComponent implements OnInit {
   public searchText = '';

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 // app
 import { MetronomeService } from '../../../shared/services/metronome/metronome.service';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
   selector: 'app-metronome',
   templateUrl: './metronome.component.html',
-  styleUrls: ['./metronome.component.scss']
+  styleUrls: ['./metronome.component.scss'],
+  animations: [fadeAnimation]
 })
 export class MetronomeComponent {
 

@@ -8,11 +8,13 @@ import { AppState } from '../../../../store/app.reducer';
 import { ResetPassword } from '../../../../store/user/actions/user.actions';
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
 import { getError } from '../../../../store/user/selectors/user.selectors';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.scss']
+  styleUrls: ['./reset-password.component.scss'],
+  animations: [fadeAnimation]
 })
 export class ResetPasswordComponent extends LifecycleComponent implements OnInit {
   public form: FormGroup = this.fb.group({

@@ -15,11 +15,13 @@ import { TabSelect } from '../../../../store/tabs/actions/tabs.actions';
 import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
 import { HighscoreSave, HighscoreSelect } from '../../../../store/highscores/actions/highscores.actions';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
-  styleUrls: ['./exercise.component.scss']
+  styleUrls: ['./exercise.component.scss'],
+  animations: [fadeAnimation]
 })
 export class ExerciseComponent extends LifecycleComponent implements OnInit {
 

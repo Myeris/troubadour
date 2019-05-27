@@ -10,12 +10,14 @@ import { LifecycleComponent } from '../../../../shared/components/lifecycle/life
 import { AppState } from '../../../../store/app.reducer';
 import { getError } from '../../../../store/user/selectors/user.selectors';
 import { Register } from '../../../../store/user/actions/user.actions';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
+  animations: [fadeAnimation]
 })
 export class RegisterComponent extends LifecycleComponent implements OnInit {
   public error$: Observable<string>;

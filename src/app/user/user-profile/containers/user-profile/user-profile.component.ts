@@ -10,11 +10,13 @@ import { getCurrentUser, getError } from '../../../../store/user/selectors/user.
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
 import { ChangePassword as ChangePasswordModel } from '../../../../auth/shared/models/change-password.model';
 import { ChangePassword } from '../../../../store/user/actions/user.actions';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  styleUrls: ['./user-profile.component.scss'],
+  animations: [fadeAnimation]
 })
 export class UserProfileComponent extends LifecycleComponent implements OnInit {
 

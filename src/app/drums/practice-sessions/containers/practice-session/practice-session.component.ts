@@ -20,11 +20,13 @@ import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types
 import { TabListLoad } from '../../../../store/tabs/actions/tabs.actions';
 import { Breadcrumb } from '../../../shared/models/breadcrumb.model';
 import { TypesListLoad } from '../../../../store/types/actions/types.actions';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
   selector: 'app-practice-session',
   templateUrl: './practice-session.component.html',
-  styleUrls: ['./practice-session.component.scss']
+  styleUrls: ['./practice-session.component.scss'],
+  animations: [fadeAnimation]
 })
 export class PracticeSessionComponent extends LifecycleComponent implements OnInit {
   public session$: Observable<PracticeSession>;
@@ -90,6 +92,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
     //   this.feedback.success = false;
     //   this.feedback.message = e;
     // }
+    // TODO
   }
 
   public onRemove(): void {

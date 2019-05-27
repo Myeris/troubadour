@@ -10,11 +10,13 @@ import { LifecycleComponent } from '../../../../shared/components/lifecycle/life
 import { AppState } from '../../../../store/app.reducer';
 import { getError } from '../../../../store/user/selectors/user.selectors';
 import { LogIn } from '../../../../store/user/actions/user.actions';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
+  animations: [fadeAnimation]
 })
 export class LoginComponent extends LifecycleComponent implements OnInit {
   public error$: Observable<string>;

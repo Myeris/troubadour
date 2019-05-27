@@ -9,11 +9,13 @@ import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-se
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
 import { PracticeSessionDelete, PracticeSessionListLoad } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import { Pagination } from '../../../shared/models/pagination.model';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
   selector: 'app-practice-sessions',
   templateUrl: './practice-sessions.component.html',
-  styleUrls: ['./practice-sessions.component.scss']
+  styleUrls: ['./practice-sessions.component.scss'],
+  animations: [fadeAnimation]
 })
 export class PracticeSessionsComponent extends LifecycleComponent implements OnInit {
   public sessionList$: Observable<PracticeSession[]>;

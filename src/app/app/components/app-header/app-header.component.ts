@@ -6,8 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./app-header.component.scss']
 })
 export class AppHeaderComponent {
-
-  @Output() loggingOut: EventEmitter<void> = new EventEmitter<void>();
+  @Output() public loggingOut: EventEmitter<void> = new EventEmitter<void>();
 
   public logout(): void {
     this.loggingOut.emit();

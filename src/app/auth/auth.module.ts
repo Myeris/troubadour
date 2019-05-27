@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -19,6 +20,7 @@ export const firebaseConfig = {
 @NgModule({
   imports: [
     CommonModule,
+    BrowserAnimationsModule,
     // third party
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
