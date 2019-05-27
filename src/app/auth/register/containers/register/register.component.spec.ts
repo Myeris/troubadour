@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { FormGroup } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { RegisterComponent } from './register.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
@@ -18,6 +19,7 @@ describe('RegisterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [RegisterComponent],
       imports: [
+        BrowserAnimationsModule,
         RouterTestingModule,
         StoreModule.forRoot({
           ...appReducers

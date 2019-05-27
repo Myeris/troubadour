@@ -72,6 +72,7 @@ describe('ExercisesComponent', () => {
       ],
       providers: [],
       imports: [
+        BrowserAnimationsModule,
         FormsModule,
         SharedModule.forRoot(),
         StoreModule.forRoot({ ...appReducers }),

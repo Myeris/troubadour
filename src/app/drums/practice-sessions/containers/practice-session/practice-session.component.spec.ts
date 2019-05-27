@@ -4,6 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute, Router, UrlSegment } from '@angular/router';
 import { of } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { PracticeSessionComponent } from './practice-session.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
@@ -42,6 +43,7 @@ describe('PracticeSessionComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PracticeSessionComponent],
       imports: [
+        BrowserAnimationsModule,
         StoreModule.forRoot(appReducers),
         RouterTestingModule.withRoutes([{
           path: 'practice-sessions', component: class BlankComponent {

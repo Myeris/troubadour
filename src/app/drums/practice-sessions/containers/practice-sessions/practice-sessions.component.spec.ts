@@ -4,6 +4,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { Store, StoreModule } from '@ngrx/store';
+import { of } from 'rxjs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { PracticeSessionsComponent } from './practice-sessions.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
@@ -11,7 +13,6 @@ import { SearchPipe } from '../../../shared/pipes/search/search.pipe';
 import { PracticeSession } from '../../../shared/models/practice-session.model';
 import { PracticeSessionDelete, PracticeSessionListLoad } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
-import { of } from 'rxjs';
 
 describe('PracticeSessionsComponent', () => {
   let component: PracticeSessionsComponent;
@@ -21,6 +22,7 @@ describe('PracticeSessionsComponent', () => {
   beforeEach(async(() => {
     const bed = TestBed.configureTestingModule({
       imports: [
+        BrowserAnimationsModule,
         RouterTestingModule,
         FormsModule,
         NgxPaginationModule,

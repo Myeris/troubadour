@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './containers/app/app.component';
@@ -24,6 +25,7 @@ import { UserModule } from '../user/user.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     // 3rd party
     MatIconModule,
     // app

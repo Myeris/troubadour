@@ -3,6 +3,7 @@ import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { ExerciseComponent } from './exercise.component';
 import { Tab } from '../../../shared/models/tab.model';
@@ -75,6 +76,7 @@ describe('ExerciseComponent', () => {
       ],
       providers: [],
       imports: [
+        BrowserAnimationsModule,
         SharedModule,
         RouterTestingModule,
         StoreModule.forRoot(appReducers)

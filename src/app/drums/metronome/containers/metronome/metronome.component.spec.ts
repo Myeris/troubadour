@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { MetronomeComponent } from './metronome.component';
 import { MetronomeService } from '../../../shared/services/metronome/metronome.service';
@@ -24,6 +25,9 @@ describe('MetronomeComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
+      imports: [
+        BrowserAnimationsModule
+      ],
       declarations: [
         MetronomeComponent
       ],

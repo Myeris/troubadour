@@ -4,6 +4,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { UserProfileComponent } from './user-profile.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
@@ -27,6 +28,7 @@ describe('UserProfileComponent', () => {
         RemoveFormComponent
       ],
       imports: [
+        BrowserAnimationsModule,
         ReactiveFormsModule,
         RouterTestingModule,
         StoreModule.forRoot({ ...appReducers })
