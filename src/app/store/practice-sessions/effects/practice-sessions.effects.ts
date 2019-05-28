@@ -56,10 +56,19 @@ export class PracticeSessionsEffects {
     );
 
   @Effect({ dispatch: false })
-  redirectToList$: Observable<Action> = this.actions$
+  redirectToListAfterCreate$: Observable<Action> = this.actions$
     .pipe(
-      ofType<PracticeSessionCreateSuccess | PracticeSessionDeleteSuccess>(
-        PracticeSessionsActionsTypes.CreateSuccess || PracticeSessionsActionsTypes.DeleteSuccess
+      ofType<PracticeSessionCreateSuccess>(
+        PracticeSessionsActionsTypes.CreateSuccess
+      ),
+      tap(() => this.router.navigate(['/practice-sessions']))
+    );
+
+  @Effect({ dispatch: false })
+  redirectToListAfterDelete$: Observable<Action> = this.actions$
+    .pipe(
+      ofType<PracticeSessionDeleteSuccess>(
+        PracticeSessionsActionsTypes.DeleteSuccess
       ),
       tap(() => this.router.navigate(['/practice-sessions']))
     );

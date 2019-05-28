@@ -166,7 +166,7 @@ describe('UserEffects', () => {
     }));
   });
 
-  describe('redirectConnectedUser$', () => {
+  describe('redirectConnectedUserAfterLogin$', () => {
     it('should persistUser and redirect on LoginSuccess', () => {
       spyOn(userService, 'persistUser').and.returnValue(true);
       const action = new LogInSuccess({ user });
@@ -175,11 +175,13 @@ describe('UserEffects', () => {
 
       const effects: UserEffects = TestBed.get(UserEffects);
 
-      effects.redirectConnectedUser$.subscribe((x) => {
+      effects.redirectConnectedUserAfterLogin$.subscribe((x) => {
         expect(userService.persistUser).toHaveBeenCalledTimes(1);
       });
     });
+  });
 
+  describe('redirectConnectedUserAfterRegister$', () => {
     it('should persistUser and redirect on RegisterSuccess', () => {
       spyOn(userService, 'persistUser').and.returnValue(true);
       const action = new RegisterSuccess({ user });
@@ -188,7 +190,7 @@ describe('UserEffects', () => {
 
       const effects: UserEffects = TestBed.get(UserEffects);
 
-      effects.redirectConnectedUser$.subscribe((x) => {
+      effects.redirectConnectedUserAfterRegister$.subscribe((x) => {
         expect(userService.persistUser).toHaveBeenCalledTimes(1);
       });
     });

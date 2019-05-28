@@ -220,7 +220,7 @@ describe('PracticeSessionsEffects', () => {
     }));
   });
 
-  describe('redirectToList$', () => {
+  describe('redirectToListAfterCreate$', () => {
     it('should redirect to list on create success', () => {
       spyOn(router, 'navigate').and.callFake(() => true);
       const action = new PracticeSessionCreateSuccess();
@@ -228,7 +228,21 @@ describe('PracticeSessionsEffects', () => {
       actions$.stream = hot('-a|', { a: action });
       effects = TestBed.get(PracticeSessionsEffects);
 
-      effects.redirectToList$.subscribe(() => {
+      effects.redirectToListAfterCreate$.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('redirectToListAfterDelete$', () => {
+    it('should redirect to list on delete success', () => {
+      spyOn(router, 'navigate').and.callFake(() => true);
+      const action = new PracticeSessionDeleteSuccess();
+
+      actions$.stream = hot('-a|', { a: action });
+      effects = TestBed.get(PracticeSessionsEffects);
+
+      effects.redirectToListAfterDelete$.subscribe(() => {
         expect(router.navigate).toHaveBeenCalledTimes(1);
       });
     });

@@ -57,9 +57,17 @@ export class UserEffects {
     );
 
   @Effect({ dispatch: false })
-  redirectConnectedUser$: Observable<void> = this.actions$
+  redirectConnectedUserAfterLogin$: Observable<void> = this.actions$
     .pipe(
-      ofType<LogInSuccess | RegisterSuccess>(UserActionsTypes.LogInSuccess || UserActionsTypes.RegisterSuccess),
+      ofType<LogInSuccess>(UserActionsTypes.LogInSuccess),
+      map((action) => this.userService.persistUser(action.payload.user)),
+      tap(() => this.router.navigate(['/']))
+    );
+
+  @Effect({ dispatch: false })
+  redirectConnectedUserAfterRegister$: Observable<void> = this.actions$
+    .pipe(
+      ofType<RegisterSuccess>(UserActionsTypes.RegisterSuccess),
       map((action) => this.userService.persistUser(action.payload.user)),
       tap(() => this.router.navigate(['/']))
     );
