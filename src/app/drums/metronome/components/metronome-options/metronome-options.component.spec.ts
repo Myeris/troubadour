@@ -111,6 +111,18 @@ describe('MetronomeOptionsComponent', () => {
       expect(component.stopped.emit).toHaveBeenCalledTimes(1);
       expect(component.playing).toBeFalsy();
     });
+
+    it('should remove the active class from the div', () => {
+      expect(el.query(By.css('metronome-1'))).toBeNull();
+
+      component.form.get('beat').setValue(4);
+      fixture.detectChanges();
+
+      expect(el.query(By.css('#metronome-1'))).toBeDefined();
+      component.stop();
+      console.log(el.query(By.css('#metronome-1')).attributes.class);
+
+    });
   });
 
   describe('changeBpm', () => {

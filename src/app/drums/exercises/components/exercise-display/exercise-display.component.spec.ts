@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
 // app
 import { ExerciseDisplayComponent } from './exercise-display.component';
@@ -128,6 +128,19 @@ describe('ExerciseDisplayComponent', () => {
       component.stop();
       expect(stopSpy).toHaveBeenCalled();
     });
+
+    it('should set lastBpm to null', fakeAsync(() => {
+      component.lastBpm = 90;
+      component.tab = tab;
+      component.ngOnInit();
+      fixture.detectChanges();
+
+      component.practiceMode = 'something';
+      expect(component.lastBpm).toBe(90);
+      component.stop();
+      tick(1000);
+      expect(component.lastBpm).toBeNull();
+    }));
   });
 
   describe('onCancel', () => {
@@ -239,12 +252,12 @@ describe('ExerciseDisplayComponent', () => {
     it('should set the exercise default value', () => {
       expect((component as any).setDefaultExercise())
         .toEqual(jasmine.objectContaining({
-        hand: 'R',
-        bpm: 60,
-        repeat: 1,
-        tab,
-        tabRef: tab.$key
-      }));
+          hand: 'R',
+          bpm: 60,
+          repeat: 1,
+          tab,
+          tabRef: tab.$key
+        }));
     });
   });
 

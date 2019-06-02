@@ -8,6 +8,17 @@ import { BufferLoader } from '../../utils/buffer-loader';
 import { ExerciseService } from '../exercise/exercise.service';
 import Timer = NodeJS.Timer;
 
+const urlList: string[] = [
+  '/assets/sounds/kit/RIM3.wav',
+  '/assets/sounds/click-accent.mp3',
+  '/assets/sounds/kit/BASS1.wav',
+  '/assets/sounds/kit/SNARE4.wav',
+  '/assets/sounds/kit/CLSHAT2.wav',
+  '/assets/sounds/kit/OPHAT1.wav',
+  '/assets/sounds/kit/GHOST.wav',
+  '/assets/sounds/kit/ACCENT.wav'
+];
+
 @Injectable()
 export class MetronomeService {
   private context: (AudioContext | any);
@@ -23,11 +34,10 @@ export class MetronomeService {
       .pipe(
         filter((event) => event instanceof NavigationStart),
         tap(() => this.stop())
-      )
-      .subscribe();
+      ).subscribe();
   }
 
-  public init(): Promise<any> {
+  public init(): Promise<void> {
     const audioContext = ((window as any).AudioContext || (window as any).webkitAudioContext);
 
     return new Promise((resolve, reject) => {
@@ -39,16 +49,7 @@ export class MetronomeService {
 
       this.bufferLoader = new BufferLoader(
         this.context,
-        [
-          '/assets/sounds/kit/RIM3.wav',
-          '/assets/sounds/click-accent.mp3',
-          '/assets/sounds/kit/BASS1.wav',
-          '/assets/sounds/kit/SNARE4.wav',
-          '/assets/sounds/kit/CLSHAT2.wav',
-          '/assets/sounds/kit/OPHAT1.wav',
-          '/assets/sounds/kit/GHOST.wav',
-          '/assets/sounds/kit/ACCENT.wav'
-        ],
+        urlList,
         this.finishedLoading
       );
 
@@ -62,7 +63,7 @@ export class MetronomeService {
     });
   }
 
-  public playExercise(exercise: Exercise, addClickCounter: boolean = true, isScaleExercise: boolean = false): Promise<any> {
+  public playExercise(exercise: Exercise, addClickCounter: boolean = true, isScaleExercise: boolean = false): Promise<void> {
     return new Promise((resolve, reject) => {
       // if context is suspended, resume. Else create the exercise
       if (this.context.state === 'suspended' && this.context.currentTime > 0) {
@@ -190,7 +191,7 @@ export class MetronomeService {
 
   private async handleBpmScaleExercise(exercise: Exercise): Promise<void> {
     const bpmExercises: Exercise[] = [];
-    const { start, stop, step } = Object.assign(exercise.bpmScale);
+    const { start, stop, step } = Object.assign({}, exercise.bpmScale);
 
     for (let bpm = start; bpm <= stop; bpm += step) {
       const bpmExercise: Exercise = {
@@ -218,7 +219,7 @@ export class MetronomeService {
     addClickCounter: boolean,
     clickCountDuration: number,
     isScaleExercise: boolean = false
-  ): Promise<any> {
+  ): Promise<void> {
     return new Promise((resolve, reject) => {
       const click = this.bufferLoader.bufferList[0];
       const clickAccent = this.bufferLoader.bufferList[1];
