@@ -38,19 +38,19 @@ describe('NoteCountPipe', () => {
 
         component.noteIndex = 0;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 1');
+        expect(el.textContent).toContain('Note count: 1');
 
         component.noteIndex = 1;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 2');
+        expect(el.textContent).toContain('Note count: 2');
 
         component.noteIndex = 2;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 3');
+        expect(el.textContent).toContain('Note count: 3');
 
         component.noteIndex = 3;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 4');
+        expect(el.textContent).toContain('Note count: 4');
       });
 
       it('for a subdivision of 8', () => {
@@ -58,35 +58,35 @@ describe('NoteCountPipe', () => {
 
         component.noteIndex = 0;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 1');
+        expect(el.textContent).toContain('Note count: 1');
 
         component.noteIndex = 1;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: &');
+        expect(el.textContent).toContain('Note count: &');
 
         component.noteIndex = 2;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 2');
+        expect(el.textContent).toContain('Note count: 2');
 
         component.noteIndex = 3;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: &');
+        expect(el.textContent).toContain('Note count: &');
 
         component.noteIndex = 4;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 3');
+        expect(el.textContent).toContain('Note count: 3');
 
         component.noteIndex = 5;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: &');
+        expect(el.textContent).toContain('Note count: &');
 
         component.noteIndex = 6;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 4');
+        expect(el.textContent).toContain('Note count: 4');
 
         component.noteIndex = 7;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: &');
+        expect(el.textContent).toContain('Note count: &');
       });
 
       it('for a subdivision of 16', () => {
@@ -94,67 +94,67 @@ describe('NoteCountPipe', () => {
 
         component.noteIndex = 0;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 1');
+        expect(el.textContent).toContain('Note count: 1');
 
         component.noteIndex = 1;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: e');
+        expect(el.textContent).toContain('Note count: e');
 
         component.noteIndex = 2;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: &');
+        expect(el.textContent).toContain('Note count: &');
 
         component.noteIndex = 3;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: a');
+        expect(el.textContent).toContain('Note count: a');
 
         component.noteIndex = 4;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 2');
+        expect(el.textContent).toContain('Note count: 2');
 
         component.noteIndex = 5;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: e');
+        expect(el.textContent).toContain('Note count: e');
 
         component.noteIndex = 6;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: &');
+        expect(el.textContent).toContain('Note count: &');
 
         component.noteIndex = 7;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: a');
+        expect(el.textContent).toContain('Note count: a');
 
         component.noteIndex = 8;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 3');
+        expect(el.textContent).toContain('Note count: 3');
 
         component.noteIndex = 9;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: e');
+        expect(el.textContent).toContain('Note count: e');
 
         component.noteIndex = 10;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: &');
+        expect(el.textContent).toContain('Note count: &');
 
         component.noteIndex = 11;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: a');
+        expect(el.textContent).toContain('Note count: a');
 
         component.noteIndex = 12;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: 4');
+        expect(el.textContent).toContain('Note count: 4');
 
         component.noteIndex = 13;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: e');
+        expect(el.textContent).toContain('Note count: e');
 
         component.noteIndex = 14;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: &');
+        expect(el.textContent).toContain('Note count: &');
 
         component.noteIndex = 15;
         fixture.detectChanges();
-        expect(el.textContent).toBe('Note count: a');
+        expect(el.textContent).toContain('Note count: a');
       });
     });
   });

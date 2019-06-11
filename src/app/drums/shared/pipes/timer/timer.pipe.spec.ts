@@ -31,19 +31,19 @@ describe('TimerPipe', () => {
     it('should display the timer', () => {
       component.timerValue = 0;
       fixture.detectChanges();
-      expect(el.textContent).toBe('Timer: 00:00');
+      expect(el.textContent).toContain('Timer: 00:00');
 
       component.timerValue = 60;
       fixture.detectChanges();
-      expect(el.textContent).toBe('Timer: 01:00');
+      expect(el.textContent).toContain('Timer: 01:00');
 
       component.timerValue = 90;
       fixture.detectChanges();
-      expect(el.textContent).toBe('Timer: 01:30');
+      expect(el.textContent).toContain('Timer: 01:30');
 
       component.timerValue = 600;
       fixture.detectChanges();
-      expect(el.textContent).toBe('Timer: 10:00');
+      expect(el.textContent).toContain('Timer: 10:00');
     });
   });
 

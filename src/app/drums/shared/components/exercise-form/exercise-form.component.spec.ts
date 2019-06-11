@@ -251,15 +251,6 @@ describe('ExerciseFormComponent', () => {
       component.selectedExercise = editedExercise;
     });
 
-    it('should throw an error if form not valid', () => {
-      component.form.get('repeat').setValue(0);
-      component.form.get('duration').setValue(0);
-
-      expect(() => component.addExercise()).toThrow(
-        new Error('Exercise needs a duration value or a repeat value')
-      );
-    });
-
     it('should emit an event to edit an exercise of a session', () => {
       const spy = spyOn(component.edited, 'emit').and.callThrough();
 
