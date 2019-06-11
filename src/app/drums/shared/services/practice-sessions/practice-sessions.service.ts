@@ -9,12 +9,15 @@ export class PracticeSessionsService {
   public mapSessionListFromSnapshotAction(
     actions: SnapshotAction<PracticeSession>[]
   ): PracticeSession[] {
-    return actions.map((a: SnapshotAction<PracticeSession>) => {
-      const data = a.payload.val();
-      const $key = a.payload.key;
+    return actions.map((a: SnapshotAction<PracticeSession>) =>
+      this.mapSessionFromSnapshotAction(a)
+    );
+  }
 
-      return { $key, ...data };
-    });
+  public mapSessionFromSnapshotAction(action: SnapshotAction<PracticeSession>): PracticeSession {
+    const data = action.payload.val();
+    const $key = action.payload.key;
+    return { $key, ...data };
   }
 
   public getSessionDuration(timeSignature: string, repeat: number, bpm: number): number {

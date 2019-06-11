@@ -10,7 +10,8 @@ import { PracticeSessionComponent } from './practice-session.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
 import {
   getSelectedPracticeSession,
-  isLoading
+  isLoading,
+  selectAll as selectAllSessions
 } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import { selectAll as selectAllTabs } from 'src/app/store/tabs/selectors/tabs.selector';
 import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types.selector';
@@ -114,10 +115,11 @@ describe('PracticeSessionComponent', () => {
 
     it('should select and dispatch from store', () => {
       component.ngOnInit();
-      expect(store.select).toHaveBeenCalledTimes(4);
+      expect(store.select).toHaveBeenCalledTimes(5);
       expect(store.select).toHaveBeenCalledWith(getSelectedPracticeSession);
       expect(store.select).toHaveBeenCalledWith(selectAllTabs);
       expect(store.select).toHaveBeenCalledWith(selectAllTypes);
+      expect(store.select).toHaveBeenCalledWith(selectAllSessions);
       expect(store.select).toHaveBeenCalledWith(isLoading);
 
       expect(store.dispatch).toHaveBeenCalledTimes(3);

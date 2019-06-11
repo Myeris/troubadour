@@ -15,6 +15,12 @@ class AfDbMock {
       push: () => Promise.resolve()
     };
   }
+
+  object() {
+    return {
+      snapshotChanges: () => of({})
+    };
+  }
 }
 
 describe('PracticeSessionsResource', () => {
@@ -50,6 +56,20 @@ describe('PracticeSessionsResource', () => {
 
       resource.getSessionList$('uid').subscribe(() => {
         expect(service.mapSessionListFromSnapshotAction).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
+
+  describe('getOneSession$', () => {
+    it('should call an object', () => {
+      spyOn(db, 'object').and.callThrough();
+      spyOn(service, 'mapSessionFromSnapshotAction').and.returnValue(true);
+
+      resource.getOneSession$('uid', 'id');
+      expect(db.object).toHaveBeenCalledTimes(1);
+
+      resource.getOneSession$('uid', 'id').subscribe(() => {
+        expect(service.mapSessionFromSnapshotAction).toHaveBeenCalledTimes(1);
       });
     });
   });

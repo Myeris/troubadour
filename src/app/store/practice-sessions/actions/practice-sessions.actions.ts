@@ -7,6 +7,10 @@ export enum PracticeSessionsActionsTypes {
   LoadListSuccess = '[PracticeSessionsAPI] Load list success',
   LoadListFail = '[PracticeSessionsAPI] Load list fail',
 
+  LoadOne = '[Practice session item page] Load one',
+  LoadOneSuccess = '[Practice session item page] Load one success',
+  LoadOneFail = '[Practice session item page] Load one fail',
+
   Delete = '[Practice session list page] Remove practice session',
   DeleteSuccess = '[PracticeSessionsAPI] Remove practice session success',
   DeleteFail = '[PracticeSessionsAPI] Remove practice session fail',
@@ -72,6 +76,24 @@ export class PracticeSessionSelect implements Action {
   constructor(public payload: { id: string }) {}
 }
 
+export class PracticeSessionOneLoad implements Action {
+  public readonly type = PracticeSessionsActionsTypes.LoadOne;
+
+  constructor(public payload: { id: string }) {}
+}
+
+export class PracticeSessionOneLoadSuccess implements Action {
+  public readonly type = PracticeSessionsActionsTypes.LoadOneSuccess;
+
+  constructor(public payload: { practiceSession: PracticeSession }) {}
+}
+
+export class PracticeSessionOneLoadFail implements Action {
+  public readonly type = PracticeSessionsActionsTypes.LoadOneFail;
+
+  constructor(public payload: { error: string }) {}
+}
+
 export type PracticeSessionsActions =
   | PracticeSessionListLoad
   | PracticeSessionListLoadSuccess
@@ -82,4 +104,7 @@ export type PracticeSessionsActions =
   | PracticeSessionSelect
   | PracticeSessionCreate
   | PracticeSessionCreateSuccess
-  | PracticeSessionCreateFail;
+  | PracticeSessionCreateFail
+  | PracticeSessionOneLoad
+  | PracticeSessionOneLoadSuccess
+  | PracticeSessionOneLoadFail;

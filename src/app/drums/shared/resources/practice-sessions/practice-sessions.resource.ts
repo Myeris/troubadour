@@ -28,6 +28,17 @@ export class PracticeSessionsResource {
       );
   }
 
+  public getOneSession$(uid: string, key: string): Observable<PracticeSession> {
+    return this.db
+      .object<PracticeSession>(`${this.colName}/${uid}/${key}`)
+      .snapshotChanges()
+      .pipe(
+        map((action: SnapshotAction<PracticeSession>) =>
+          this.practiceSessionsService.mapSessionFromSnapshotAction(action)
+        )
+      );
+  }
+
   public removeSession(uid: string, key: string): Promise<void> {
     return this.db.list(`${this.colName}/${uid}`).remove(key);
   }

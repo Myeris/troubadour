@@ -39,6 +39,26 @@ describe('PracticeSessionsService', () => {
     });
   });
 
+  describe('mapSessionFromSnapshotAction', () => {
+    it('should return a PracticeSession', () => {
+      expect(
+        service.mapSessionFromSnapshotAction({
+          payload: {
+            key: 'qwe',
+            val(): PracticeSession {
+              return {
+                name: 'session'
+              } as PracticeSession;
+            }
+          }
+        } as SnapshotAction<PracticeSession>)
+      ).toEqual({
+        $key: 'qwe',
+        name: 'session'
+      } as PracticeSession);
+    });
+  });
+
   describe('getSessionDuration', () => {
     it('should be able to return a session duration', () => {
       let duration = service.getSessionDuration('4/4', 1, 60);

@@ -15,10 +15,12 @@ export function practiceSessionsReducer(
   switch (action.type) {
     case PracticeSessionsActionsTypes.LoadList:
     case PracticeSessionsActionsTypes.Create:
+    case PracticeSessionsActionsTypes.LoadOne:
       return { ...state, isLoading: true, selectedId: null, error: null };
     case PracticeSessionsActionsTypes.LoadListFail:
     case PracticeSessionsActionsTypes.DeleteFail:
     case PracticeSessionsActionsTypes.CreateFail:
+    case PracticeSessionsActionsTypes.LoadOneFail:
       return { ...state, isLoading: false, selectedId: null, error: action.payload.error };
     case PracticeSessionsActionsTypes.LoadListSuccess:
       return practiceSessionsEntityAdapter.addAll(action.payload.practiceSessionList, {
@@ -27,6 +29,19 @@ export function practiceSessionsReducer(
         selectedId: null,
         error: null
       });
+    case PracticeSessionsActionsTypes.LoadOneSuccess:
+      return practiceSessionsEntityAdapter.updateOne(
+        {
+          id: action.payload.practiceSession.$key,
+          changes: { ...action.payload.practiceSession }
+        },
+        {
+          ...state,
+          isLoading: false,
+          selectedId: action.payload.practiceSession.$key,
+          error: null
+        }
+      );
     case PracticeSessionsActionsTypes.Delete:
       return { ...state, isLoading: true, selectedId: action.payload.id, error: null };
     case PracticeSessionsActionsTypes.DeleteSuccess:

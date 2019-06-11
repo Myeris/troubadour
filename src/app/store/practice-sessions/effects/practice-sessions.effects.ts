@@ -16,7 +16,10 @@ import {
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
   PracticeSessionListLoadSuccess,
-  PracticeSessionsActionsTypes
+  PracticeSessionsActionsTypes,
+  PracticeSessionOneLoad,
+  PracticeSessionOneLoadFail,
+  PracticeSessionOneLoadSuccess
 } from '../actions/practice-sessions.actions';
 import { getCurrentUser } from '../../user/selectors/user.selectors';
 import { PracticeSessionsResource } from '../../../drums/shared/resources/practice-sessions/practice-sessions.resource';
@@ -38,6 +41,21 @@ export class PracticeSessionsEffects {
     ),
     catchError((error: FirebaseError) =>
       of(new PracticeSessionListLoadFail({ error: error.message }))
+    )
+  );
+
+  @Effect()
+  loadOnePracticeSession$: Observable<Action> = this.actions$.pipe(
+    ofType<PracticeSessionOneLoad>(PracticeSessionsActionsTypes.LoadOne),
+    withLatestFrom(this.store$.select(getCurrentUser)),
+    switchMap(([action, currentUser]) =>
+      this.practiceSessionResource.getOneSession$(currentUser.id, action.payload.id)
+    ),
+    map(
+      (practiceSession: PracticeSession) => new PracticeSessionOneLoadSuccess({ practiceSession })
+    ),
+    catchError((error: FirebaseError) =>
+      of(new PracticeSessionOneLoadFail({ error: error.message }))
     )
   );
 

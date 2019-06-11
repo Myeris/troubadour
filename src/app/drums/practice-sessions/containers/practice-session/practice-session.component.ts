@@ -11,12 +11,14 @@ import { Tag } from '../../../shared/models/tag.model';
 import { AppState } from '../../../../store/app.reducer';
 import {
   getSelectedPracticeSession,
-  isLoading
+  isLoading,
+  selectAll as selectAllSessions
 } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import {
   PracticeSessionCreate,
   PracticeSessionDelete,
-  PracticeSessionSelect
+  PracticeSessionSelect,
+  PracticeSessionListLoad
 } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import { selectAll as selectAllTabs } from 'src/app/store/tabs/selectors/tabs.selector';
 import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types.selector';
@@ -39,6 +41,8 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   public exerciseId: string;
   public showForm = false;
   public feedback: { success: boolean; message: string };
+
+  private sessions$: Observable<PracticeSession[]>;
 
   constructor(
     private store: Store<AppState>,
@@ -64,6 +68,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
     this.session$ = this.store
       .select(getSelectedPracticeSession)
       .pipe(takeUntil(this.componentDestroyed$));
+    this.sessions$ = this.store.select(selectAllSessions).pipe(takeUntil(this.componentDestroyed$));
     this.tabs$ = this.store.select(selectAllTabs).pipe(takeUntil(this.componentDestroyed$));
     this.types$ = this.store.select(selectAllTypes).pipe(takeUntil(this.componentDestroyed$));
     this.isLoading$ = this.store.select(isLoading).pipe(takeUntil(this.componentDestroyed$));
@@ -72,9 +77,15 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
       .pipe(takeUntil(this.componentDestroyed$))
       .subscribe((params: Params) => (this.exerciseId = params.exercise));
 
-    if (this.route.snapshot.params.id) {
-      this.store.dispatch(new PracticeSessionSelect({ id: this.route.snapshot.params.id }));
-    }
+    this.sessions$.subscribe((sessions: PracticeSession[]) => {
+      if (sessions.length === 0) {
+        this.store.dispatch(new PracticeSessionListLoad());
+      }
+
+      if (this.route.snapshot.params.id) {
+        this.store.dispatch(new PracticeSessionSelect({ id: this.route.snapshot.params.id }));
+      }
+    });
 
     this.store.dispatch(new TabListLoad());
     this.store.dispatch(new TypesListLoad());
