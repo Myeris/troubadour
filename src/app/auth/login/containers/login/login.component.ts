@@ -8,8 +8,8 @@ import { takeUntil } from 'rxjs/operators';
 import { AuthRequest } from '../../../shared/models/auth-request.model';
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
 import { AppState } from '../../../../store/app.reducer';
-import { getError } from '../../../../store/user/selectors/user.selectors';
-import { LogIn } from '../../../../store/user/actions/user.actions';
+import { getError, isVerified, verificationEmailSent } from '../../../../store/user/selectors/user.selectors';
+import { LogIn, SendVerificationEmail } from '../../../../store/user/actions/user.actions';
 import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
@@ -20,7 +20,8 @@ import { fadeAnimation } from '../../../../shared/animations/animations';
 })
 export class LoginComponent extends LifecycleComponent implements OnInit {
   public error$: Observable<string>;
-  public showEmailVerificationButton = false;
+  public isVerified$: Observable<boolean>;
+  public emailVerificationSent$: Observable<boolean>;
 
   constructor(private router: Router,
               private store: Store<AppState>) {
@@ -30,6 +31,10 @@ export class LoginComponent extends LifecycleComponent implements OnInit {
   ngOnInit(): void {
     this.error$ = this.store.select(getError)
       .pipe(takeUntil(this.componentDestroyed$));
+    this.isVerified$ = this.store.select(isVerified)
+      .pipe(takeUntil(this.componentDestroyed$));
+    this.emailVerificationSent$ = this.store.select(verificationEmailSent)
+      .pipe(takeUntil(this.componentDestroyed$));
   }
 
   public loginUser(event: FormGroup): void {
@@ -38,6 +43,6 @@ export class LoginComponent extends LifecycleComponent implements OnInit {
   }
 
   public resendVerificationEmail(): void {
-    console.log('TODO'); // TODO
+    this.store.dispatch(new SendVerificationEmail());
   }
 }

@@ -11,7 +11,11 @@ import {
   LogOutSuccess,
   Register,
   RegisterFail,
-  RegisterSuccess, ResetPassword, ResetPasswordFail, ResetPasswordSuccess,
+  RegisterSuccess,
+  ResetPassword,
+  ResetPasswordFail,
+  ResetPasswordSuccess,
+  SendVerificationEmail, SendVerificationEmailFail, SendVerificationEmailSuccess,
   SetPersistedUser
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
@@ -219,6 +223,40 @@ describe('userReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
       expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('SendVerificationEmail', () => {
+    it('should set the state', () => {
+      const action = new SendVerificationEmail();
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('SendVerificationEmailSuccess', () => {
+    it('should set the state', () => {
+      const action = new SendVerificationEmailSuccess({ success: 'success' });
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('SendVerificationEmailFail', () => {
+    it('should set the state', () => {
+      const error = 'error';
+      const action = new SendVerificationEmailFail({ error });
+      const state = userReducer(initialUserState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
     });
   });

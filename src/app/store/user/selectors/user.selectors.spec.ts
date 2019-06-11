@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 // app
 import { appReducers, AppState } from '../../app.reducer';
-import { getCurrentUser, getError, isLoading, isLoggedIn } from './user.selectors';
+import { canUseApp, getCurrentUser, getError, isLoading, isLoggedIn, isVerified } from './user.selectors';
 import { LogIn, LogInFail, LogInSuccess } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { User } from '../../../auth/shared/models/user.model';
@@ -107,6 +107,21 @@ describe('UserSelectors', () => {
 
       store.dispatch(new LogInSuccess({ user }));
       expect(result).toEqual(user);
+    });
+  });
+
+  describe('isVerified', () => {
+    it('should return a boolean to tell if the user is verified', () => {
+      let result = null;
+
+      store
+        .select(isVerified)
+        .subscribe(value => result = value);
+
+      expect(result).toBeFalsy();
+
+      store.dispatch(new LogInSuccess({ user }));
+      expect(result).toEqual(true);
     });
   });
 });

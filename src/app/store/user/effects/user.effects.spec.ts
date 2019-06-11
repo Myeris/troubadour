@@ -20,7 +20,9 @@ import {
   RegisterSuccess,
   ResetPassword,
   ResetPasswordFail,
-  ResetPasswordSuccess
+  ResetPasswordSuccess,
+  SendVerificationEmail, SendVerificationEmailFail,
+  SendVerificationEmailSuccess
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { getActions, TestActions } from '../../../shared/utils/test-actions/test-actions.utils';
@@ -31,6 +33,7 @@ import { User } from '../../../auth/shared/models/user.model';
 import UserCredential = firebase.auth.UserCredential;
 import FirestoreError = firebase.firestore.FirestoreError;
 import SpyObj = jasmine.SpyObj;
+import { AuthErrors } from '../../../auth/shared/utils/errors.utils';
 
 class AuthResourceMock {
   login() {
@@ -48,10 +51,9 @@ class AuthResourceMock {
   resetPassword() {
     return true;
   }
-}
 
-class UserServiceMock {
-  removePersistedUser() {
+  sendVerificationEmail() {
+    return true;
   }
 }
 
@@ -74,8 +76,8 @@ describe('UserEffects', () => {
       imports: [StoreModule.forRoot(appReducers), RouterTestingModule],
       providers: [
         UserEffects,
-        { provide: UserService, useFactory: () => new UserService() },
-        { provide: AuthResource, useFactory: () => new AuthResourceMock() },
+        UserService,
+        { provide: AuthResource, useClass: AuthResourceMock },
         { provide: Actions, useFactory: getActions },
         { provide: Store, useValue: jasmine.createSpyObj('store', ['select']) }
       ]
@@ -114,6 +116,28 @@ describe('UserEffects', () => {
       expect(effects.authenticateUser$).toBeObservable(expected);
     }));
 
+    it('should return an error message if user not verified', async(() => {
+      const effects: UserEffects = TestBed.get(UserEffects);
+      const userCreds: UserCredential = {
+        user: {
+          email: 'email',
+          emailVerified: false,
+          uid: '123'
+        }
+      } as UserCredential;
+
+      spyOn(authResource, 'login').and.returnValue(of(userCreds));
+
+      const action = new LogIn({ authRequest: req });
+      const error = AuthErrors.NotVerified;
+      const completion = new LogInFail({ error });
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.authenticateUser$).toBeObservable(expected);
+    }));
+
     it('should return an error message on failure', async(() => {
       const effects: UserEffects = TestBed.get(UserEffects);
       const action = new LogIn({ authRequest: req });
@@ -143,7 +167,10 @@ describe('UserEffects', () => {
       spyOn(authResource, 'register').and.returnValue(of(userCreds));
 
       const action = new Register({ authRequest: req });
-      const completion = new RegisterSuccess({ user: userService.mapLoginResponse(userCreds) });
+      const completion = [
+        new RegisterSuccess({ user: userService.mapLoginResponse(userCreds) }),
+        new SendVerificationEmail()
+      ];
 
       actions$.stream = hot('-a', { a: action });
       const expected = cold('-b', { b: completion });
@@ -279,6 +306,43 @@ describe('UserEffects', () => {
       const expected = cold('-(c|)', { c: completion });
 
       expect(effects.resetPassword$).toBeObservable(expected);
+    });
+  });
+
+  describe('sendVerificationEmail$', () => {
+    it('should dispatch a success action', () => {
+      const action = new SendVerificationEmail();
+      const completion = new SendVerificationEmailSuccess({
+        success: 'A verification email has been send to you. Please check your inbox.'
+      });
+
+      spyOn(authResource, 'sendVerificationEmail').and.returnValue(of(true));
+
+      store.select.and.returnValue(cold('r', { r: user }));
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.sendVerificationEmail$).toBeObservable(expected);
+    });
+
+    it('should dispatch a false action', () => {
+      const action = new SendVerificationEmail();
+      const error = 'error';
+      const completion = new SendVerificationEmailFail({ error });
+
+      spyOn(authResource, 'sendVerificationEmail').and.returnValue(throwError({ message: error }));
+
+      store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
+
+      const effects: UserEffects = TestBed.get(UserEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-(c|)', { c: completion });
+
+      expect(effects.sendVerificationEmail$).toBeObservable(expected);
     });
   });
 });

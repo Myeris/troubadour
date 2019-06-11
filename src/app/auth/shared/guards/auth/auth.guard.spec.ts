@@ -41,7 +41,7 @@ describe('AuthGuard', () => {
   });
 
   describe('canActivate', () => {
-    it('should grant access to not logged in users', async(() => {
+    it('should not grant access to not logged in users', async(() => {
       let result = null;
 
       guard.canActivate(null, null)
@@ -51,10 +51,21 @@ describe('AuthGuard', () => {
       expect(router.navigate).toHaveBeenCalledWith(['/auth']);
     }));
 
-    it('should not grand access to logged in user', () => {
+    it('should not grand access to unverified in user', () => {
       let result = null;
 
-      store.dispatch(new LogInSuccess({ user: {} as User }));
+      store.dispatch(new LogInSuccess({ user: { verified: false, id: '1' } as User }));
+
+      guard.canActivate(null, null)
+        .subscribe((value) => result = value);
+
+      expect(result).toBeFalsy();
+    });
+
+    it('should grand access to logged in user', () => {
+      let result = null;
+
+      store.dispatch(new LogInSuccess({ user: { verified: true, id: '1' } as User }));
 
       guard.canActivate(null, null)
         .subscribe((value) => result = value);

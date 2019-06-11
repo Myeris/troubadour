@@ -7,7 +7,7 @@ import { UserService } from '../../../auth/shared/services/user.service';
 import { User } from '../../../auth/shared/models/user.model';
 import { AppState } from '../../../store/app.reducer';
 import { LogOut, SetPersistedUser } from '../../../store/user/actions/user.actions';
-import { getCurrentUser } from '../../../store/user/selectors/user.selectors';
+import { canUseApp, getCurrentUser } from '../../../store/user/selectors/user.selectors';
 import { LifecycleComponent } from '../../../shared/components/lifecycle/lifecycle.component';
 
 @Component({
@@ -18,6 +18,7 @@ import { LifecycleComponent } from '../../../shared/components/lifecycle/lifecyc
 })
 export class AppComponent extends LifecycleComponent implements OnInit {
   public user$: Observable<User>;
+  public canUseApp$: Observable<boolean>;
   private user: User;
 
   constructor(private userService: UserService,
@@ -27,6 +28,8 @@ export class AppComponent extends LifecycleComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.store.select(getCurrentUser)
+      .pipe(takeUntil(this.componentDestroyed$));
+    this.canUseApp$ = this.store.select(canUseApp)
       .pipe(takeUntil(this.componentDestroyed$));
 
     this.user = this.userService.persistedUser;

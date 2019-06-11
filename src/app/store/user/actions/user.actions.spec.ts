@@ -17,6 +17,9 @@ import {
   ResetPassword,
   ResetPasswordFail,
   ResetPasswordSuccess,
+  SendVerificationEmail,
+  SendVerificationEmailFail,
+  SendVerificationEmailSuccess,
   SetPersistedUser,
   UserActionsTypes
 } from './user.actions';
@@ -152,6 +155,27 @@ describe('UserActions', () => {
     it('should create an action', () => {
       const action = new ResetPasswordFail({ error: 'error' });
       expect(action.type).toBe(UserActionsTypes.ResetPasswordFail);
+    });
+  });
+
+  describe('SendVerificationEmail', () => {
+    it('should create an action', () => {
+      const action = new SendVerificationEmail();
+      expect(action.type).toBe(UserActionsTypes.SendVerificationEmail);
+    });
+  });
+
+  describe('SendVerificationEmailSuccess', () => {
+    it('should create an action', () => {
+      const action = new SendVerificationEmailSuccess({ success: 'Check your email' });
+      expect(action.type).toBe(UserActionsTypes.SendVerificationEmailSuccess);
+    });
+  });
+
+  describe('SendVerificationEmailFail', () => {
+    it('should create an action', () => {
+      const action = new SendVerificationEmailFail({ error: 'This is an error' });
+      expect(action.type).toBe(UserActionsTypes.SendVerificationEmailFail);
     });
   });
 });

@@ -13,7 +13,8 @@ class AfAuthMock {
     sendPasswordResetEmail: () => true,
     currentUser: {
       updatePassword: () => true,
-      delete: () => true
+      delete: () => true,
+      sendEmailVerification: () => true
     }
   };
 }
@@ -145,6 +146,20 @@ describe('AuthResource', () => {
       spyOn(afAuth.auth, 'sendPasswordResetEmail').and.returnValue(Promise.reject('error'));
 
       resource.resetPassword('email').catch((err) => expect(err).toBe('error'));
+    });
+  });
+
+  describe('sendVerificationEmail', () => {
+    it('should send the email verification', () => {
+      spyOn(afAuth.auth.currentUser, 'sendEmailVerification').and.returnValue(Promise.resolve());
+
+      resource.sendVerificationEmail().then(() => expect(true).toBeTruthy());
+    });
+
+    it('should throw an error', () => {
+      spyOn(afAuth.auth.currentUser, 'sendEmailVerification').and.returnValue(Promise.reject('error'));
+
+      resource.sendVerificationEmail().catch((err) => expect(err).toBe('error'));
     });
   });
 });

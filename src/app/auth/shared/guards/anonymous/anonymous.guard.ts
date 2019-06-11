@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { map, take } from 'rxjs/operators';
 // app
 import { AppState } from '../../../../store/app.reducer';
-import { isLoggedIn } from '../../../../store/user/selectors/user.selectors';
+import { canUseApp } from '../../../../store/user/selectors/user.selectors';
 
 @Injectable()
 export class AnonymousGuard implements CanActivate, CanActivateChild {
@@ -14,9 +14,12 @@ export class AnonymousGuard implements CanActivate, CanActivateChild {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return this.store.select(isLoggedIn)
+    return this.store.select(canUseApp)
       .pipe(
-        map((loggedIn: boolean) => !loggedIn),
+        map((authorized: boolean) => {
+          console.log(authorized);
+          return !authorized;
+        }),
         take(1)
       );
   }

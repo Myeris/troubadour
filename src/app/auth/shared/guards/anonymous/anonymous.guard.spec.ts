@@ -39,10 +39,21 @@ describe('AnonymousGuard', () => {
       expect(result).toBeTruthy();
     }));
 
+    it('should grant access to unverified users', () => {
+      let result = null;
+
+      store.dispatch(new LogInSuccess({ user: { verified: false, id: '1' } as User }));
+
+      guard.canActivate(null, null)
+        .subscribe((value) => result = value);
+
+      expect(result).toBeTruthy();
+    });
+
     it('should not grand access to logged in user', () => {
       let result = null;
 
-      store.dispatch(new LogInSuccess({ user: {} as User }));
+      store.dispatch(new LogInSuccess({ user: { verified: true, id: '1' } as User }));
 
       guard.canActivate(null, null)
         .subscribe((value) => result = value);

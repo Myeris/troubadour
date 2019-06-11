@@ -16,11 +16,16 @@
 
     <div *ngIf="(error$ | async)" class="error">
       {{ (error$ | async) }}
-      <a
-        (click)="resendVerificationEmail()"
-        *ngIf="showEmailVerificationButton">
-        Resend the verification email?
-      </a>
+
+      <div *ngIf="!(isVerified$ | async)">
+        <a (click)="resendVerificationEmail()">
+          Resend the verification email?
+        </a>
+      </div>
+    </div>
+
+    <div *ngIf="(emailVerificationSent$ | async)" class="message">
+      Email sent! Check your inbox.
     </div>
 
     <div class="reset">

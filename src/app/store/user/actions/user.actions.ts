@@ -29,7 +29,11 @@ export enum UserActionsTypes {
 
   ResetPassword = '[Reset password page] Reset password',
   ResetPasswordSuccess = '[AuthResourceAPI] Reset password success',
-  ResetPasswordFail = '[AuthResourceAPI] Reset password fail'
+  ResetPasswordFail = '[AuthResourceAPI] Reset password fail',
+
+  SendVerificationEmail = '[Login page] Send verification email',
+  SendVerificationEmailSuccess = '[AuthResourceAPI] Send verification email success',
+  SendVerificationEmailFail = '[AuthResourceAPI] Send verification email fail'
 }
 
 export class LogIn implements Action {
@@ -140,6 +144,24 @@ export class ResetPasswordFail implements Action {
   }
 }
 
+export class SendVerificationEmail implements Action {
+  public readonly type = UserActionsTypes.SendVerificationEmail;
+}
+
+export class SendVerificationEmailSuccess implements Action {
+  public readonly type = UserActionsTypes.SendVerificationEmailSuccess;
+
+  constructor(public payload: { success: string }) {
+  }
+}
+
+export class SendVerificationEmailFail implements Action {
+  public readonly type = UserActionsTypes.SendVerificationEmailFail;
+
+  constructor(public payload: { error: string }) {
+  }
+}
+
 export type UserActions =
   | LogIn
   | LogInSuccess
@@ -158,4 +180,7 @@ export type UserActions =
   | SetPersistedUser
   | ResetPassword
   | ResetPasswordSuccess
-  | ResetPasswordFail;
+  | ResetPasswordFail
+  | SendVerificationEmail
+  | SendVerificationEmailSuccess
+  | SendVerificationEmailFail;

@@ -8,8 +8,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { LoginComponent } from './login.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
-import { getError } from '../../../../store/user/selectors/user.selectors';
-import { LogIn } from '../../../../store/user/actions/user.actions';
+import { getError, isVerified, verificationEmailSent } from '../../../../store/user/selectors/user.selectors';
+import { LogIn, SendVerificationEmail } from '../../../../store/user/actions/user.actions';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -46,9 +46,13 @@ describe('LoginComponent', () => {
     it('should set error$', () => {
       spyOn(store, 'select').and.returnValue(of('error'));
       component.ngOnInit();
-      expect(store.select).toHaveBeenCalledTimes(1);
+      expect(store.select).toHaveBeenCalledTimes(3);
       expect(store.select).toHaveBeenCalledWith(getError);
+      expect(store.select).toHaveBeenCalledWith(isVerified);
+      expect(store.select).toHaveBeenCalledWith(verificationEmailSent);
       expect(component.error$ instanceof Observable).toBeTruthy();
+      expect(component.isVerified$ instanceof Observable).toBeTruthy();
+      expect(component.emailVerificationSent$ instanceof Observable).toBeTruthy();
     });
   });
 
@@ -65,7 +69,11 @@ describe('LoginComponent', () => {
 
   describe('resendVerificationEmail', () => {
     it('should send an action to resend a verification email', () => {
-      // TODO
+      spyOn(store, 'dispatch').and.callThrough();
+
+      component.resendVerificationEmail();
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(new SendVerificationEmail());
     });
   });
 });

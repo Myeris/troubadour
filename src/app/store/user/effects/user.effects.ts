@@ -3,8 +3,9 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { catchError, map, pluck, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
-// app
 import { Router } from '@angular/router';
+import { FirebaseError } from 'firebase';
+// app
 import { AppState } from '../../app.reducer';
 import {
   ChangePassword,
@@ -21,6 +22,9 @@ import {
   ResetPassword,
   ResetPasswordFail,
   ResetPasswordSuccess,
+  SendVerificationEmail,
+  SendVerificationEmailFail,
+  SendVerificationEmailSuccess,
   UserActionsTypes
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
@@ -28,7 +32,7 @@ import { AuthResource } from '../../../auth/shared/resources/auth.resource';
 import { UserService } from '../../../auth/shared/services/user.service';
 import { getCurrentUser } from '../selectors/user.selectors';
 import { User } from '../../../auth/shared/models/user.model';
-import { FirebaseError } from 'firebase';
+import { AuthErrors } from '../../../auth/shared/utils/errors.utils';
 import FirestoreError = firebase.firestore.FirestoreError;
 import UserCredential = firebase.auth.UserCredential;
 
@@ -42,17 +46,22 @@ export class UserEffects {
       pluck('payload'),
       pluck('authRequest'),
       switchMap((authRequest: AuthRequest) => this.authResource.login(authRequest)),
-      map((userCreds: UserCredential) => new LogInSuccess({ user: this.userService.mapLoginResponse(userCreds) })),
+      map((userCreds: UserCredential) => userCreds.user.emailVerified ?
+        new LogInSuccess({ user: this.userService.mapLoginResponse(userCreds) }) :
+        new LogInFail({ error: AuthErrors.NotVerified })),
       catchError((fe: FirestoreError) => of(new LogInFail({ error: fe.message }))));
 
   @Effect()
-  registerUser$: Observable<Action> = this.actions$
+  registerUser$: Observable<Action | Action[]> = this.actions$
     .pipe(
       ofType<Register>(UserActionsTypes.Register),
       pluck('payload'),
       pluck('authRequest'),
       switchMap((authRequest: AuthRequest) => this.authResource.register(authRequest)),
-      map((userCreds: UserCredential) => new RegisterSuccess({ user: this.userService.mapLoginResponse(userCreds) })),
+      map((userCreds: UserCredential) => [
+        new RegisterSuccess({ user: this.userService.mapLoginResponse(userCreds) }),
+        new SendVerificationEmail()
+      ]),
       catchError((fe: FirestoreError) => of(new RegisterFail({ error: fe.message })))
     );
 
@@ -64,6 +73,7 @@ export class UserEffects {
       tap(() => this.router.navigate(['/']))
     );
 
+  // TODO dispatch send verification email message
   @Effect({ dispatch: false })
   redirectConnectedUserAfterRegister$: Observable<void> = this.actions$
     .pipe(
@@ -100,6 +110,16 @@ export class UserEffects {
       switchMap((email: string) => this.authResource.resetPassword(email)),
       map(() => new ResetPasswordSuccess()),
       catchError((error: FirebaseError) => of(new ResetPasswordFail({ error: error.message })))
+    );
+
+  @Effect()
+  sendVerificationEmail$: Observable<Action> = this.actions$
+    .pipe(
+      ofType<SendVerificationEmail>(UserActionsTypes.SendVerificationEmail),
+      withLatestFrom(this.store$.select<User>(getCurrentUser)),
+      switchMap(([action, currentUser]) => this.authResource.sendVerificationEmail()),
+      map(() => new SendVerificationEmailSuccess({ success: 'A verification email has been send to you. Please check your inbox.' })),
+      catchError((error: FirebaseError) => of(new SendVerificationEmailFail({ error: error.message })))
     );
 
   constructor(private actions$: Actions,
