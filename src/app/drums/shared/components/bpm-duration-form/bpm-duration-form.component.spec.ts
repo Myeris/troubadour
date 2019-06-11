@@ -12,15 +12,9 @@ describe('BpmDurationFormComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        BpmDurationFormComponent
-      ],
-      providers: [
-        FormBuilder
-      ],
-      imports: [
-        ReactiveFormsModule
-      ]
+      declarations: [BpmDurationFormComponent],
+      providers: [FormBuilder],
+      imports: [ReactiveFormsModule]
     });
 
     fixture = bed.createComponent(BpmDurationFormComponent);
@@ -36,7 +30,9 @@ describe('BpmDurationFormComponent', () => {
     fixture.detectChanges();
 
     expect(el.queryAll(By.css('label'))[0].nativeElement.textContent).toContain('BPM');
-    expect(el.queryAll(By.css('label'))[1].nativeElement.textContent).toContain('Duration (in seconds)');
+    expect(el.queryAll(By.css('label'))[1].nativeElement.textContent).toContain(
+      'Duration (in seconds)'
+    );
     expect(el.queryAll(By.css('input'))[0].nativeElement.value).toBe('60');
     expect(el.queryAll(By.css('input'))[1].nativeElement.value).toBe('60');
   });

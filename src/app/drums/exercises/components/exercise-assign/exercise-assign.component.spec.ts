@@ -46,12 +46,8 @@ describe('ExerciseAssignComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        ExerciseAssignComponent
-      ],
-      imports: [
-        RouterTestingModule
-      ],
+      declarations: [ExerciseAssignComponent],
+      imports: [RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -68,8 +64,12 @@ describe('ExerciseAssignComponent', () => {
     component.tab = tab;
     fixture.detectChanges();
 
-    expect(el.query(By.css('h1')).nativeElement.textContent).toContain(`Assign ${tab.name} exercise`);
-    expect(el.query(By.css('.btn_add')).nativeElement.textContent).toContain('New practice session');
+    expect(el.query(By.css('h1')).nativeElement.textContent).toContain(
+      `Assign ${tab.name} exercise`
+    );
+    expect(el.query(By.css('.btn_add')).nativeElement.textContent).toContain(
+      'New practice session'
+    );
     expect(el.queryAll(By.css('button'))[0].nativeElement.textContent).toContain('Update');
     expect(el.queryAll(By.css('button'))[1].nativeElement.textContent).toContain('Cancel');
   });

@@ -23,7 +23,7 @@ export class PracticeSessionFormComponent implements OnChanges {
   @Input() public tabs: Tab[];
   @Input() public types: Tag[];
   @Input() public exerciseId: string;
-  @Input() public feedback: { success: boolean, message: string };
+  @Input() public feedback: { success: boolean; message: string };
 
   @Output() public created: EventEmitter<PracticeSession> = new EventEmitter<PracticeSession>();
   @Output() public updated: EventEmitter<PracticeSession> = new EventEmitter<PracticeSession>();
@@ -50,9 +50,7 @@ export class PracticeSessionFormComponent implements OnChanges {
     return control.hasError('required') && control.touched;
   }
 
-  constructor(private fb: FormBuilder,
-              private practiceSessionsService: PracticeSessionsService) {
-  }
+  constructor(private fb: FormBuilder, private practiceSessionsService: PracticeSessionsService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.session && this.session.name && this.tabs) {
@@ -172,12 +170,20 @@ export class PracticeSessionFormComponent implements OnChanges {
       }
 
       if (exercise.bpm) {
-        duration += this.practiceSessionsService.getSessionDuration(exercise.tab.timeSignature, exercise.repeat, exercise.bpm);
+        duration += this.practiceSessionsService.getSessionDuration(
+          exercise.tab.timeSignature,
+          exercise.repeat,
+          exercise.bpm
+        );
       }
 
       if (start && stop && step) {
         for (let i = start; i <= stop; i += step) {
-          duration += this.practiceSessionsService.getSessionDuration(exercise.tab.timeSignature, exercise.repeat, i);
+          duration += this.practiceSessionsService.getSessionDuration(
+            exercise.tab.timeSignature,
+            exercise.repeat,
+            i
+          );
         }
       }
 
@@ -186,7 +192,10 @@ export class PracticeSessionFormComponent implements OnChanges {
       }
     });
 
-    this.form.setControl('duration', new FormControl(Math.floor(duration) * this.form.get('repeat').value));
+    this.form.setControl(
+      'duration',
+      new FormControl(Math.floor(duration) * this.form.get('repeat').value)
+    );
     this.form.setControl('drumkit', new FormControl(needsDrumkit));
   }
 }

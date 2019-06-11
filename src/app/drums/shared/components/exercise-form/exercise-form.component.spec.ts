@@ -1,7 +1,13 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, DebugElement, SimpleChange } from '@angular/core';
-import { FormArray, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule
+} from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 // app
 import { ExerciseFormComponent } from './exercise-form.component';
@@ -45,19 +51,9 @@ describe('ExerciseFormComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        ExerciseFormComponent,
-        SearchPipe,
-        OrderTabsPipe
-      ],
-      providers: [
-        { provide: ExerciseService, useClass: MockExercise }
-      ],
-      imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        NgxPaginationModule
-      ],
+      declarations: [ExerciseFormComponent, SearchPipe, OrderTabsPipe],
+      providers: [{ provide: ExerciseService, useClass: MockExercise }],
+      imports: [FormsModule, ReactiveFormsModule, NgxPaginationModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -75,9 +71,10 @@ describe('ExerciseFormComponent', () => {
     expect(el.query(By.css('span')).nativeElement.textContent).toContain('Add an exercise');
 
     const tunnelSteps = el.queryAll(By.css('.tunnel__step'));
-    expect(tunnelSteps[0]
-      .query(By.css('.tunnel__step__title')).query(By.css('span')).nativeElement.textContent)
-      .toContain('1');
+    expect(
+      tunnelSteps[0].query(By.css('.tunnel__step__title')).query(By.css('span')).nativeElement
+        .textContent
+    ).toContain('1');
 
     // TODO do more
   });
@@ -85,7 +82,10 @@ describe('ExerciseFormComponent', () => {
   describe('formAccents', () => {
     it('should return the accents as a FormArray', () => {
       const formArray = [new FormControl(0)];
-      component.form.get('soundOptions').get('metronomeSettings').get('accents')
+      component.form
+        .get('soundOptions')
+        .get('metronomeSettings')
+        .get('accents')
         .setValue(formArray);
 
       expect(component.formAccents.value).toEqual(formArray);
@@ -125,7 +125,7 @@ describe('ExerciseFormComponent', () => {
     });
 
     it('should reassign accents if metronome only', () => {
-      spyOn((component as any), 'emptyAccents').and.callFake(() => true);
+      spyOn(component as any, 'emptyAccents').and.callFake(() => true);
 
       component.tabs = tabs;
       component.editedExercise = editedExercise;
@@ -255,8 +255,9 @@ describe('ExerciseFormComponent', () => {
       component.form.get('repeat').setValue(0);
       component.form.get('duration').setValue(0);
 
-      expect(() => component.addExercise())
-        .toThrow(new Error('Exercise needs a duration value or a repeat value'));
+      expect(() => component.addExercise()).toThrow(
+        new Error('Exercise needs a duration value or a repeat value')
+      );
     });
 
     it('should emit an event to edit an exercise of a session', () => {
@@ -312,7 +313,6 @@ describe('ExerciseFormComponent', () => {
     // });
   });
 
-
   describe('cancel', () => {
     it('should emit a canceled event', () => {
       const spy = spyOn(component.cancelled, 'emit').and.callThrough();
@@ -354,9 +354,12 @@ describe('ExerciseFormComponent', () => {
   describe('setFormControl', () => {
     it('should set a form control', () => {
       expect(component.form.get('hand').value).toBe('R');
-      component.setFormControl('hand', new FormGroup({
-        hand: new FormControl('L')
-      }));
+      component.setFormControl(
+        'hand',
+        new FormGroup({
+          hand: new FormControl('L')
+        })
+      );
       expect(component.form.get('hand').value).toBe('L');
     });
   });
@@ -364,12 +367,11 @@ describe('ExerciseFormComponent', () => {
   describe('setFormGroup', () => {
     it('should set a form group', () => {
       const bpm = new FormGroup({
-          start: new FormControl(60),
-          stop: new FormControl(90),
-          step: new FormControl(5),
-          repeat: new FormControl(1)
-        }
-      );
+        start: new FormControl(60),
+        stop: new FormControl(90),
+        step: new FormControl(5),
+        repeat: new FormControl(1)
+      });
 
       expect(component.form.get('bpmScale').value).toEqual({
         start: null,
@@ -396,17 +398,19 @@ describe('ExerciseFormComponent', () => {
 
   describe('onSoundOptionsChange', () => {
     it('should set options for type 0', () => {
-      component.onSoundOptionsChange(new FormGroup({
-        type: new FormControl('0'),
-        soundOptions: new FormGroup({
-          playAlong: new FormControl(true),
-          metronomeOnly: new FormControl(false),
-          metronomeSettings: new FormGroup({
-            subdivision: new FormControl('4'),
-            accents: new FormArray([new FormControl(0)])
+      component.onSoundOptionsChange(
+        new FormGroup({
+          type: new FormControl('0'),
+          soundOptions: new FormGroup({
+            playAlong: new FormControl(true),
+            metronomeOnly: new FormControl(false),
+            metronomeSettings: new FormGroup({
+              subdivision: new FormControl('4'),
+              accents: new FormArray([new FormControl(0)])
+            })
           })
         })
-      }));
+      );
       expect(component.form.get('soundOptions').get('playAlong').value).toBeTruthy();
       expect(component.form.get('soundOptions').get('metronomeOnly').value).toBeFalsy();
       expect(component.form.get('soundOptions').get('metronomeSettings').value).toEqual({
@@ -416,15 +420,17 @@ describe('ExerciseFormComponent', () => {
     });
 
     it('should set options for type 1', () => {
-      spyOn((component as any), 'emptyAccents').and.callFake(() => true);
+      spyOn(component as any, 'emptyAccents').and.callFake(() => true);
 
-      component.onSoundOptionsChange(new FormGroup({
-        type: new FormControl('1'),
-        settings: new FormGroup({
-          subdivision: new FormControl('4'),
-          accents: new FormArray([new FormControl(0)])
+      component.onSoundOptionsChange(
+        new FormGroup({
+          type: new FormControl('1'),
+          settings: new FormGroup({
+            subdivision: new FormControl('4'),
+            accents: new FormArray([new FormControl(0)])
+          })
         })
-      }));
+      );
 
       expect(component.form.get('soundOptions').get('playAlong').value).toBeFalsy();
       expect(component.form.get('soundOptions').get('metronomeOnly').value).toBeTruthy();

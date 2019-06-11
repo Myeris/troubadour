@@ -103,7 +103,7 @@
       border-bottom: 1px solid #d1deeb;
       cursor: pointer;
 
-      img	{
+      img {
         height: 1rem;
       }
     }
@@ -111,14 +111,14 @@
 }
 
 /* (1920x1080) Full HD Display */
-@media  screen and (min-width: 1600px) and (max-width: 1920px) {
+@media screen and (min-width: 1600px) and (max-width: 1920px) {
   .wrapper {
     max-width: 1500px;
   }
 }
 
 /* (1600x900) HD+ Display */
-@media  screen and (min-width: 1920px) {
+@media screen and (min-width: 1920px) {
   .wrapper {
     max-width: 1500px;
   }

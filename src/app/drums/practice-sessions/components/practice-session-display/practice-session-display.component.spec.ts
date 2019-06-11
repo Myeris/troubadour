@@ -66,9 +66,7 @@ const tabs: Tab[] = [
 ];
 const session: PracticeSession = {
   name: 'Session1',
-  exercises: [
-    { hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 }
-  ],
+  exercises: [{ hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 }],
   repeat: 1,
   created: new Date().valueOf(),
   updated: new Date().valueOf(),
@@ -80,28 +78,21 @@ const session: PracticeSession = {
 };
 
 class MetronomeServiceMock {
-  init() {
-  }
+  init() {}
 
-  playExercise() {
-  }
+  playExercise() {}
 
-  resume() {
-  }
+  resume() {}
 
-  pause() {
-  }
+  pause() {}
 
-  stop() {
-  }
+  stop() {}
 
-  changeVolume() {
-  }
+  changeVolume() {}
 }
 
 class VexflowServiceMock {
-  initVexflow() {
-  }
+  initVexflow() {}
 }
 
 describe('PracticeSessionDisplayComponent', () => {
@@ -112,17 +103,12 @@ describe('PracticeSessionDisplayComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        PracticeSessionDisplayComponent
-      ],
+      declarations: [PracticeSessionDisplayComponent],
       providers: [
         { provide: MetronomeService, useClass: MetronomeServiceMock },
         { provide: VexflowService, useClass: VexflowServiceMock }
       ],
-      imports: [
-        SharedModule,
-        RouterTestingModule
-      ],
+      imports: [SharedModule, RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -143,14 +129,18 @@ describe('PracticeSessionDisplayComponent', () => {
     expect(el.query(By.css('.duration')).nativeElement.textContent).toContain('1 minute');
     expect(el.query(By.css('.repeat')).nativeElement.textContent).toContain('1 times');
     expect(el.query(By.css('.drumkit')).nativeElement.textContent).toContain('No drumkit required');
-    expect(el.query(By.css('.exercises')).nativeElement.textContent).toContain(`${session.exercises.length} exercises`);
-    expect(el.query(By.css('h4')).nativeElement.textContent).toContain(`Exercise #1 - ${session.exercises[0].tab.name}`);
+    expect(el.query(By.css('.exercises')).nativeElement.textContent).toContain(
+      `${session.exercises.length} exercises`
+    );
+    expect(el.query(By.css('h4')).nativeElement.textContent).toContain(
+      `Exercise #1 - ${session.exercises[0].tab.name}`
+    );
     expect(el.query(By.css('tab-display'))).toBeDefined();
   });
 
   describe('ngOnChanges', () => {
     it('should call assignTab', () => {
-      spyOn((component as any), 'assignTab').and.callFake(() => true);
+      spyOn(component as any, 'assignTab').and.callFake(() => true);
 
       component.ngOnChanges();
       expect((component as any).assignTab).toHaveBeenCalledTimes(1);
@@ -162,7 +152,7 @@ describe('PracticeSessionDisplayComponent', () => {
       spyOn(component, 'stop').and.callFake(() => true);
       spyOn(component, 'scrollIntoView').and.callFake(() => true);
       spyOn(metronome, 'playExercise').and.callFake(() => true);
-      spyOn((component as any), 'reset').and.callFake(() => true);
+      spyOn(component as any, 'reset').and.callFake(() => true);
     });
 
     it('should stop the exercise if state is running', () => {
@@ -329,7 +319,7 @@ describe('PracticeSessionDisplayComponent', () => {
 
   describe('assignTab', () => {
     it('should assign the tab to the exercise', () => {
-      delete(component.session.exercises[0].tab);
+      delete component.session.exercises[0].tab;
       component.tabs = tabs;
       expect(component.session.exercises[0].tab).toBeUndefined();
       (component as any).assignTab();

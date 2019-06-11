@@ -8,7 +8,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { PracticeSessionComponent } from './practice-session.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
-import { getSelectedPracticeSession, isLoading } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
+import {
+  getSelectedPracticeSession,
+  isLoading
+} from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import { selectAll as selectAllTabs } from 'src/app/store/tabs/selectors/tabs.selector';
 import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types.selector';
 import { TabListLoad } from '../../../../store/tabs/actions/tabs.actions';
@@ -45,26 +48,29 @@ describe('PracticeSessionComponent', () => {
       imports: [
         BrowserAnimationsModule,
         StoreModule.forRoot(appReducers),
-        RouterTestingModule.withRoutes([{
-          path: 'practice-sessions', component: class BlankComponent {
+        RouterTestingModule.withRoutes([
+          {
+            path: 'practice-sessions',
+            component: class BlankComponent {}
           }
-        }])
+        ])
       ],
-      providers: [{
-        provide: ActivatedRoute,
-        useValue: {
-          snapshot: {
-            url: [{ path: 'new' }, { path: 'edit' }],
-            params: { id: '1' }
-          },
-          queryParams: of({
-            params: { exercise: 'wjehr' }
-          })
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: {
+              url: [{ path: 'new' }, { path: 'edit' }],
+              params: { id: '1' }
+            },
+            queryParams: of({
+              params: { exercise: 'wjehr' }
+            })
+          }
         }
-      }],
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -85,7 +91,11 @@ describe('PracticeSessionComponent', () => {
 
   describe('breadcrumbs', () => {
     it('should return the breadcrums', () => {
-      expect(component.breadcrumb).toEqual({ label: 'Practice sessions', route: 'practice-sessions', params: {} });
+      expect(component.breadcrumb).toEqual({
+        label: 'Practice sessions',
+        route: 'practice-sessions',
+        params: {}
+      });
     });
   });
 
@@ -121,7 +131,9 @@ describe('PracticeSessionComponent', () => {
     it('should dispatch an action', () => {
       component.onCreate(session);
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(new PracticeSessionCreate({ practiceSession: session }));
+      expect(store.dispatch).toHaveBeenCalledWith(
+        new PracticeSessionCreate({ practiceSession: session })
+      );
     });
   });
 

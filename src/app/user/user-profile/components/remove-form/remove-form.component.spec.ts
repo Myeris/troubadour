@@ -10,9 +10,7 @@ describe('RemoveFormComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        RemoveFormComponent
-      ]
+      declarations: [RemoveFormComponent]
     });
 
     fixture = bed.createComponent(RemoveFormComponent);

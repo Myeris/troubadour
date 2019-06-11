@@ -14,14 +14,8 @@ describe('MetronomeSettingsComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        MetronomeSettingsComponent,
-        NumberToCollectionPipe,
-        NoteCountPipe
-      ],
-      imports: [
-        ReactiveFormsModule
-      ]
+      declarations: [MetronomeSettingsComponent, NumberToCollectionPipe, NoteCountPipe],
+      imports: [ReactiveFormsModule]
     });
 
     fixture = bed.createComponent(MetronomeSettingsComponent);
@@ -54,7 +48,7 @@ describe('MetronomeSettingsComponent', () => {
   describe('ngOnChanges', () => {
     it('should emit an changed event on changes', () => {
       spyOn(component.changed, 'emit').and.callFake(() => true);
-      spyOn((component as any), 'emptyAccents').and.callFake(() => true);
+      spyOn(component as any, 'emptyAccents').and.callFake(() => true);
       component.initValue = new FormGroup({
         subdivision: new FormControl(4),
         accents: new FormArray([new FormControl(0), new FormControl(2)])
@@ -63,7 +57,6 @@ describe('MetronomeSettingsComponent', () => {
       expect(component.changed.emit).toHaveBeenCalled();
       expect((component as any).emptyAccents).toHaveBeenCalledTimes(1);
     });
-
 
     it('should do nothing', () => {
       const spy = spyOn(component.changed, 'emit');
@@ -116,4 +109,3 @@ describe('MetronomeSettingsComponent', () => {
     });
   });
 });
-

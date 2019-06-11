@@ -1,10 +1,7 @@
 import { initialTabsState, tabsEntityAdapter, TabsState } from '../tabs.state';
 import { TabsActions, TabsActionsTypes } from '../actions/tabs.actions';
 
-export function tabsReducer(
-  state: TabsState = initialTabsState,
-  action: TabsActions
-) {
+export function tabsReducer(state: TabsState = initialTabsState, action: TabsActions) {
   switch (action.type) {
     case TabsActionsTypes.LoadList:
       return { ...state, isLoading: true, error: null, selectedId: null };
@@ -20,7 +17,13 @@ export function tabsReducer(
     case TabsActionsTypes.Select:
       return { ...state, isLoading: false, error: null, selectedId: action.payload.id };
     case TabsActionsTypes.SelectType:
-      return { ...state, isLoading: false, error: null, selectedId: null, selectedType: action.payload.type };
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        selectedId: null,
+        selectedType: action.payload.type
+      };
     default:
       return state;
   }

@@ -9,7 +9,6 @@ import { BpmInterval } from '../../../shared/models/bpm-interval.model';
   styleUrls: ['./metronome-options.component.scss']
 })
 export class MetronomeOptionsComponent {
-
   public form: FormGroup = this.fb.group({
     bpm: 100,
     beat: 4,
@@ -31,8 +30,7 @@ export class MetronomeOptionsComponent {
     return this.form.get('accents') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   public setAccent(index: number): void {
     if (this.isAccent(index)) {
@@ -94,5 +92,4 @@ export class MetronomeOptionsComponent {
     this.stop();
     setTimeout(() => this.play(), 500);
   }
-
 }

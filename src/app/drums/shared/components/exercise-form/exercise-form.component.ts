@@ -56,12 +56,13 @@ export class ExerciseFormComponent implements OnChanges {
   });
 
   public get formAccents(): FormArray {
-    return this.form.get('soundOptions').get('metronomeSettings').get('accents') as FormArray;
+    return this.form
+      .get('soundOptions')
+      .get('metronomeSettings')
+      .get('accents') as FormArray;
   }
 
-  constructor(private fb: FormBuilder,
-              private exerciseService: ExerciseService) {
-  }
+  constructor(private fb: FormBuilder, private exerciseService: ExerciseService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.selected && this.tabs) {
@@ -103,14 +104,16 @@ export class ExerciseFormComponent implements OnChanges {
     const selectedTab = filtered.length ? filtered[0] : null;
 
     if (selectedTab) {
-      this.selectedExercise = this.editedExercise ? this.editedExercise : {
-        hand: 'R',
-        bpm: 60,
-        duration: 60,
-        tab: selectedTab,
-        tabRef: selectedTab.$key,
-        repeat: 1
-      };
+      this.selectedExercise = this.editedExercise
+        ? this.editedExercise
+        : {
+            hand: 'R',
+            bpm: 60,
+            duration: 60,
+            tab: selectedTab,
+            tabRef: selectedTab.$key,
+            repeat: 1
+          };
 
       if (this.selectedType === 0) {
         this.form.get('bpm').setValue(this.selectedExercise.bpm);
@@ -137,12 +140,15 @@ export class ExerciseFormComponent implements OnChanges {
     }
 
     if (type === 1) {
-      this.form.setControl('bpmScale', new FormGroup({
-        start: new FormControl(90),
-        stop: new FormControl(120),
-        step: new FormControl(5),
-        repeat: new FormControl(1)
-      }));
+      this.form.setControl(
+        'bpmScale',
+        new FormGroup({
+          start: new FormControl(90),
+          stop: new FormControl(120),
+          step: new FormControl(5),
+          repeat: new FormControl(1)
+        })
+      );
 
       this.form.removeControl('bpm');
       this.form.removeControl('duration');
@@ -155,8 +161,11 @@ export class ExerciseFormComponent implements OnChanges {
     // set the repeat value for bpm / duration exercise
     if (this.selectedType === 0) {
       const duration = this.form.get('duration').value;
-      const oneRoundDuration = this.exerciseService
-        .getExerciseDuration(this.selectedExercise.tab.timeSignature, 1, this.form.get('bpm').value);
+      const oneRoundDuration = this.exerciseService.getExerciseDuration(
+        this.selectedExercise.tab.timeSignature,
+        1,
+        this.form.get('bpm').value
+      );
 
       this.form.get('repeat').setValue(Math.ceil(duration / oneRoundDuration));
     }
@@ -167,7 +176,11 @@ export class ExerciseFormComponent implements OnChanges {
       let duration = 0;
 
       for (let i = start; i <= stop; i += step) {
-        duration += this.exerciseService.getExerciseDuration(this.selectedExercise.tab.timeSignature, repeat, i);
+        duration += this.exerciseService.getExerciseDuration(
+          this.selectedExercise.tab.timeSignature,
+          repeat,
+          i
+        );
       }
 
       this.form.get('repeat').setValue(repeat);

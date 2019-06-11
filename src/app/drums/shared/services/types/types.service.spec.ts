@@ -21,18 +21,20 @@ describe('TypesService', () => {
 
   describe('mapTypeListFromSnapshotActions', () => {
     it('should return a list of Tag from snapshot action', () => {
-      expect(service.mapTypeListFromSnapshotActions([
-        {
-          payload: {
-            key: 'a',
-            val(): Tag {
-              return {
-                $key: 'a'
-              } as Tag;
+      expect(
+        service.mapTypeListFromSnapshotActions([
+          {
+            payload: {
+              key: 'a',
+              val(): Tag {
+                return {
+                  $key: 'a'
+                } as Tag;
+              }
             }
-          }
-        } as SnapshotAction<Tag>
-      ]).length).toBe(1);
+          } as SnapshotAction<Tag>
+        ]).length
+      ).toBe(1);
     });
   });
 });

@@ -18,7 +18,7 @@
     background: #f6fafd;
     border-bottom: 1px solid #c1cedb;
 
-    img	 {
+    img {
       height: 1rem;
     }
   }
@@ -52,11 +52,10 @@
       }
     }
 
-
     .info {
       color: #fff;
-      background: #90CAF9;
-      border: 1px solid #64B5F6;
+      background: #90caf9;
+      border: 1px solid #64b5f6;
       border-radius: 2px;
       padding: 8px;
       font-size: 14px;
@@ -64,7 +63,7 @@
       margin: 10px 0 0;
 
       &:hover {
-        background: darken(#90CAF9, 10%);
+        background: darken(#90caf9, 10%);
         transition: all 0.2s ease-in-out;
       }
     }
@@ -94,7 +93,7 @@
       }
 
       &:disabled {
-        opacity: .4;
+        opacity: 0.4;
         cursor: not-allowed;
       }
 

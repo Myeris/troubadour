@@ -10,22 +10,25 @@ div {
 
   a {
     color: white;
-    fill:white;
+    fill: white;
     display: flex;
     text-transform: uppercase;
     padding: 0 1em;
     transition: $transition;
 
-    mat-icon, .mat-icon {
+    mat-icon,
+    .mat-icon {
       color: white;
     }
 
-    &.active, &:hover {
+    &.active,
+    &:hover {
       transition: $transition;
-      color: #CCFF00;
+      color: #ccff00;
 
-      mat-icon, .mat-icon {
-        color: #CCFF00;
+      mat-icon,
+      .mat-icon {
+        color: #ccff00;
       }
     }
 

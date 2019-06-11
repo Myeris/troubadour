@@ -21,29 +21,25 @@ export class HighscoreListLoad implements Action {
 export class HighscoreListLodSuccess implements Action {
   public readonly type = HighscoresActionsTypes.LoadListSuccess;
 
-  constructor(public payload: { highscores: Highscore[] }) {
-  }
+  constructor(public payload: { highscores: Highscore[] }) {}
 }
 
 export class HighscoreListLoadFail implements Action {
   public readonly type = HighscoresActionsTypes.LoadListFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class HighscoreSelect implements Action {
   public readonly type = HighscoresActionsTypes.Select;
 
-  constructor(public payload: { id: string }) {
-  }
+  constructor(public payload: { id: string }) {}
 }
 
 export class HighscoreSave implements Action {
   public readonly type = HighscoresActionsTypes.Save;
 
-  constructor(public payload: { highscore: Highscore }) {
-  }
+  constructor(public payload: { highscore: Highscore }) {}
 }
 
 export class HighscoreSaveSuccess implements Action {
@@ -53,8 +49,7 @@ export class HighscoreSaveSuccess implements Action {
 export class HighscoreSaveFail implements Action {
   public readonly type = HighscoresActionsTypes.SaveFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export type HighscoresActions =

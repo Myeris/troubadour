@@ -61,9 +61,7 @@ export class VexflowService {
       stem_direction: -1
     };
 
-    const staveNote = note.grace ?
-      new this.VF.GraceNote(options) :
-      new this.VF.StaveNote(options);
+    const staveNote = note.grace ? new this.VF.GraceNote(options) : new this.VF.StaveNote(options);
 
     // by default, all exercise starts with R(ight) hand.
     // If the user has set the exercise to start with a L(eft) hand, reverse the annotation (L becomes R, R becomes L),
@@ -144,21 +142,23 @@ export class VexflowService {
     });
 
     if (beamIndexes.length) {
-      beamIndexes.filter((item, i, ar) => ar.indexOf(item) === i).forEach(index => {
-        const noteBeamIndex: number[] = [];
-        const beamNotes: StaveNote[] = [];
-        notes.filter((note, i) => {
-          if (note.beamIndex === index) {
-            noteBeamIndex.push(i);
-            return note.beamIndex === index;
-          }
+      beamIndexes
+        .filter((item, i, ar) => ar.indexOf(item) === i)
+        .forEach(index => {
+          const noteBeamIndex: number[] = [];
+          const beamNotes: StaveNote[] = [];
+          notes.filter((note, i) => {
+            if (note.beamIndex === index) {
+              noteBeamIndex.push(i);
+              return note.beamIndex === index;
+            }
+          });
+
+          noteBeamIndex.forEach(noteIndex => beamNotes.push(staveNotes[noteIndex]));
+
+          const beam = new Beam(beamNotes);
+          beams.push(beam);
         });
-
-        noteBeamIndex.forEach(noteIndex => beamNotes.push(staveNotes[noteIndex]));
-
-        const beam = new Beam(beamNotes);
-        beams.push(beam);
-      });
     }
 
     return beams;
@@ -170,9 +170,7 @@ export class VexflowService {
     }
 
     const stave = new this.VF.Stave(x || 0, y || 0, this.width || this.STAVE_WIDTH);
-    stave
-      .addClef(this.clef)
-      .addTimeSignature(timeSignature);
+    stave.addClef(this.clef).addTimeSignature(timeSignature);
 
     stave.setContext(this.context).draw();
 
@@ -187,31 +185,33 @@ export class VexflowService {
     const ties: StaveTie[] = [];
     const tieIndexes: number[] = [];
 
-    notes.forEach((note) => {
+    notes.forEach(note => {
       if (note.hasOwnProperty('tieIndex')) {
         tieIndexes.push(note.tieIndex);
       }
     });
 
     if (tieIndexes.length) {
-      tieIndexes.filter((item, i, ar) => ar.indexOf(item) === i).forEach((index) => {
-        const noteTiedIndex: number[] = [];
-        notes.filter((note, i) => {
-          if (note.tieIndex === index) {
-            noteTiedIndex.push(i);
-            return note.tieIndex === index;
-          }
-        });
+      tieIndexes
+        .filter((item, i, ar) => ar.indexOf(item) === i)
+        .forEach(index => {
+          const noteTiedIndex: number[] = [];
+          notes.filter((note, i) => {
+            if (note.tieIndex === index) {
+              noteTiedIndex.push(i);
+              return note.tieIndex === index;
+            }
+          });
 
-        const tie = new StaveTie({
-          first_note: staveNotes[noteTiedIndex[0]],
-          last_note: staveNotes[noteTiedIndex[1]],
-          first_indices: [0],
-          last_indices: [0]
-        });
+          const tie = new StaveTie({
+            first_note: staveNotes[noteTiedIndex[0]],
+            last_note: staveNotes[noteTiedIndex[1]],
+            first_indices: [0],
+            last_indices: [0]
+          });
 
-        ties.push(tie);
-      });
+          ties.push(tie);
+        });
     }
 
     return ties;

@@ -9,7 +9,9 @@ describe('DurationPipe', () => {
    */
   describe('Shallow DurationPipe test', () => {
     @Component({
-      template: `Duration: {{ duration | duration }}`
+      template: `
+        Duration: {{ duration | duration }}
+      `
     })
     class TestComponent {
       duration = 1;

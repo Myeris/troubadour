@@ -12,15 +12,9 @@ describe('BpmScaleFormComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        BpmScaleFormComponent
-      ],
-      providers: [
-        FormBuilder
-      ],
-      imports: [
-        ReactiveFormsModule
-      ]
+      declarations: [BpmScaleFormComponent],
+      providers: [FormBuilder],
+      imports: [ReactiveFormsModule]
     });
 
     fixture = bed.createComponent(BpmScaleFormComponent);

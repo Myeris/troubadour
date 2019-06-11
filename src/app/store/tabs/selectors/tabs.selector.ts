@@ -11,12 +11,9 @@ export const getTabState = createSelector(
   state => state
 );
 
-export const {
-  selectIds,
-  selectAll,
-  selectEntities,
-  selectTotal
-} = tabsEntityAdapter.getSelectors(getTabState);
+export const { selectIds, selectAll, selectEntities, selectTotal } = tabsEntityAdapter.getSelectors(
+  getTabState
+);
 
 export const isLoading = createSelector(
   getTabState,
@@ -30,7 +27,7 @@ export const getError = createSelector(
 
 export const getSelectedTab = createSelector(
   getTabState,
-  state => state.selectedId ? state.entities[state.selectedId] : null
+  state => (state.selectedId ? state.entities[state.selectedId] : null)
 );
 
 export const getTabsBySelectedType = createSelector(
@@ -41,10 +38,8 @@ export const getTabsBySelectedType = createSelector(
     }
 
     // @ts-ignore
-    const tabs: Tab[] = state.ids.map((i) => state.entities[i]);
+    const tabs: Tab[] = state.ids.map(i => state.entities[i]);
 
-    return state.selectedType
-      ? tabs.filter((tab: Tab) => tab.type === state.selectedType)
-      : tabs;
+    return state.selectedType ? tabs.filter((tab: Tab) => tab.type === state.selectedType) : tabs;
   }
 );

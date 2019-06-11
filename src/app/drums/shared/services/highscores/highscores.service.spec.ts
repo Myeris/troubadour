@@ -21,15 +21,18 @@ describe('HighscoresService', () => {
 
   describe('mapHighscoreListFromSnapshotAction', () => {
     it('should return a list of highscore from snapshot actions', () => {
-      expect(service.mapHighscoreListFromSnapshotAction([
-        {
-          payload: {
-            key: 'qwerty', val(): Highscore {
-              return { $key: 'q', highscore: 4, date: 12, name: 'name' };
+      expect(
+        service.mapHighscoreListFromSnapshotAction([
+          {
+            payload: {
+              key: 'qwerty',
+              val(): Highscore {
+                return { $key: 'q', highscore: 4, date: 12, name: 'name' };
+              }
             }
-          }
-        } as SnapshotAction<Highscore>
-      ]).length).toBe(1);
+          } as SnapshotAction<Highscore>
+        ]).length
+      ).toBe(1);
     });
   });
 });

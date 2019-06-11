@@ -19,8 +19,7 @@ export class BpmScaleFormComponent implements OnChanges {
   @Output() public submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() public invalid: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.bpmScale) {

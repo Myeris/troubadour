@@ -20,13 +20,12 @@ export class StopwatchComponent implements OnChanges {
     if (this.isRunning) {
       this.startTime = new Date().valueOf();
 
-      this.timer$ = interval(1000)
-        .pipe(
-          map((x) => {
-            this.timerValue = Math.floor((new Date().valueOf() - this.startTime) / 1000);
-            return x;
-          })
-        );
+      this.timer$ = interval(1000).pipe(
+        map(x => {
+          this.timerValue = Math.floor((new Date().valueOf() - this.startTime) / 1000);
+          return x;
+        })
+      );
 
       this.subscription = this.timer$.subscribe();
     }

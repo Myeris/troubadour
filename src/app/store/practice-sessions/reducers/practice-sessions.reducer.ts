@@ -1,5 +1,12 @@
-import { initialPracticeSessionState, practiceSessionsEntityAdapter, PracticeSessionsState } from '../practice-sessions.state';
-import { PracticeSessionsActions, PracticeSessionsActionsTypes } from '../actions/practice-sessions.actions';
+import {
+  initialPracticeSessionState,
+  practiceSessionsEntityAdapter,
+  PracticeSessionsState
+} from '../practice-sessions.state';
+import {
+  PracticeSessionsActions,
+  PracticeSessionsActionsTypes
+} from '../actions/practice-sessions.actions';
 
 export function practiceSessionsReducer(
   state: PracticeSessionsState = initialPracticeSessionState,

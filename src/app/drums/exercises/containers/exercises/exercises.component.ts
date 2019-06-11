@@ -36,12 +36,11 @@ export class ExercisesComponent extends LifecycleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.types$ = this.store.select(selectAllTypes)
+    this.types$ = this.store.select(selectAllTypes).pipe(takeUntil(this.componentDestroyed$));
+    this.filteredTabs$ = this.store
+      .select(getTabsBySelectedType)
       .pipe(takeUntil(this.componentDestroyed$));
-    this.filteredTabs$ = this.store.select(getTabsBySelectedType)
-      .pipe(takeUntil(this.componentDestroyed$));
-    this.sessions$ = this.store.select(selectAllSessions)
-      .pipe(takeUntil(this.componentDestroyed$));
+    this.sessions$ = this.store.select(selectAllSessions).pipe(takeUntil(this.componentDestroyed$));
 
     this.store.dispatch(new TypesListLoad());
     this.store.dispatch(new TabListLoad());

@@ -21,5 +21,4 @@ import { SharedModule } from '../shared/shared.module';
     AppSharedModule
   ]
 })
-export class MetronomeModule {
-}
+export class MetronomeModule {}

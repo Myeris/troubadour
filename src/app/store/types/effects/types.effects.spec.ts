@@ -10,8 +10,7 @@ import { TypesListLoad, TypesListLoadFail, TypesListLoadSuccess } from '../actio
 import { Tag } from '../../../drums/shared/models/tag.model';
 
 class TypesResourceMock {
-  getTypeList$() {
-  }
+  getTypeList$() {}
 }
 
 describe('TypesEffects', () => {

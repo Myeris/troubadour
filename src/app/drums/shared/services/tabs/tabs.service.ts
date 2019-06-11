@@ -7,9 +7,7 @@ import { Tab } from '../../models/tab.model';
   providedIn: 'root'
 })
 export class TabsService {
-
-  constructor() {
-  }
+  constructor() {}
 
   public mapTabListFromSnapshotAction(actions: SnapshotAction<Tab>[]): Tab[] {
     return actions.map((a: SnapshotAction<Tab>) => {

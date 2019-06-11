@@ -15,7 +15,10 @@ import { getSelectedTab } from '../../../../store/tabs/selectors/tabs.selector';
 import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
 import { TabSelect } from '../../../../store/tabs/actions/tabs.actions';
-import { HighscoreSave, HighscoreSelect } from '../../../../store/highscores/actions/highscores.actions';
+import {
+  HighscoreSave,
+  HighscoreSelect
+} from '../../../../store/highscores/actions/highscores.actions';
 
 const tabs: Tab[] = [
   {
@@ -71,9 +74,7 @@ describe('ExerciseComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        ExerciseComponent
-      ],
+      declarations: [ExerciseComponent],
       providers: [],
       imports: [
         BrowserAnimationsModule,
@@ -112,8 +113,12 @@ describe('ExerciseComponent', () => {
       expect(store.select).toHaveBeenCalledWith(getSelectedHighscore);
 
       expect(store.dispatch).toHaveBeenCalledTimes(2);
-      expect(store.dispatch).toHaveBeenCalledWith(new TabSelect({ id: (component as any).exerciseId }));
-      expect(store.dispatch).toHaveBeenCalledWith(new HighscoreSelect({ id: (component as any).exerciseId }));
+      expect(store.dispatch).toHaveBeenCalledWith(
+        new TabSelect({ id: (component as any).exerciseId })
+      );
+      expect(store.dispatch).toHaveBeenCalledWith(
+        new HighscoreSelect({ id: (component as any).exerciseId })
+      );
     });
   });
 
@@ -147,21 +152,18 @@ describe('ExerciseComponent', () => {
     it('should redirect to a new session', () => {
       component.onAssign(null);
       expect(router.navigate).toHaveBeenCalledTimes(1);
-      expect(router.navigate)
-        .toHaveBeenCalledWith(
-          ['practice-sessions', 'new'],
-          { queryParams: { exercise: '1' } }
-        );
+      expect(router.navigate).toHaveBeenCalledWith(['practice-sessions', 'new'], {
+        queryParams: { exercise: '1' }
+      });
     });
 
     it('should redirect to the session edit', () => {
       component.onAssign(sessions[0]);
       expect(router.navigate).toHaveBeenCalledTimes(1);
-      expect(router.navigate)
-        .toHaveBeenCalledWith(
-          ['practice-sessions', sessions[0].$key, 'edit'],
-          { queryParams: { exercise: '1' } }
-        );
+      expect(router.navigate).toHaveBeenCalledWith(
+        ['practice-sessions', sessions[0].$key, 'edit'],
+        { queryParams: { exercise: '1' } }
+      );
     });
   });
 

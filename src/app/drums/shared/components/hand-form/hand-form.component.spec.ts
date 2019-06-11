@@ -12,12 +12,8 @@ describe('HandFormComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        HandFormComponent
-      ],
-      imports: [
-        ReactiveFormsModule
-      ]
+      declarations: [HandFormComponent],
+      imports: [ReactiveFormsModule]
     });
 
     fixture = bed.createComponent(HandFormComponent);

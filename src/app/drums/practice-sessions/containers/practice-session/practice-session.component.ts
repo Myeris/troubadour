@@ -9,7 +9,10 @@ import { PracticeSession } from '../../../shared/models/practice-session.model';
 import { Tab } from '../../../shared/models/tab.model';
 import { Tag } from '../../../shared/models/tag.model';
 import { AppState } from '../../../../store/app.reducer';
-import { getSelectedPracticeSession, isLoading } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
+import {
+  getSelectedPracticeSession,
+  isLoading
+} from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import {
   PracticeSessionCreate,
   PracticeSessionDelete,
@@ -35,11 +38,13 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   public isLoading$: Observable<boolean>;
   public exerciseId: string;
   public showForm = false;
-  public feedback: { success: boolean, message: string };
+  public feedback: { success: boolean; message: string };
 
-  constructor(private store: Store<AppState>,
-              private route: ActivatedRoute,
-              private router: Router) {
+  constructor(
+    private store: Store<AppState>,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     super();
   }
 
@@ -49,25 +54,23 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
 
   ngOnInit() {
     if (this.route.snapshot.url.length === 1) {
-      this.showForm = this.route.snapshot.url.map((u) => u.path)[0] === 'new';
+      this.showForm = this.route.snapshot.url.map(u => u.path)[0] === 'new';
     }
 
     if (this.route.snapshot.url.length === 2) {
-      this.showForm = this.route.snapshot.url.map((u) => u.path)[1] === 'edit';
+      this.showForm = this.route.snapshot.url.map(u => u.path)[1] === 'edit';
     }
 
-    this.session$ = this.store.select(getSelectedPracticeSession)
+    this.session$ = this.store
+      .select(getSelectedPracticeSession)
       .pipe(takeUntil(this.componentDestroyed$));
-    this.tabs$ = this.store.select(selectAllTabs)
-      .pipe(takeUntil(this.componentDestroyed$));
-    this.types$ = this.store.select(selectAllTypes)
-      .pipe(takeUntil(this.componentDestroyed$));
-    this.isLoading$ = this.store.select(isLoading)
-      .pipe(takeUntil(this.componentDestroyed$));
+    this.tabs$ = this.store.select(selectAllTabs).pipe(takeUntil(this.componentDestroyed$));
+    this.types$ = this.store.select(selectAllTypes).pipe(takeUntil(this.componentDestroyed$));
+    this.isLoading$ = this.store.select(isLoading).pipe(takeUntil(this.componentDestroyed$));
 
     this.route.queryParams
       .pipe(takeUntil(this.componentDestroyed$))
-      .subscribe((params: Params) => this.exerciseId = params.exercise);
+      .subscribe((params: Params) => (this.exerciseId = params.exercise));
 
     if (this.route.snapshot.params.id) {
       this.store.dispatch(new PracticeSessionSelect({ id: this.route.snapshot.params.id }));

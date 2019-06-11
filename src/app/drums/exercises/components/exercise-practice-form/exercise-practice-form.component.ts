@@ -41,9 +41,7 @@ export class ExercisePracticeFormComponent {
   };
 
   public get showSoundOptions(): boolean {
-    return this.showForms.toFailure
-      || this.showForms.bpmDuration
-      || this.showForms.bpmScale;
+    return this.showForms.toFailure || this.showForms.bpmDuration || this.showForms.bpmScale;
   }
 
   public get formAccents(): FormArray {
@@ -56,8 +54,7 @@ export class ExercisePracticeFormComponent {
   @Output() public submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() public cancelled: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   public onFormValueChange(formName: string, formData: FormGroup): void {
     this.form.setControl(formName, formData);
@@ -107,8 +104,7 @@ export class ExercisePracticeFormComponent {
     if (type === 0) {
       soundOptionsForm.get('playAlong').setValue(true);
       soundOptionsForm.get('metronomeOnly').setValue(false);
-      soundOptionsForm.get('metronomeSettings')
-        .patchValue({ subdivision: '4', accents: [0] });
+      soundOptionsForm.get('metronomeSettings').patchValue({ subdivision: '4', accents: [0] });
     }
 
     if (type === 1) {

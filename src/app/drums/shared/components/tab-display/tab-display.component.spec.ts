@@ -13,9 +13,7 @@ const tabs: Tab[] = [
     type: 'rolls',
     drumkit: false,
     timeSignature: '4/4',
-    notes: [
-      { keys: ['c'], duration: '10' }
-    ],
+    notes: [{ keys: ['c'], duration: '10' }],
     $key: '2'
   },
   { name: 'Tab 3', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [], $key: '3' }
@@ -44,25 +42,23 @@ describe('TabDisplayComponent', () => {
       declarations: [TabDisplayComponent],
       providers: [
         {
-          provide: VexflowService, useValue: jasmine.createSpyObj<VexflowService>('vexflowService',
-            [
-              'initVexflow',
-              'createStave',
-              'createNote',
-              'createTies',
-              'createBeams',
-              'generateBeams',
-              'createTriplets',
-              'formatAndDraw',
-              'drawBeams',
-              'drawTuplets',
-              'drawTies'
-            ]
-          )
+          provide: VexflowService,
+          useValue: jasmine.createSpyObj<VexflowService>('vexflowService', [
+            'initVexflow',
+            'createStave',
+            'createNote',
+            'createTies',
+            'createBeams',
+            'generateBeams',
+            'createTriplets',
+            'formatAndDraw',
+            'drawBeams',
+            'drawTuplets',
+            'drawTies'
+          ])
         }
       ]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -78,13 +74,13 @@ describe('TabDisplayComponent', () => {
 
   describe('ngOnChanges', () => {
     it('should do nothing', () => {
-      spyOn((component as any), 'createStave').and.callFake(() => true);
+      spyOn(component as any, 'createStave').and.callFake(() => true);
       component.ngOnChanges({});
       expect((component as any).createStave).not.toHaveBeenCalled();
     });
 
     it('should call createStave', fakeAsync(() => {
-      spyOn((component as any), 'createStave').and.callFake(() => true);
+      spyOn(component as any, 'createStave').and.callFake(() => true);
       component.exercise = {
         tab: {} as Tab
       } as Exercise;
@@ -97,12 +93,12 @@ describe('TabDisplayComponent', () => {
   describe('createStave', () => {
     it('should throw an error', fakeAsync(() => {
       vexflowService.initVexflow.and.returnValue(Promise.reject('error'));
-      (component as any).createStave().catch((err) => expect(err).toEqual(new Error('error')));
+      (component as any).createStave().catch(err => expect(err).toEqual(new Error('error')));
       expect(vexflowService.initVexflow).toHaveBeenCalledTimes(1);
     }));
 
     it('should init vexflow', fakeAsync(() => {
-      spyOn((component as any), 'drawStave').and.callFake(() => true);
+      spyOn(component as any, 'drawStave').and.callFake(() => true);
       vexflowService.initVexflow.and.returnValue(Promise.resolve());
       (component as any).createStave();
       tick(100);
@@ -140,9 +136,7 @@ describe('TabDisplayComponent', () => {
     it('should create beams', () => {
       vexflowService.createStave.and.callFake(() => true);
       vexflowService.createNote.and.callFake(() => []);
-      vexflowService.createBeams.and.callFake(() => [
-        {}, {}
-      ]);
+      vexflowService.createBeams.and.callFake(() => [{}, {}]);
       vexflowService.createTies.and.callFake(() => []);
 
       component.exercise.tab.notes = [

@@ -10,7 +10,9 @@ describe('OptionsPipe', () => {
    */
   describe('Shallow OptionsPipe test', () => {
     @Component({
-      template: `Exercise: {{ exercise | options }}`
+      template: `
+        Exercise: {{ exercise | options }}
+      `
     })
     class TestComponent {
       exercise: Exercise = {
@@ -42,7 +44,9 @@ describe('OptionsPipe', () => {
 
     it('should transform a bpm exercise into a string displaying the options of the exercise', () => {
       fixture.detectChanges();
-      expect(el.textContent).toContain('60 bpm. Start with right hand. Duration: 1 minute. Play along.');
+      expect(el.textContent).toContain(
+        '60 bpm. Start with right hand. Duration: 1 minute. Play along.'
+      );
     });
 
     it('should transform a bpm scale exercise into a string displaying the options of the exercise', () => {
@@ -62,8 +66,9 @@ describe('OptionsPipe', () => {
         }
       };
       fixture.detectChanges();
-      expect(el.textContent)
-        .toContain('From 90 bpm to 120 bpm with a step of 5. Start with right hand. Duration: 16 seconds. Play along.');
+      expect(el.textContent).toContain(
+        'From 90 bpm to 120 bpm with a step of 5. Start with right hand. Duration: 16 seconds. Play along.'
+      );
     });
   });
 
@@ -86,7 +91,9 @@ describe('OptionsPipe', () => {
         }
       };
 
-      expect(pipe.transform(exercise)).toBe('60 bpm. Start with left hand. Duration: 1 minute. Metronome only.');
+      expect(pipe.transform(exercise)).toBe(
+        '60 bpm. Start with left hand. Duration: 1 minute. Metronome only.'
+      );
     });
 
     it('should transform a bpm scale exercise into a string displaying the options of the exercise', () => {
@@ -106,8 +113,9 @@ describe('OptionsPipe', () => {
         }
       };
 
-      expect(pipe.transform(exercise))
-        .toBe('From 90 bpm to 120 bpm with a step of 5. Start with left hand. Duration: 16 seconds. Play along.');
+      expect(pipe.transform(exercise)).toBe(
+        'From 90 bpm to 120 bpm with a step of 5. Start with left hand. Duration: 16 seconds. Play along.'
+      );
     });
   });
 });

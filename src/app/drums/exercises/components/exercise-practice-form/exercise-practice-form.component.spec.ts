@@ -13,12 +13,8 @@ describe('ExercisePracticeForm', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        ExercisePracticeFormComponent
-      ],
-      imports: [
-        SharedModule.forRoot()
-      ]
+      declarations: [ExercisePracticeFormComponent],
+      imports: [SharedModule.forRoot()]
     });
 
     fixture = bed.createComponent(ExercisePracticeFormComponent);
@@ -31,7 +27,9 @@ describe('ExercisePracticeForm', () => {
   });
 
   it('should be displayed', () => {
-    expect(el.query(By.css('.exercise-practice-form__title')).nativeElement.textContent).toContain('Practice this exercise');
+    expect(el.query(By.css('.exercise-practice-form__title')).nativeElement.textContent).toContain(
+      'Practice this exercise'
+    );
 
     const labels = el.queryAll(By.css('label'));
     const buttons = el.queryAll(By.css('button'));
@@ -191,17 +189,14 @@ describe('ExercisePracticeForm', () => {
     });
 
     it('should set options if type is 1', () => {
-      spyOn((component as any), 'emptyAccents').and.callFake(() => true);
+      spyOn(component as any, 'emptyAccents').and.callFake(() => true);
       spyOn(component.formAccents, 'push').and.callFake(() => true);
 
       const form: FormGroup = new FormGroup({
         type: new FormControl(1),
         settings: new FormGroup({
           subdivision: new FormControl('4'),
-          accents: new FormArray([
-            new FormControl(0),
-            new FormControl(1)
-          ])
+          accents: new FormArray([new FormControl(0), new FormControl(1)])
         })
       });
 

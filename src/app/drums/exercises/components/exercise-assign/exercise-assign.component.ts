@@ -8,7 +8,6 @@ import { Tab } from '../../../shared/models/tab.model';
   styleUrls: ['./exercise-assign.component.scss']
 })
 export class ExerciseAssignComponent {
-
   public selected: string;
 
   @Input() public sessions: PracticeSession[];
@@ -41,5 +40,4 @@ export class ExerciseAssignComponent {
   public exists(key: string): boolean {
     return this.selected === key;
   }
-
 }

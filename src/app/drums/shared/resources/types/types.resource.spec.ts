@@ -20,11 +20,7 @@ describe('TypesResource', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      providers: [
-        TypesResource,
-        TypesService,
-        { provide: AngularFireDatabase, useClass: AfDbMock }
-      ]
+      providers: [TypesResource, TypesService, { provide: AngularFireDatabase, useClass: AfDbMock }]
     });
 
     resource = bed.get(TypesResource);

@@ -8,12 +8,16 @@ export interface PracticeSessionsState extends EntityState<PracticeSession> {
   error: string;
 }
 
-export const practiceSessionsEntityAdapter: EntityAdapter<PracticeSession> = createEntityAdapter<PracticeSession>({
+export const practiceSessionsEntityAdapter: EntityAdapter<PracticeSession> = createEntityAdapter<
+  PracticeSession
+>({
   selectId: (session: PracticeSession) => session.$key
 });
 
-export const initialPracticeSessionState: PracticeSessionsState = practiceSessionsEntityAdapter.getInitialState({
-  selectedId: null,
-  isLoading: false,
-  error: null
-});
+export const initialPracticeSessionState: PracticeSessionsState = practiceSessionsEntityAdapter.getInitialState(
+  {
+    selectedId: null,
+    isLoading: false,
+    error: null
+  }
+);

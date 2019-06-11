@@ -7,14 +7,11 @@ import { MetronomeComponent } from './metronome.component';
 import { MetronomeService } from '../../../shared/services/metronome/metronome.service';
 
 class MockMetronome {
-  init() {
-  }
+  init() {}
 
-  playMetronome() {
-  }
+  playMetronome() {}
 
-  stop() {
-  }
+  stop() {}
 }
 
 describe('MetronomeComponent', () => {
@@ -25,15 +22,9 @@ describe('MetronomeComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      imports: [
-        BrowserAnimationsModule
-      ],
-      declarations: [
-        MetronomeComponent
-      ],
-      providers: [
-        { provide: MetronomeService, useClass: MockMetronome }
-      ],
+      imports: [BrowserAnimationsModule],
+      declarations: [MetronomeComponent],
+      providers: [{ provide: MetronomeService, useClass: MockMetronome }],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -71,4 +62,3 @@ describe('MetronomeComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 });
-

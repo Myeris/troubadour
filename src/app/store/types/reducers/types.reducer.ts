@@ -1,10 +1,7 @@
 import { initialTypesState, typesEntityAdapter, TypesState } from '../types.state';
 import { TypesActions, TypesActionsTypes } from '../actions/types.actions';
 
-export function typesReducer(
-  state: TypesState = initialTypesState,
-  action: TypesActions
-) {
+export function typesReducer(state: TypesState = initialTypesState, action: TypesActions) {
   switch (action.type) {
     case TypesActionsTypes.LoadList:
       return { ...state, isLoading: true, error: null };

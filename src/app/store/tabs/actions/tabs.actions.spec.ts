@@ -1,4 +1,11 @@
-import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabsActionsTypes, TabSelect, TabSelectType } from './tabs.actions';
+import {
+  TabListLoad,
+  TabListLoadFail,
+  TabListLoadSuccess,
+  TabsActionsTypes,
+  TabSelect,
+  TabSelectType
+} from './tabs.actions';
 
 describe('TabsActions', () => {
   describe('TabListLoad', () => {

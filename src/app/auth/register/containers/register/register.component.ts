@@ -12,7 +12,6 @@ import { getError } from '../../../../store/user/selectors/user.selectors';
 import { Register } from '../../../../store/user/actions/user.actions';
 import { fadeAnimation } from '../../../../shared/animations/animations';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,14 +21,12 @@ import { fadeAnimation } from '../../../../shared/animations/animations';
 export class RegisterComponent extends LifecycleComponent implements OnInit {
   public error$: Observable<string>;
 
-  constructor(private router: Router,
-              private store: Store<AppState>) {
+  constructor(private router: Router, private store: Store<AppState>) {
     super();
   }
 
   ngOnInit(): void {
-    this.error$ = this.store.select(getError)
-      .pipe(takeUntil(this.componentDestroyed$));
+    this.error$ = this.store.select(getError).pipe(takeUntil(this.componentDestroyed$));
   }
 
   public registerUser(event: FormGroup): void {

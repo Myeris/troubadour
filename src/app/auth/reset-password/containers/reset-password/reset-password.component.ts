@@ -21,21 +21,19 @@ export class ResetPasswordComponent extends LifecycleComponent implements OnInit
     email: ['', Validators.email]
   });
   public error$: Observable<string>;
-  public feedback: { success: boolean, message: string };
+  public feedback: { success: boolean; message: string };
 
   public get emailFormat(): boolean {
     const control = this.form.get('email');
     return control.hasError('email') && control.touched;
   }
 
-  constructor(private fb: FormBuilder,
-              private store: Store<AppState>) {
+  constructor(private fb: FormBuilder, private store: Store<AppState>) {
     super();
   }
 
   ngOnInit(): void {
-    this.error$ = this.store.select(getError)
-      .pipe(takeUntil(this.componentDestroyed$));
+    this.error$ = this.store.select(getError).pipe(takeUntil(this.componentDestroyed$));
   }
 
   public onSubmit(): void {

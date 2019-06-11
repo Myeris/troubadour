@@ -2,13 +2,11 @@
   <div class="wrapper">
     <div class="practice-sessions__title">
       <h1>
-        <app-svg-icon name="drumsticks"
-                      path="assets/img/drums/drumsticks.svg"></app-svg-icon>
+        <app-svg-icon name="drumsticks" path="assets/img/drums/drumsticks.svg"></app-svg-icon>
         My practice sessions
       </h1>
 
-      <a [routerLink]="['../practice-sessions/new']"
-         class="btn__add">
+      <a [routerLink]="['../practice-sessions/new']" class="btn__add">
         <mat-icon>add</mat-icon>
         New practice session
       </a>
@@ -19,37 +17,34 @@
     </div>
 
     <div
-      *ngIf="sessionList$ | async as sessions; else loading;"
-      [class]="'practice-sessions__list' + (!sessions.length ? ' empty' : '')">
-      <div
-        *ngIf="!sessions.length"
-        class="message">
+      *ngIf="sessionList$ | async as sessions; else loading"
+      [class]="'practice-sessions__list' + (!sessions.length ? ' empty' : '')"
+    >
+      <div *ngIf="!sessions.length" class="message">
         <mat-icon>inbox</mat-icon>
         <p>
           No practice sessions found
         </p>
       </div>
 
-      <div
-        *ngIf="sessions.length"
-        class="search">
+      <div *ngIf="sessions.length" class="search">
         <label>
-          <input
-            [(ngModel)]="searchText"
-            placeholder="Searching for..."
-            type="text">
+          <input [(ngModel)]="searchText" placeholder="Searching for..." type="text" />
         </label>
-        <a
-          (click)="searchText = null"
-          *ngIf="searchText">
+        <a (click)="searchText = null" *ngIf="searchText">
           <mat-icon>close</mat-icon>
         </a>
       </div>
 
       <app-list-session
         (remove)="onRemove($event)"
-        *ngFor="let session of sessions | search: 'name' : searchText | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.current }"
-        [session]="session">
+        *ngFor="
+          let session of sessions
+            | search: 'name':searchText
+            | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.current }
+        "
+        [session]="session"
+      >
       </app-list-session>
     </div>
 

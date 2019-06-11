@@ -7,19 +7,8 @@ import { SvgIconComponent } from './components/svg-icon/svg-icon.component';
 import { LifecycleComponent } from './components/lifecycle/lifecycle.component';
 
 @NgModule({
-  declarations: [
-    SvgIconComponent,
-    LifecycleComponent
-  ],
-  exports: [
-    SvgIconComponent,
-    LifecycleComponent
-  ],
-  imports: [
-    CommonModule,
-    MatIconModule,
-    HttpClientModule
-  ]
+  declarations: [SvgIconComponent, LifecycleComponent],
+  exports: [SvgIconComponent, LifecycleComponent],
+  imports: [CommonModule, MatIconModule, HttpClientModule]
 })
-export class AppSharedModule {
-}
+export class AppSharedModule {}

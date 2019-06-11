@@ -15,5 +15,4 @@ const routes: Route[] = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class PracticeSessionRoutingModule {
-}
+export class PracticeSessionRoutingModule {}

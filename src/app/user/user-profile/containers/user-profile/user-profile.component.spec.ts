@@ -22,11 +22,7 @@ describe('UserProfileComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        UserProfileComponent,
-        PasswordFormComponent,
-        RemoveFormComponent
-      ],
+      declarations: [UserProfileComponent, PasswordFormComponent, RemoveFormComponent],
       imports: [
         BrowserAnimationsModule,
         ReactiveFormsModule,

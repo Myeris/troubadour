@@ -13,8 +13,7 @@ describe('LegalsComponent', () => {
       declarations: [LegalsComponent],
       imports: [BrowserAnimationsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

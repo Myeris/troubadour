@@ -6,8 +6,9 @@ import { Exercise } from '../../models/exercise.model';
 
 @Injectable()
 export class PracticeSessionsService {
-
-  public mapSessionListFromSnapshotAction(actions: SnapshotAction<PracticeSession>[]): PracticeSession[] {
+  public mapSessionListFromSnapshotAction(
+    actions: SnapshotAction<PracticeSession>[]
+  ): PracticeSession[] {
     return actions.map((a: SnapshotAction<PracticeSession>) => {
       const data = a.payload.val();
       const $key = a.payload.key;

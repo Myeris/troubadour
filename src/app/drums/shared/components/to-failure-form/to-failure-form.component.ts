@@ -7,7 +7,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./to-failure-form.component.scss']
 })
 export class ToFailureFormComponent {
-
   public form: FormGroup = this.fb.group({
     bpm: [90, [Validators.min(40), Validators.max(250)]],
     step: [5, Validators.min(1)]
@@ -16,8 +15,7 @@ export class ToFailureFormComponent {
   @Output() public submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() public invalid: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   public onChange(): void {
     if (this.form.invalid) {
@@ -25,5 +23,4 @@ export class ToFailureFormComponent {
     } // TODO better message error
     this.submitted.emit(this.form);
   }
-
 }

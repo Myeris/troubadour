@@ -11,7 +11,10 @@ import { PracticeSessionsComponent } from './practice-sessions.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
 import { SearchPipe } from '../../../shared/pipes/search/search.pipe';
 import { PracticeSession } from '../../../shared/models/practice-session.model';
-import { PracticeSessionDelete, PracticeSessionListLoad } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
+import {
+  PracticeSessionDelete,
+  PracticeSessionListLoad
+} from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 
 describe('PracticeSessionsComponent', () => {
@@ -57,8 +60,7 @@ describe('PracticeSessionsComponent', () => {
 
   describe('onRemove', () => {
     it('should dispatch an event', () => {
-      spyOn(store, 'dispatch').and.callFake(() => {
-      });
+      spyOn(store, 'dispatch').and.callFake(() => {});
 
       component.onRemove({ $key: 'a' } as PracticeSession);
       expect(store.dispatch).toHaveBeenCalledTimes(1);

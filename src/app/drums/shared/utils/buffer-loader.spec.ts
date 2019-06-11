@@ -1,15 +1,7 @@
 import { BufferLoader } from './buffer-loader';
 
 describe('BufferLoader', () => {
-  const buffer: BufferLoader = new BufferLoader(
-    new AudioContext(),
-    [
-      '1',
-      '2',
-      '3'
-    ],
-    () => true
-  );
+  const buffer: BufferLoader = new BufferLoader(new AudioContext(), ['1', '2', '3'], () => true);
 
   describe('loadBuffer', () => {
     // TODO

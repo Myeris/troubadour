@@ -1,11 +1,31 @@
 import { initialTabsState } from '../tabs.state';
 import { tabsReducer } from './tabs.reducer';
-import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabSelect, TabSelectType } from '../actions/tabs.actions';
+import {
+  TabListLoad,
+  TabListLoadFail,
+  TabListLoadSuccess,
+  TabSelect,
+  TabSelectType
+} from '../actions/tabs.actions';
 import { Tab } from '../../../drums/shared/models/tab.model';
 
 const tabs: Tab[] = [
-  { name: 'Single roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'a' },
-  { name: 'Double roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'b' },
+  {
+    name: 'Single roll stroke',
+    type: 'rolls',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: 'a'
+  },
+  {
+    name: 'Double roll stroke',
+    type: 'rolls',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: 'b'
+  },
   { name: 'Flams', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [], $key: 'c' }
 ];
 

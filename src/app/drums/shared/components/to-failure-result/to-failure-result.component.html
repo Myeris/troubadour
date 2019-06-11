@@ -11,11 +11,7 @@
     <label>
       Adjust your score
 
-      <input
-        type="number"
-        min="0"
-        [max]="bpm"
-        [(ngModel)]="newBpm">
+      <input type="number" min="0" [max]="bpm" [(ngModel)]="newBpm" />
     </label>
 
     <div class="info" *ngIf="feedback">
@@ -24,18 +20,11 @@
   </div>
   <div class="to-failure-result__buttons">
     <div>
-      <button
-        type="button"
-        class="button"
-        (click)="saveHighscore()"
-        [disabled]="newBpm > bpm">
+      <button type="button" class="button" (click)="saveHighscore()" [disabled]="newBpm > bpm">
         Save your high score
       </button>
 
-      <button
-        type="button"
-        class="button button--cancel"
-        (click)="cancel()">
+      <button type="button" class="button button--cancel" (click)="cancel()">
         Cancel
       </button>
     </div>

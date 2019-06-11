@@ -6,7 +6,9 @@ import { NumberToCollectionPipe } from './number-to-collection.pipe';
 describe('NumberToCollectionPipe', () => {
   describe('Shallow NumberToCollectionPipe test', () => {
     @Component({
-      template: `Collection length: {{ (number | numberToCollection).length }}`
+      template: `
+        Collection length: {{ (number | numberToCollection).length }}
+      `
     })
     class TestComponent {
       number = 0;

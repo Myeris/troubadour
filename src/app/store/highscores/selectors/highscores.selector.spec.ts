@@ -4,7 +4,12 @@ import { Store, StoreModule } from '@ngrx/store';
 import { Highscore } from '../../../drums/shared/models/highscore.model';
 import { appReducers, AppState } from '../../app.reducer';
 import { getError, getSelectedHighscore, isLoading } from './highscores.selector';
-import { HighscoreListLoad, HighscoreListLoadFail, HighscoreListLodSuccess, HighscoreSelect } from '../actions/highscores.actions';
+import {
+  HighscoreListLoad,
+  HighscoreListLoadFail,
+  HighscoreListLodSuccess,
+  HighscoreSelect
+} from '../actions/highscores.actions';
 
 const highscores: Highscore[] = [
   { $key: '1', name: 'Single stroke roll', highscore: 130, date: new Date().valueOf() },
@@ -27,9 +32,7 @@ describe('HighscoresSelectors', () => {
     it('should return the isLoading prop from the state', () => {
       let result = false;
 
-      store
-        .select(isLoading)
-        .subscribe(value => result = value);
+      store.select(isLoading).subscribe(value => (result = value));
 
       expect(result).toBeFalsy();
 
@@ -52,9 +55,7 @@ describe('HighscoresSelectors', () => {
       const error = 'error';
       let result = null;
 
-      store
-        .select(getError)
-        .subscribe(value => result = value);
+      store.select(getError).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 
@@ -77,9 +78,7 @@ describe('HighscoresSelectors', () => {
       const id = '1';
       let result = null;
 
-      store
-        .select(getSelectedHighscore)
-        .subscribe(value => result = value);
+      store.select(getSelectedHighscore).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 

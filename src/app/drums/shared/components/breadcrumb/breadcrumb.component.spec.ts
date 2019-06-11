@@ -15,12 +15,8 @@ describe('BreadcrumbComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        BreadcrumbComponent
-      ],
-      imports: [
-        RouterTestingModule
-      ]
+      declarations: [BreadcrumbComponent],
+      imports: [RouterTestingModule]
     });
 
     fixture = bed.createComponent(BreadcrumbComponent);

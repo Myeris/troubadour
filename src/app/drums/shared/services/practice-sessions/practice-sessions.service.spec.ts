@@ -22,18 +22,20 @@ describe('PracticeSessionsService', () => {
 
   describe('mapSessionListFromSnapshotAction', () => {
     it('should return a list of practice session from snapshot action', () => {
-      expect(service.mapSessionListFromSnapshotAction([
-        {
-          payload: {
-            key: 'qwe',
-            val(): PracticeSession {
-              return {
-                $key: 'a'
-              } as PracticeSession;
+      expect(
+        service.mapSessionListFromSnapshotAction([
+          {
+            payload: {
+              key: 'qwe',
+              val(): PracticeSession {
+                return {
+                  $key: 'a'
+                } as PracticeSession;
+              }
             }
-          }
-        } as SnapshotAction<PracticeSession>
-      ]).length).toBe(1);
+          } as SnapshotAction<PracticeSession>
+        ]).length
+      ).toBe(1);
     });
   });
 

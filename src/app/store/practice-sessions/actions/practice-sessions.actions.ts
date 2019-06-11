@@ -25,22 +25,19 @@ export class PracticeSessionListLoad implements Action {
 export class PracticeSessionListLoadSuccess implements Action {
   public readonly type = PracticeSessionsActionsTypes.LoadListSuccess;
 
-  constructor(public payload: { practiceSessionList: PracticeSession[] }) {
-  }
+  constructor(public payload: { practiceSessionList: PracticeSession[] }) {}
 }
 
 export class PracticeSessionListLoadFail implements Action {
   public readonly type = PracticeSessionsActionsTypes.LoadListFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class PracticeSessionCreate implements Action {
   public readonly type = PracticeSessionsActionsTypes.Create;
 
-  constructor(public payload: { practiceSession: PracticeSession }) {
-  }
+  constructor(public payload: { practiceSession: PracticeSession }) {}
 }
 
 export class PracticeSessionCreateSuccess implements Action {
@@ -50,15 +47,13 @@ export class PracticeSessionCreateSuccess implements Action {
 export class PracticeSessionCreateFail implements Action {
   public readonly type = PracticeSessionsActionsTypes.CreateFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class PracticeSessionDelete implements Action {
   public readonly type = PracticeSessionsActionsTypes.Delete;
 
-  constructor(public payload: { id: string }) {
-  }
+  constructor(public payload: { id: string }) {}
 }
 
 export class PracticeSessionDeleteSuccess implements Action {
@@ -68,15 +63,13 @@ export class PracticeSessionDeleteSuccess implements Action {
 export class PracticeSessionDeleteFail implements Action {
   public readonly type = PracticeSessionsActionsTypes.DeleteFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class PracticeSessionSelect implements Action {
   public readonly type = PracticeSessionsActionsTypes.Select;
 
-  constructor(public payload: { id: string }) {
-  }
+  constructor(public payload: { id: string }) {}
 }
 
 export type PracticeSessionsActions =

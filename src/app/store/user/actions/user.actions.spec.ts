@@ -90,7 +90,9 @@ describe('UserActions', () => {
 
   describe('ChangePassword', () => {
     it('should create an action', () => {
-      const action = new ChangePassword({ changePassword: { old: 'old', new: 'new', confirmed: 'new' } });
+      const action = new ChangePassword({
+        changePassword: { old: 'old', new: 'new', confirmed: 'new' }
+      });
       expect(action.type).toBe(UserActionsTypes.ChangePassword);
     });
   });

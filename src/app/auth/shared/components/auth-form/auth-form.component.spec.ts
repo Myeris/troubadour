@@ -11,8 +11,7 @@ describe('AuthFormComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AuthFormComponent],
       imports: [ReactiveFormsModule]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

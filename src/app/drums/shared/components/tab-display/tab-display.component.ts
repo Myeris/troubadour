@@ -18,8 +18,7 @@ export class TabDisplayComponent implements OnChanges {
   @Input() public exercise: Exercise;
   public rand: number = Math.floor(Math.random() * 1000);
 
-  constructor(private vexflowService: VexflowService) {
-  }
+  constructor(private vexflowService: VexflowService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.exercise && this.exercise.tab) {

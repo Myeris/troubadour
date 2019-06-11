@@ -5,7 +5,6 @@ import { Highscore } from '../../models/highscore.model';
 
 @Injectable()
 export class HighscoresService {
-
   public mapHighscoreListFromSnapshotAction(actions: SnapshotAction<Highscore>[]): Highscore[] {
     return actions.map((a: SnapshotAction<Highscore>) => {
       const data = a.payload.val();

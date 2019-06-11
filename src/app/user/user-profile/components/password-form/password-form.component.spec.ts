@@ -13,13 +13,8 @@ describe('PasswordFormComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        PasswordFormComponent
-      ],
-      imports: [
-        ReactiveFormsModule,
-        RouterTestingModule
-      ]
+      declarations: [PasswordFormComponent],
+      imports: [ReactiveFormsModule, RouterTestingModule]
     });
 
     fixture = bed.createComponent(PasswordFormComponent);
@@ -50,9 +45,15 @@ describe('PasswordFormComponent', () => {
 
     fixture.detectChanges();
     await fixture.whenStable();
-    expect(el.queryAll(By.css('.error'))[0].nativeElement.textContent).toContain('Please enter your old password');
-    expect(el.queryAll(By.css('.error'))[1].nativeElement.textContent).toContain('Please enter a new password');
-    expect(el.queryAll(By.css('.error'))[2].nativeElement.textContent).toContain('Please confirm your new password');
+    expect(el.queryAll(By.css('.error'))[0].nativeElement.textContent).toContain(
+      'Please enter your old password'
+    );
+    expect(el.queryAll(By.css('.error'))[1].nativeElement.textContent).toContain(
+      'Please enter a new password'
+    );
+    expect(el.queryAll(By.css('.error'))[2].nativeElement.textContent).toContain(
+      'Please confirm your new password'
+    );
   });
 
   describe('displayPasswordError', () => {
@@ -88,16 +89,14 @@ describe('PasswordFormComponent', () => {
   describe('updatePassword', () => {
     it('should throw an error if form is invalid', () => {
       component.password.markAsTouched();
-      expect(() => component.updatePassword())
-        .toThrow(new Error('Password form invalid.'));
+      expect(() => component.updatePassword()).toThrow(new Error('Password form invalid.'));
     });
 
     it('should throw an error if password mismatched', () => {
       component.password.get('old').setValue('old');
       component.password.get('new').setValue('new');
       component.password.get('confirmed').setValue('notthesame');
-      expect(() => component.updatePassword())
-        .toThrow(new Error('Password mismatched.'));
+      expect(() => component.updatePassword()).toThrow(new Error('Password mismatched.'));
     });
 
     it('should emit an event', () => {

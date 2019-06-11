@@ -11,8 +11,7 @@ describe('AppFooterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AppFooterComponent],
       imports: [RouterTestingModule]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

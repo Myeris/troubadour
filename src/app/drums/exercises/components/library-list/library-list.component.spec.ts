@@ -58,9 +58,7 @@ const sessions: PracticeSession[] = [
     $key: '2'
   }
 ];
-const types: Tag[] = [
-  { name: 'rolls', color: 'blue', weight: 0, $key: '1', $exist: () => true }
-];
+const types: Tag[] = [{ name: 'rolls', color: 'blue', weight: 0, $key: '1', $exist: () => true }];
 
 describe('LibraryListComponent', () => {
   let component: LibraryListComponent;
@@ -70,13 +68,8 @@ describe('LibraryListComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        LibraryListComponent
-      ],
-      imports: [
-        RouterTestingModule,
-        SharedModule
-      ],
+      declarations: [LibraryListComponent],
+      imports: [RouterTestingModule, SharedModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -108,7 +101,10 @@ describe('LibraryListComponent', () => {
     });
 
     it('should not set a tabType', () => {
-      component.types = [...types, { name: 'rolls', color: 'blue', weight: 0, $key: '1', $exist: () => true }];
+      component.types = [
+        ...types,
+        { name: 'rolls', color: 'blue', weight: 0, $key: '1', $exist: () => true }
+      ];
       component.ngOnChanges({});
       expect(component.tabType).toBeUndefined();
     });
@@ -145,21 +141,18 @@ describe('LibraryListComponent', () => {
     it('should redirect to a new session', () => {
       component.onUpdate(null);
       expect(router.navigate).toHaveBeenCalledTimes(1);
-      expect(router.navigate)
-        .toHaveBeenCalledWith(
-          ['practice-sessions', 'new'],
-          { queryParams: { exercise: '1' } }
-        );
+      expect(router.navigate).toHaveBeenCalledWith(['practice-sessions', 'new'], {
+        queryParams: { exercise: '1' }
+      });
     });
 
     it('should redirect to the session edit', () => {
       component.onUpdate(sessions[0]);
       expect(router.navigate).toHaveBeenCalledTimes(1);
-      expect(router.navigate)
-        .toHaveBeenCalledWith(
-          ['practice-sessions', sessions[0].$key, 'edit'],
-          { queryParams: { exercise: '1' } }
-        );
+      expect(router.navigate).toHaveBeenCalledWith(
+        ['practice-sessions', sessions[0].$key, 'edit'],
+        { queryParams: { exercise: '1' } }
+      );
     });
   });
 
@@ -173,4 +166,3 @@ describe('LibraryListComponent', () => {
     });
   });
 });
-

@@ -28,8 +28,7 @@ describe('ListSessionComponent', () => {
       imports: [RouterTestingModule, SharedModule],
       declarations: [ListSessionComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

@@ -7,7 +7,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./metronome-settings.component.scss']
 })
 export class MetronomeSettingsComponent implements OnChanges {
-
   public form = this.fb.group({
     subdivision: 4,
     accents: this.fb.array([0])
@@ -24,8 +23,7 @@ export class MetronomeSettingsComponent implements OnChanges {
     return this.form.get('accents') as FormArray;
   }
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.initValue) {
@@ -68,5 +66,4 @@ export class MetronomeSettingsComponent implements OnChanges {
       this.accents.removeAt(0);
     }
   }
-
 }

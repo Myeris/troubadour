@@ -34,8 +34,7 @@ describe('AnonymousGuard', () => {
     it('should grant access to not logged in users', async(() => {
       let result = null;
 
-      guard.canActivate(null, null)
-        .subscribe((value) => result = value);
+      guard.canActivate(null, null).subscribe(value => (result = value));
       expect(result).toBeTruthy();
     }));
 
@@ -44,8 +43,7 @@ describe('AnonymousGuard', () => {
 
       store.dispatch(new LogInSuccess({ user: { verified: false, id: '1' } as User }));
 
-      guard.canActivate(null, null)
-        .subscribe((value) => result = value);
+      guard.canActivate(null, null).subscribe(value => (result = value));
 
       expect(result).toBeTruthy();
     });
@@ -55,8 +53,7 @@ describe('AnonymousGuard', () => {
 
       store.dispatch(new LogInSuccess({ user: { verified: true, id: '1' } as User }));
 
-      guard.canActivate(null, null)
-        .subscribe((value) => result = value);
+      guard.canActivate(null, null).subscribe(value => (result = value));
 
       expect(result).toBeFalsy();
     });

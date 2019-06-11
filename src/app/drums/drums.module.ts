@@ -6,12 +6,6 @@ import { DrumsRoutingModule } from './drums-routing.module';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserAnimationsModule,
-    DrumsRoutingModule,
-    SharedModule.forRoot()
-  ]
+  imports: [CommonModule, BrowserAnimationsModule, DrumsRoutingModule, SharedModule.forRoot()]
 })
-export class DrumsModule {
-}
+export class DrumsModule {}

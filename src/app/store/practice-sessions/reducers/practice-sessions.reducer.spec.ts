@@ -119,7 +119,10 @@ describe('PracticeSessionsReducer', () => {
         b: sessions[1]
       };
       const ids = ['a', 'b'];
-      const state = practiceSessionsReducer({ ...initialPracticeSessionState, entities, ids, selectedId }, action);
+      const state = practiceSessionsReducer(
+        { ...initialPracticeSessionState, entities, ids, selectedId },
+        action
+      );
 
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();

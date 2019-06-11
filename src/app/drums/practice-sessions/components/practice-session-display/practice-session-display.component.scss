@@ -31,10 +31,10 @@
       display: flex;
       align-items: center;
       transition: all 0.2s ease-in-out;
-      color: #4CAF50;
+      color: #4caf50;
 
       &:hover {
-        color: #1B5E20;
+        color: #1b5e20;
         transition: all 0.2s ease-in-out;
       }
     }
@@ -42,7 +42,7 @@
 
   &__details {
     padding: 1rem;
-    border: 1px solid #535D6E;
+    border: 1px solid #535d6e;
     display: flex;
 
     & > div {
@@ -55,7 +55,10 @@
       margin: -0.1rem 0.25rem;
     }
 
-    .duration, .repeat, .drumkit, .exercises {
+    .duration,
+    .repeat,
+    .drumkit,
+    .exercises {
       margin-right: 1rem;
       flex: auto;
       text-align: center;
@@ -63,11 +66,10 @@
   }
 
   &__controls {
-
     .playing {
       width: 0;
       height: 0.2rem;
-      background: #CCFF00;
+      background: #ccff00;
       z-index: 999;
       position: fixed;
       bottom: 2.8rem;
@@ -86,7 +88,7 @@
       box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
 
       .cover {
-        background: #CCFF00;
+        background: #ccff00;
         color: #333;
         width: 3rem;
         text-align: center;
@@ -188,8 +190,8 @@
   display: inline-block;
   margin: 0.5rem;
 
-
-  &.play, &.stop {
+  &.play,
+  &.stop {
     border-radius: 100%;
   }
 
@@ -198,7 +200,7 @@
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      color: #01579B;
+      color: #01579b;
       transition: all 0.2s ease-in-out;
     }
   }
@@ -208,12 +210,13 @@
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      color: #B71C1C;
+      color: #b71c1c;
       transition: all 0.2s ease-in-out;
     }
   }
 
-  &.previous, &.next {
+  &.previous,
+  &.next {
     border-radius: 100%;
     background: transparent;
     transition: all 0.2s ease-in-out;

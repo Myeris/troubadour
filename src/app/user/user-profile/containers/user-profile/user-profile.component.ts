@@ -19,20 +19,16 @@ import { fadeAnimation } from '../../../../shared/animations/animations';
   animations: [fadeAnimation]
 })
 export class UserProfileComponent extends LifecycleComponent implements OnInit {
-
   public user$: Observable<User>;
   public error$: Observable<string>;
 
-  constructor(private store: Store<AppState>,
-              private router: Router) {
+  constructor(private store: Store<AppState>, private router: Router) {
     super();
   }
 
   ngOnInit(): void {
-    this.user$ = this.store.select<User>(getCurrentUser)
-      .pipe(takeUntil(this.componentDestroyed$));
-    this.error$ = this.store.select<string>(getError)
-      .pipe(takeUntil(this.componentDestroyed$));
+    this.user$ = this.store.select<User>(getCurrentUser).pipe(takeUntil(this.componentDestroyed$));
+    this.error$ = this.store.select<string>(getError).pipe(takeUntil(this.componentDestroyed$));
   }
 
   public onPasswordChange(changePassword: ChangePasswordModel): void {
@@ -49,5 +45,4 @@ export class UserProfileComponent extends LifecycleComponent implements OnInit {
     //   this.sentryService.captureException(e);
     // }
   }
-
 }

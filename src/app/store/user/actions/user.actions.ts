@@ -39,43 +39,37 @@ export enum UserActionsTypes {
 export class LogIn implements Action {
   public readonly type = UserActionsTypes.LogIn;
 
-  constructor(public payload: { authRequest: AuthRequest }) {
-  }
+  constructor(public payload: { authRequest: AuthRequest }) {}
 }
 
 export class LogInSuccess implements Action {
   public readonly type = UserActionsTypes.LogInSuccess;
 
-  constructor(public payload: { user: User }) {
-  }
+  constructor(public payload: { user: User }) {}
 }
 
 export class LogInFail implements Action {
   public readonly type = UserActionsTypes.LogInFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class Register implements Action {
   public readonly type = UserActionsTypes.Register;
 
-  constructor(public payload: { authRequest: AuthRequest }) {
-  }
+  constructor(public payload: { authRequest: AuthRequest }) {}
 }
 
 export class RegisterSuccess implements Action {
   public readonly type = UserActionsTypes.RegisterSuccess;
 
-  constructor(public payload: { user: User }) {
-  }
+  constructor(public payload: { user: User }) {}
 }
 
 export class RegisterFail implements Action {
   public readonly type = UserActionsTypes.RegisterFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class LogOut implements Action {
@@ -89,8 +83,7 @@ export class LogOutSuccess implements Action {
 export class ChangePassword implements Action {
   public readonly type = UserActionsTypes.ChangePassword;
 
-  constructor(public payload: { changePassword: ChangePasswordModel }) {
-  }
+  constructor(public payload: { changePassword: ChangePasswordModel }) {}
 }
 
 export class ChangePasswordSuccess implements Action {
@@ -100,8 +93,7 @@ export class ChangePasswordSuccess implements Action {
 export class ChangePasswordFail implements Action {
   public readonly type = UserActionsTypes.ChangePasswordFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class RemoveAccount implements Action {
@@ -115,22 +107,19 @@ export class RemoveAccountSuccess implements Action {
 export class RemoveAccountFail implements Action {
   public readonly type = UserActionsTypes.RemoveAccountFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class SetPersistedUser implements Action {
   public readonly type = UserActionsTypes.SetPersistedUser;
 
-  constructor(public payload: { user: User }) {
-  }
+  constructor(public payload: { user: User }) {}
 }
 
 export class ResetPassword implements Action {
   public readonly type = UserActionsTypes.ResetPassword;
 
-  constructor(public payload: { email: string }) {
-  }
+  constructor(public payload: { email: string }) {}
 }
 
 export class ResetPasswordSuccess implements Action {
@@ -140,8 +129,7 @@ export class ResetPasswordSuccess implements Action {
 export class ResetPasswordFail implements Action {
   public readonly type = UserActionsTypes.ResetPasswordFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class SendVerificationEmail implements Action {
@@ -151,15 +139,13 @@ export class SendVerificationEmail implements Action {
 export class SendVerificationEmailSuccess implements Action {
   public readonly type = UserActionsTypes.SendVerificationEmailSuccess;
 
-  constructor(public payload: { success: string }) {
-  }
+  constructor(public payload: { success: string }) {}
 }
 
 export class SendVerificationEmailFail implements Action {
   public readonly type = UserActionsTypes.SendVerificationEmailFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export type UserActions =

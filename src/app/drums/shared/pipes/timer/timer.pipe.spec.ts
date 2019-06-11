@@ -6,7 +6,9 @@ import { TimerPipe } from './timer.pipe';
 describe('TimerPipe', () => {
   describe('Shallow TimerPipe test', () => {
     @Component({
-      template: `Timer: {{ timerValue | timer }}`
+      template: `
+        Timer: {{ timerValue | timer }}
+      `
     })
     class TestComponent {
       timerValue = 0;

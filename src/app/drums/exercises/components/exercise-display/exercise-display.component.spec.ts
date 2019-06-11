@@ -42,19 +42,15 @@ const highscore: Highscore = {
 };
 
 class MetronomeServiceMock {
-  init() {
-  }
+  init() {}
 
-  playExercise() {
-  }
+  playExercise() {}
 
-  stop() {
-  }
+  stop() {}
 }
 
 class ExerciseServiceMock {
-  getExerciseDuration() {
-  }
+  getExerciseDuration() {}
 }
 
 describe('ExerciseDisplayComponent', () => {
@@ -66,16 +62,12 @@ describe('ExerciseDisplayComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        ExerciseDisplayComponent
-      ],
+      declarations: [ExerciseDisplayComponent],
       providers: [
         { provide: MetronomeService, useClass: MetronomeServiceMock },
         { provide: ExerciseService, useClass: ExerciseServiceMock }
       ],
-      imports: [
-        SharedModule.forRoot()
-      ],
+      imports: [SharedModule.forRoot()],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -175,11 +167,13 @@ describe('ExerciseDisplayComponent', () => {
         }
       });
 
-      expect(component.exercise).toEqual(jasmine.objectContaining({
-        hand: 'R',
-        bpm: 60,
-        duration: 60
-      }));
+      expect(component.exercise).toEqual(
+        jasmine.objectContaining({
+          hand: 'R',
+          bpm: 60,
+          duration: 60
+        })
+      );
       expect(component.practiceMode).toBe('bpmDuration');
     });
 
@@ -193,15 +187,17 @@ describe('ExerciseDisplayComponent', () => {
         }
       });
 
-      expect(component.exercise).toEqual(jasmine.objectContaining({
-        hand: 'R',
-        bpmScale: {
-          start: 0,
-          stop: 20,
-          step: 1
-        },
-        repeat: 2
-      }));
+      expect(component.exercise).toEqual(
+        jasmine.objectContaining({
+          hand: 'R',
+          bpmScale: {
+            start: 0,
+            stop: 20,
+            step: 1
+          },
+          repeat: 2
+        })
+      );
       expect(component.practiceMode).toBe('bpmScale');
     });
 
@@ -213,15 +209,17 @@ describe('ExerciseDisplayComponent', () => {
         }
       });
 
-      expect(component.exercise).toEqual(jasmine.objectContaining({
-        hand: 'R',
-        bpmScale: {
-          start: 90,
-          stop: 250,
-          step: 5
-        },
-        repeat: 20
-      }));
+      expect(component.exercise).toEqual(
+        jasmine.objectContaining({
+          hand: 'R',
+          bpmScale: {
+            start: 90,
+            stop: 250,
+            step: 5
+          },
+          repeat: 20
+        })
+      );
       expect(component.practiceMode).toBe('toFailure');
     });
 
@@ -236,28 +234,31 @@ describe('ExerciseDisplayComponent', () => {
         }
       });
 
-      expect(component.exercise).toEqual(jasmine.objectContaining({
-        soundOptions: {
-          playAlong: true,
-          metronomeSettings: {
-            subdivision: '4',
-            accents: [0]
+      expect(component.exercise).toEqual(
+        jasmine.objectContaining({
+          soundOptions: {
+            playAlong: true,
+            metronomeSettings: {
+              subdivision: '4',
+              accents: [0]
+            }
           }
-        }
-      }));
+        })
+      );
     });
   });
 
   describe('setDefaultExercise', () => {
     it('should set the exercise default value', () => {
-      expect((component as any).setDefaultExercise())
-        .toEqual(jasmine.objectContaining({
+      expect((component as any).setDefaultExercise()).toEqual(
+        jasmine.objectContaining({
           hand: 'R',
           bpm: 60,
           repeat: 1,
           tab,
           tabRef: tab.$key
-        }));
+        })
+      );
     });
   });
 
@@ -269,9 +270,11 @@ describe('ExerciseDisplayComponent', () => {
       expect(component.lastBpm).toBeNull();
       expect(component.showToFailureResult).toBeFalsy();
       expect(component.highscored.emit).toHaveBeenCalledTimes(1);
-      expect(component.highscored.emit).toHaveBeenCalledWith(jasmine.objectContaining({
-        highscore: 90
-      }));
+      expect(component.highscored.emit).toHaveBeenCalledWith(
+        jasmine.objectContaining({
+          highscore: 90
+        })
+      );
     });
   });
 });

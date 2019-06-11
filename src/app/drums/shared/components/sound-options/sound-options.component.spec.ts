@@ -12,12 +12,8 @@ describe('SoundOptionsComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        SoundOptionsComponent
-      ],
-      imports: [
-        ReactiveFormsModule
-      ],
+      declarations: [SoundOptionsComponent],
+      imports: [ReactiveFormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -66,17 +62,14 @@ describe('SoundOptionsComponent', () => {
     });
 
     it('should handle metronomeOnly', () => {
-      spyOn((component as any), 'emptyAccents').and.callFake(() => true);
+      spyOn(component as any, 'emptyAccents').and.callFake(() => true);
 
       component.initValue = new FormGroup({
         playAlong: new FormControl(false),
         metronomeOnly: new FormControl(true),
         metronomeSettings: new FormGroup({
           subdivision: new FormControl(4),
-          accents: new FormArray([
-            new FormControl(0),
-            new FormControl(2)
-          ])
+          accents: new FormArray([new FormControl(0), new FormControl(2)])
         })
       });
 

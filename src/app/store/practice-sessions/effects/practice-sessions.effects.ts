@@ -26,56 +26,63 @@ import { Router } from '@angular/router';
 @Injectable()
 export class PracticeSessionsEffects {
   @Effect()
-  loadPracticeSessionList$: Observable<Action> = this.actions$
-    .pipe(
-      ofType<PracticeSessionListLoad>(PracticeSessionsActionsTypes.LoadList),
-      withLatestFrom(this.store$.select(getCurrentUser)),
-      switchMap(([action, currentUser]) => this.practiceSessionResource.getSessionList$(currentUser.id)),
-      map((sessionList: PracticeSession[]) => new PracticeSessionListLoadSuccess({ practiceSessionList: sessionList })),
-      catchError((error: FirebaseError) => of(new PracticeSessionListLoadFail({ error: error.message })))
-    );
+  loadPracticeSessionList$: Observable<Action> = this.actions$.pipe(
+    ofType<PracticeSessionListLoad>(PracticeSessionsActionsTypes.LoadList),
+    withLatestFrom(this.store$.select(getCurrentUser)),
+    switchMap(([action, currentUser]) =>
+      this.practiceSessionResource.getSessionList$(currentUser.id)
+    ),
+    map(
+      (sessionList: PracticeSession[]) =>
+        new PracticeSessionListLoadSuccess({ practiceSessionList: sessionList })
+    ),
+    catchError((error: FirebaseError) =>
+      of(new PracticeSessionListLoadFail({ error: error.message }))
+    )
+  );
 
   @Effect()
-  removePracticeSession$: Observable<Action> = this.actions$
-    .pipe(
-      ofType<PracticeSessionDelete>(PracticeSessionsActionsTypes.Delete),
-      withLatestFrom(this.store$.select(getCurrentUser)),
-      switchMap(([action, currentUser]) => this.practiceSessionResource.removeSession(currentUser.id, action.payload.id)),
-      map(() => new PracticeSessionDeleteSuccess()),
-      catchError((error: FirebaseError) => of(new PracticeSessionDeleteFail({ error: error.message })))
-    );
+  removePracticeSession$: Observable<Action> = this.actions$.pipe(
+    ofType<PracticeSessionDelete>(PracticeSessionsActionsTypes.Delete),
+    withLatestFrom(this.store$.select(getCurrentUser)),
+    switchMap(([action, currentUser]) =>
+      this.practiceSessionResource.removeSession(currentUser.id, action.payload.id)
+    ),
+    map(() => new PracticeSessionDeleteSuccess()),
+    catchError((error: FirebaseError) =>
+      of(new PracticeSessionDeleteFail({ error: error.message }))
+    )
+  );
 
   @Effect()
-  createPracticeSession$: Observable<Action> = this.actions$
-    .pipe(
-      ofType<PracticeSessionCreate>(PracticeSessionsActionsTypes.Create),
-      withLatestFrom(this.store$.select(getCurrentUser)),
-      switchMap(([action, currentUser]) => this.practiceSessionResource.createSession(currentUser.id, action.payload.practiceSession)),
-      map(() => new PracticeSessionCreateSuccess()),
-      catchError((error: FirebaseError) => of(new PracticeSessionCreateFail({ error: error.message })))
-    );
+  createPracticeSession$: Observable<Action> = this.actions$.pipe(
+    ofType<PracticeSessionCreate>(PracticeSessionsActionsTypes.Create),
+    withLatestFrom(this.store$.select(getCurrentUser)),
+    switchMap(([action, currentUser]) =>
+      this.practiceSessionResource.createSession(currentUser.id, action.payload.practiceSession)
+    ),
+    map(() => new PracticeSessionCreateSuccess()),
+    catchError((error: FirebaseError) =>
+      of(new PracticeSessionCreateFail({ error: error.message }))
+    )
+  );
 
   @Effect({ dispatch: false })
-  redirectToListAfterCreate$: Observable<Action> = this.actions$
-    .pipe(
-      ofType<PracticeSessionCreateSuccess>(
-        PracticeSessionsActionsTypes.CreateSuccess
-      ),
-      tap(() => this.router.navigate(['/practice-sessions']))
-    );
+  redirectToListAfterCreate$: Observable<Action> = this.actions$.pipe(
+    ofType<PracticeSessionCreateSuccess>(PracticeSessionsActionsTypes.CreateSuccess),
+    tap(() => this.router.navigate(['/practice-sessions']))
+  );
 
   @Effect({ dispatch: false })
-  redirectToListAfterDelete$: Observable<Action> = this.actions$
-    .pipe(
-      ofType<PracticeSessionDeleteSuccess>(
-        PracticeSessionsActionsTypes.DeleteSuccess
-      ),
-      tap(() => this.router.navigate(['/practice-sessions']))
-    );
+  redirectToListAfterDelete$: Observable<Action> = this.actions$.pipe(
+    ofType<PracticeSessionDeleteSuccess>(PracticeSessionsActionsTypes.DeleteSuccess),
+    tap(() => this.router.navigate(['/practice-sessions']))
+  );
 
-  constructor(private actions$: Actions,
-              private store$: Store<AppState>,
-              private router: Router,
-              private practiceSessionResource: PracticeSessionsResource) {
-  }
+  constructor(
+    private actions$: Actions,
+    private store$: Store<AppState>,
+    private router: Router,
+    private practiceSessionResource: PracticeSessionsResource
+  ) {}
 }

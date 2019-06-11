@@ -12,15 +12,9 @@ describe('ToFailureFormComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        ToFailureFormComponent
-      ],
-      providers: [
-        FormBuilder
-      ],
-      imports: [
-        ReactiveFormsModule
-      ]
+      declarations: [ToFailureFormComponent],
+      providers: [FormBuilder],
+      imports: [ReactiveFormsModule]
     });
 
     fixture = bed.createComponent(ToFailureFormComponent);
@@ -35,7 +29,9 @@ describe('ToFailureFormComponent', () => {
   it('should be displayed', () => {
     fixture.detectChanges();
 
-    expect(el.queryAll(By.css('label'))[0].nativeElement.textContent).toContain('BPM (starting value)');
+    expect(el.queryAll(By.css('label'))[0].nativeElement.textContent).toContain(
+      'BPM (starting value)'
+    );
     expect(el.queryAll(By.css('label'))[1].nativeElement.textContent).toContain('Step');
     expect(el.queryAll(By.css('input'))[0].nativeElement.value).toBe('90');
     expect(el.queryAll(By.css('input'))[1].nativeElement.value).toBe('5');
@@ -55,4 +51,3 @@ describe('ToFailureFormComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 });
-

@@ -33,5 +33,4 @@ import { PracticeSessionFormComponent } from './components/practice-session-form
     AppSharedModule
   ]
 })
-export class PracticeSessionsModule {
-}
+export class PracticeSessionsModule {}

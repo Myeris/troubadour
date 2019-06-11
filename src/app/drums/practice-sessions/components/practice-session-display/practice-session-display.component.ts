@@ -75,7 +75,7 @@ export class PracticeSessionDisplayComponent implements OnChanges {
     const wasPlaying = this.state === 'running';
     await this.stop();
 
-    if (this.inPlayIndex === (this.session.exercises.length - 1)) {
+    if (this.inPlayIndex === this.session.exercises.length - 1) {
       return;
     }
 
@@ -123,8 +123,10 @@ export class PracticeSessionDisplayComponent implements OnChanges {
 
   private assignTab(): void {
     if (this.session.exercises.length > 0) {
-      this.session.exercises
-        .map((exercise: Exercise) => exercise.tab = this.tabs.find((tab: Tab) => tab.$key === exercise.tabRef));
+      this.session.exercises.map(
+        (exercise: Exercise) =>
+          (exercise.tab = this.tabs.find((tab: Tab) => tab.$key === exercise.tabRef))
+      );
     }
   }
 }

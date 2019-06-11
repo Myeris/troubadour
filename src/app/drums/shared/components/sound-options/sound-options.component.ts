@@ -7,7 +7,6 @@ import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@ang
   styleUrls: ['./sound-options.component.scss']
 })
 export class SoundOptionsComponent implements OnChanges {
-
   public form = this.fb.group({
     type: [0, [Validators.min(0), Validators.max(1)]], // 0 for play-along, 1 for metronome only,
     settings: this.fb.group({
@@ -30,8 +29,7 @@ export class SoundOptionsComponent implements OnChanges {
     return this.form.get('type').value;
   }
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.initValue) {
@@ -64,7 +62,10 @@ export class SoundOptionsComponent implements OnChanges {
   }
 
   public onMetronomeSettingsChange($event: FormGroup): void {
-    this.form.get('settings').get('subdivision').setValue($event.get('subdivision').value);
+    this.form
+      .get('settings')
+      .get('subdivision')
+      .setValue($event.get('subdivision').value);
 
     this.emptyAccents();
 
@@ -82,5 +83,4 @@ export class SoundOptionsComponent implements OnChanges {
       this.formAccents.removeAt(0);
     }
   }
-
 }

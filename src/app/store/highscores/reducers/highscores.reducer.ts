@@ -1,4 +1,8 @@
-import { highscoresEntityAdapter, HighscoresState, initialHighscoresState } from '../highscores.state';
+import {
+  highscoresEntityAdapter,
+  HighscoresState,
+  initialHighscoresState
+} from '../highscores.state';
 import { HighscoresActions, HighscoresActionsTypes } from '../actions/highscores.actions';
 
 export function highscoreReducer(

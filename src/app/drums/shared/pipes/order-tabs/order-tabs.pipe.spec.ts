@@ -6,24 +6,61 @@ import { Tab } from '../../models/tab.model';
 import { Tag } from '../../models/tag.model';
 
 describe('OrderTabsPipe', () => {
-
   /**
    * SHALLOW TESTS
    */
   describe('Shallow OrderTabsPipe test', () => {
     @Component({
-      template: `{{ (tabs | orderTabs:(types)) | json }}`
+      template: `
+        {{ tabs | orderTabs: types | json }}
+      `
     })
     class TestComponent {
       tabs: Tab[] = [
-        { name: 'Paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Single stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
+        {
+          name: 'Paradiddle',
+          type: 'paradiddles',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
+        {
+          name: 'Single stroke roll',
+          type: 'rolls',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
         { name: 'Flam', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Double stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Triple paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        {
+          name: 'Double stroke roll',
+          type: 'rolls',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
+        {
+          name: 'Triple paradiddle',
+          type: 'paradiddles',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
         { name: 'Flam drag', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Eleven stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Double paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        {
+          name: 'Eleven stroke roll',
+          type: 'rolls',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
+        {
+          name: 'Double paradiddle',
+          type: 'paradiddles',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
         { name: 'Flam tap', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] }
       ];
 
@@ -137,14 +174,50 @@ describe('OrderTabsPipe', () => {
 
     it('should order a list of tabs by type, weight and name', () => {
       const tabs: Tab[] = [
-        { name: 'Paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Single stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
+        {
+          name: 'Paradiddle',
+          type: 'paradiddles',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
+        {
+          name: 'Single stroke roll',
+          type: 'rolls',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
         { name: 'Flam', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Double stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Triple paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        {
+          name: 'Double stroke roll',
+          type: 'rolls',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
+        {
+          name: 'Triple paradiddle',
+          type: 'paradiddles',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
         { name: 'Flam drag', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Eleven stroke roll', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [] },
-        { name: 'Double paradiddle', type: 'paradiddles', drumkit: false, timeSignature: '4/4', notes: [] },
+        {
+          name: 'Eleven stroke roll',
+          type: 'rolls',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
+        {
+          name: 'Double paradiddle',
+          type: 'paradiddles',
+          drumkit: false,
+          timeSignature: '4/4',
+          notes: []
+        },
         { name: 'Flam tap', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [] }
       ];
 

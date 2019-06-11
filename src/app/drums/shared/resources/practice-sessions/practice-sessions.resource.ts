@@ -12,26 +12,30 @@ import ThenableReference = firebase.database.ThenableReference;
 export class PracticeSessionsResource {
   private colName = 'practice-sessions';
 
-  constructor(private db: AngularFireDatabase,
-              private practiceSessionsService: PracticeSessionsService) {
-  }
+  constructor(
+    private db: AngularFireDatabase,
+    private practiceSessionsService: PracticeSessionsService
+  ) {}
 
   public getSessionList$(uid: string): Observable<PracticeSession[]> {
-    return this.db.list<PracticeSession>(`${this.colName}/${uid}`)
+    return this.db
+      .list<PracticeSession>(`${this.colName}/${uid}`)
       .snapshotChanges()
-      .pipe(map((actions: SnapshotAction<PracticeSession>[]) => this.practiceSessionsService.mapSessionListFromSnapshotAction(actions)));
+      .pipe(
+        map((actions: SnapshotAction<PracticeSession>[]) =>
+          this.practiceSessionsService.mapSessionListFromSnapshotAction(actions)
+        )
+      );
   }
 
   public removeSession(uid: string, key: string): Promise<void> {
-    return this.db.list(`${this.colName}/${uid}`)
-      .remove(key);
+    return this.db.list(`${this.colName}/${uid}`).remove(key);
   }
 
   public createSession(uid: string, practiceSession: PracticeSession): ThenableReference {
     practiceSession = this.removeExercise(practiceSession);
 
-    return this.db.list(`practice-sessions/${uid}`)
-      .push(practiceSession);
+    return this.db.list(`practice-sessions/${uid}`).push(practiceSession);
   }
 
   private removeExercise(session: PracticeSession): PracticeSession {

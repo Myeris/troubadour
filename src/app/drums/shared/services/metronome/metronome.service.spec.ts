@@ -4,18 +4,14 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MetronomeService } from './metronome.service';
 import { ExerciseService } from '../exercise/exercise.service';
 
-class ExerciseServiceMock {
-}
+class ExerciseServiceMock {}
 
 describe('MetronomeService', () => {
   let service: MetronomeService;
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      providers: [
-        MetronomeService,
-        { provide: ExerciseService, useClass: ExerciseServiceMock }
-      ],
+      providers: [MetronomeService, { provide: ExerciseService, useClass: ExerciseServiceMock }],
       imports: [RouterTestingModule]
     });
 

@@ -1,11 +1,15 @@
 export class BufferLoader {
   public bufferList: AudioBuffer[];
-  private context: (AudioContext | any);
+  private context: AudioContext | any;
   private readonly urlList: string[];
   private onload: (bufferList: AudioBuffer[]) => void;
   private loadCount: number;
 
-  constructor(context: (AudioContext | any), urlList: string[], callback: (bufferList: AudioBuffer[]) => void) {
+  constructor(
+    context: AudioContext | any,
+    urlList: string[],
+    callback: (bufferList: AudioBuffer[]) => void
+  ) {
     this.context = context;
     this.urlList = urlList;
     this.onload = callback;

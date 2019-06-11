@@ -17,16 +17,9 @@ describe('AppComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        StoreModule.forRoot({ ...appReducers })
-      ],
-      providers: [
-        UserService
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [RouterTestingModule, StoreModule.forRoot({ ...appReducers })],
+      providers: [UserService],
+      declarations: [AppComponent],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -53,7 +46,9 @@ describe('AppComponent', () => {
 
       component.ngOnInit();
       expect(store.dispatch).toHaveBeenCalledTimes(1);
-      expect(store.dispatch).toHaveBeenCalledWith(new SetPersistedUser({ user: (component as any).user }));
+      expect(store.dispatch).toHaveBeenCalledWith(
+        new SetPersistedUser({ user: (component as any).user })
+      );
     }));
 
     it('should not dispatch an action if user is not defined', () => {

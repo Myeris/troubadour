@@ -7,7 +7,10 @@ import { PracticeSession } from '../../../shared/models/practice-session.model';
 import { AppState } from '../../../../store/app.reducer';
 import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
-import { PracticeSessionDelete, PracticeSessionListLoad } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
+import {
+  PracticeSessionDelete,
+  PracticeSessionListLoad
+} from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import { Pagination } from '../../../shared/models/pagination.model';
 import { fadeAnimation } from '../../../../shared/animations/animations';
 
@@ -27,8 +30,7 @@ export class PracticeSessionsComponent extends LifecycleComponent implements OnI
   }
 
   ngOnInit() {
-    this.sessionList$ = this.store.select(selectAll)
-      .pipe(takeUntil(this.componentDestroyed$));
+    this.sessionList$ = this.store.select(selectAll).pipe(takeUntil(this.componentDestroyed$));
 
     this.store.dispatch(new PracticeSessionListLoad());
   }

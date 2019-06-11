@@ -21,10 +21,12 @@ describe('AuthGuard', () => {
         StoreModule.forRoot({
           ...appReducers
         }),
-        RouterTestingModule.withRoutes([{
-          path: 'auth', component: class BlankComponent {
+        RouterTestingModule.withRoutes([
+          {
+            path: 'auth',
+            component: class BlankComponent {}
           }
-        }])
+        ])
       ]
     });
 
@@ -44,8 +46,7 @@ describe('AuthGuard', () => {
     it('should not grant access to not logged in users', async(() => {
       let result = null;
 
-      guard.canActivate(null, null)
-        .subscribe((value) => result = value);
+      guard.canActivate(null, null).subscribe(value => (result = value));
       expect(result).toBeFalsy();
       expect(router.navigate).toHaveBeenCalledTimes(1);
       expect(router.navigate).toHaveBeenCalledWith(['/auth']);
@@ -56,8 +57,7 @@ describe('AuthGuard', () => {
 
       store.dispatch(new LogInSuccess({ user: { verified: false, id: '1' } as User }));
 
-      guard.canActivate(null, null)
-        .subscribe((value) => result = value);
+      guard.canActivate(null, null).subscribe(value => (result = value));
 
       expect(result).toBeFalsy();
     });
@@ -67,8 +67,7 @@ describe('AuthGuard', () => {
 
       store.dispatch(new LogInSuccess({ user: { verified: true, id: '1' } as User }));
 
-      guard.canActivate(null, null)
-        .subscribe((value) => result = value);
+      guard.canActivate(null, null).subscribe(value => (result = value));
 
       expect(result).toBeTruthy();
       expect(router.navigate).not.toHaveBeenCalled();

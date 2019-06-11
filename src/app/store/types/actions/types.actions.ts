@@ -15,18 +15,13 @@ export class TypesListLoad implements Action {
 export class TypesListLoadSuccess implements Action {
   public readonly type = TypesActionsTypes.LoadListSuccess;
 
-  constructor(public payload: { types: Tag[] }) {
-  }
+  constructor(public payload: { types: Tag[] }) {}
 }
 
 export class TypesListLoadFail implements Action {
   public readonly type = TypesActionsTypes.LoadListFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
-export type TypesActions =
-  | TypesListLoad
-  | TypesListLoadSuccess
-  | TypesListLoadFail;
+export type TypesActions = TypesListLoad | TypesListLoadSuccess | TypesListLoadFail;

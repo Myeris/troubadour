@@ -13,9 +13,7 @@ describe('AppNavComponent', () => {
       declarations: [AppNavComponent],
       imports: [RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

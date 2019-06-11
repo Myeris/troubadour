@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'numberToCollection'
 })
 export class NumberToCollectionPipe implements PipeTransform {
-
   public transform(value: any, ...args: any[]): number[] {
     if (typeof value !== 'number') {
       throw new Error('Passed value must be a number');
@@ -18,5 +17,4 @@ export class NumberToCollectionPipe implements PipeTransform {
 
     return res;
   }
-
 }

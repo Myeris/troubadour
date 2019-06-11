@@ -62,9 +62,7 @@ describe('PracticeSessionsSelectors', () => {
     it('should return the isLoading prop from the state', () => {
       let result = false;
 
-      store
-        .select(isLoading)
-        .subscribe(value => result = value);
+      store.select(isLoading).subscribe(value => (result = value));
 
       expect(result).toBeFalsy();
 
@@ -87,9 +85,7 @@ describe('PracticeSessionsSelectors', () => {
       const error = 'error';
       let result = null;
 
-      store
-        .select(getError)
-        .subscribe(value => result = value);
+      store.select(getError).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 
@@ -112,9 +108,7 @@ describe('PracticeSessionsSelectors', () => {
       const id = 'a';
       let result = null;
 
-      store
-        .select(getSelectedPracticeSession)
-        .subscribe(value => result = value);
+      store.select(getSelectedPracticeSession).subscribe(value => (result = value));
 
       expect(result).toBeUndefined();
 

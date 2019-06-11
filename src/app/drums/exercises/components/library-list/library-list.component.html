@@ -2,19 +2,15 @@
   <div>
     <a [routerLink]="['../exercises', tab.$key]">
       <div class="gif">
-        <img src="assets/img/drums/drums.png"
-             alt="Drums photo">
+        <img src="assets/img/drums/drums.png" alt="Drums photo" />
       </div>
 
-      <div class="content"
-           [style.borderTop]="'4px solid ' + tab.typeObject?.color">
+      <div class="content" [style.borderTop]="'4px solid ' + tab.typeObject?.color">
         {{ tab.name }}
       </div>
     </a>
     <div class="buttons">
-      <a (click)="assignExercise()">
-        <mat-icon>add</mat-icon> Assign to a session
-      </a>
+      <a (click)="assignExercise()"> <mat-icon>add</mat-icon> Assign to a session </a>
     </div>
   </div>
 
@@ -23,6 +19,7 @@
     [sessions]="sessions"
     [tab]="tab"
     (update)="onUpdate($event)"
-    (cancel)="onCancel()">
+    (cancel)="onCancel()"
+  >
   </app-exercise-assign>
 </div>

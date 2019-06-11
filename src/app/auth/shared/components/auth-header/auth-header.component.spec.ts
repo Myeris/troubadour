@@ -11,8 +11,7 @@ describe('AuthHeaderComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AuthHeaderComponent],
       imports: [AppSharedModule]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

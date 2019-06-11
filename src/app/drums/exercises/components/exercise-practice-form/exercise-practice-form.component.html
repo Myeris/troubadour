@@ -6,63 +6,52 @@
   <div class="exercise-practice-form__content">
     <div class="exercise-practice-form__content__options">
       <label>
-        <input
-          type="radio"
-          name="practiceType"
-          (click)="toggleForm('bpmDuration')"> BPM & Duration
+        <input type="radio" name="practiceType" (click)="toggleForm('bpmDuration')" /> BPM &
+        Duration
       </label>
       <label>
-        <input
-          type="radio"
-          name="practiceType"
-          (click)="toggleForm('bpmScale')"> BPM scale
+        <input type="radio" name="practiceType" (click)="toggleForm('bpmScale')" /> BPM scale
       </label>
       <label>
-        <input
-          type="radio"
-          name="practiceType"
-          (click)="toggleForm('toFailure')"> Road to failure
+        <input type="radio" name="practiceType" (click)="toggleForm('toFailure')" /> Road to failure
       </label>
     </div>
 
     <div class="exercise-practice-form__content__forms">
       <app-bpm-duration-form
         *ngIf="showForms.bpmDuration"
-        (submitted)="onFormValueChange('bpmDuration', $event)">
+        (submitted)="onFormValueChange('bpmDuration', $event)"
+      >
       </app-bpm-duration-form>
 
       <app-bpm-scale-form
         *ngIf="showForms.bpmScale"
-        (submitted)="onFormValueChange('bpmScale', $event)">
+        (submitted)="onFormValueChange('bpmScale', $event)"
+      >
       </app-bpm-scale-form>
 
       <app-to-failure-form
         *ngIf="showForms.toFailure"
-        (submitted)="onFormValueChange('toFailure', $event)">
+        (submitted)="onFormValueChange('toFailure', $event)"
+      >
       </app-to-failure-form>
 
       <app-sound-options
         *ngIf="showSoundOptions"
         [initValue]="form.get('soundOptions')"
         (submitted)="onSoundOptionsChange($event)"
-        (invalid)="onFormValueChange('soundOptions', $event)">
+        (invalid)="onFormValueChange('soundOptions', $event)"
+      >
       </app-sound-options>
     </div>
 
     <div class="exercise-practice-form__content__buttons">
       <div>
-        <button
-          type="button"
-          class="button"
-          [disabled]="isButtonDisabled()"
-          (click)="submit()">
+        <button type="button" class="button" [disabled]="isButtonDisabled()" (click)="submit()">
           Practice!
         </button>
 
-        <button
-          type="button"
-          class="button button--cancel"
-          (click)="cancel()">
+        <button type="button" class="button button--cancel" (click)="cancel()">
           Cancel
         </button>
       </div>

@@ -16,8 +16,7 @@ export class HandFormComponent implements OnChanges {
   @Output() submitted: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
   @Output() invalid: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.initValue) {

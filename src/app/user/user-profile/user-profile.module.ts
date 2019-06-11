@@ -9,9 +9,7 @@ import { AppSharedModule } from '../../shared/shared.module';
 import { PasswordFormComponent } from './components/password-form/password-form.component';
 import { RemoveFormComponent } from './components/remove-form/remove-form.component';
 
-export const routes: Routes = [
-  { path: '', component: UserProfileComponent }
-];
+export const routes: Routes = [{ path: '', component: UserProfileComponent }];
 
 @NgModule({
   declarations: [UserProfileComponent, PasswordFormComponent, RemoveFormComponent],
@@ -24,5 +22,4 @@ export const routes: Routes = [
     ReactiveFormsModule
   ]
 })
-export class UserProfileModule {
-}
+export class UserProfileModule {}

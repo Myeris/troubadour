@@ -13,58 +13,54 @@
         style="background: #333"
         [style.boxShadow]="!activeFilter"
         [style.opacity]="!activeFilter ? 1 : 0.5"
-        (click)="filter(null)">
+        (click)="filter(null)"
+      >
         all
       </div>
 
       <div
-        *ngFor="let type of (types$ | async)"
+        *ngFor="let type of types$ | async"
         class="type"
         [style.background]="type.color"
         [style.boxShadow]="activeFilter === type"
         [style.opacity]="activeFilter === type ? 1 : 0.5"
-        (click)="filter(type)">
+        (click)="filter(type)"
+      >
         {{ type.name }}
       </div>
     </div>
 
     <div
-      *ngIf="filteredTabs$ | async | orderTabs:(types$ | async) as tabs; else loading;"
-      class="exercises__list">
-
-      <div
-        *ngIf="!tabs.length"
-        class="message">
+      *ngIf="filteredTabs$ | async | orderTabs: (types$ | async) as tabs; else loading"
+      class="exercises__list"
+    >
+      <div *ngIf="!tabs.length" class="message">
         <mat-icon>inbox</mat-icon>
         No exercises found.
       </div>
 
-      <div class="count">
-        {{ (tabs | search: 'name' : searchText).length }} exercises found
-      </div>
+      <div class="count">{{ (tabs | search: 'name':searchText).length }} exercises found</div>
 
-      <div
-        *ngIf="tabs.length"
-        class="search">
+      <div *ngIf="tabs.length" class="search">
         <label>
-          <input
-            [(ngModel)]="searchText"
-            type="text"
-            placeholder="Searching for...">
+          <input [(ngModel)]="searchText" type="text" placeholder="Searching for..." />
         </label>
-        <a
-          (click)="searchText = null"
-          *ngIf="searchText">
+        <a (click)="searchText = null" *ngIf="searchText">
           <mat-icon>close</mat-icon>
         </a>
       </div>
 
       <div class="library-list">
         <app-library-list
-          *ngFor="let tab of tabs | search: 'name' : searchText | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.current }"
+          *ngFor="
+            let tab of tabs
+              | search: 'name':searchText
+              | paginate: { itemsPerPage: pagination.itemsPerPage, currentPage: pagination.current }
+          "
           [tab]="tab"
           [sessions]="sessions$ | async"
-          [types]="types$ | async">
+          [types]="types$ | async"
+        >
         </app-library-list>
       </div>
 

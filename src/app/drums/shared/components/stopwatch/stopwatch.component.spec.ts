@@ -13,10 +13,7 @@ describe('StopwatchComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        StopwatchComponent,
-        TimerPipe
-      ]
+      declarations: [StopwatchComponent, TimerPipe]
     });
 
     fixture = bed.createComponent(StopwatchComponent);

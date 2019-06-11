@@ -18,10 +18,14 @@ describe('ResetPasswordComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ResetPasswordComponent],
-      imports: [BrowserAnimationsModule, ReactiveFormsModule, RouterTestingModule, StoreModule.forRoot(appReducers)],
+      imports: [
+        BrowserAnimationsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        StoreModule.forRoot(appReducers)
+      ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

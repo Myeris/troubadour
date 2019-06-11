@@ -103,12 +103,12 @@
       padding: 0.8rem;
       border-bottom: 1px solid #d1deeb;
       cursor: pointer;
-      color: #F44336;
-      transition: all .2s ease-in-out;
+      color: #f44336;
+      transition: all 0.2s ease-in-out;
 
       &:hover {
-        transition: all .2s ease-in-out;
-        color: #B71C1C;
+        transition: all 0.2s ease-in-out;
+        color: #b71c1c;
       }
     }
   }
@@ -124,7 +124,7 @@
 
     .current {
       background: #333333;
-      color: #CCFF00;
+      color: #ccff00;
     }
   }
 }

@@ -71,7 +71,14 @@ const session: PracticeSession = {
   name: 'Session1',
   exercises: [
     { hand: 'R', bpm: 60, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 },
-    { hand: 'R', bpmScale: { start: 60, stop: 90, step: 5 }, duration: 60, tabRef: '1', tab: tabs[0], repeat: 1 }
+    {
+      hand: 'R',
+      bpmScale: { start: 60, stop: 90, step: 5 },
+      duration: 60,
+      tabRef: '1',
+      tab: tabs[0],
+      repeat: 1
+    }
   ],
   repeat: 1,
   created: new Date().valueOf(),
@@ -89,15 +96,12 @@ const exercises: Exercise[] = [
 ];
 
 class MockSessionService {
-  getSessionDuration() {
-  }
+  getSessionDuration() {}
 }
 
-class MockExercise {
-}
+class MockExercise {}
 
-class MockVexflow {
-}
+class MockVexflow {}
 
 describe('PracticeSessionFormComponent', () => {
   let component: PracticeSessionFormComponent;
@@ -107,19 +111,13 @@ describe('PracticeSessionFormComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        PracticeSessionFormComponent
-      ],
+      declarations: [PracticeSessionFormComponent],
       providers: [
         { provide: PracticeSessionsService, useClass: MockSessionService },
         { provide: ExerciseService, useClass: MockExercise },
         { provide: VexflowService, useClass: MockVexflow }
       ],
-      imports: [
-        ReactiveFormsModule,
-        SharedModule,
-        RouterTestingModule
-      ],
+      imports: [ReactiveFormsModule, SharedModule, RouterTestingModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -160,10 +158,10 @@ describe('PracticeSessionFormComponent', () => {
     });
 
     it('should return the exercises', () => {
-      component.form.setControl('exercises', new FormArray([
-        new FormControl({}),
-        new FormControl({})
-      ]));
+      component.form.setControl(
+        'exercises',
+        new FormArray([new FormControl({}), new FormControl({})])
+      );
       expect(component.formExercises.value.length).toBe(2);
     });
   });
@@ -356,8 +354,7 @@ describe('PracticeSessionFormComponent', () => {
     it('should throw an error', () => {
       component.form.get('name').setValue(null);
       component.form.get('name').markAsTouched();
-      expect(() => component.createSession())
-        .toThrow(new Error('Practice session form invalid'));
+      expect(() => component.createSession()).toThrow(new Error('Practice session form invalid'));
     });
 
     it('should emit an event to create a session', () => {
@@ -379,8 +376,7 @@ describe('PracticeSessionFormComponent', () => {
     it('should throw an error', () => {
       component.form.get('name').setValue(null);
       component.form.get('name').markAsTouched();
-      expect(() => component.updateSession())
-        .toThrow(new Error('Practice session form invalid'));
+      expect(() => component.updateSession()).toThrow(new Error('Practice session form invalid'));
     });
 
     it('should emit an event to update a session', () => {
@@ -402,8 +398,7 @@ describe('PracticeSessionFormComponent', () => {
     it('should throw an error', () => {
       component.form.get('name').setValue(null);
       component.form.get('name').markAsTouched();
-      expect(() => component.removeSession())
-        .toThrow(new Error('Practice session form invalid'));
+      expect(() => component.removeSession()).toThrow(new Error('Practice session form invalid'));
     });
 
     it('should emit an event to remove a session', () => {

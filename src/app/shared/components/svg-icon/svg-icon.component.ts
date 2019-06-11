@@ -8,14 +8,10 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['./svg-icon.component.scss']
 })
 export class SvgIconComponent implements OnInit {
-
   @Input() name: string;
   @Input() path: string;
 
-  constructor(
-    private matIconRegistry: MatIconRegistry,
-    private domSanitizer: DomSanitizer) {
-  }
+  constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {}
 
   ngOnInit() {
     this.matIconRegistry.addSvgIcon(

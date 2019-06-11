@@ -19,8 +19,7 @@ export class LibraryListComponent implements OnChanges {
   @Input() public sessions: PracticeSession[];
   @Input() public types: Tag[];
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.tab && this.types) {

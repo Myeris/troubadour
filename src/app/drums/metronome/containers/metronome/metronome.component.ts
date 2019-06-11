@@ -10,12 +10,17 @@ import { fadeAnimation } from '../../../../shared/animations/animations';
   animations: [fadeAnimation]
 })
 export class MetronomeComponent {
-
   constructor(private metronomeService: MetronomeService) {
     this.metronomeService.init();
   }
 
-  public onPlay(form: { bpm: number, beat: number, note: number, subdivision: number, accents: number[] }): void {
+  public onPlay(form: {
+    bpm: number;
+    beat: number;
+    note: number;
+    subdivision: number;
+    accents: number[];
+  }): void {
     this.metronomeService.playMetronome(form);
   }
 
@@ -23,5 +28,4 @@ export class MetronomeComponent {
     await this.metronomeService.stop();
     await this.metronomeService.init();
   }
-
 }

@@ -21,16 +21,13 @@ export class AppComponent extends LifecycleComponent implements OnInit {
   public canUseApp$: Observable<boolean>;
   private user: User;
 
-  constructor(private userService: UserService,
-              private store: Store<AppState>) {
+  constructor(private userService: UserService, private store: Store<AppState>) {
     super();
   }
 
   ngOnInit(): void {
-    this.user$ = this.store.select(getCurrentUser)
-      .pipe(takeUntil(this.componentDestroyed$));
-    this.canUseApp$ = this.store.select(canUseApp)
-      .pipe(takeUntil(this.componentDestroyed$));
+    this.user$ = this.store.select(getCurrentUser).pipe(takeUntil(this.componentDestroyed$));
+    this.canUseApp$ = this.store.select(canUseApp).pipe(takeUntil(this.componentDestroyed$));
 
     this.user = this.userService.persistedUser;
 

@@ -11,8 +11,7 @@ describe('AuthFooterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AuthFooterComponent],
       imports: [RouterTestingModule]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

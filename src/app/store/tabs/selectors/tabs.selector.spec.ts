@@ -3,12 +3,32 @@ import { TestBed } from '@angular/core/testing';
 // app
 import { appReducers, AppState } from '../../app.reducer';
 import { getError, getSelectedTab, getTabsBySelectedType, isLoading } from './tabs.selector';
-import { TabListLoad, TabListLoadFail, TabListLoadSuccess, TabSelect, TabSelectType } from '../actions/tabs.actions';
+import {
+  TabListLoad,
+  TabListLoadFail,
+  TabListLoadSuccess,
+  TabSelect,
+  TabSelectType
+} from '../actions/tabs.actions';
 import { Tab } from '../../../drums/shared/models/tab.model';
 
 const tabs: Tab[] = [
-  { name: 'Single roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'a' },
-  { name: 'Double roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'b' },
+  {
+    name: 'Single roll stroke',
+    type: 'rolls',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: 'a'
+  },
+  {
+    name: 'Double roll stroke',
+    type: 'rolls',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: 'b'
+  },
   { name: 'Flams', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [], $key: 'c' }
 ];
 
@@ -27,9 +47,7 @@ describe('TabsSelectors', () => {
     it('should return the isLoading prop from the state', () => {
       let result = false;
 
-      store
-        .select(isLoading)
-        .subscribe(value => result = value);
+      store.select(isLoading).subscribe(value => (result = value));
 
       expect(result).toBeFalsy();
 
@@ -52,9 +70,7 @@ describe('TabsSelectors', () => {
       const error = 'error';
       let result = null;
 
-      store
-        .select(getError)
-        .subscribe(value => result = value);
+      store.select(getError).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 
@@ -77,9 +93,7 @@ describe('TabsSelectors', () => {
       const id = 'a';
       let result = null;
 
-      store
-        .select(getSelectedTab)
-        .subscribe(value => result = value);
+      store.select(getSelectedTab).subscribe(value => (result = value));
 
       expect(result).toBeNull();
       store.dispatch(new TabListLoadSuccess({ tabList: tabs }));
@@ -94,9 +108,7 @@ describe('TabsSelectors', () => {
       const type = 'rolls';
       let result = null;
 
-      store
-        .select(getTabsBySelectedType)
-        .subscribe(value => result = value);
+      store.select(getTabsBySelectedType).subscribe(value => (result = value));
 
       expect(result).toBeNull();
       store.dispatch(new TabListLoadSuccess({ tabList: tabs }));

@@ -53,7 +53,7 @@ describe('HighscoresResource', () => {
       resource.getHighscoreList$('uid');
       expect(db.list).toHaveBeenCalledTimes(1);
 
-      resource.getHighscoreList$('uid').subscribe((x) => {
+      resource.getHighscoreList$('uid').subscribe(x => {
         expect(service.mapHighscoreListFromSnapshotAction).toHaveBeenCalledTimes(1);
       });
     });

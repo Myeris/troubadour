@@ -11,18 +11,23 @@
         {{ tab.drumkit ? 'Drumkit required' : 'No drumkit required' }}
       </div>
 
-      <div class="detail" title="To set a high score, hit Practice this exercise and choose the Road to failure option">
+      <div
+        class="detail"
+        title="To set a high score, hit Practice this exercise and choose the Road to failure option"
+      >
         <mat-icon>star</mat-icon>
-        {{ highscore ? highscore.highscore + 'bpm (' + (highscore.date | date: 'dd/MM/yyyy') + ')' : 'No high score yet' }}
+        {{
+          highscore
+            ? highscore.highscore + 'bpm (' + (highscore.date | date: 'dd/MM/yyyy') + ')'
+            : 'No high score yet'
+        }}
       </div>
     </div>
 
     <app-tab-display [exercise]="exercise"></app-tab-display>
 
     <div class="exercise-display__button">
-      <a
-        [class]="playing ? 'stop' : 'play'"
-        (click)="playing ? stop() : play()">
+      <a [class]="playing ? 'stop' : 'play'" (click)="playing ? stop() : play()">
         <mat-icon *ngIf="!playing">play_arrow</mat-icon>
         <mat-icon *ngIf="playing">stop</mat-icon>
         <span>{{ playing ? 'Stop' : 'Listen' }}</span>
@@ -30,7 +35,8 @@
 
       <a
         [class]="'practice' + (playing ? ' disabled' : '')"
-        (click)="playing ? '' : showPracticeForm = !showPracticeForm">
+        (click)="playing ? '' : (showPracticeForm = !showPracticeForm)"
+      >
         <app-svg-icon name="Drumsticks icon" path="assets/img/drums/drumsticks.svg"></app-svg-icon>
         <span>Practice this exercise</span>
       </a>
@@ -40,7 +46,8 @@
       class="form"
       *ngIf="showPracticeForm"
       (submitted)="onSubmit($event)"
-      (cancelled)="onCancel()">
+      (cancelled)="onCancel()"
+    >
     </app-exercise-practice-form>
 
     <app-to-failure-result
@@ -48,7 +55,8 @@
       *ngIf="showToFailureResult"
       [bpm]="lastBpm"
       (highscored)="saveHighscore($event)"
-      (cancelled)="onCancel()">
+      (cancelled)="onCancel()"
+    >
     </app-to-failure-result>
   </div>
 </div>

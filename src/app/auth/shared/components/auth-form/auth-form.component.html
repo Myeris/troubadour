@@ -1,14 +1,9 @@
 <div class="auth-form">
-  <form
-    (ngSubmit)="onSubmit()"
-    [formGroup]="form">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
     <ng-content select="h1"></ng-content>
 
     <label>
-      <input
-        formControlName="email"
-        placeholder="Email address"
-        type="email">
+      <input formControlName="email" placeholder="Email address" type="email" />
     </label>
 
     <label>
@@ -16,18 +11,15 @@
         autocomplete="false"
         formControlName="password"
         placeholder="Password"
-        type="password">
+        type="password"
+      />
     </label>
 
-    <div
-      *ngIf="emailFormatInvalid"
-      class="error">
+    <div *ngIf="emailFormatInvalid" class="error">
       Invalid email format
     </div>
 
-    <div
-      *ngIf="passwordInvalid"
-      class="error">
+    <div *ngIf="passwordInvalid" class="error">
       Invalid password
     </div>
 

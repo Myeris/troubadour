@@ -8,12 +8,10 @@ import { Breadcrumb } from '../../models/breadcrumb.model';
   styleUrls: ['breadcrumb.component.scss'],
   templateUrl: 'breadcrumb.component.html'
 })
-
 export class BreadcrumbComponent {
   @Input() public breadcrumb: Breadcrumb;
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   public navigate() {
     this.router.navigate([this.breadcrumb.route, this.breadcrumb.params]);

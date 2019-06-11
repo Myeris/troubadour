@@ -7,8 +7,7 @@ import UserCredential = firebase.auth.UserCredential;
 
 @Injectable()
 export class AuthResource {
-  constructor(private afAuth: AngularFireAuth) {
-  }
+  constructor(private afAuth: AngularFireAuth) {}
 
   public login(authRequest: AuthRequest): Promise<UserCredential> {
     return this.afAuth.auth.signInWithEmailAndPassword(authRequest.email, authRequest.password);

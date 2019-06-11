@@ -34,10 +34,7 @@ describe('AuthResource', () => {
 
   beforeEach(async(() => {
     const bed = TestBed.configureTestingModule({
-      providers: [
-        AuthResource,
-        { provide: AngularFireAuth, useFactory: () => new AfAuthMock() }
-      ]
+      providers: [AuthResource, { provide: AngularFireAuth, useFactory: () => new AfAuthMock() }]
     });
 
     resource = bed.get(AuthResource);
@@ -52,7 +49,7 @@ describe('AuthResource', () => {
     it('should return a UserCredentials object on success', async(() => {
       spyOn(afAuth.auth, 'signInWithEmailAndPassword').and.returnValue(Promise.resolve(userCreds));
 
-      resource.login(req).then((res) => expect(res).toEqual(userCreds));
+      resource.login(req).then(res => expect(res).toEqual(userCreds));
 
       expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
       expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
@@ -62,7 +59,7 @@ describe('AuthResource', () => {
       const error = 'this is an error';
       spyOn(afAuth.auth, 'signInWithEmailAndPassword').and.returnValue(Promise.reject(error));
 
-      resource.login(req).catch((res) => expect(res).toEqual(error));
+      resource.login(req).catch(res => expect(res).toEqual(error));
 
       expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledTimes(1);
       expect(afAuth.auth.signInWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
@@ -71,31 +68,43 @@ describe('AuthResource', () => {
 
   describe('register', () => {
     it('should return a UserCredentials object on success', async(() => {
-      spyOn(afAuth.auth, 'createUserWithEmailAndPassword').and.returnValue(Promise.resolve(userCreds));
+      spyOn(afAuth.auth, 'createUserWithEmailAndPassword').and.returnValue(
+        Promise.resolve(userCreds)
+      );
 
-      resource.register(req).then((res) => expect(res).toEqual(userCreds));
+      resource.register(req).then(res => expect(res).toEqual(userCreds));
 
       expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
-      expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
+      expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
+        req.email,
+        req.password
+      );
     }));
 
     it('should return a string on failure', async(() => {
       const error = 'this is an error';
       spyOn(afAuth.auth, 'createUserWithEmailAndPassword').and.returnValue(Promise.reject(error));
 
-      resource.register(req).catch((res) => expect(res).toEqual(error));
+      resource.register(req).catch(res => expect(res).toEqual(error));
 
       expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledTimes(1);
-      expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledWith(req.email, req.password);
+      expect(afAuth.auth.createUserWithEmailAndPassword).toHaveBeenCalledWith(
+        req.email,
+        req.password
+      );
     }));
   });
 
   describe('changePassword', () => {
     it('should resolve the Promise', async(() => {
       spyOn(afAuth.auth.currentUser, 'updatePassword').and.returnValue(Promise.resolve());
-      spyOn(resource, 'login').and.returnValue(afAuth.auth.currentUser.updatePassword(changePassword.new));
+      spyOn(resource, 'login').and.returnValue(
+        afAuth.auth.currentUser.updatePassword(changePassword.new)
+      );
 
-      resource.changePassword(userCreds.user.email, changePassword).then((res) => expect(res).toBeUndefined());
+      resource
+        .changePassword(userCreds.user.email, changePassword)
+        .then(res => expect(res).toBeUndefined());
 
       expect(resource.login).toHaveBeenCalledTimes(1);
       expect(resource.login).toHaveBeenCalledWith(req);
@@ -107,9 +116,13 @@ describe('AuthResource', () => {
     it('should reject the Promise', async(() => {
       const error = 'error';
       spyOn(afAuth.auth.currentUser, 'updatePassword').and.returnValue(Promise.resolve(error));
-      spyOn(resource, 'login').and.returnValue(Promise.resolve(afAuth.auth.currentUser.updatePassword(changePassword.new)));
+      spyOn(resource, 'login').and.returnValue(
+        Promise.resolve(afAuth.auth.currentUser.updatePassword(changePassword.new))
+      );
 
-      resource.changePassword(userCreds.user.email, changePassword).catch((res) => expect(res).toBeNull());
+      resource
+        .changePassword(userCreds.user.email, changePassword)
+        .catch(res => expect(res).toBeNull());
 
       expect(resource.login).toHaveBeenCalledTimes(1);
       expect(resource.login).toHaveBeenCalledWith(req);
@@ -121,8 +134,9 @@ describe('AuthResource', () => {
     it('should handle Promise reject', () => {
       spyOn(resource, 'login').and.returnValue(Promise.reject('error'));
 
-      resource.changePassword(userCreds.user.email, changePassword)
-        .catch((res) => expect(res).toBe('error'));
+      resource
+        .changePassword(userCreds.user.email, changePassword)
+        .catch(res => expect(res).toBe('error'));
     });
   });
 
@@ -145,7 +159,7 @@ describe('AuthResource', () => {
     it('should throw an error', () => {
       spyOn(afAuth.auth, 'sendPasswordResetEmail').and.returnValue(Promise.reject('error'));
 
-      resource.resetPassword('email').catch((err) => expect(err).toBe('error'));
+      resource.resetPassword('email').catch(err => expect(err).toBe('error'));
     });
   });
 
@@ -157,9 +171,11 @@ describe('AuthResource', () => {
     });
 
     it('should throw an error', () => {
-      spyOn(afAuth.auth.currentUser, 'sendEmailVerification').and.returnValue(Promise.reject('error'));
+      spyOn(afAuth.auth.currentUser, 'sendEmailVerification').and.returnValue(
+        Promise.reject('error')
+      );
 
-      resource.sendVerificationEmail().catch((err) => expect(err).toBe('error'));
+      resource.sendVerificationEmail().catch(err => expect(err).toBe('error'));
     });
   });
 });

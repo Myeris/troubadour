@@ -12,13 +12,11 @@
         [feedback]="feedback"
         [session]="session"
         [tabs]="tabs$ | async"
-        [types]="types$ | async">
+        [types]="types$ | async"
+      >
       </app-practice-session-form>
 
-      <app-practice-session-display
-        *ngIf="!showForm"
-        [session]="session"
-        [tabs]="tabs$ | async">
+      <app-practice-session-display *ngIf="!showForm" [session]="session" [tabs]="tabs$ | async">
       </app-practice-session-display>
     </div>
 
@@ -31,11 +29,15 @@
       [feedback]="feedback"
       [session]="null"
       [tabs]="tabs$ | async"
-      [types]="types$ | async">
+      [types]="types$ | async"
+    >
     </app-practice-session-form>
 
     <div *ngIf="isLoading$ | async" class="message">
-      <app-svg-icon name="Fetching practice session" path="assets/img/utils/loading.svg"></app-svg-icon>
+      <app-svg-icon
+        name="Fetching practice session"
+        path="assets/img/utils/loading.svg"
+      ></app-svg-icon>
       Fetching practice session...
     </div>
   </div>

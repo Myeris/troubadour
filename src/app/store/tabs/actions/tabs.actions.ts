@@ -18,29 +18,25 @@ export class TabListLoad implements Action {
 export class TabListLoadSuccess implements Action {
   public readonly type = TabsActionsTypes.LoadListSuccess;
 
-  constructor(public payload: { tabList: Tab[] }) {
-  }
+  constructor(public payload: { tabList: Tab[] }) {}
 }
 
 export class TabListLoadFail implements Action {
   public readonly type = TabsActionsTypes.LoadListFail;
 
-  constructor(public payload: { error: string }) {
-  }
+  constructor(public payload: { error: string }) {}
 }
 
 export class TabSelect implements Action {
   public readonly type = TabsActionsTypes.Select;
 
-  constructor(public payload: { id: string }) {
-  }
+  constructor(public payload: { id: string }) {}
 }
 
 export class TabSelectType implements Action {
   public readonly type = TabsActionsTypes.SelectType;
 
-  constructor(public payload: { type: string }) {
-  }
+  constructor(public payload: { type: string }) {}
 }
 
 export type TabsActions =

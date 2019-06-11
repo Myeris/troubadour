@@ -7,12 +7,6 @@ import { SharedModule } from '../auth/shared/shared.module';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    BrowserAnimationsModule,
-    UserRoutingModule,
-    SharedModule.forRoot()
-
-  ]
+  imports: [CommonModule, BrowserAnimationsModule, UserRoutingModule, SharedModule.forRoot()]
 })
-export class UserModule { }
+export class UserModule {}

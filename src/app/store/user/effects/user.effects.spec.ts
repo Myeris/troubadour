@@ -21,7 +21,8 @@ import {
   ResetPassword,
   ResetPasswordFail,
   ResetPasswordSuccess,
-  SendVerificationEmail, SendVerificationEmailFail,
+  SendVerificationEmail,
+  SendVerificationEmailFail,
   SendVerificationEmailSuccess
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
@@ -144,7 +145,9 @@ describe('UserEffects', () => {
       const error = 'this is an error';
       const completion = new LogInFail({ error });
 
-      spyOn(authResource, 'login').and.callFake(() => throwError({ message: error } as FirestoreError));
+      spyOn(authResource, 'login').and.callFake(() =>
+        throwError({ message: error } as FirestoreError)
+      );
 
       actions$.stream = hot('-a', { a: action });
       const expected = cold('-(c|)', { c: completion });
@@ -184,7 +187,9 @@ describe('UserEffects', () => {
       const error = 'this is an error';
       const completion = new RegisterFail({ error });
 
-      spyOn(authResource, 'register').and.callFake(() => throwError({ message: error } as FirestoreError));
+      spyOn(authResource, 'register').and.callFake(() =>
+        throwError({ message: error } as FirestoreError)
+      );
 
       actions$.stream = hot('-a', { a: action });
       const expected = cold('-(c|)', { c: completion });
@@ -202,7 +207,7 @@ describe('UserEffects', () => {
 
       const effects: UserEffects = TestBed.get(UserEffects);
 
-      effects.redirectConnectedUserAfterLogin$.subscribe((x) => {
+      effects.redirectConnectedUserAfterLogin$.subscribe(x => {
         expect(userService.persistUser).toHaveBeenCalledTimes(1);
       });
     });
@@ -217,7 +222,7 @@ describe('UserEffects', () => {
 
       const effects: UserEffects = TestBed.get(UserEffects);
 
-      effects.redirectConnectedUserAfterRegister$.subscribe((x) => {
+      effects.redirectConnectedUserAfterRegister$.subscribe(x => {
         expect(userService.persistUser).toHaveBeenCalledTimes(1);
       });
     });

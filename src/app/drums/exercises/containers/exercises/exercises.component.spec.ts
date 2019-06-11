@@ -20,9 +20,33 @@ const types: Tag[] = [
   { name: 'flams', color: 'green', weight: 3, $key: '3', $exist: () => true }
 ];
 const tabs: Tab[] = [
-  { name: 'Tab1', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '1', $exist: () => true },
-  { name: 'Tab2', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: '2', $exist: () => true },
-  { name: 'Tab3', type: 'drags', drumkit: false, timeSignature: '4/4', notes: [], $key: '3', $exist: () => true }
+  {
+    name: 'Tab1',
+    type: 'rolls',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: '1',
+    $exist: () => true
+  },
+  {
+    name: 'Tab2',
+    type: 'rolls',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: '2',
+    $exist: () => true
+  },
+  {
+    name: 'Tab3',
+    type: 'drags',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: '3',
+    $exist: () => true
+  }
 ];
 const sessions: PracticeSession[] = [
   {
@@ -67,9 +91,7 @@ describe('ExercisesComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        ExercisesComponent
-      ],
+      declarations: [ExercisesComponent],
       providers: [],
       imports: [
         BrowserAnimationsModule,
@@ -119,4 +141,3 @@ describe('ExercisesComponent', () => {
     expect(component.activeFilter).toEqual(types[2]);
   });
 });
-

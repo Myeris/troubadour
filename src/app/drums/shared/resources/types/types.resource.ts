@@ -10,13 +10,16 @@ import { TypesService } from '../../services/types/types.service';
 export class TypesResource {
   private colName = 'types';
 
-  constructor(private db: AngularFireDatabase,
-              private typesService: TypesService) {
-  }
+  constructor(private db: AngularFireDatabase, private typesService: TypesService) {}
 
   public getTypeList$(): Observable<Tag[]> {
-    return this.db.list<Tag>(this.colName)
+    return this.db
+      .list<Tag>(this.colName)
       .snapshotChanges()
-      .pipe(map((actions: SnapshotAction<Tag>[]) => this.typesService.mapTypeListFromSnapshotActions(actions)));
+      .pipe(
+        map((actions: SnapshotAction<Tag>[]) =>
+          this.typesService.mapTypeListFromSnapshotActions(actions)
+        )
+      );
   }
 }

@@ -13,16 +13,17 @@ export class PasswordFormComponent {
     confirmed: ['', Validators.required]
   });
 
-  @Input() public feedback: { success: boolean, message: string };
+  @Input() public feedback: { success: boolean; message: string };
 
   @Output() public changePassword: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   public displayPasswordError(formControlName: string): boolean {
-    return this.password.get(formControlName).touched &&
-      this.password.get(formControlName).hasError('required');
+    return (
+      this.password.get(formControlName).touched &&
+      this.password.get(formControlName).hasError('required')
+    );
   }
 
   public updatePassword(): void {

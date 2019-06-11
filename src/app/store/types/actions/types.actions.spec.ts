@@ -1,4 +1,9 @@
-import { TypesActionsTypes, TypesListLoad, TypesListLoadFail, TypesListLoadSuccess } from './types.actions';
+import {
+  TypesActionsTypes,
+  TypesListLoad,
+  TypesListLoadFail,
+  TypesListLoadSuccess
+} from './types.actions';
 
 describe('TypesAction', () => {
   describe('TypesListLoad', () => {

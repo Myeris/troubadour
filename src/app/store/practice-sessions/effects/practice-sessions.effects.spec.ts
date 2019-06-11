@@ -71,14 +71,11 @@ const user: User = {
 };
 
 class PracticeSessionsResourceMock {
-  getSessionList$() {
-  }
+  getSessionList$() {}
 
-  removeSession() {
-  }
+  removeSession() {}
 
-  createSession() {
-  }
+  createSession() {}
 }
 
 describe('PracticeSessionsEffects', () => {
@@ -167,7 +164,9 @@ describe('PracticeSessionsEffects', () => {
       const id = 'id';
       const error = 'this is an error';
 
-      spyOn(practiceSessionsResource, 'removeSession').and.callFake(() => throwError({ message: error } as FirestoreError));
+      spyOn(practiceSessionsResource, 'removeSession').and.callFake(() =>
+        throwError({ message: error } as FirestoreError)
+      );
 
       const action = new PracticeSessionDelete({ id });
 
@@ -204,7 +203,9 @@ describe('PracticeSessionsEffects', () => {
 
     it('should return an error message on failure', async(() => {
       const error = 'this is an error';
-      spyOn(practiceSessionsResource, 'createSession').and.callFake(() => throwError({ message: error } as FirestoreError));
+      spyOn(practiceSessionsResource, 'createSession').and.callFake(() =>
+        throwError({ message: error } as FirestoreError)
+      );
 
       const action = new PracticeSessionCreate({ practiceSession: {} as PracticeSession });
       const completion = new PracticeSessionCreateFail({ error });

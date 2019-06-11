@@ -13,14 +13,27 @@ import { TabListLoad, TabListLoadFail, TabListLoadSuccess } from '../actions/tab
 import SpyObj = jasmine.SpyObj;
 
 const tabs: Tab[] = [
-  { name: 'Single roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'a' },
-  { name: 'Double roll stroke', type: 'rolls', drumkit: false, timeSignature: '4/4', notes: [], $key: 'b' },
+  {
+    name: 'Single roll stroke',
+    type: 'rolls',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: 'a'
+  },
+  {
+    name: 'Double roll stroke',
+    type: 'rolls',
+    drumkit: false,
+    timeSignature: '4/4',
+    notes: [],
+    $key: 'b'
+  },
   { name: 'Flams', type: 'flams', drumkit: false, timeSignature: '4/4', notes: [], $key: 'c' }
 ];
 
 class TabsResourceMock {
-  getTabList$() {
-  }
+  getTabList$() {}
 }
 
 describe('TabsEffects', () => {

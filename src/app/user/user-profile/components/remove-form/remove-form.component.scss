@@ -28,11 +28,11 @@
   color: #fff;
   background: #d73a49;
   border-radius: 3px;
-  transition: all .2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 
   &:hover {
     background: darken(#d73a49, 10%);
-    transition: all .2s ease-in-out;
+    transition: all 0.2s ease-in-out;
   }
 }
 
@@ -58,7 +58,6 @@
     }
   }
 
-
   h2 {
     margin-top: 0;
     font-size: 1rem;
@@ -80,11 +79,11 @@
 
     &:hover {
       background: darken(#39a1e7, 10%);
-      transition: all .2s ease-in-out;
+      transition: all 0.2s ease-in-out;
     }
 
     &:disabled {
-      opacity: .4;
+      opacity: 0.4;
       cursor: not-allowed;
     }
 
@@ -95,7 +94,7 @@
 
       &:hover {
         background: #fff;
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
       }
     }
 
@@ -105,7 +104,7 @@
 
       &:hover {
         background: darken(#d73a49, 10%);
-        transition: all .2s ease-in-out;
+        transition: all 0.2s ease-in-out;
       }
     }
   }

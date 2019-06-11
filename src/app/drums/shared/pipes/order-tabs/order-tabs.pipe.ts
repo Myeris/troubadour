@@ -9,7 +9,6 @@ import { Tag } from '../../models/tag.model';
 export class OrderTabsPipe implements PipeTransform {
   public transform(value: Tab[], args: Tag[]): Tab[] {
     if (value && args) {
-
       // assign a type object to every tab (useful for sorting)
       value.forEach(v => {
         const typeObject = args.filter(t => t.name === v.type);

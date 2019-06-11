@@ -34,8 +34,7 @@ describe('VexflowService', () => {
 
   describe('initVexflow', () => {
     it('should return an error', () => {
-      service.initVexflow('foo')
-        .catch((err) => expect(err).toBe('Cannot find div with ID foo'));
+      service.initVexflow('foo').catch(err => expect(err).toBe('Cannot find div with ID foo'));
     });
 
     it('should resolve the Promise', () => {
@@ -43,15 +42,15 @@ describe('VexflowService', () => {
       div.id = 'id';
       document.body.appendChild(div);
 
-      service.initVexflow(div.id)
-        .then(() => expect(true).toBeTruthy()); // just checking response goes through the right resolution
+      service.initVexflow(div.id).then(() => expect(true).toBeTruthy()); // just checking response goes through the right resolution
     });
   });
 
   describe('createNote', () => {
     it('should throw an error', () => {
-      expect(() => service.createNote({} as Note, 'R'))
-        .toThrow(new Error('VEXFLOW: Renderer is not init'));
+      expect(() => service.createNote({} as Note, 'R')).toThrow(
+        new Error('VEXFLOW: Renderer is not init')
+      );
     });
 
     it('should create a basic note', () => {
@@ -77,8 +76,9 @@ describe('VexflowService', () => {
 
   describe('createTriplets', () => {
     it('should throw an error', () => {
-      expect(() => service.createTriplets([]))
-        .toThrow(new Error(((service as any).INIT_ERROR_MESSAGE)));
+      expect(() => service.createTriplets([])).toThrow(
+        new Error((service as any).INIT_ERROR_MESSAGE)
+      );
     });
 
     it('should return a Tuplet', () => {
@@ -97,8 +97,9 @@ describe('VexflowService', () => {
 
   describe('generateBeams', () => {
     it('should throw an error', () => {
-      expect(() => service.generateBeams([]))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.generateBeams([])).toThrow(
+        new Error((service as any).INIT_ERROR_MESSAGE)
+      );
     });
 
     it('should generate beams', () => {
@@ -117,8 +118,7 @@ describe('VexflowService', () => {
 
   describe('createBeam', () => {
     it('should throw an error', () => {
-      expect(() => service.createBeam([]))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.createBeam([])).toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
     });
 
     it('should return a Beam', () => {
@@ -137,8 +137,9 @@ describe('VexflowService', () => {
 
   describe('createBeams', () => {
     it('should throw an error', () => {
-      expect(() => service.createBeams([], []))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.createBeams([], [])).toThrow(
+        new Error((service as any).INIT_ERROR_MESSAGE)
+      );
     });
 
     it('should return an empty list', () => {
@@ -168,8 +169,9 @@ describe('VexflowService', () => {
 
   describe('createStave', () => {
     it('should throw an error', () => {
-      expect(() => service.createStave('4/4'))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.createStave('4/4')).toThrow(
+        new Error((service as any).INIT_ERROR_MESSAGE)
+      );
     });
 
     it('should return a Stave', () => {
@@ -179,8 +181,9 @@ describe('VexflowService', () => {
 
   describe('createTies', () => {
     it('should throw an error', () => {
-      expect(() => service.createTies([], []))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.createTies([], [])).toThrow(
+        new Error((service as any).INIT_ERROR_MESSAGE)
+      );
     });
 
     it('should return a list StaveTie', () => {
@@ -204,29 +207,27 @@ describe('VexflowService', () => {
 
   describe('formatAndDraw', () => {
     it('should throw an error', () => {
-      expect(() => service.formatAndDraw({}, []))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.formatAndDraw({}, [])).toThrow(
+        new Error((service as any).INIT_ERROR_MESSAGE)
+      );
     });
   });
 
   describe('drawBeams', () => {
     it('should throw an error', () => {
-      expect(() => service.drawBeams([]))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.drawBeams([])).toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
     });
   });
 
   describe('drawTuplets', () => {
     it('should throw an error', () => {
-      expect(() => service.drawTuplets([]))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.drawTuplets([])).toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
     });
   });
 
   describe('drawTies', () => {
     it('should throw an error', () => {
-      expect(() => service.drawTies([]))
-        .toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
+      expect(() => service.drawTies([])).toThrow(new Error((service as any).INIT_ERROR_MESSAGE));
     });
   });
 });

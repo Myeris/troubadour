@@ -40,5 +40,4 @@ import { ExercisePracticeFormComponent } from './components/exercise-practice-fo
     AppSharedModule
   ]
 })
-export class ExercisesModule {
-}
+export class ExercisesModule {}

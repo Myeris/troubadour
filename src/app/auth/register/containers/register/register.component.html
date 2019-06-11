@@ -1,8 +1,7 @@
 <div id="register" [@fade]>
   <app-auth-header></app-auth-header>
 
-  <app-auth-form
-    (submitted)="registerUser($event)">
+  <app-auth-form (submitted)="registerUser($event)">
     <h1>
       Register
     </h1>
@@ -14,11 +13,10 @@
     <button type="submit">
       Create account
     </button>
-    <div *ngIf="(error$ | async)" class="error">
+    <div *ngIf="error$ | async" class="error">
       {{ error$ | async }}
     </div>
   </app-auth-form>
 
   <app-auth-footer></app-auth-footer>
-
 </div>

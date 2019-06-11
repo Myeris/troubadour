@@ -67,7 +67,7 @@ describe('PracticeSessionsResource', () => {
   describe('createSession', () => {
     it('should call list and create', () => {
       spyOn(db, 'list').and.callThrough();
-      spyOn((resource as any), 'removeExercise').and.returnValue({});
+      spyOn(resource as any, 'removeExercise').and.returnValue({});
 
       resource.createSession('uid', {} as PracticeSession);
 
@@ -79,8 +79,18 @@ describe('PracticeSessionsResource', () => {
     it('should remove', () => {
       const session = {
         exercises: [
-          { hand: 'R', tabRef: 'qwe', repeat: 1, tab: { name: 'name', type: 'type', drumkit: true, timeSignature: '4/4', notes: [] } },
-          { hand: 'R', tabRef: 'qwe', repeat: 1, tab: { name: 'name', type: 'type', drumkit: true, timeSignature: '4/4', notes: [] } }
+          {
+            hand: 'R',
+            tabRef: 'qwe',
+            repeat: 1,
+            tab: { name: 'name', type: 'type', drumkit: true, timeSignature: '4/4', notes: [] }
+          },
+          {
+            hand: 'R',
+            tabRef: 'qwe',
+            repeat: 1,
+            tab: { name: 'name', type: 'type', drumkit: true, timeSignature: '4/4', notes: [] }
+          }
         ]
       };
 
@@ -97,8 +107,9 @@ describe('PracticeSessionsResource', () => {
     });
 
     it('should throw an error', () => {
-      expect(() => (resource as any).removeExercise({ exercises: [{}] }))
-        .toThrow(new Error('Missing tab ref'));
+      expect(() => (resource as any).removeExercise({ exercises: [{}] })).toThrow(
+        new Error('Missing tab ref')
+      );
     });
   });
 });

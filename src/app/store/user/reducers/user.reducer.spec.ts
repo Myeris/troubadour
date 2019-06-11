@@ -15,7 +15,9 @@ import {
   ResetPassword,
   ResetPasswordFail,
   ResetPasswordSuccess,
-  SendVerificationEmail, SendVerificationEmailFail, SendVerificationEmailSuccess,
+  SendVerificationEmail,
+  SendVerificationEmailFail,
+  SendVerificationEmailSuccess,
   SetPersistedUser
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';

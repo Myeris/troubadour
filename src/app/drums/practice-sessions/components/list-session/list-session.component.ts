@@ -19,5 +19,4 @@ export class ListSessionComponent {
   public toggle(): void {
     this.toggled = !this.toggled;
   }
-
 }

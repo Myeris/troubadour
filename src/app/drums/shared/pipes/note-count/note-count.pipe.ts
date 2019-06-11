@@ -4,7 +4,6 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'noteCount'
 })
 export class NoteCountPipe implements PipeTransform {
-
   public transform(value: number, subdivision: number): string {
     if (subdivision === 4) {
       return (value + 1).toString();
@@ -50,5 +49,4 @@ export class NoteCountPipe implements PipeTransform {
       }
     }
   }
-
 }

@@ -12,13 +12,9 @@ describe('ToFailureResultComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        ToFailureResultComponent
-      ],
+      declarations: [ToFailureResultComponent],
       providers: [],
-      imports: [
-        FormsModule
-      ],
+      imports: [FormsModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -36,10 +32,18 @@ describe('ToFailureResultComponent', () => {
     component.newBpm = 150;
     fixture.detectChanges();
 
-    expect(el.query(By.css('.to-failure-result__title')).nativeElement.textContent).toContain('Road to failure');
-    expect(el.query(By.css('.to-failure-result__content > p')).nativeElement.textContent).toContain('You failed at 150bpm!');
-    expect(el.query(By.css('.to-failure-result__content > label')).nativeElement.textContent).toContain('Adjust your score');
-    expect(el.queryAll(By.css('button'))[0].nativeElement.textContent).toContain('Save your high score');
+    expect(el.query(By.css('.to-failure-result__title')).nativeElement.textContent).toContain(
+      'Road to failure'
+    );
+    expect(el.query(By.css('.to-failure-result__content > p')).nativeElement.textContent).toContain(
+      'You failed at 150bpm!'
+    );
+    expect(
+      el.query(By.css('.to-failure-result__content > label')).nativeElement.textContent
+    ).toContain('Adjust your score');
+    expect(el.queryAll(By.css('button'))[0].nativeElement.textContent).toContain(
+      'Save your high score'
+    );
     expect(el.queryAll(By.css('button'))[1].nativeElement.textContent).toContain('Cancel');
   });
 

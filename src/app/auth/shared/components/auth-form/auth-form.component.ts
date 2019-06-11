@@ -24,8 +24,7 @@ export class AuthFormComponent {
     return control.hasError('email') && control.touched;
   }
 
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private fb: FormBuilder) {}
 
   public onSubmit(): Error | void {
     if (this.form.invalid) {

@@ -35,11 +35,9 @@ const user: User = {
 };
 
 class HighscoresResourceMock {
-  getHighscoreList$() {
-  }
+  getHighscoreList$() {}
 
-  saveHighscore() {
-  }
+  saveHighscore() {}
 }
 
 describe('HighscoresEffects', () => {

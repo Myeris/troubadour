@@ -20,9 +20,7 @@ describe('TypesSelector', () => {
     it('should return the isLoading prop from the state', () => {
       let result = false;
 
-      store
-        .select(isLoading)
-        .subscribe(value => result = value);
+      store.select(isLoading).subscribe(value => (result = value));
 
       expect(result).toBeFalsy();
 
@@ -45,9 +43,7 @@ describe('TypesSelector', () => {
       const error = 'error';
       let result = null;
 
-      store
-        .select(getError)
-        .subscribe(value => result = value);
+      store.select(getError).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 

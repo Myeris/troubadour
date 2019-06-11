@@ -14,7 +14,10 @@ import { getSelectedTab } from '../../../../store/tabs/selectors/tabs.selector';
 import { TabSelect } from '../../../../store/tabs/actions/tabs.actions';
 import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
-import { HighscoreSave, HighscoreSelect } from '../../../../store/highscores/actions/highscores.actions';
+import {
+  HighscoreSave,
+  HighscoreSelect
+} from '../../../../store/highscores/actions/highscores.actions';
 import { fadeAnimation } from '../../../../shared/animations/animations';
 
 @Component({
@@ -24,7 +27,6 @@ import { fadeAnimation } from '../../../../shared/animations/animations';
   animations: [fadeAnimation]
 })
 export class ExerciseComponent extends LifecycleComponent implements OnInit {
-
   public tab$: Observable<Tab>;
   public highscore$: Observable<Highscore>;
   public sessions$: Observable<PracticeSession[]>;
@@ -36,18 +38,19 @@ export class ExerciseComponent extends LifecycleComponent implements OnInit {
   };
   private exerciseId: string;
 
-  constructor(private route: ActivatedRoute,
-              private router: Router,
-              private store: Store<AppState>) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<AppState>
+  ) {
     super();
   }
 
   ngOnInit(): void {
-    this.tab$ = this.store.select(getSelectedTab)
-      .pipe(takeUntil(this.componentDestroyed$));
-    this.sessions$ = this.store.select(selectAll)
-      .pipe(takeUntil(this.componentDestroyed$));
-    this.highscore$ = this.store.select(getSelectedHighscore)
+    this.tab$ = this.store.select(getSelectedTab).pipe(takeUntil(this.componentDestroyed$));
+    this.sessions$ = this.store.select(selectAll).pipe(takeUntil(this.componentDestroyed$));
+    this.highscore$ = this.store
+      .select(getSelectedHighscore)
       .pipe(takeUntil(this.componentDestroyed$));
 
     this.route.params
@@ -57,12 +60,13 @@ export class ExerciseComponent extends LifecycleComponent implements OnInit {
           this.exerciseId = params.id;
           this.store.dispatch(new TabSelect({ id: this.exerciseId }));
           this.store.dispatch(new HighscoreSelect({ id: this.exerciseId }));
-        }))
+        })
+      )
       .subscribe();
   }
 
   public saveHighscore(highscore: Highscore): void {
-    this.store.dispatch(new HighscoreSave({highscore}));
+    this.store.dispatch(new HighscoreSave({ highscore }));
   }
 
   public assignExercise(): void {

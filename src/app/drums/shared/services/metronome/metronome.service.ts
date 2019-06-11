@@ -21,37 +21,35 @@ const urlList: string[] = [
 
 @Injectable()
 export class MetronomeService {
-  private context: (AudioContext | any);
+  private context: AudioContext | any;
   private bufferLoader: BufferLoader;
   private gainNode: GainNode;
   private timeouts: Timer[] = [];
   private currentBpm: number;
 
-  constructor(private router: Router,
-              private exerciseService: ExerciseService) {
+  constructor(private router: Router, private exerciseService: ExerciseService) {
     // on navigation start, close context to prevent music from playing
     this.router.events
       .pipe(
-        filter((event) => event instanceof NavigationStart),
+        filter(event => event instanceof NavigationStart),
         tap(() => this.stop())
-      ).subscribe();
+      )
+      .subscribe();
   }
 
   public init(): Promise<void> {
-    const audioContext = ((window as any).AudioContext || (window as any).webkitAudioContext);
+    const audioContext = (window as any).AudioContext || (window as any).webkitAudioContext;
 
     return new Promise((resolve, reject) => {
       try {
         this.context = new audioContext();
       } catch (e) {
-        return reject('WebAudio API is not supported on your browser. Please use Google Chrome or update your browser.');
+        return reject(
+          'WebAudio API is not supported on your browser. Please use Google Chrome or update your browser.'
+        );
       }
 
-      this.bufferLoader = new BufferLoader(
-        this.context,
-        urlList,
-        this.finishedLoading
-      );
+      this.bufferLoader = new BufferLoader(this.context, urlList, this.finishedLoading);
 
       try {
         this.bufferLoader.load();
@@ -63,7 +61,11 @@ export class MetronomeService {
     });
   }
 
-  public playExercise(exercise: Exercise, addClickCounter: boolean = true, isScaleExercise: boolean = false): Promise<void> {
+  public playExercise(
+    exercise: Exercise,
+    addClickCounter: boolean = true,
+    isScaleExercise: boolean = false
+  ): Promise<void> {
     return new Promise((resolve, reject) => {
       // if context is suspended, resume. Else create the exercise
       if (this.context.state === 'suspended' && this.context.currentTime > 0) {
@@ -71,41 +73,70 @@ export class MetronomeService {
         return resolve();
       }
 
-      const startTime = this.context.currentTime + 0.100;
+      const startTime = this.context.currentTime + 0.1;
 
       // handle bpm
       if (exercise.bpm) {
-        const clickCountDuration = this.exerciseService.getExerciseDuration(exercise.tab.timeSignature, 1, exercise.bpm);
+        const clickCountDuration = this.exerciseService.getExerciseDuration(
+          exercise.tab.timeSignature,
+          1,
+          exercise.bpm
+        );
 
-        this.playBeat(exercise, startTime, exercise.bpm, addClickCounter, clickCountDuration, isScaleExercise)
-          .then(() => resolve());
+        this.playBeat(
+          exercise,
+          startTime,
+          exercise.bpm,
+          addClickCounter,
+          clickCountDuration,
+          isScaleExercise
+        ).then(() => resolve());
       }
 
       // handle bpm scale
-      if (exercise.hasOwnProperty('bpmScale')
-        && exercise.bpmScale.hasOwnProperty('start')
-        && exercise.bpmScale.hasOwnProperty('stop')
-        && exercise.bpmScale.hasOwnProperty('step')) {
-        this.handleBpmScaleExercise(exercise)
-          .then(() => {
-            this.timeouts.push(setTimeout(() => {
+      if (
+        exercise.hasOwnProperty('bpmScale') &&
+        exercise.bpmScale.hasOwnProperty('start') &&
+        exercise.bpmScale.hasOwnProperty('stop') &&
+        exercise.bpmScale.hasOwnProperty('step')
+      ) {
+        this.handleBpmScaleExercise(exercise).then(() => {
+          this.timeouts.push(
+            setTimeout(() => {
               return resolve();
-            }, 5000)); // resolve promise when exercise has ended and add a bit of delay
-          });
+            }, 5000)
+          ); // resolve promise when exercise has ended and add a bit of delay
+        });
       }
     });
   }
 
-  public playMetronome(form: { bpm: number, beat: number, note: number, subdivision: number, accents: number[] }): void {
+  public playMetronome(form: {
+    bpm: number;
+    beat: number;
+    note: number;
+    subdivision: number;
+    accents: number[];
+  }): void {
     const click = this.bufferLoader.bufferList[0];
     const accent = this.bufferLoader.bufferList[1];
-    const startTime = this.context.currentTime + 0.100;
-    const noteTime = this.getNoteTime(form.bpm, { keys: ['c/5'], duration: form.subdivision.toString() });
-    const beatNoteTime = this.getNoteTime(form.bpm, { keys: ['c/5'], duration: form.beat.toString() });
+    const startTime = this.context.currentTime + 0.1;
+    const noteTime = this.getNoteTime(form.bpm, {
+      keys: ['c/5'],
+      duration: form.subdivision.toString()
+    });
+    const beatNoteTime = this.getNoteTime(form.bpm, {
+      keys: ['c/5'],
+      duration: form.beat.toString()
+    });
     const denominator: number = form.subdivision / form.beat;
     const accents: number[] = [];
     const repeat = 10;
-    const totalDuration = this.exerciseService.getExerciseDuration(`${form.beat}/${form.note}`, repeat, form.bpm);
+    const totalDuration = this.exerciseService.getExerciseDuration(
+      `${form.beat}/${form.note}`,
+      repeat,
+      form.bpm
+    );
     let barIte = 0;
 
     form.accents.forEach(a => accents.push(a * denominator));
@@ -114,27 +145,36 @@ export class MetronomeService {
       const time = startTime + barIte * form.subdivision * noteTime;
 
       for (let i = 0; i < form.subdivision; i++) {
-        this.playSound(accents.indexOf(i % form.subdivision) > -1 ? accent : click, time + i * noteTime);
+        this.playSound(
+          accents.indexOf(i % form.subdivision) > -1 ? accent : click,
+          time + i * noteTime
+        );
 
-        this.timeouts.push(setTimeout(() => {
-          if ((i / form.subdivision * form.note) % 1 === 0) {
-            const el = document.getElementById(`metronome-${(i / form.subdivision * form.note)}`);
+        this.timeouts.push(
+          setTimeout(() => {
+            if (((i / form.subdivision) * form.note) % 1 === 0) {
+              const el = document.getElementById(`metronome-${(i / form.subdivision) * form.note}`);
 
-            el.style.animationDuration = beatNoteTime + 'ms';
-            el.classList.add('active');
+              el.style.animationDuration = beatNoteTime + 'ms';
+              el.classList.add('active');
 
-            this.timeouts.push(setTimeout(() => el.classList.remove('active'), beatNoteTime * 1000));
-          }
-        }, ((time + i * noteTime) - startTime) * 1000));
+              this.timeouts.push(
+                setTimeout(() => el.classList.remove('active'), beatNoteTime * 1000)
+              );
+            }
+          }, (time + i * noteTime - startTime) * 1000)
+        );
       }
 
       barIte++;
     }
 
     // create an infinite loop that can only be stopped by the user
-    this.timeouts.push(setTimeout(() => {
-      this.playMetronome(form);
-    }, totalDuration * 1000));
+    this.timeouts.push(
+      setTimeout(() => {
+        this.playMetronome(form);
+      }, totalDuration * 1000)
+    );
   }
 
   public async pause(): Promise<void> {
@@ -198,7 +238,11 @@ export class MetronomeService {
         bpm,
         repeat: exercise.repeat,
         hand: exercise.hand,
-        duration: this.exerciseService.getExerciseDuration(exercise.tab.timeSignature, exercise.repeat, bpm),
+        duration: this.exerciseService.getExerciseDuration(
+          exercise.tab.timeSignature,
+          exercise.repeat,
+          bpm
+        ),
         tabRef: exercise.tab.$key,
         tab: exercise.tab,
         soundOptions: exercise.soundOptions || { playAlong: true, metronomeOnly: false }
@@ -233,7 +277,11 @@ export class MetronomeService {
       };
       const exerciseLen = exercise.repeat + (addClickCounter ? 1 : 0);
 
-      let timeout = this.exerciseService.getExerciseDuration(exercise.tab.timeSignature, exercise.repeat, exercise.bpm);
+      let timeout = this.exerciseService.getExerciseDuration(
+        exercise.tab.timeSignature,
+        exercise.repeat,
+        exercise.bpm
+      );
 
       if (addClickCounter) {
         timeout += clickCountDuration;
@@ -261,7 +309,7 @@ export class MetronomeService {
       for (let bar = 0; bar < exerciseLen; bar++) {
         if (bar === 0 && addClickCounter) {
           for (let i = 0; i < 4; i++) {
-            const time: number = nextTime || startTime + 0.100;
+            const time: number = nextTime || startTime + 0.1;
 
             this.playSound(click, time);
 
@@ -269,26 +317,40 @@ export class MetronomeService {
           }
         } else {
           if (exercise.soundOptions.metronomeOnly) {
-            const subdivision: number = parseInt(exercise.soundOptions.metronomeSettings.subdivision, 16);
-            const noteTime: number = this.getNoteTime(exercise.bpm, { keys: ['c/5'], duration: subdivision.toString() });
+            const subdivision: number = parseInt(
+              exercise.soundOptions.metronomeSettings.subdivision,
+              16
+            );
+            const noteTime: number = this.getNoteTime(exercise.bpm, {
+              keys: ['c/5'],
+              duration: subdivision.toString()
+            });
 
             for (let i = 0; i < subdivision; i++) {
-              const time = nextTime || startTime + 0.100;
-              this.playSound(exercise.soundOptions.metronomeSettings.accents.indexOf(i % subdivision) > -1 ? clickAccent : click, time);
+              const time = nextTime || startTime + 0.1;
+              this.playSound(
+                exercise.soundOptions.metronomeSettings.accents.indexOf(i % subdivision) > -1
+                  ? clickAccent
+                  : click,
+                time
+              );
 
               nextTime = time + noteTime;
 
               if (bar === exercise.repeat - 1 && i === subdivision - 1) {
-                this.timeouts.push(setTimeout(() => {
-                  return resolve();
-                }, timeout * 1000));
+                this.timeouts.push(
+                  setTimeout(() => {
+                    return resolve();
+                  }, timeout * 1000)
+                );
               }
             }
           } else {
             for (let i = 0; i < exercise.tab.notes.length; i++) {
               const note: Note = exercise.tab.notes[i];
-              const nextNote: Note = exercise.tab.notes.length + 1 === i ? null : exercise.tab.notes[i + 1];
-              const time: number = nextTime || startTime + 0.100;
+              const nextNote: Note =
+                exercise.tab.notes.length + 1 === i ? null : exercise.tab.notes[i + 1];
+              const time: number = nextTime || startTime + 0.1;
               let sound: any = snare;
 
               if (i === 0) {
@@ -315,13 +377,15 @@ export class MetronomeService {
 
               // handle drag
               if (note.drag) {
-                nextTime = time + (this.getNoteTime(bpm, note) / 2);
+                nextTime = time + this.getNoteTime(bpm, note) / 2;
               }
 
               if (bar === exercise.repeat - 1 && i === exercise.tab.notes.length - 1) {
-                this.timeouts.push(setTimeout(() => {
-                  return resolve();
-                }, timeout * 1000)); // resolve promise when exercise has ended and add a bit of delay
+                this.timeouts.push(
+                  setTimeout(() => {
+                    return resolve();
+                  }, timeout * 1000)
+                ); // resolve promise when exercise has ended and add a bit of delay
               }
             }
           }
@@ -351,22 +415,22 @@ export class MetronomeService {
   // TODO handle dotted note and other note format (see: http://farty1billion.dyndns.org/NoteLength.htm)
   private getNoteTime(bpm: number, note: Note): number {
     const denominator = this.getNoteDenominator(note);
-    let duration = (60 / bpm) / denominator;
+    let duration = 60 / bpm / denominator;
 
     if (note.triplet) {
       duration = duration * (2 / 3);
     }
 
     if (note.dotted) {
-      duration = duration + (duration / 2);
+      duration = duration + duration / 2;
     }
 
     if (note.doubleDotted) {
-      duration = duration + (duration * (3 / 4));
+      duration = duration + duration * (3 / 4);
     }
 
     if (note.tripleDotted) {
-      duration = duration + (duration * (7 / 8));
+      duration = duration + duration * (7 / 8);
     }
 
     return duration;

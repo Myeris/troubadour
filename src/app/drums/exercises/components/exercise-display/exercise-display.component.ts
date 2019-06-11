@@ -25,8 +25,10 @@ export class ExerciseDisplayComponent implements OnInit {
 
   @Output() public highscored: EventEmitter<Highscore> = new EventEmitter<Highscore>();
 
-  constructor(private metronomeService: MetronomeService,
-              private exercisesService: ExerciseService) {
+  constructor(
+    private metronomeService: MetronomeService,
+    private exercisesService: ExerciseService
+  ) {
     this.metronomeService.init();
   }
 
@@ -65,12 +67,11 @@ export class ExerciseDisplayComponent implements OnInit {
 
     // practice mode: bpm & duration
     if (exercisePracticeForm.hasOwnProperty('bpmDuration')) {
-      const oneRoundDuration = this.exercisesService
-        .getExerciseDuration(
-          this.exercise.tab.timeSignature,
-          1,
-          exercisePracticeForm.bpmDuration.bpm
-        );
+      const oneRoundDuration = this.exercisesService.getExerciseDuration(
+        this.exercise.tab.timeSignature,
+        1,
+        exercisePracticeForm.bpmDuration.bpm
+      );
       this.exercise = {
         hand: 'R',
         bpm: exercisePracticeForm.bpmDuration.bpm,
@@ -134,8 +135,7 @@ export class ExerciseDisplayComponent implements OnInit {
       tabRef: this.tab.$key,
       tab: this.tab,
       repeat: 1,
-      duration: this.exercisesService
-        .getExerciseDuration(this.tab.timeSignature, 1, 60)
+      duration: this.exercisesService.getExerciseDuration(this.tab.timeSignature, 1, 60)
     };
   }
 
@@ -150,5 +150,4 @@ export class ExerciseDisplayComponent implements OnInit {
       date: new Date().valueOf()
     });
   }
-
 }

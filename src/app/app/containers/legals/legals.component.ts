@@ -8,5 +8,4 @@ import { fadeAnimation } from '../../../shared/animations/animations';
   styleUrls: ['./legals.component.scss'],
   animations: [fadeAnimation]
 })
-export class LegalsComponent {
-}
+export class LegalsComponent {}

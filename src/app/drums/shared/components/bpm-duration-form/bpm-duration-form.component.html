@@ -2,22 +2,12 @@
   <label>
     BPM
 
-    <input
-      (change)="onChange()"
-      formControlName="bpm"
-      max="250"
-      min="40"
-      type="number">
+    <input (change)="onChange()" formControlName="bpm" max="250" min="40" type="number" />
   </label>
-
 
   <label>
     Duration (in seconds)
 
-    <input
-      (change)="onChange()"
-      formControlName="duration"
-      min="1"
-      type="number">
+    <input (change)="onChange()" formControlName="duration" min="1" type="number" />
   </label>
 </div>

@@ -12,8 +12,7 @@ describe('SvgIconComponent', () => {
     TestBed.configureTestingModule({
       declarations: [SvgIconComponent],
       imports: [MatIconModule, HttpClientTestingModule]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

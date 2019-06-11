@@ -8,7 +8,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { LoginComponent } from './login.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
-import { getError, isVerified, verificationEmailSent } from '../../../../store/user/selectors/user.selectors';
+import {
+  getError,
+  isVerified,
+  verificationEmailSent
+} from '../../../../store/user/selectors/user.selectors';
 import { LogIn, SendVerificationEmail } from '../../../../store/user/actions/user.actions';
 
 describe('LoginComponent', () => {
@@ -27,8 +31,7 @@ describe('LoginComponent', () => {
         })
       ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {

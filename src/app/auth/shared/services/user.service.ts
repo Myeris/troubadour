@@ -7,8 +7,7 @@ import UserCredential = firebase.auth.UserCredential;
 export class UserService {
   private userKey = 'user';
 
-  constructor() {
-  }
+  constructor() {}
 
   public get persistedUser(): User {
     return JSON.parse(localStorage.getItem(this.userKey));

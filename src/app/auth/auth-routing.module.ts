@@ -11,7 +11,10 @@ const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'login' },
       { path: 'login', loadChildren: './login/login.module#LoginModule' },
       { path: 'register', loadChildren: './register/register.module#RegisterModule' },
-      { path: 'reset-password', loadChildren: './reset-password/reset-password.module#ResetPasswordModule' }
+      {
+        path: 'reset-password',
+        loadChildren: './reset-password/reset-password.module#ResetPasswordModule'
+      }
     ]
   }
 ];
@@ -20,5 +23,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AuthRoutingModule {
-}
+export class AuthRoutingModule {}

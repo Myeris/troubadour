@@ -14,8 +14,8 @@
       Login
     </button>
 
-    <div *ngIf="(error$ | async)" class="error">
-      {{ (error$ | async) }}
+    <div *ngIf="error$ | async" class="error">
+      {{ error$ | async }}
 
       <div *ngIf="!(isVerified$ | async)">
         <a (click)="resendVerificationEmail()">
@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div *ngIf="(emailVerificationSent$ | async)" class="message">
+    <div *ngIf="emailVerificationSent$ | async" class="message">
       Email sent! Check your inbox.
     </div>
 

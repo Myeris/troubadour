@@ -20,14 +20,7 @@ import { TypesEffects } from './types/effects/types.effects';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode
     }),
-    EffectsModule.forRoot([
-      UserEffects,
-      PracticeSessionsEffects,
-      TabsEffects,
-      TypesEffects
-    ])
+    EffectsModule.forRoot([UserEffects, PracticeSessionsEffects, TabsEffects, TypesEffects])
   ]
 })
-export class AppStoreModule {
-
-}
+export class AppStoreModule {}

@@ -6,7 +6,6 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./remove-form.component.scss']
 })
 export class RemoveFormComponent {
-
   public toggled = false;
 
   @Output() public removeUser: EventEmitter<void> = new EventEmitter<void>();

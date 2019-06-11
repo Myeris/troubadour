@@ -11,12 +11,9 @@ export const getUserState = createSelector(
   state => state
 );
 
-export const {
-  selectIds,
-  selectAll,
-  selectEntities,
-  selectTotal
-} = userEntityAdapter.getSelectors(getUserState);
+export const { selectIds, selectAll, selectEntities, selectTotal } = userEntityAdapter.getSelectors(
+  getUserState
+);
 
 export const isLoading = createSelector(
   getUserState,
@@ -35,12 +32,12 @@ export const getError = createSelector(
 
 export const getCurrentUser = createSelector(
   getUserState,
-  state => state.selectedId ? state.entities[state.selectedId] : null
+  state => (state.selectedId ? state.entities[state.selectedId] : null)
 );
 
 export const isVerified = createSelector(
   getCurrentUser,
-  currentUser => currentUser ? currentUser.verified : false
+  currentUser => (currentUser ? currentUser.verified : false)
 );
 
 export const verificationEmailSent = createSelector(

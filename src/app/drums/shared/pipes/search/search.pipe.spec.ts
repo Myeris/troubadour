@@ -4,20 +4,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SearchPipe } from './search.pipe';
 
 describe('SearchPipe', () => {
-
   /**
    * SHALLOW TESTS
    */
   describe('Shallow SearchPipe test', () => {
     @Component({
-      template: `List length: {{ (list | search:'name':searchText).length }}`
+      template: `
+        List length: {{ (list | search: 'name':searchText).length }}
+      `
     })
     class TestComponent {
-      list: { name: string }[] = [
-        { name: 'ABC' },
-        { name: 'DEF' },
-        { name: 'GHI' }
-      ];
+      list: { name: string }[] = [{ name: 'ABC' }, { name: 'DEF' }, { name: 'GHI' }];
       searchText: string;
     }
 
@@ -59,14 +56,12 @@ describe('SearchPipe', () => {
   describe('Isolate SearchPipe test', () => {
     const pipe = new SearchPipe();
 
-    const list = [
-      { name: 'ABC' },
-      { name: 'DEF' },
-      { name: 'GHI' }
-    ];
+    const list = [{ name: 'ABC' }, { name: 'DEF' }, { name: 'GHI' }];
 
     it('should filter the list', () => {
-      expect(JSON.stringify(pipe.transform(list, 'name', 'ABC'))).toBe(JSON.stringify([{ name: 'ABC' }]));
+      expect(JSON.stringify(pipe.transform(list, 'name', 'ABC'))).toBe(
+        JSON.stringify([{ name: 'ABC' }])
+      );
     });
   });
 });

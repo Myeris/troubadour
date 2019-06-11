@@ -13,37 +13,16 @@ import { AuthGuard } from './guards/auth/auth.guard';
 import { AnonymousGuard } from './guards/anonymous/anonymous.guard';
 
 @NgModule({
-  declarations: [
-    AuthHeaderComponent,
-    AuthFormComponent,
-    AuthFooterComponent
-  ],
-  exports: [
-    AuthHeaderComponent,
-    AuthFormComponent,
-    AuthFooterComponent
-  ],
-  providers: [
-    UserService,
-    AuthResource
-  ],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    RouterModule,
-    AppSharedModule
-  ]
+  declarations: [AuthHeaderComponent, AuthFormComponent, AuthFooterComponent],
+  exports: [AuthHeaderComponent, AuthFormComponent, AuthFooterComponent],
+  providers: [UserService, AuthResource],
+  imports: [CommonModule, ReactiveFormsModule, RouterModule, AppSharedModule]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {
     return {
       ngModule: SharedModule,
-      providers: [
-        UserService,
-        AuthResource,
-        AuthGuard,
-        AnonymousGuard
-      ]
+      providers: [UserService, AuthResource, AuthGuard, AnonymousGuard]
     };
   }
 }

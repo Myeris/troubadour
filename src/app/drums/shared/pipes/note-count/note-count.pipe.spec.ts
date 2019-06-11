@@ -4,13 +4,14 @@ import { Component } from '@angular/core';
 import { NoteCountPipe } from './note-count.pipe';
 
 describe('NoteCountPipe', () => {
-
   /**
    * SHALLOW TEST
    */
   describe('Shallow NoteCountPipe test', () => {
     @Component({
-      template: `Note count: {{ noteIndex | noteCount: subdivion }}`
+      template: `
+        Note count: {{ noteIndex | noteCount: subdivion }}
+      `
     })
     class TestComponent {
       noteIndex = 0;
@@ -154,7 +155,6 @@ describe('NoteCountPipe', () => {
         component.noteIndex = 15;
         fixture.detectChanges();
         expect(el.textContent).toBe('Note count: a');
-
       });
     });
   });
@@ -207,5 +207,4 @@ describe('NoteCountPipe', () => {
       });
     });
   });
-
 });

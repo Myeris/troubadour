@@ -5,7 +5,9 @@ import {
   HighscoreListLoad,
   HighscoreListLoadFail,
   HighscoreListLodSuccess,
-  HighscoreSave, HighscoreSaveFail, HighscoreSaveSuccess,
+  HighscoreSave,
+  HighscoreSaveFail,
+  HighscoreSaveSuccess,
   HighscoreSelect
 } from '../actions/highscores.actions';
 

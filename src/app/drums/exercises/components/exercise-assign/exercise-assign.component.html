@@ -6,24 +6,19 @@
         Assign {{ tab.name }} exercise
       </h1>
 
-      <a
-        class="btn_add"
-        (click)="updateAssign()">
+      <a class="btn_add" (click)="updateAssign()">
         <mat-icon>add</mat-icon>
         New practice session
       </a>
     </div>
 
     <div class="exercise-assign__list">
-			<span
-        *ngIf="!sessions?.length"
-        class="exercise-assign__empty">
+      <span *ngIf="!sessions?.length" class="exercise-assign__empty">
         <mat-icon>inbox</mat-icon>
-				Nothing here to assign
-			</span>
+        Nothing here to assign
+      </span>
 
-      <div *ngFor="let session of sessions"
-           (click)="toggleItem(session.$key)">
+      <div *ngFor="let session of sessions" (click)="toggleItem(session.$key)">
         <mat-icon *ngIf="exists(session.$key)">check_circle</mat-icon>
         <mat-icon *ngIf="!exists(session.$key)">check_circle_outline</mat-icon>
         {{ session.name }}
@@ -32,17 +27,11 @@
 
     <div class="exercise-assign__submit">
       <div>
-        <button
-          type="button"
-          class="button"
-          (click)="updateAssign()">
+        <button type="button" class="button" (click)="updateAssign()">
           Update
         </button>
 
-        <button
-          type="button"
-          class="button button--cancel"
-          (click)="cancelAssign()">
+        <button type="button" class="button button--cancel" (click)="cancelAssign()">
           Cancel
         </button>
       </div>

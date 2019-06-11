@@ -9,7 +9,9 @@ describe('CapitalizePipe', () => {
    */
   describe('Shallow CapitalizePipe test', () => {
     @Component({
-      template: `Capitalize: {{ string | capitalize }}`
+      template: `
+        Capitalize: {{ string | capitalize }}
+      `
     })
     class TestComponent {
       string = 'rolls';
@@ -57,7 +59,9 @@ describe('CapitalizePipe', () => {
       expect(pipe.transform('rolls')).toBe('Rolls');
       expect(pipe.transform('ROLLS')).toBe('ROLLS');
       expect(pipe.transform('Rolls')).toBe('Rolls');
-      expect(pipe.transform('j\'apprécie les fruits au sirop')).toBe('J\'apprécie les fruits au sirop');
+      expect(pipe.transform('j\'apprécie les fruits au sirop')).toBe(
+        'J\'apprécie les fruits au sirop'
+      );
     });
 
     it('shoud return the passed value if value passed is not a string', () => {

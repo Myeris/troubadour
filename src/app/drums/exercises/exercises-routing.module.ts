@@ -13,5 +13,4 @@ export const routes: Route[] = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ExercisesRoutingModule {
-}
+export class ExercisesRoutingModule {}

@@ -7,7 +7,7 @@
   &__details {
     display: flex;
     padding: 1rem;
-    border: 1px solid #535D6E;
+    border: 1px solid #535d6e;
     margin-bottom: 2rem;
 
     img {
@@ -20,7 +20,8 @@
       justify-content: center;
       text-align: center;
 
-      app-svg-icon, mat-icon {
+      app-svg-icon,
+      mat-icon {
         margin-right: 0.5em;
       }
     }

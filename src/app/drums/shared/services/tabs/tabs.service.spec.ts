@@ -21,18 +21,20 @@ describe('TabsService', () => {
 
   describe('mapTabListFromSnapshotAction', () => {
     it('should return a list of tabs from snapshot actions', () => {
-      expect(service.mapTabListFromSnapshotAction([
-        {
-          payload: {
-            key: 'a',
-            val(): Tab {
-              return {
-                $key: 's'
-              } as Tab;
+      expect(
+        service.mapTabListFromSnapshotAction([
+          {
+            payload: {
+              key: 'a',
+              val(): Tab {
+                return {
+                  $key: 's'
+                } as Tab;
+              }
             }
-          }
-        } as SnapshotAction<Tab>
-      ]).length).toBe(1);
+          } as SnapshotAction<Tab>
+        ]).length
+      ).toBe(1);
     });
   });
 });

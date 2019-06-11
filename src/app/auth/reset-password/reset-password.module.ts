@@ -8,12 +8,6 @@ import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [ResetPasswordComponent],
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    ResetPasswordRoutingModule,
-    SharedModule
-  ]
+  imports: [CommonModule, ReactiveFormsModule, ResetPasswordRoutingModule, SharedModule]
 })
-export class ResetPasswordModule {
-}
+export class ResetPasswordModule {}

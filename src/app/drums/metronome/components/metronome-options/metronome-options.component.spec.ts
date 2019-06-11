@@ -13,13 +13,8 @@ describe('MetronomeOptionsComponent', () => {
 
   beforeEach(() => {
     const bed = TestBed.configureTestingModule({
-      declarations: [
-        MetronomeOptionsComponent
-      ],
-      imports: [
-        ReactiveFormsModule,
-        SharedModule
-      ],
+      declarations: [MetronomeOptionsComponent],
+      imports: [ReactiveFormsModule, SharedModule],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
 
@@ -55,23 +50,21 @@ describe('MetronomeOptionsComponent', () => {
     expect(el.query(By.css('#metronome-3'))).toBeDefined();
     expect(el.query(By.css('#metronome-3')).nativeElement.textContent).toContain('◎');
 
-    expect(el.query(By.css('.btn__options > a')).nativeElement.textContent).toContain('Advanced mode');
+    expect(el.query(By.css('.btn__options > a')).nativeElement.textContent).toContain(
+      'Advanced mode'
+    );
     expect(el.query(By.css('.options'))).toBeNull();
   });
 
   describe('accents', () => {
     it('should return the accents', () => {
-      component.form.setControl('accents', new FormArray([
-        new FormControl(0),
-        new FormControl(1)
-      ]));
+      component.form.setControl('accents', new FormArray([new FormControl(0), new FormControl(1)]));
       expect(component.accents.value.length).toBe(2);
 
-      component.form.setControl('accents', new FormArray([
-        new FormControl(0),
-        new FormControl(1),
-        new FormControl(2)
-      ]));
+      component.form.setControl(
+        'accents',
+        new FormArray([new FormControl(0), new FormControl(1), new FormControl(2)])
+      );
       expect(component.accents.value.length).toBe(3);
     });
   });
@@ -121,7 +114,6 @@ describe('MetronomeOptionsComponent', () => {
       expect(el.query(By.css('#metronome-1'))).toBeDefined();
       component.stop();
       console.log(el.query(By.css('#metronome-1')).attributes.class);
-
     });
   });
 
@@ -168,4 +160,3 @@ describe('MetronomeOptionsComponent', () => {
     }));
   });
 });
-

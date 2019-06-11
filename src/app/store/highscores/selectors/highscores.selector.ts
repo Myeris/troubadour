@@ -29,5 +29,5 @@ export const getError = createSelector(
 
 export const getSelectedHighscore = createSelector(
   getHighscoreState,
-  state => state.selectedId ? state.entities[state.selectedId] : null
+  state => (state.selectedId ? state.entities[state.selectedId] : null)
 );

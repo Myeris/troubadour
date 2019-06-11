@@ -13,8 +13,7 @@ describe('AppHeaderComponent', () => {
     TestBed.configureTestingModule({
       declarations: [AppHeaderComponent],
       imports: [MatIconModule, AppSharedModule, RouterTestingModule]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
