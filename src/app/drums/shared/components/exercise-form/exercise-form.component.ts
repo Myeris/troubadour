@@ -152,10 +152,6 @@ export class ExerciseFormComponent implements OnChanges {
   }
 
   public addExercise(): void {
-    if (this.form.get('repeat').value === 0 || this.form.get('duration').value === 0) {
-      throw new Error('Exercise needs a duration value or a repeat value');
-    } // TODO handle error
-
     // set the repeat value for bpm / duration exercise
     if (this.selectedType === 0) {
       const duration = this.form.get('duration').value;
