@@ -11,10 +11,13 @@ import { Highscore } from '../../../shared/models/highscore.model';
 import { PracticeSession } from '../../../shared/models/practice-session.model';
 import { SharedModule } from '../../../shared/shared.module';
 import { appReducers, AppState } from '../../../../store/app.reducer';
-import { getSelectedTab } from '../../../../store/tabs/selectors/tabs.selector';
-import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
+import {
+  getSelectedTab,
+  selectAll as selectAllTabs
+} from '../../../../store/tabs/selectors/tabs.selector';
+import { selectAll as selectAllSessions } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
 import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
-import { TabSelect } from '../../../../store/tabs/actions/tabs.actions';
+import { TabSelect, TabListLoad } from '../../../../store/tabs/actions/tabs.actions';
 import {
   HighscoreSave,
   HighscoreSelect
@@ -107,18 +110,20 @@ describe('ExerciseComponent', () => {
 
       component.ngOnInit();
 
-      expect(store.select).toHaveBeenCalledTimes(3);
+      expect(store.select).toHaveBeenCalledTimes(4);
       expect(store.select).toHaveBeenCalledWith(getSelectedTab);
-      expect(store.select).toHaveBeenCalledWith(selectAll);
+      expect(store.select).toHaveBeenCalledWith(selectAllSessions);
       expect(store.select).toHaveBeenCalledWith(getSelectedHighscore);
+      expect(store.select).toHaveBeenCalledWith(selectAllTabs);
 
-      expect(store.dispatch).toHaveBeenCalledTimes(2);
+      expect(store.dispatch).toHaveBeenCalledTimes(3);
       expect(store.dispatch).toHaveBeenCalledWith(
         new TabSelect({ id: (component as any).exerciseId })
       );
       expect(store.dispatch).toHaveBeenCalledWith(
         new HighscoreSelect({ id: (component as any).exerciseId })
       );
+      expect(store.dispatch).toHaveBeenCalledWith(new TabListLoad());
     });
   });
 
