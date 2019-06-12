@@ -44,6 +44,8 @@ export class HighscoreSave implements Action {
 
 export class HighscoreSaveSuccess implements Action {
   public readonly type = HighscoresActionsTypes.SaveSuccess;
+
+  constructor(public payload: { message: string }) {}
 }
 
 export class HighscoreSaveFail implements Action {

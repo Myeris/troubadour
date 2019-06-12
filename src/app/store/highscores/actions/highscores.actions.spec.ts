@@ -40,7 +40,7 @@ describe('HighscoresActions', () => {
 
   describe('HighscoreSaveSuccess', () => {
     it('should create an action', () => {
-      const action = new HighscoreSaveSuccess();
+      const action = new HighscoreSaveSuccess({ message: 'message' });
       expect(action.type).toBe(HighscoresActionsTypes.SaveSuccess);
     });
   });

@@ -31,3 +31,8 @@ export const getSelectedHighscore = createSelector(
   getHighscoreState,
   state => (state.selectedId ? state.entities[state.selectedId] : null)
 );
+
+export const getFeedback = createSelector(
+  getHighscoreState,
+  state => state.feedback
+);

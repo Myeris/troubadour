@@ -37,7 +37,7 @@ export class HighscoresEffects {
     switchMap(([action, currentUser]) =>
       this.highscoresResource.saveHighscore(currentUser.id, action.payload.highscore)
     ),
-    map(() => new HighscoreSaveSuccess()),
+    map(() => new HighscoreSaveSuccess({ message: 'Your highscore has been saved' })), // TODO put string into constant file
     catchError((error: FirebaseError) => of(new HighscoreSaveFail({ error: error.message })))
   );
 

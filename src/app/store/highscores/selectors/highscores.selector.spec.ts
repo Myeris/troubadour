@@ -88,4 +88,10 @@ describe('HighscoresSelectors', () => {
       expect(result).toEqual(highscores[0]);
     });
   });
+
+  describe('getFeedback', () => {
+    it('should return the feedback', () => {
+      // TODO
+    });
+  });
 });

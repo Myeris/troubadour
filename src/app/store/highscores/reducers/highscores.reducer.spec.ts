@@ -103,7 +103,7 @@ describe('HighscoreReducer', () => {
 
   describe('SaveSuccess', () => {
     it('should set the state', () => {
-      const action = new HighscoreSaveSuccess();
+      const action = new HighscoreSaveSuccess({ message: 'message' });
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeFalsy();

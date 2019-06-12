@@ -106,7 +106,7 @@ describe('HighscoresEffects', () => {
       spyOn(resource, 'saveHighscore').and.returnValue(of({}));
 
       const action = new HighscoreSave({ highscore: {} as Highscore });
-      const completion = new HighscoreSaveSuccess();
+      const completion = new HighscoreSaveSuccess({ message: 'message' });
 
       store.select.and.returnValue(cold('r', { r: user }));
 
