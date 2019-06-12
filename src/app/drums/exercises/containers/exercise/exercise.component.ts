@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 // app
-import { Breadcrumb } from '../../../shared/models/breadcrumb.model';
-import { Tab } from '../../../shared/models/tab.model';
-import { Highscore } from '../../../shared/models/highscore.model';
-import { PracticeSession } from '../../../shared/models/practice-session.model';
-import { AppState } from '../../../../store/app.reducer';
+import { selectAll as selectAllSessions } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
+import { fadeAnimation } from '../../../../shared/animations/animations';
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
-import { getSelectedTab } from '../../../../store/tabs/selectors/tabs.selector';
-import { TabSelect } from '../../../../store/tabs/actions/tabs.actions';
-import { selectAll } from 'src/app/store/practice-sessions/selectors/practice-sessions.selector';
-import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
+import { AppState } from '../../../../store/app.reducer';
 import {
   HighscoreSave,
   HighscoreSelect
 } from '../../../../store/highscores/actions/highscores.actions';
-import { fadeAnimation } from '../../../../shared/animations/animations';
+import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
+import { TabSelect, TabListLoad } from '../../../../store/tabs/actions/tabs.actions';
+import {
+  getSelectedTab,
+  selectAll as selectAllTabs
+} from '../../../../store/tabs/selectors/tabs.selector';
+import { Breadcrumb } from '../../../shared/models/breadcrumb.model';
+import { Highscore } from '../../../shared/models/highscore.model';
+import { PracticeSession } from '../../../shared/models/practice-session.model';
+import { Tab } from '../../../shared/models/tab.model';
 
 @Component({
   selector: 'app-exercise',
@@ -37,6 +40,7 @@ export class ExerciseComponent extends LifecycleComponent implements OnInit {
     params: {}
   };
   private exerciseId: string;
+  private tabs$: Observable<Tab[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -48,21 +52,28 @@ export class ExerciseComponent extends LifecycleComponent implements OnInit {
 
   ngOnInit(): void {
     this.tab$ = this.store.select(getSelectedTab).pipe(takeUntil(this.componentDestroyed$));
-    this.sessions$ = this.store.select(selectAll).pipe(takeUntil(this.componentDestroyed$));
+    this.tabs$ = this.store.select(selectAllTabs).pipe(takeUntil(this.componentDestroyed$));
+    this.sessions$ = this.store.select(selectAllSessions).pipe(takeUntil(this.componentDestroyed$));
     this.highscore$ = this.store
       .select(getSelectedHighscore)
       .pipe(takeUntil(this.componentDestroyed$));
 
-    this.route.params
-      .pipe(
-        takeUntil(this.componentDestroyed$),
-        map((params: Params) => {
-          this.exerciseId = params.id;
-          this.store.dispatch(new TabSelect({ id: this.exerciseId }));
-          this.store.dispatch(new HighscoreSelect({ id: this.exerciseId }));
-        })
-      )
-      .subscribe();
+    this.tabs$.subscribe((tabs: Tab[]) => {
+      if (tabs.length === 0) {
+        this.store.dispatch(new TabListLoad());
+      }
+
+      this.route.params
+        .pipe(
+          takeUntil(this.componentDestroyed$),
+          map((params: Params) => {
+            this.exerciseId = params.id;
+            this.store.dispatch(new TabSelect({ id: this.exerciseId }));
+            this.store.dispatch(new HighscoreSelect({ id: this.exerciseId }));
+          })
+        )
+        .subscribe();
+    });
   }
 
   public saveHighscore(highscore: Highscore): void {
