@@ -50,6 +50,8 @@ export class PracticeSessionCreate implements Action {
 
 export class PracticeSessionCreateSuccess implements Action {
   public readonly type = PracticeSessionsActionsTypes.CreateSuccess;
+
+  constructor(public payload: { message: string }) {}
 }
 
 export class PracticeSessionCreateFail implements Action {
@@ -66,6 +68,8 @@ export class PracticeSessionDelete implements Action {
 
 export class PracticeSessionDeleteSuccess implements Action {
   public readonly type = PracticeSessionsActionsTypes.DeleteSuccess;
+
+  constructor(public payload: { message: string }) {}
 }
 
 export class PracticeSessionDeleteFail implements Action {
@@ -106,6 +110,8 @@ export class PracticeSessionUpdate implements Action {
 
 export class PracticeSessionUpdateSuccess implements Action {
   public readonly type = PracticeSessionsActionsTypes.UpdateSessionSuccess;
+
+  constructor(public payload: { message: string }) {}
 }
 
 export class PracticeSessionUpdateFail implements Action {

@@ -20,6 +20,7 @@ import {
 } from '../actions/highscores.actions';
 import { User } from '../../../auth/shared/models/user.model';
 import SpyObj = jasmine.SpyObj;
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 const highscores: Highscore[] = [
   { $key: '1', name: 'Single stroke roll', highscore: 130, date: new Date().valueOf() },
@@ -106,7 +107,7 @@ describe('HighscoresEffects', () => {
       spyOn(resource, 'saveHighscore').and.returnValue(of({}));
 
       const action = new HighscoreSave({ highscore: {} as Highscore });
-      const completion = new HighscoreSaveSuccess({ message: 'message' });
+      const completion = new HighscoreSaveSuccess({ message: Constant.HighscoreSaveSuccess });
 
       store.select.and.returnValue(cold('r', { r: user }));
 

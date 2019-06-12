@@ -18,6 +18,7 @@ import { HighscoresResource } from '../../../drums/shared/resources/highscores/h
 import { AppState } from '../../app.reducer';
 import { getCurrentUser } from '../../user/selectors/user.selectors';
 import { Highscore } from '../../../drums/shared/models/highscore.model';
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 @Injectable()
 export class HighscoresEffects {
@@ -37,7 +38,7 @@ export class HighscoresEffects {
     switchMap(([action, currentUser]) =>
       this.highscoresResource.saveHighscore(currentUser.id, action.payload.highscore)
     ),
-    map(() => new HighscoreSaveSuccess({ message: 'Your highscore has been saved' })), // TODO put string into constant file
+    map(() => new HighscoreSaveSuccess({ message: Constant.HighscoreSaveSuccess })),
     catchError((error: FirebaseError) => of(new HighscoreSaveFail({ error: error.message })))
   );
 

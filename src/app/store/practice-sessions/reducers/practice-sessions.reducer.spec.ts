@@ -86,6 +86,8 @@ describe('PracticeSessionsReducer', () => {
       expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
     });
   });
 
@@ -116,7 +118,7 @@ describe('PracticeSessionsReducer', () => {
   describe('DeleteSuccess', () => {
     it('should set the state', () => {
       const selectedId = 'b';
-      const action = new PracticeSessionDeleteSuccess();
+      const action = new PracticeSessionDeleteSuccess({ message: 'message' });
       const entities = {
         a: sessions[0],
         b: sessions[1]
@@ -131,6 +133,8 @@ describe('PracticeSessionsReducer', () => {
       expect(state.error).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(1);
+      expect(state.feedback.success).toBeTruthy();
+      expect(state.feedback.message).toBe('message');
     });
   });
 
@@ -144,6 +148,8 @@ describe('PracticeSessionsReducer', () => {
       expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
     });
   });
 
@@ -179,17 +185,21 @@ describe('PracticeSessionsReducer', () => {
       expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
     });
   });
 
   describe('CreateSuccess', () => {
     it('should set the state', () => {
-      const action = new PracticeSessionCreateSuccess();
+      const action = new PracticeSessionCreateSuccess({ message: 'message' });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
       expect(state.selectedId).toBeNull();
+      expect(state.feedback.success).toBeTruthy();
+      expect(state.feedback.message).toBe('message');
     });
   });
 
@@ -220,12 +230,14 @@ describe('PracticeSessionsReducer', () => {
 
   describe('UpdateSuccess', () => {
     it('should set the state', () => {
-      const action = new PracticeSessionUpdateSuccess();
+      const action = new PracticeSessionUpdateSuccess({ message: 'message' });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
       expect(state.selectedId).toBeNull();
+      expect(state.feedback.success).toBeTruthy();
+      expect(state.feedback.message).toBe('message');
     });
   });
 
@@ -238,6 +250,8 @@ describe('PracticeSessionsReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
     });
   });
 });

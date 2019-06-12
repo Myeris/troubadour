@@ -29,6 +29,7 @@ import { User } from '../../../auth/shared/models/user.model';
 import { Router } from '@angular/router';
 import SpyObj = jasmine.SpyObj;
 import FirestoreError = firebase.firestore.FirestoreError;
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 const sessions: PracticeSession[] = [
   {
@@ -153,7 +154,9 @@ describe('PracticeSessionsEffects', () => {
 
       const id = 'id';
       const action = new PracticeSessionDelete({ id });
-      const completion = new PracticeSessionDeleteSuccess();
+      const completion = new PracticeSessionDeleteSuccess({
+        message: Constant.PracticeSessionDeleteSuccess
+      });
 
       store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
 
@@ -194,7 +197,9 @@ describe('PracticeSessionsEffects', () => {
 
       const practiceSession = {} as PracticeSession;
       const action = new PracticeSessionCreate({ practiceSession });
-      const completion = new PracticeSessionCreateSuccess();
+      const completion = new PracticeSessionCreateSuccess({
+        message: Constant.PracticeSessionCreateSuccess
+      });
 
       store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
 
@@ -232,7 +237,9 @@ describe('PracticeSessionsEffects', () => {
 
       const practiceSession = { $key: 'key' } as PracticeSession;
       const action = new PracticeSessionUpdate({ practiceSession });
-      const completion = new PracticeSessionUpdateSuccess();
+      const completion = new PracticeSessionUpdateSuccess({
+        message: Constant.PracticeSessionUpdateSuccess
+      });
 
       store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
 
@@ -268,7 +275,9 @@ describe('PracticeSessionsEffects', () => {
   describe('redirectToListAfterCreate$', () => {
     it('should redirect to list on create success', () => {
       spyOn(router, 'navigate').and.callFake(() => true);
-      const action = new PracticeSessionCreateSuccess();
+      const action = new PracticeSessionCreateSuccess({
+        message: Constant.PracticeSessionCreateSuccess
+      });
 
       actions$.stream = hot('-a|', { a: action });
       effects = TestBed.get(PracticeSessionsEffects);
@@ -282,7 +291,9 @@ describe('PracticeSessionsEffects', () => {
   describe('redirectToListAfterDelete$', () => {
     it('should redirect to list on delete success', () => {
       spyOn(router, 'navigate').and.callFake(() => true);
-      const action = new PracticeSessionDeleteSuccess();
+      const action = new PracticeSessionDeleteSuccess({
+        message: Constant.PracticeSessionDeleteSuccess
+      });
 
       actions$.stream = hot('-a|', { a: action });
       effects = TestBed.get(PracticeSessionsEffects);
@@ -296,7 +307,9 @@ describe('PracticeSessionsEffects', () => {
   describe('redirectToListAfterUpdate', () => {
     it('should redirect to list on update succes', () => {
       spyOn(router, 'navigate').and.callFake(() => true);
-      const action = new PracticeSessionUpdateSuccess();
+      const action = new PracticeSessionUpdateSuccess({
+        message: Constant.PracticeSessionUpdateSuccess
+      });
 
       actions$.stream = hot('-a|', { a: action });
       effects = TestBed.get(PracticeSessionsEffects);

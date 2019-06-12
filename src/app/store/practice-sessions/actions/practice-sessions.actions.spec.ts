@@ -50,7 +50,7 @@ describe('PracticeSessionsActions', () => {
 
   describe('PracticeSessionDeleteSuccess', () => {
     it('should create an action', () => {
-      const action = new PracticeSessionDeleteSuccess();
+      const action = new PracticeSessionDeleteSuccess({ message: 'message' });
       expect(action.type).toBe(PracticeSessionsActionsTypes.DeleteSuccess);
     });
   });
@@ -78,7 +78,7 @@ describe('PracticeSessionsActions', () => {
 
   describe('PracticeSessionCreateSuccess', () => {
     it('should create an action', () => {
-      const action = new PracticeSessionCreateSuccess();
+      const action = new PracticeSessionCreateSuccess({ message: 'message' });
       expect(action.type).toBe(PracticeSessionsActionsTypes.CreateSuccess);
     });
   });
@@ -120,7 +120,7 @@ describe('PracticeSessionsActions', () => {
 
   describe('PracticeSessionUpdateSuccess', () => {
     it('should create an action', () => {
-      const action = new PracticeSessionUpdateSuccess();
+      const action = new PracticeSessionUpdateSuccess({ message: 'message' });
       expect(action.type).toBe(PracticeSessionsActionsTypes.UpdateSessionSuccess);
     });
   });

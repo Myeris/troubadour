@@ -23,7 +23,13 @@ export function practiceSessionsReducer(
     case PracticeSessionsActionsTypes.CreateFail:
     case PracticeSessionsActionsTypes.LoadOneFail:
     case PracticeSessionsActionsTypes.UpdateSessionFail:
-      return { ...state, isLoading: false, selectedId: null, error: action.payload.error };
+      return {
+        ...state,
+        isLoading: false,
+        selectedId: null,
+        error: action.payload.error, // TODO remove
+        feedback: { success: false, message: action.payload.error }
+      };
     case PracticeSessionsActionsTypes.LoadListSuccess:
       return practiceSessionsEntityAdapter.addAll(action.payload.practiceSessionList, {
         ...state,
@@ -51,11 +57,18 @@ export function practiceSessionsReducer(
         ...state,
         isLoading: false,
         selectedId: null,
-        error: null
+        error: null,
+        feedback: { success: true, message: action.payload.message }
       });
     case PracticeSessionsActionsTypes.UpdateSessionSuccess:
     case PracticeSessionsActionsTypes.CreateSuccess:
-      return { ...state, isLoading: false, selectedId: null, error: null };
+      return {
+        ...state,
+        isLoading: false,
+        selectedId: null,
+        error: null,
+        feedback: { success: true, message: action.payload.message }
+      };
     case PracticeSessionsActionsTypes.Select:
       return { ...state, isLoading: false, selectedId: action.payload.id, error: null };
     case PracticeSessionsActionsTypes.UpdateSession:

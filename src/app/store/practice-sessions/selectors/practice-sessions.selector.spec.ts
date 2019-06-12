@@ -118,4 +118,10 @@ describe('PracticeSessionsSelectors', () => {
       expect(result).toEqual(sessions[0]);
     });
   });
+
+  describe('getFeedback', () => {
+    it('shoud return the feedback', () => {
+      // TODO test
+    });
+  });
 });

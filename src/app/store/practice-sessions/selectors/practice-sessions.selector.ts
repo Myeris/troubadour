@@ -29,8 +29,10 @@ export const getError = createSelector(
 
 export const getSelectedPracticeSession = createSelector(
   getPracticeSessionState,
-  state => {
-    // console.log(state.entities, state.selectedId);
-    return state.entities[state.selectedId];
-  }
+  state => state.entities[state.selectedId]
+);
+
+export const getFeedback = createSelector(
+  getPracticeSessionState,
+  state => state.feedback
 );

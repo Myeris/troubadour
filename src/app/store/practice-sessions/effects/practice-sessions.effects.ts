@@ -28,6 +28,7 @@ import {
 import { getCurrentUser } from '../../user/selectors/user.selectors';
 import { PracticeSessionsResource } from '../../../drums/shared/resources/practice-sessions/practice-sessions.resource';
 import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 @Injectable()
 export class PracticeSessionsEffects {
@@ -69,7 +70,7 @@ export class PracticeSessionsEffects {
     switchMap(([action, currentUser]) =>
       this.practiceSessionResource.removeSession(currentUser.id, action.payload.id)
     ),
-    map(() => new PracticeSessionDeleteSuccess()),
+    map(() => new PracticeSessionDeleteSuccess({ message: Constant.PracticeSessionDeleteSuccess })),
     catchError((error: FirebaseError) =>
       of(new PracticeSessionDeleteFail({ error: error.message }))
     )
@@ -82,7 +83,7 @@ export class PracticeSessionsEffects {
     switchMap(([action, currentUser]) =>
       this.practiceSessionResource.createSession(currentUser.id, action.payload.practiceSession)
     ),
-    map(() => new PracticeSessionCreateSuccess()),
+    map(() => new PracticeSessionCreateSuccess({ message: Constant.PracticeSessionCreateSuccess })),
     catchError((error: FirebaseError) =>
       of(new PracticeSessionCreateFail({ error: error.message }))
     )
@@ -95,7 +96,7 @@ export class PracticeSessionsEffects {
     switchMap(([action, currentUser]) =>
       this.practiceSessionResource.updateSession(currentUser.id, action.payload.practiceSession)
     ),
-    map(() => new PracticeSessionUpdateSuccess()),
+    map(() => new PracticeSessionUpdateSuccess({ message: Constant.PracticeSessionUpdateSuccess })),
     catchError((error: FirebaseError) =>
       of(new PracticeSessionUpdateFail({ error: error.message }))
     )
