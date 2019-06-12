@@ -18,7 +18,8 @@ class AfDbMock {
 
   object() {
     return {
-      snapshotChanges: () => of({})
+      snapshotChanges: () => of({}),
+      update: () => Promise.resolve()
     };
   }
 }
@@ -92,6 +93,17 @@ describe('PracticeSessionsResource', () => {
       resource.createSession('uid', {} as PracticeSession);
 
       expect(db.list).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('updateSession', () => {
+    it('should update a session', () => {
+      spyOn(db, 'object').and.callThrough();
+      spyOn(resource as any, 'removeExercise').and.returnValue({});
+
+      resource.updateSession('uid', { $key: 'key' } as PracticeSession);
+
+      expect(db.object).toHaveBeenCalledTimes(1);
     });
   });
 

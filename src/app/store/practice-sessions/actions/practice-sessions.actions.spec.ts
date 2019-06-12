@@ -12,7 +12,10 @@ import {
   PracticeSessionSelect,
   PracticeSessionOneLoad,
   PracticeSessionOneLoadSuccess,
-  PracticeSessionOneLoadFail
+  PracticeSessionOneLoadFail,
+  PracticeSessionUpdate,
+  PracticeSessionUpdateFail,
+  PracticeSessionUpdateSuccess
 } from './practice-sessions.actions';
 import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
 
@@ -105,6 +108,27 @@ describe('PracticeSessionsActions', () => {
     it('should create an action', () => {
       const action = new PracticeSessionOneLoadFail({ error: 'string' });
       expect(action.type).toBe(PracticeSessionsActionsTypes.LoadOneFail);
+    });
+  });
+
+  describe('PracticeSessionUpdate', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionUpdate({ practiceSession: null });
+      expect(action.type).toBe(PracticeSessionsActionsTypes.UpdateSession);
+    });
+  });
+
+  describe('PracticeSessionUpdateSuccess', () => {
+    it('should create an action', () => {
+      const action = new PracticeSessionUpdateSuccess();
+      expect(action.type).toBe(PracticeSessionsActionsTypes.UpdateSessionSuccess);
+    });
+  });
+
+  describe('PracticeSessionUpdateFail', () => {
+    it('should create an action ', () => {
+      const action = new PracticeSessionUpdateFail({ error: null });
+      expect(action.type).toBe(PracticeSessionsActionsTypes.UpdateSessionFail);
     });
   });
 });

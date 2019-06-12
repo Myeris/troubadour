@@ -20,7 +20,10 @@ import {
   PracticeSessionDeleteSuccess,
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
-  PracticeSessionListLoadSuccess
+  PracticeSessionListLoadSuccess,
+  PracticeSessionUpdate,
+  PracticeSessionUpdateSuccess,
+  PracticeSessionUpdateFail
 } from '../actions/practice-sessions.actions';
 import { User } from '../../../auth/shared/models/user.model';
 import { Router } from '@angular/router';
@@ -76,6 +79,8 @@ class PracticeSessionsResourceMock {
   removeSession() {}
 
   createSession() {}
+
+  updateSession() {}
 }
 
 describe('PracticeSessionsEffects', () => {
@@ -219,6 +224,45 @@ describe('PracticeSessionsEffects', () => {
 
       expect(effects.createPracticeSession$).toBeObservable(expected);
     }));
+  });
+
+  describe('updatePracticeSession$', () => {
+    it('should dispatch a Success action', () => {
+      spyOn(practiceSessionsResource, 'updateSession').and.returnValue(of({}));
+
+      const practiceSession = { $key: 'key' } as PracticeSession;
+      const action = new PracticeSessionUpdate({ practiceSession });
+      const completion = new PracticeSessionUpdateSuccess();
+
+      store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
+
+      effects = TestBed.get(PracticeSessionsEffects); // Instantiate effects here so they can use the mock
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-b', { b: completion });
+
+      expect(effects.updatePracticeSession$).toBeObservable(expected);
+    });
+
+    it('should dispatch an Error action', () => {
+      const practiceSession = { $key: 'key' } as PracticeSession;
+      const error = 'this is an error';
+      spyOn(practiceSessionsResource, 'updateSession').and.callFake(() =>
+        throwError({ message: error } as FirebaseError)
+      );
+
+      const action = new PracticeSessionUpdate({ practiceSession });
+      const completion = new PracticeSessionUpdateFail({ error });
+
+      store.select.and.returnValue(cold('r', { r: user })); // Initializing the mock
+
+      effects = TestBed.get(PracticeSessionsEffects);
+
+      actions$.stream = hot('-a', { a: action });
+      const expected = cold('-(c|)', { c: completion });
+
+      expect(effects.updatePracticeSession$).toBeObservable(expected);
+    });
   });
 
   describe('redirectToListAfterCreate$', () => {

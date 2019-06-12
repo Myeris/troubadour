@@ -3,9 +3,9 @@ import { AngularFireDatabase, SnapshotAction } from '@angular/fire/database';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 // app
+import { Exercise } from '../../models/exercise.model';
 import { PracticeSession } from '../../models/practice-session.model';
 import { PracticeSessionsService } from '../../services/practice-sessions/practice-sessions.service';
-import { Exercise } from '../../models/exercise.model';
 import ThenableReference = firebase.database.ThenableReference;
 
 @Injectable()
@@ -46,7 +46,17 @@ export class PracticeSessionsResource {
   public createSession(uid: string, practiceSession: PracticeSession): ThenableReference {
     practiceSession = this.removeExercise(practiceSession);
 
-    return this.db.list(`practice-sessions/${uid}`).push(practiceSession);
+    return this.db.list(`${this.colName}/${uid}`).push(practiceSession);
+  }
+
+  // TODO make it work
+  // ! this is not working
+  // ? how does the update works on AngularFire
+  public updateSession(uid: string, practiceSession: PracticeSession): Promise<void> {
+    practiceSession = this.removeExercise(practiceSession);
+    console.log(practiceSession.$key);
+
+    return this.db.object(`${this.colName}/${uid}/${practiceSession.$key}`).update(practiceSession);
   }
 
   private removeExercise(session: PracticeSession): PracticeSession {

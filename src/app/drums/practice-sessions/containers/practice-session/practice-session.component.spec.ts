@@ -20,7 +20,8 @@ import { TypesListLoad } from '../../../../store/types/actions/types.actions';
 import {
   PracticeSessionCreate,
   PracticeSessionDelete,
-  PracticeSessionSelect
+  PracticeSessionSelect,
+  PracticeSessionUpdate
 } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import { PracticeSession } from '../../../shared/models/practice-session.model';
 
@@ -141,7 +142,11 @@ describe('PracticeSessionComponent', () => {
 
   describe('onUpdate', () => {
     it('should dispatch an event', () => {
-      // TODO
+      component.onUpdate(null);
+      expect(store.dispatch).toHaveBeenCalledTimes(1);
+      expect(store.dispatch).toHaveBeenCalledWith(
+        new PracticeSessionUpdate({ practiceSession: null })
+      );
     });
   });
 

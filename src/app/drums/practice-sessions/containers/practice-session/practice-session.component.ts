@@ -18,7 +18,8 @@ import {
   PracticeSessionCreate,
   PracticeSessionDelete,
   PracticeSessionSelect,
-  PracticeSessionListLoad
+  PracticeSessionListLoad,
+  PracticeSessionUpdate
 } from '../../../../store/practice-sessions/actions/practice-sessions.actions';
 import { selectAll as selectAllTabs } from 'src/app/store/tabs/selectors/tabs.selector';
 import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types.selector';
@@ -95,18 +96,11 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
     this.store.dispatch(new PracticeSessionCreate({ practiceSession }));
   }
 
+  // TODO display feedback (success and error)
   public async onUpdate(event: PracticeSession): Promise<void> {
-    // const key = this.route.snapshot.params.id;
-    //
-    // try {
-    //   await this.practiceSessionsService.updateSession(key, event);
-    //   this.router.navigate([`practice-sessions/${key}`])
-    // } catch (e) {
-    //   this.sentryService.captureException(e);
-    //   this.feedback.success = false;
-    //   this.feedback.message = e;
-    // }
-    // TODO
+    const $key = this.route.snapshot.params.id;
+    const practiceSession: PracticeSession = { ...event, $key };
+    this.store.dispatch(new PracticeSessionUpdate({ practiceSession }));
   }
 
   public onRemove(): void {

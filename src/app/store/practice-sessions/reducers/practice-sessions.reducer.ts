@@ -5,7 +5,8 @@ import {
 } from '../practice-sessions.state';
 import {
   PracticeSessionsActions,
-  PracticeSessionsActionsTypes
+  PracticeSessionsActionsTypes,
+  PracticeSessionUpdate
 } from '../actions/practice-sessions.actions';
 
 export function practiceSessionsReducer(
@@ -21,6 +22,7 @@ export function practiceSessionsReducer(
     case PracticeSessionsActionsTypes.DeleteFail:
     case PracticeSessionsActionsTypes.CreateFail:
     case PracticeSessionsActionsTypes.LoadOneFail:
+    case PracticeSessionsActionsTypes.UpdateSessionFail:
       return { ...state, isLoading: false, selectedId: null, error: action.payload.error };
     case PracticeSessionsActionsTypes.LoadListSuccess:
       return practiceSessionsEntityAdapter.addAll(action.payload.practiceSessionList, {
@@ -51,10 +53,16 @@ export function practiceSessionsReducer(
         selectedId: null,
         error: null
       });
+    case PracticeSessionsActionsTypes.UpdateSessionSuccess:
     case PracticeSessionsActionsTypes.CreateSuccess:
       return { ...state, isLoading: false, selectedId: null, error: null };
     case PracticeSessionsActionsTypes.Select:
       return { ...state, isLoading: false, selectedId: action.payload.id, error: null };
+    case PracticeSessionsActionsTypes.UpdateSession:
+      return practiceSessionsEntityAdapter.updateOne(
+        { id: action.payload.practiceSession.$key, changes: action.payload.practiceSession },
+        { ...state, isLoading: true, error: null }
+      );
     default:
       return state;
   }

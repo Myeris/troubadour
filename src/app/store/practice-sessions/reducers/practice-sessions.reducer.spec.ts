@@ -10,7 +10,10 @@ import {
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,
   PracticeSessionListLoadSuccess,
-  PracticeSessionSelect
+  PracticeSessionSelect,
+  PracticeSessionUpdate,
+  PracticeSessionUpdateSuccess,
+  PracticeSessionUpdateFail
 } from '../actions/practice-sessions.actions';
 import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
 
@@ -186,6 +189,54 @@ describe('PracticeSessionsReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('Update', () => {
+    it('should set the state', () => {
+      const entities = {
+        a: sessions[0],
+        b: sessions[1]
+      };
+      const name = 'The new name';
+      const practiceSession = { ...entities.a, name };
+      const ids = ['a', 'b'];
+
+      console.log(practiceSession);
+
+      const action = new PracticeSessionUpdate({ practiceSession });
+      const selectedId = null;
+      const state = practiceSessionsReducer(
+        { ...initialPracticeSessionState, entities, ids, selectedId },
+        action
+      );
+
+      expect(state.isLoading).toBeTruthy();
+      expect(state.error).toBeNull();
+      expect(state.entities.a.name).toBe(name);
+    });
+  });
+
+  describe('UpdateSuccess', () => {
+    it('should set the state', () => {
+      const action = new PracticeSessionUpdateSuccess();
+      const state = practiceSessionsReducer(initialPracticeSessionState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBeNull();
+      expect(state.selectedId).toBeNull();
+    });
+  });
+
+  describe('UpdateFail', () => {
+    it('should set the state', () => {
+      const error = 'error';
+      const action = new PracticeSessionUpdateFail({ error });
+      const state = practiceSessionsReducer(initialPracticeSessionState, action);
+
+      expect(state.isLoading).toBeFalsy();
+      expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
     });
   });
