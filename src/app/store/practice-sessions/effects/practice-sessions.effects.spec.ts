@@ -292,4 +292,18 @@ describe('PracticeSessionsEffects', () => {
       });
     });
   });
+
+  describe('redirectToListAfterUpdate', () => {
+    it('should redirect to list on update succes', () => {
+      spyOn(router, 'navigate').and.callFake(() => true);
+      const action = new PracticeSessionUpdateSuccess();
+
+      actions$.stream = hot('-a|', { a: action });
+      effects = TestBed.get(PracticeSessionsEffects);
+
+      effects.redirectToListAfterUpdate$.subscribe(() => {
+        expect(router.navigate).toHaveBeenCalledTimes(1);
+      });
+    });
+  });
 });

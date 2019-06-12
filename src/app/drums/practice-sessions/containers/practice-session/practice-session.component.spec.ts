@@ -11,7 +11,8 @@ import { appReducers, AppState } from '../../../../store/app.reducer';
 import {
   getSelectedPracticeSession,
   isLoading,
-  selectAll as selectAllSessions
+  selectAll as selectAllSessions,
+  getError
 } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import { selectAll as selectAllTabs } from 'src/app/store/tabs/selectors/tabs.selector';
 import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types.selector';
@@ -116,12 +117,13 @@ describe('PracticeSessionComponent', () => {
 
     it('should select and dispatch from store', () => {
       component.ngOnInit();
-      expect(store.select).toHaveBeenCalledTimes(5);
+      expect(store.select).toHaveBeenCalledTimes(6);
       expect(store.select).toHaveBeenCalledWith(getSelectedPracticeSession);
       expect(store.select).toHaveBeenCalledWith(selectAllTabs);
       expect(store.select).toHaveBeenCalledWith(selectAllTypes);
       expect(store.select).toHaveBeenCalledWith(selectAllSessions);
       expect(store.select).toHaveBeenCalledWith(isLoading);
+      expect(store.select).toHaveBeenCalledWith(getError);
 
       expect(store.dispatch).toHaveBeenCalledTimes(3);
       expect(store.dispatch).toHaveBeenCalledWith(new TabListLoad());
@@ -145,7 +147,7 @@ describe('PracticeSessionComponent', () => {
       component.onUpdate(null);
       expect(store.dispatch).toHaveBeenCalledTimes(1);
       expect(store.dispatch).toHaveBeenCalledWith(
-        new PracticeSessionUpdate({ practiceSession: null })
+        new PracticeSessionUpdate({ practiceSession: { $key: '1' } as PracticeSession })
       );
     });
   });

@@ -49,14 +49,12 @@ export class PracticeSessionsResource {
     return this.db.list(`${this.colName}/${uid}`).push(practiceSession);
   }
 
-  // TODO make it work
-  // ! this is not working
-  // ? how does the update works on AngularFire
   public updateSession(uid: string, practiceSession: PracticeSession): Promise<void> {
     practiceSession = this.removeExercise(practiceSession);
-    console.log(practiceSession.$key);
+    const $key = practiceSession.$key;
+    delete practiceSession.$key;
 
-    return this.db.object(`${this.colName}/${uid}/${practiceSession.$key}`).update(practiceSession);
+    return this.db.object(`${this.colName}/${uid}/${$key}`).update(practiceSession);
   }
 
   private removeExercise(session: PracticeSession): PracticeSession {

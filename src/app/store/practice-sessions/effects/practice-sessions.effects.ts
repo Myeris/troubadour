@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action, Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
 import { FirebaseError } from 'firebase';
@@ -27,7 +28,6 @@ import {
 import { getCurrentUser } from '../../user/selectors/user.selectors';
 import { PracticeSessionsResource } from '../../../drums/shared/resources/practice-sessions/practice-sessions.resource';
 import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
-import { Router } from '@angular/router';
 
 @Injectable()
 export class PracticeSessionsEffects {
@@ -110,6 +110,12 @@ export class PracticeSessionsEffects {
   @Effect({ dispatch: false })
   redirectToListAfterDelete$: Observable<Action> = this.actions$.pipe(
     ofType<PracticeSessionDeleteSuccess>(PracticeSessionsActionsTypes.DeleteSuccess),
+    tap(() => this.router.navigate(['/practice-sessions']))
+  );
+
+  @Effect({ dispatch: false })
+  redirectToListAfterUpdate$: Observable<Action> = this.actions$.pipe(
+    ofType<PracticeSessionUpdateSuccess>(PracticeSessionsActionsTypes.UpdateSessionSuccess),
     tap(() => this.router.navigate(['/practice-sessions']))
   );
 

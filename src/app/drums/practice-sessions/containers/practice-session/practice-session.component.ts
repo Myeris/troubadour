@@ -12,7 +12,8 @@ import { AppState } from '../../../../store/app.reducer';
 import {
   getSelectedPracticeSession,
   isLoading,
-  selectAll as selectAllSessions
+  selectAll as selectAllSessions,
+  getError
 } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import {
   PracticeSessionCreate,
@@ -39,6 +40,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   public tabs$: Observable<Tab[]>;
   public types$: Observable<Tag[]>;
   public isLoading$: Observable<boolean>;
+  public updateError$: Observable<string>;
   public exerciseId: string;
   public showForm = false;
   public feedback: { success: boolean; message: string };
@@ -73,6 +75,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
     this.tabs$ = this.store.select(selectAllTabs).pipe(takeUntil(this.componentDestroyed$));
     this.types$ = this.store.select(selectAllTypes).pipe(takeUntil(this.componentDestroyed$));
     this.isLoading$ = this.store.select(isLoading).pipe(takeUntil(this.componentDestroyed$));
+    this.updateError$ = this.store.select(getError).pipe(takeUntil(this.componentDestroyed$));
 
     this.route.queryParams
       .pipe(takeUntil(this.componentDestroyed$))
@@ -97,6 +100,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   }
 
   // TODO display feedback (success and error)
+  // ! error is done, now do success (redirection + snackbar message?)
   public async onUpdate(event: PracticeSession): Promise<void> {
     const $key = this.route.snapshot.params.id;
     const practiceSession: PracticeSession = { ...event, $key };
