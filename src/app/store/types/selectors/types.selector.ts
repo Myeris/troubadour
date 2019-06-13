@@ -2,6 +2,7 @@ import { createSelector } from '@ngrx/store';
 // app
 import { AppState } from '../../app.reducer';
 import { typesEntityAdapter } from '../types.state';
+import { getTabState } from '../../tabs/selectors/tabs.selector';
 
 export const selectType = (state: AppState) => state.type;
 
@@ -22,7 +23,7 @@ export const isLoading = createSelector(
   state => state.isLoading
 );
 
-export const getError = createSelector(
-  getTypeState,
-  state => state.error
+export const getFeedback = createSelector(
+  getTabState,
+  state => state.feedback
 );

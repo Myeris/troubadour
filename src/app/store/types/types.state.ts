@@ -5,7 +5,6 @@ import { Feedback } from 'src/app/shared/models/feedback.model';
 
 export interface TypesState extends EntityState<Tag> {
   isLoading: boolean;
-  error: string; // TODO remove
   feedback: Feedback;
 }
 
@@ -15,6 +14,5 @@ export const typesEntityAdapter: EntityAdapter<Tag> = createEntityAdapter<Tag>({
 
 export const initialTypesState: TypesState = typesEntityAdapter.getInitialState({
   isLoading: false,
-  error: null,
   feedback: null
 });

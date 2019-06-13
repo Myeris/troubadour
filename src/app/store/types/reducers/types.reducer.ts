@@ -9,7 +9,7 @@ export function typesReducer(state: TypesState = initialTypesState, action: Type
       return typesEntityAdapter.addAll(action.payload.types, {
         ...state,
         isLoading: false,
-        error: null
+        feedback: null
       });
     case TypesActionsTypes.LoadListFail:
       return {
