@@ -17,7 +17,7 @@ export function practiceSessionsReducer(
     case PracticeSessionsActionsTypes.LoadList:
     case PracticeSessionsActionsTypes.Create:
     case PracticeSessionsActionsTypes.LoadOne:
-      return { ...state, isLoading: true, selectedId: null, error: null };
+      return { ...state, isLoading: true, selectedId: null, feedback: null };
     case PracticeSessionsActionsTypes.LoadListFail:
     case PracticeSessionsActionsTypes.DeleteFail:
     case PracticeSessionsActionsTypes.CreateFail:
@@ -27,7 +27,6 @@ export function practiceSessionsReducer(
         ...state,
         isLoading: false,
         selectedId: null,
-        error: action.payload.error, // TODO remove
         feedback: { success: false, message: action.payload.error }
       };
     case PracticeSessionsActionsTypes.LoadListSuccess:
@@ -35,7 +34,7 @@ export function practiceSessionsReducer(
         ...state,
         isLoading: false,
         selectedId: null,
-        error: null
+        feedback: null
       });
     case PracticeSessionsActionsTypes.LoadOneSuccess:
       return practiceSessionsEntityAdapter.updateOne(
@@ -47,17 +46,16 @@ export function practiceSessionsReducer(
           ...state,
           isLoading: false,
           selectedId: action.payload.practiceSession.$key,
-          error: null
+          feedback: null
         }
       );
     case PracticeSessionsActionsTypes.Delete:
-      return { ...state, isLoading: true, selectedId: action.payload.id, error: null };
+      return { ...state, isLoading: true, selectedId: action.payload.id, feedback: null };
     case PracticeSessionsActionsTypes.DeleteSuccess:
       return practiceSessionsEntityAdapter.removeOne(state.selectedId, {
         ...state,
         isLoading: false,
         selectedId: null,
-        error: null,
         feedback: { success: true, message: action.payload.message }
       });
     case PracticeSessionsActionsTypes.UpdateSessionSuccess:
@@ -66,15 +64,14 @@ export function practiceSessionsReducer(
         ...state,
         isLoading: false,
         selectedId: null,
-        error: null,
         feedback: { success: true, message: action.payload.message }
       };
     case PracticeSessionsActionsTypes.Select:
-      return { ...state, isLoading: false, selectedId: action.payload.id, error: null };
+      return { ...state, isLoading: false, selectedId: action.payload.id, feedback: null };
     case PracticeSessionsActionsTypes.UpdateSession:
       return practiceSessionsEntityAdapter.updateOne(
         { id: action.payload.practiceSession.$key, changes: action.payload.practiceSession },
-        { ...state, isLoading: true, error: null }
+        { ...state, isLoading: true, feedback: null }
       );
     default:
       return state;

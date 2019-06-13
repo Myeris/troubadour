@@ -70,7 +70,7 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
     });
@@ -83,7 +83,6 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
       expect(state.feedback.success).toBeFalsy();
@@ -97,7 +96,7 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(3);
     });
@@ -110,7 +109,7 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBe(id);
     });
   });
@@ -130,7 +129,6 @@ describe('PracticeSessionsReducer', () => {
       );
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(1);
       expect(state.feedback.success).toBeTruthy();
@@ -145,7 +143,6 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
       expect(state.feedback.success).toBeFalsy();
@@ -159,7 +156,7 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBe('id');
     });
   });
@@ -170,7 +167,7 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });
@@ -182,7 +179,6 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
       expect(state.feedback.success).toBeFalsy();
@@ -196,7 +192,6 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.feedback.success).toBeTruthy();
       expect(state.feedback.message).toBe('message');
@@ -223,7 +218,7 @@ describe('PracticeSessionsReducer', () => {
       );
 
       expect(state.isLoading).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.entities.a.name).toBe(name);
     });
   });
@@ -234,7 +229,7 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.feedback.success).toBeTruthy();
       expect(state.feedback.message).toBe('message');
@@ -248,7 +243,6 @@ describe('PracticeSessionsReducer', () => {
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.feedback.success).toBeFalsy();
       expect(state.feedback.message).toBe(error);

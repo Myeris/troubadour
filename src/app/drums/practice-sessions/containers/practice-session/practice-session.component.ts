@@ -13,7 +13,7 @@ import {
   getSelectedPracticeSession,
   isLoading,
   selectAll as selectAllSessions,
-  getError
+  getFeedback
 } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import {
   PracticeSessionCreate,
@@ -28,6 +28,7 @@ import { TabListLoad } from '../../../../store/tabs/actions/tabs.actions';
 import { Breadcrumb } from '../../../shared/models/breadcrumb.model';
 import { TypesListLoad } from '../../../../store/types/actions/types.actions';
 import { fadeAnimation } from '../../../../shared/animations/animations';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 @Component({
   selector: 'app-practice-session',
@@ -40,10 +41,9 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
   public tabs$: Observable<Tab[]>;
   public types$: Observable<Tag[]>;
   public isLoading$: Observable<boolean>;
-  public updateError$: Observable<string>;
   public exerciseId: string;
   public showForm = false;
-  public feedback: { success: boolean; message: string };
+  public feedback$: Observable<Feedback>;
 
   private sessions$: Observable<PracticeSession[]>;
 
@@ -75,7 +75,7 @@ export class PracticeSessionComponent extends LifecycleComponent implements OnIn
     this.tabs$ = this.store.select(selectAllTabs).pipe(takeUntil(this.componentDestroyed$));
     this.types$ = this.store.select(selectAllTypes).pipe(takeUntil(this.componentDestroyed$));
     this.isLoading$ = this.store.select(isLoading).pipe(takeUntil(this.componentDestroyed$));
-    this.updateError$ = this.store.select(getError).pipe(takeUntil(this.componentDestroyed$));
+    this.feedback$ = this.store.select(getFeedback).pipe(takeUntil(this.componentDestroyed$));
 
     this.route.queryParams
       .pipe(takeUntil(this.componentDestroyed$))

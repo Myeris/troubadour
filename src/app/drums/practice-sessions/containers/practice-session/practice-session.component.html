@@ -1,10 +1,6 @@
 <div id="practice-session" [@fade]>
   <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
 
-  <div class="error" *ngIf="updateError$ | async">
-    {{ updateError$ | async }}
-  </div>
-
   <div class="practice-session">
     <div *ngIf="session$ | async as session">
       <app-practice-session-form
@@ -13,7 +9,7 @@
         (updated)="onUpdate($event)"
         *ngIf="showForm"
         [exerciseId]="exerciseId"
-        [feedback]="feedback"
+        [feedback]="feedback$ | async"
         [session]="session"
         [tabs]="tabs$ | async"
         [types]="types$ | async"
@@ -30,7 +26,7 @@
       (updated)="onUpdate($event)"
       *ngIf="showForm && !(session$ | async)"
       [exerciseId]="null"
-      [feedback]="feedback"
+      [feedback]="feedback$ | async"
       [session]="null"
       [tabs]="tabs$ | async"
       [types]="types$ | async"

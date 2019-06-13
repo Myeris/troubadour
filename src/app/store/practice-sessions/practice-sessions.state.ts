@@ -6,7 +6,6 @@ import { Feedback } from 'src/app/shared/models/feedback.model';
 export interface PracticeSessionsState extends EntityState<PracticeSession> {
   selectedId: string;
   isLoading: boolean;
-  error: string; // TODO remove
   feedback: Feedback;
 }
 
@@ -20,7 +19,6 @@ export const initialPracticeSessionState: PracticeSessionsState = practiceSessio
   {
     selectedId: null,
     isLoading: false,
-    error: null,
     feedback: null
   }
 );

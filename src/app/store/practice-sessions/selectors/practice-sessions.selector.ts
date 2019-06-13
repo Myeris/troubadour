@@ -22,11 +22,6 @@ export const isLoading = createSelector(
   state => state.isLoading
 );
 
-export const getError = createSelector(
-  getPracticeSessionState,
-  state => state.error
-);
-
 export const getSelectedPracticeSession = createSelector(
   getPracticeSessionState,
   state => state.entities[state.selectedId]
