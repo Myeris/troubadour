@@ -46,7 +46,7 @@ describe('TabsReducer', () => {
       const state = tabsReducer(initialTabsState, action);
 
       expect(state.isLoading).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.ids.length).toBe(0);
     });
   });
@@ -59,7 +59,7 @@ describe('TabsReducer', () => {
       console.log(state.entities);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(Object.keys(state.entities).length).toBe(3);
     });
   });
@@ -71,7 +71,6 @@ describe('TabsReducer', () => {
       const state = tabsReducer(initialTabsState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBe(error);
       expect(state.ids.length).toBe(0);
       expect(state.feedback.success).toBeFalsy();
       expect(state.feedback.message).toBe(error);
@@ -85,7 +84,7 @@ describe('TabsReducer', () => {
       const state = tabsReducer(initialTabsState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBe(id);
     });
   });
@@ -97,7 +96,7 @@ describe('TabsReducer', () => {
       const state = tabsReducer(initialTabsState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedType).toBe(type);
     });
   });

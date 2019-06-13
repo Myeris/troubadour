@@ -9,14 +9,13 @@ export function tabsReducer(state: TabsState = initialTabsState, action: TabsAct
       return tabsEntityAdapter.addAll(action.payload.tabList, {
         ...state,
         isLoading: false,
-        error: null,
+        feedback: null,
         selectedId: null
       });
     case TabsActionsTypes.LoadListFail:
       return {
         ...state,
         isLoading: false,
-        error: action.payload.error,
         selectedId: null,
         feedback: { success: false, message: action.payload.error }
       };
@@ -26,7 +25,7 @@ export function tabsReducer(state: TabsState = initialTabsState, action: TabsAct
       return {
         ...state,
         isLoading: false,
-        error: null,
+        feedback: null,
         selectedId: null,
         selectedType: action.payload.type
       };

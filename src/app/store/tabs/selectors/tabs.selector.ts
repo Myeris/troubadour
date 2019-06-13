@@ -20,9 +20,9 @@ export const isLoading = createSelector(
   state => state.isLoading
 );
 
-export const getError = createSelector(
+export const getFeedback = createSelector(
   getTabState,
-  state => state.error
+  state => state.feedback
 );
 
 export const getSelectedTab = createSelector(

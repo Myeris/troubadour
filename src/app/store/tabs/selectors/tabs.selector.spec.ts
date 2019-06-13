@@ -2,7 +2,13 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TestBed } from '@angular/core/testing';
 // app
 import { appReducers, AppState } from '../../app.reducer';
-import { getError, getSelectedTab, getTabsBySelectedType, isLoading } from './tabs.selector';
+import {
+  getError,
+  getSelectedTab,
+  getTabsBySelectedType,
+  isLoading,
+  getFeedback
+} from './tabs.selector';
 import {
   TabListLoad,
   TabListLoadFail,
@@ -11,6 +17,7 @@ import {
   TabSelectType
 } from '../actions/tabs.actions';
 import { Tab } from '../../../drums/shared/models/tab.model';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 const tabs: Tab[] = [
   {
@@ -115,6 +122,21 @@ describe('TabsSelectors', () => {
 
       store.dispatch(new TabSelectType({ type }));
       expect(result.length).toBe(2);
+    });
+  });
+
+  describe('getFeedback', () => {
+    it('should return the feedback', () => {
+      const message = 'message';
+      const feedback: Feedback = { success: false, message };
+      let result = null;
+
+      store.select(getFeedback).subscribe(value => (result = value));
+
+      expect(result).toBeNull();
+      store.dispatch(new TabListLoadFail({ error: message }));
+
+      expect(result).toEqual(feedback);
     });
   });
 });

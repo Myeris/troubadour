@@ -5,7 +5,6 @@ import { Feedback } from 'src/app/shared/models/feedback.model';
 
 export interface TabsState extends EntityState<Tab> {
   isLoading: boolean;
-  error: string; // TODO remove
   selectedId: string;
   selectedType: string;
   feedback: Feedback;
@@ -17,7 +16,6 @@ export const tabsEntityAdapter: EntityAdapter<Tab> = createEntityAdapter<Tab>({
 
 export const initialTabsState: TabsState = tabsEntityAdapter.getInitialState({
   isLoading: false,
-  error: null,
   selectedId: null,
   selectedType: null,
   feedback: null
