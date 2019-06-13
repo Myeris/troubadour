@@ -2,12 +2,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TestBed } from '@angular/core/testing';
 // app
 import { appReducers, AppState } from '../../app.reducer';
-import {
-  getError,
-  getSelectedPracticeSession,
-  isLoading,
-  getFeedback
-} from './practice-sessions.selector';
+import { getSelectedPracticeSession, isLoading, getFeedback } from './practice-sessions.selector';
 import {
   PracticeSessionListLoad,
   PracticeSessionListLoadFail,

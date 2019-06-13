@@ -10,7 +10,7 @@ import { UserProfileComponent } from './user-profile.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
 import { PasswordFormComponent } from '../../components/password-form/password-form.component';
 import { RemoveFormComponent } from '../../components/remove-form/remove-form.component';
-import { getCurrentUser, getError } from '../../../../store/user/selectors/user.selectors';
+import { getCurrentUser, getFeedback } from '../../../../store/user/selectors/user.selectors';
 import { ChangePassword as ChangePasswordModel } from '../../../../auth/shared/models/change-password.model';
 import { ChangePassword } from '../../../../store/user/actions/user.actions';
 
@@ -56,7 +56,7 @@ describe('UserProfileComponent', () => {
       component.ngOnInit();
       expect(store.select).toHaveBeenCalledTimes(2);
       expect(store.select).toHaveBeenCalledWith(getCurrentUser);
-      expect(store.select).toHaveBeenCalledWith(getError);
+      expect(store.select).toHaveBeenCalledWith(getFeedback);
     });
   });
 

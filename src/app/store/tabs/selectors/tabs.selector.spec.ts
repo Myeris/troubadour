@@ -2,13 +2,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { TestBed } from '@angular/core/testing';
 // app
 import { appReducers, AppState } from '../../app.reducer';
-import {
-  getError,
-  getSelectedTab,
-  getTabsBySelectedType,
-  isLoading,
-  getFeedback
-} from './tabs.selector';
+import { getSelectedTab, getTabsBySelectedType, isLoading, getFeedback } from './tabs.selector';
 import {
   TabListLoad,
   TabListLoadFail,
@@ -69,29 +63,6 @@ describe('TabsSelectors', () => {
 
       store.dispatch(new TabListLoadSuccess({ tabList: [] }));
       expect(result).toBeFalsy();
-    });
-  });
-
-  describe('getError', () => {
-    it('should return the error message', () => {
-      const error = 'error';
-      let result = null;
-
-      store.select(getError).subscribe(value => (result = value));
-
-      expect(result).toBeNull();
-
-      store.dispatch(new TabListLoadFail({ error }));
-      expect(result).toBe(error);
-
-      store.dispatch(new TabListLoad());
-      expect(result).toBeNull();
-
-      store.dispatch(new TabListLoadFail({ error }));
-      expect(result).toBe(error);
-
-      store.dispatch(new TabListLoadSuccess({ tabList: [] }));
-      expect(result).toBeNull();
     });
   });
 

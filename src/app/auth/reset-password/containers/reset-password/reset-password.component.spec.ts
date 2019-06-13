@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ResetPasswordComponent } from './reset-password.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
 import { ResetPassword } from '../../../../store/user/actions/user.actions';
-import { getError } from '../../../../store/user/selectors/user.selectors';
+import { getFeedback } from '../../../../store/user/selectors/user.selectors';
 
 describe('ResetPasswordComponent', () => {
   let component: ResetPasswordComponent;
@@ -59,7 +59,7 @@ describe('ResetPasswordComponent', () => {
       spyOn(store, 'select').and.callThrough();
       component.ngOnInit();
       expect(store.select).toHaveBeenCalledTimes(1);
-      expect(store.select).toHaveBeenCalledWith(getError);
+      expect(store.select).toHaveBeenCalledWith(getFeedback);
     });
   });
 

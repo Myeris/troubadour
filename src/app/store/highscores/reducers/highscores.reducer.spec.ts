@@ -10,6 +10,7 @@ import {
   HighscoreSaveSuccess,
   HighscoreSelect
 } from '../actions/highscores.actions';
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 const highscores: Highscore[] = [
   { $key: '1', name: 'Single stroke roll', highscore: 130, date: new Date().valueOf() },
@@ -105,11 +106,12 @@ describe('HighscoreReducer', () => {
 
   describe('SaveSuccess', () => {
     it('should set the state', () => {
-      const action = new HighscoreSaveSuccess({ message: 'message' });
+      const action = new HighscoreSaveSuccess({ message: Constant.HighscoreSaveSuccess });
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.feedback).toBeNull();
+      expect(state.feedback.success).toBeTruthy();
+      expect(state.feedback.message).toBe(Constant.HighscoreSaveSuccess);
       expect(state.selectedId).toBeNull();
     });
   });

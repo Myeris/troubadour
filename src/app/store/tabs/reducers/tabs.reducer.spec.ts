@@ -56,8 +56,6 @@ describe('TabsReducer', () => {
       const action = new TabListLoadSuccess({ tabList: tabs });
       const state = tabsReducer(initialTabsState, action);
 
-      console.log(state.entities);
-
       expect(state.isLoading).toBeFalsy();
       expect(state.feedback).toBeNull();
       expect(Object.keys(state.entities).length).toBe(3);

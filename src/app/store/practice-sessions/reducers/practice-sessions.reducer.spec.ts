@@ -16,6 +16,7 @@ import {
   PracticeSessionUpdateFail
 } from '../actions/practice-sessions.actions';
 import { PracticeSession } from '../../../drums/shared/models/practice-session.model';
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 const sessions: PracticeSession[] = [
   {
@@ -208,8 +209,6 @@ describe('PracticeSessionsReducer', () => {
       const practiceSession = { ...entities.a, name };
       const ids = ['a', 'b'];
 
-      console.log(practiceSession);
-
       const action = new PracticeSessionUpdate({ practiceSession });
       const selectedId = null;
       const state = practiceSessionsReducer(
@@ -225,14 +224,15 @@ describe('PracticeSessionsReducer', () => {
 
   describe('UpdateSuccess', () => {
     it('should set the state', () => {
-      const action = new PracticeSessionUpdateSuccess({ message: 'message' });
+      const action = new PracticeSessionUpdateSuccess({
+        message: Constant.PracticeSessionUpdateSuccess
+      });
       const state = practiceSessionsReducer(initialPracticeSessionState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.feedback.success).toBeTruthy();
-      expect(state.feedback.message).toBe('message');
+      expect(state.feedback.message).toBe(Constant.PracticeSessionUpdateSuccess);
     });
   });
 

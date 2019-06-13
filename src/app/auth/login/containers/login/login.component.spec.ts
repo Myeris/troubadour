@@ -9,9 +9,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
 import {
-  getError,
   isVerified,
-  verificationEmailSent
+  verificationEmailSent,
+  getFeedback
 } from '../../../../store/user/selectors/user.selectors';
 import { LogIn, SendVerificationEmail } from '../../../../store/user/actions/user.actions';
 
@@ -50,10 +50,10 @@ describe('LoginComponent', () => {
       spyOn(store, 'select').and.returnValue(of('error'));
       component.ngOnInit();
       expect(store.select).toHaveBeenCalledTimes(3);
-      expect(store.select).toHaveBeenCalledWith(getError);
+      expect(store.select).toHaveBeenCalledWith(getFeedback);
       expect(store.select).toHaveBeenCalledWith(isVerified);
       expect(store.select).toHaveBeenCalledWith(verificationEmailSent);
-      expect(component.error$ instanceof Observable).toBeTruthy();
+      expect(component.feedback$ instanceof Observable).toBeTruthy();
       expect(component.isVerified$ instanceof Observable).toBeTruthy();
       expect(component.emailVerificationSent$ instanceof Observable).toBeTruthy();
     });

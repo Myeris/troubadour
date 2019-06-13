@@ -44,8 +44,6 @@ describe('TypesReducer', () => {
       const action = new TypesListLoadSuccess({ types });
       const state = typesReducer(initialTypesState, action);
 
-      console.log(state.entities);
-
       expect(state.isLoading).toBeFalsy();
       expect(state.feedback).toBeNull();
       expect(Object.keys(state.entities).length).toBe(1);

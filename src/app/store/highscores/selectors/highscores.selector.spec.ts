@@ -3,7 +3,7 @@ import { Store, StoreModule } from '@ngrx/store';
 // app
 import { Highscore } from '../../../drums/shared/models/highscore.model';
 import { appReducers, AppState } from '../../app.reducer';
-import { getError, getSelectedHighscore, isLoading, getFeedback } from './highscores.selector';
+import { getSelectedHighscore, isLoading, getFeedback } from './highscores.selector';
 import {
   HighscoreListLoad,
   HighscoreListLoadFail,

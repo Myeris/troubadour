@@ -18,10 +18,7 @@ export class AnonymousGuard implements CanActivate, CanActivateChild {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.store.select(canUseApp).pipe(
-      map((authorized: boolean) => {
-        console.log(authorized);
-        return !authorized;
-      }),
+      map((authorized: boolean) => !authorized),
       take(1)
     );
   }

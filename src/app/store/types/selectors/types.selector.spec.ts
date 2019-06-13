@@ -37,27 +37,4 @@ describe('TypesSelector', () => {
       expect(result).toBeFalsy();
     });
   });
-
-  describe('getFeedback', () => {
-    it('should return the error message', () => {
-      const error = 'error';
-      let result = null;
-
-      store.select(getFeedback).subscribe(value => (result = value));
-
-      expect(result).toBeNull();
-
-      store.dispatch(new TypesListLoadFail({ error }));
-      expect(result).toEqual({ success: false, message: error });
-
-      store.dispatch(new TypesListLoad());
-      expect(result).toBeNull();
-
-      store.dispatch(new TypesListLoadFail({ error }));
-      expect(result).toEqual({ success: false, message: error });
-
-      store.dispatch(new TypesListLoadSuccess({ types: [] }));
-      expect(result).toBeNull();
-    });
-  });
 });

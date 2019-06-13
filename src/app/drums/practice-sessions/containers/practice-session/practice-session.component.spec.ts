@@ -12,7 +12,7 @@ import {
   getSelectedPracticeSession,
   isLoading,
   selectAll as selectAllSessions,
-  getError
+  getFeedback
 } from '../../../../store/practice-sessions/selectors/practice-sessions.selector';
 import { selectAll as selectAllTabs } from 'src/app/store/tabs/selectors/tabs.selector';
 import { selectAll as selectAllTypes } from 'src/app/store/types/selectors/types.selector';
@@ -123,7 +123,7 @@ describe('PracticeSessionComponent', () => {
       expect(store.select).toHaveBeenCalledWith(selectAllTypes);
       expect(store.select).toHaveBeenCalledWith(selectAllSessions);
       expect(store.select).toHaveBeenCalledWith(isLoading);
-      expect(store.select).toHaveBeenCalledWith(getError);
+      expect(store.select).toHaveBeenCalledWith(getFeedback);
 
       expect(store.dispatch).toHaveBeenCalledTimes(3);
       expect(store.dispatch).toHaveBeenCalledWith(new TabListLoad());

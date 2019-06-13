@@ -113,7 +113,6 @@ describe('MetronomeOptionsComponent', () => {
 
       expect(el.query(By.css('#metronome-1'))).toBeDefined();
       component.stop();
-      console.log(el.query(By.css('#metronome-1')).attributes.class);
     });
   });
 

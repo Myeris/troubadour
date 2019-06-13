@@ -171,10 +171,7 @@ describe('UserEffects', () => {
       spyOn(authResource, 'register').and.returnValue(of(userCreds));
 
       const action = new Register({ authRequest: req });
-      const completion = [
-        new RegisterSuccess({ user: userService.mapLoginResponse(userCreds) }),
-        new SendVerificationEmail()
-      ];
+      const completion = new RegisterSuccess({ user: userService.mapLoginResponse(userCreds) });
 
       actions$.stream = hot('-a', { a: action });
       const expected = cold('-b', { b: completion });
@@ -288,7 +285,6 @@ describe('UserEffects', () => {
     it('should return a success action', () => {
       const action = new ResetPassword({ email: 'email' });
       const completion = new ResetPasswordSuccess({
-        success: true,
         message: Constant.UserResetPasswordSuccess
       });
 
@@ -322,7 +318,7 @@ describe('UserEffects', () => {
     it('should dispatch a success action', () => {
       const action = new SendVerificationEmail();
       const completion = new SendVerificationEmailSuccess({
-        success: 'A verification email has been send to you. Please check your inbox.'
+        success: Constant.UserSendVerificationEmailSuccess
       });
 
       spyOn(authResource, 'sendVerificationEmail').and.returnValue(of(true));

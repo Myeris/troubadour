@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // app
 import { RegisterComponent } from './register.component';
 import { appReducers, AppState } from '../../../../store/app.reducer';
-import { getError } from '../../../../store/user/selectors/user.selectors';
+import { getFeedback } from '../../../../store/user/selectors/user.selectors';
 import { Register } from '../../../../store/user/actions/user.actions';
 
 describe('RegisterComponent', () => {
@@ -45,7 +45,7 @@ describe('RegisterComponent', () => {
       spyOn(store, 'select').and.callThrough();
       component.ngOnInit();
       expect(store.select).toHaveBeenCalledTimes(1);
-      expect(store.select).toHaveBeenCalledWith(getError);
+      expect(store.select).toHaveBeenCalledWith(getFeedback);
     });
   });
 

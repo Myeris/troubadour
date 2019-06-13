@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
-import { catchError, map, pluck, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { catchError, map, pluck, switchMap, tap, withLatestFrom, mergeMap } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { FirebaseError } from 'firebase';
@@ -59,10 +59,10 @@ export class UserEffects {
     pluck('payload'),
     pluck('authRequest'),
     switchMap((authRequest: AuthRequest) => this.authResource.register(authRequest)),
-    map((userCreds: UserCredential) => [
-      new RegisterSuccess({ user: this.userService.mapLoginResponse(userCreds) }),
-      new SendVerificationEmail()
-    ]),
+    map(
+      (userCreds: UserCredential) =>
+        new RegisterSuccess({ user: this.userService.mapLoginResponse(userCreds) })
+    ),
     catchError((fe: FirestoreError) => of(new RegisterFail({ error: fe.message })))
   );
 
@@ -73,11 +73,11 @@ export class UserEffects {
     tap(() => this.router.navigate(['/']))
   );
 
-  // TODO dispatch send verification email message
-  @Effect({ dispatch: false })
-  redirectConnectedUserAfterRegister$: Observable<void> = this.actions$.pipe(
+  @Effect()
+  redirectConnectedUserAfterRegister$: Observable<Action> = this.actions$.pipe(
     ofType<RegisterSuccess>(UserActionsTypes.RegisterSuccess),
     map(action => this.userService.persistUser(action.payload.user)),
+    map(() => new SendVerificationEmail()),
     tap(() => this.router.navigate(['/']))
   );
 
@@ -118,7 +118,7 @@ export class UserEffects {
     map(
       () =>
         new SendVerificationEmailSuccess({
-          success: 'A verification email has been send to you. Please check your inbox.'
+          success: Constant.UserSendVerificationEmailSuccess
         })
     ),
     catchError((error: FirebaseError) =>

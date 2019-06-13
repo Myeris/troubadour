@@ -114,7 +114,8 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.feedback).toBeNull();
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
       expect(state.selectedId).toBeNull();
     });
   });
@@ -216,7 +217,8 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.feedback).toBeNull();
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
       expect(state.selectedId).toBeNull();
     });
   });
@@ -247,14 +249,15 @@ describe('userReducer', () => {
 
   describe('SendVerificationEmailSuccess', () => {
     it('should set the state', () => {
-      const action = new SendVerificationEmailSuccess({ success: 'success' });
+      const action = new SendVerificationEmailSuccess({
+        success: Constant.UserSendVerificationEmailSuccess
+      });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.feedback.success).toBeTruthy();
-      expect(state.feedback.message).toBe('success');
+      expect(state.feedback.message).toBe(Constant.UserSendVerificationEmailSuccess);
       expect(state.verificationEmailSent).toBeTruthy();
     });
   });
