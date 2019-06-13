@@ -9,12 +9,13 @@ import { AuthRequest } from '../../../shared/models/auth-request.model';
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
 import { AppState } from '../../../../store/app.reducer';
 import {
-  getError,
   isVerified,
-  verificationEmailSent
+  verificationEmailSent,
+  getFeedback
 } from '../../../../store/user/selectors/user.selectors';
 import { LogIn, SendVerificationEmail } from '../../../../store/user/actions/user.actions';
 import { fadeAnimation } from '../../../../shared/animations/animations';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,7 @@ import { fadeAnimation } from '../../../../shared/animations/animations';
   animations: [fadeAnimation]
 })
 export class LoginComponent extends LifecycleComponent implements OnInit {
-  public error$: Observable<string>;
+  public feedback$: Observable<Feedback>;
   public isVerified$: Observable<boolean>;
   public emailVerificationSent$: Observable<boolean>;
 
@@ -32,7 +33,7 @@ export class LoginComponent extends LifecycleComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.error$ = this.store.select(getError).pipe(takeUntil(this.componentDestroyed$));
+    this.feedback$ = this.store.select(getFeedback).pipe(takeUntil(this.componentDestroyed$));
     this.isVerified$ = this.store.select(isVerified).pipe(takeUntil(this.componentDestroyed$));
     this.emailVerificationSent$ = this.store
       .select(verificationEmailSent)

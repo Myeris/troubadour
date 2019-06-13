@@ -7,8 +7,7 @@ export interface UserState extends EntityState<User> {
   selectedId: string;
   isLoggedIn: boolean;
   isLoading: boolean;
-  error: string; // TODO remove
-  verificationEmailSent: boolean; // TODO remove
+  verificationEmailSent: boolean;
   feedback: Feedback;
 }
 
@@ -20,7 +19,6 @@ export const initialUserState: UserState = userEntityAdapter.getInitialState({
   selectedId: null,
   isLoggedIn: false,
   isLoading: false,
-  error: null,
   verificationEmailSent: false,
   feedback: null
 });

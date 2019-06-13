@@ -6,11 +6,12 @@ import { Router } from '@angular/router';
 // app
 import { User } from '../../../../auth/shared/models/user.model';
 import { AppState } from '../../../../store/app.reducer';
-import { getCurrentUser, getError } from '../../../../store/user/selectors/user.selectors';
+import { getCurrentUser, getFeedback } from '../../../../store/user/selectors/user.selectors';
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
 import { ChangePassword as ChangePasswordModel } from '../../../../auth/shared/models/change-password.model';
 import { ChangePassword } from '../../../../store/user/actions/user.actions';
 import { fadeAnimation } from '../../../../shared/animations/animations';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -20,7 +21,7 @@ import { fadeAnimation } from '../../../../shared/animations/animations';
 })
 export class UserProfileComponent extends LifecycleComponent implements OnInit {
   public user$: Observable<User>;
-  public error$: Observable<string>;
+  public feedback$: Observable<Feedback>;
 
   constructor(private store: Store<AppState>, private router: Router) {
     super();
@@ -28,7 +29,9 @@ export class UserProfileComponent extends LifecycleComponent implements OnInit {
 
   ngOnInit(): void {
     this.user$ = this.store.select<User>(getCurrentUser).pipe(takeUntil(this.componentDestroyed$));
-    this.error$ = this.store.select<string>(getError).pipe(takeUntil(this.componentDestroyed$));
+    this.feedback$ = this.store
+      .select<Feedback>(getFeedback)
+      .pipe(takeUntil(this.componentDestroyed$));
   }
 
   public onPasswordChange(changePassword: ChangePasswordModel): void {
@@ -36,6 +39,7 @@ export class UserProfileComponent extends LifecycleComponent implements OnInit {
   }
 
   public async onAccountRemove(): Promise<any> {
+    // TODO
     // try {
     //   await this.userService.remove(this.authService.user.uid);
     //   await this.authService.removeUser();

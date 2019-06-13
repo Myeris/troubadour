@@ -11,7 +11,6 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         ...state,
         isLoggedIn: false,
         isLoading: true,
-        error: null,
         selectedId: null,
         verificationEmailSent: false,
         feedback: null
@@ -25,7 +24,6 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         ...state,
         isLoggedIn: false,
         isLoading: false,
-        error: action.payload.error,
         selectedId: null,
         verificationEmailSent: false,
         feedback: { success: false, message: action.payload.error }
@@ -38,7 +36,6 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         selectedId: action.payload.user.id,
         isLoggedIn: true,
         isLoading: false,
-        error: null,
         verificationEmailSent: false,
         feedback: null
       });
@@ -48,7 +45,6 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         isLoggedIn: false,
         isLoading: false,
         selectedId: null,
-        error: null,
         verificationEmailSent: false,
         feedback: null
       });
@@ -58,16 +54,14 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         ...state,
         isLoggedIn: false,
         isLoading: state.isLoading,
-        error: null,
         selectedId: null,
         verificationEmailSent: false,
-        feedback: null
+        feedback: { success: true, message: action.payload.message }
       };
     case UserActionsTypes.SendVerificationEmail:
       return {
         ...state,
         isLoading: false,
-        error: null,
         selectedId: null,
         verificationEmailSent: false,
         feedback: null
@@ -76,7 +70,6 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
       return {
         ...state,
         isLoading: false,
-        error: null,
         selectedId: null,
         verificationEmailSent: true,
         feedback: { success: true, message: action.payload.success }

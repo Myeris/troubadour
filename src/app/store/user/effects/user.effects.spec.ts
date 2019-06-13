@@ -35,6 +35,7 @@ import UserCredential = firebase.auth.UserCredential;
 import FirestoreError = firebase.firestore.FirestoreError;
 import SpyObj = jasmine.SpyObj;
 import { AuthErrors } from '../../../auth/shared/utils/errors.utils';
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 class AuthResourceMock {
   login() {
@@ -251,7 +252,7 @@ describe('UserEffects', () => {
       const changePassword = { old: 'a', new: 'b', confirmed: 'b' };
 
       const action = new ChangePassword({ changePassword });
-      const completion = new ChangePasswordSuccess();
+      const completion = new ChangePasswordSuccess({ message: Constant.UserChangePasswordSuccess });
 
       spyOn(authResource, 'changePassword').and.returnValue(of(true));
 
@@ -286,7 +287,10 @@ describe('UserEffects', () => {
   describe('resetPassword$', () => {
     it('should return a success action', () => {
       const action = new ResetPassword({ email: 'email' });
-      const completion = new ResetPasswordSuccess();
+      const completion = new ResetPasswordSuccess({
+        success: true,
+        message: Constant.UserResetPasswordSuccess
+      });
 
       spyOn(authResource, 'resetPassword').and.returnValue(of({}));
 

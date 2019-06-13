@@ -14,8 +14,8 @@
       Login
     </button>
 
-    <div *ngIf="error$ | async" class="error">
-      {{ error$ | async }}
+    <div *ngIf="(feedback$ | async)?.success === false" class="error">
+      {{ (feedback$ | async)?.message }}
 
       <div *ngIf="!(isVerified$ | async)">
         <a (click)="resendVerificationEmail()">

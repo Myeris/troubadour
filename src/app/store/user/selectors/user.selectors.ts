@@ -25,11 +25,6 @@ export const isLoggedIn = createSelector(
   state => state.isLoggedIn
 );
 
-export const getError = createSelector(
-  getUserState,
-  state => state.error
-);
-
 export const getCurrentUser = createSelector(
   getUserState,
   state => (state.selectedId ? state.entities[state.selectedId] : null)
@@ -49,4 +44,9 @@ export const canUseApp = createSelector(
   isLoggedIn,
   isVerified,
   (loggedIn: boolean, verified: boolean) => loggedIn && verified
+);
+
+export const getFeedback = createSelector(
+  getUserState,
+  state => state.feedback
 );

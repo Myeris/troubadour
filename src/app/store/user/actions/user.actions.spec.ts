@@ -24,6 +24,7 @@ import {
   UserActionsTypes
 } from './user.actions';
 import { User } from '../../../auth/shared/models/user.model';
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 const authRequest: AuthRequest = { email: 'email', password: 'password' };
 
@@ -99,7 +100,7 @@ describe('UserActions', () => {
 
   describe('ChangePasswordSuccess', () => {
     it('should create an action', () => {
-      const action = new ChangePasswordSuccess();
+      const action = new ChangePasswordSuccess({ message: Constant.UserChangePasswordSuccess });
       expect(action.type).toBe(UserActionsTypes.ChangePasswordSuccess);
     });
   });
@@ -148,7 +149,7 @@ describe('UserActions', () => {
 
   describe('ResetPasswordSuccess', () => {
     it('should create an action', () => {
-      const action = new ResetPasswordSuccess();
+      const action = new ResetPasswordSuccess({ message: Constant.UserResetPasswordSuccess });
       expect(action.type).toBe(UserActionsTypes.ResetPasswordSuccess);
     });
   });

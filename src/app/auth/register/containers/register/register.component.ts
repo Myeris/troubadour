@@ -8,9 +8,10 @@ import { takeUntil } from 'rxjs/operators';
 import { AuthRequest } from '../../../shared/models/auth-request.model';
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
 import { AppState } from '../../../../store/app.reducer';
-import { getError } from '../../../../store/user/selectors/user.selectors';
+import { getFeedback } from '../../../../store/user/selectors/user.selectors';
 import { Register } from '../../../../store/user/actions/user.actions';
 import { fadeAnimation } from '../../../../shared/animations/animations';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 @Component({
   selector: 'app-register',
@@ -19,14 +20,14 @@ import { fadeAnimation } from '../../../../shared/animations/animations';
   animations: [fadeAnimation]
 })
 export class RegisterComponent extends LifecycleComponent implements OnInit {
-  public error$: Observable<string>;
+  public feedback$: Observable<Feedback>;
 
   constructor(private router: Router, private store: Store<AppState>) {
     super();
   }
 
   ngOnInit(): void {
-    this.error$ = this.store.select(getError).pipe(takeUntil(this.componentDestroyed$));
+    this.feedback$ = this.store.select(getFeedback).pipe(takeUntil(this.componentDestroyed$));
   }
 
   public registerUser(event: FormGroup): void {

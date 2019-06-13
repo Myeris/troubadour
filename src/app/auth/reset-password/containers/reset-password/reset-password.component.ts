@@ -7,8 +7,9 @@ import { takeUntil } from 'rxjs/operators';
 import { AppState } from '../../../../store/app.reducer';
 import { ResetPassword } from '../../../../store/user/actions/user.actions';
 import { LifecycleComponent } from '../../../../shared/components/lifecycle/lifecycle.component';
-import { getError } from '../../../../store/user/selectors/user.selectors';
+import { getFeedback } from '../../../../store/user/selectors/user.selectors';
 import { fadeAnimation } from '../../../../shared/animations/animations';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 @Component({
   selector: 'app-reset-password',
@@ -20,8 +21,7 @@ export class ResetPasswordComponent extends LifecycleComponent implements OnInit
   public form: FormGroup = this.fb.group({
     email: ['', Validators.email]
   });
-  public error$: Observable<string>;
-  public feedback: { success: boolean; message: string };
+  public feedback$: Observable<Feedback>;
 
   public get emailFormat(): boolean {
     const control = this.form.get('email');
@@ -33,11 +33,10 @@ export class ResetPasswordComponent extends LifecycleComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this.error$ = this.store.select(getError).pipe(takeUntil(this.componentDestroyed$));
+    this.feedback$ = this.store.select(getFeedback).pipe(takeUntil(this.componentDestroyed$));
   }
 
   public onSubmit(): void {
     this.store.dispatch(new ResetPassword({ email: this.form.get('email').value }));
-    this.feedback = { success: true, message: 'Check your emails' };
   }
 }

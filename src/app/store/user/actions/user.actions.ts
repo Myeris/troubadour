@@ -88,6 +88,8 @@ export class ChangePassword implements Action {
 
 export class ChangePasswordSuccess implements Action {
   public readonly type = UserActionsTypes.ChangePasswordSuccess;
+
+  constructor(public payload: { message: string }) {}
 }
 
 export class ChangePasswordFail implements Action {
@@ -124,6 +126,8 @@ export class ResetPassword implements Action {
 
 export class ResetPasswordSuccess implements Action {
   public readonly type = UserActionsTypes.ResetPasswordSuccess;
+
+  constructor(public payload: { message: string }) {}
 }
 
 export class ResetPasswordFail implements Action {

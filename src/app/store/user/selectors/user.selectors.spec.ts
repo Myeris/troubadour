@@ -2,14 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 // app
 import { appReducers, AppState } from '../../app.reducer';
-import {
-  canUseApp,
-  getCurrentUser,
-  getError,
-  isLoading,
-  isLoggedIn,
-  isVerified
-} from './user.selectors';
+import { getCurrentUser, isLoading, isLoggedIn, isVerified, getFeedback } from './user.selectors';
 import { LogIn, LogInFail, LogInSuccess } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { User } from '../../../auth/shared/models/user.model';
@@ -77,25 +70,6 @@ describe('UserSelectors', () => {
     });
   });
 
-  describe('getError', () => {
-    it('should return the getError prop from the state', () => {
-      let result = null;
-
-      store.select(getError).subscribe(value => (result = value));
-
-      expect(result).toBeNull();
-
-      store.dispatch(new LogIn({ authRequest: {} as AuthRequest }));
-      expect(result).toBeNull();
-
-      store.dispatch(new LogInFail({ error: 'toto' }));
-      expect(result).toBe('toto');
-
-      store.dispatch(new LogInSuccess({ user: {} as User }));
-      expect(result).toBeNull();
-    });
-  });
-
   describe('getCurrentUser', () => {
     it('should return the current user', () => {
       let result = null;
@@ -119,6 +93,20 @@ describe('UserSelectors', () => {
 
       store.dispatch(new LogInSuccess({ user }));
       expect(result).toEqual(true);
+    });
+  });
+
+  describe('getFeedback', () => {
+    it('should return the feedback', () => {
+      const error = 'error';
+      let result = null;
+
+      store.select(getFeedback).subscribe(value => (result = value));
+
+      expect(result).toBeNull();
+
+      store.dispatch(new LogInFail({ error }));
+      expect(result).toEqual({ success: false, message: error });
     });
   });
 });

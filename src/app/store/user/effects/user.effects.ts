@@ -35,6 +35,7 @@ import { User } from '../../../auth/shared/models/user.model';
 import { AuthErrors } from '../../../auth/shared/utils/errors.utils';
 import FirestoreError = firebase.firestore.FirestoreError;
 import UserCredential = firebase.auth.UserCredential;
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 @Injectable()
 export class UserEffects {
@@ -95,7 +96,7 @@ export class UserEffects {
     switchMap(([action, currentUser]) =>
       this.authResource.changePassword(currentUser.email, action.payload.changePassword)
     ),
-    map(() => new ChangePasswordSuccess()),
+    map(() => new ChangePasswordSuccess({ message: Constant.UserChangePasswordSuccess })),
     catchError((error: FirebaseError) => of(new ChangePasswordFail({ error: error.message })))
   );
 
@@ -105,7 +106,7 @@ export class UserEffects {
     pluck('payload'),
     pluck('email'),
     switchMap((email: string) => this.authResource.resetPassword(email)),
-    map(() => new ResetPasswordSuccess()),
+    map(() => new ResetPasswordSuccess({ message: Constant.UserResetPasswordSuccess })),
     catchError((error: FirebaseError) => of(new ResetPasswordFail({ error: error.message })))
   );
 

@@ -22,6 +22,7 @@ import {
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { User } from '../../../auth/shared/models/user.model';
+import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 
 const user: User = {
   email: 'email',
@@ -48,8 +49,8 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeTruthy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBeNull();
       expect(state.selectedId).toBeNull();
+      expect(state.feedback).toBeNull();
     });
   });
 
@@ -60,9 +61,9 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeTruthy();
-      expect(state.error).toBeNull();
       expect(state.entities[user.id]).toEqual(user);
       expect(state.selectedId).toBe(user.id);
+      expect(state.feedback).toBeNull();
     });
   });
 
@@ -74,8 +75,9 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
     });
   });
 
@@ -86,7 +88,7 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeTruthy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });
@@ -98,7 +100,7 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.entities[user.id]).toEqual(user);
       expect(state.selectedId).toBe(user.id);
     });
@@ -112,7 +114,7 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBe(error);
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });
@@ -124,7 +126,7 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
     });
@@ -137,7 +139,7 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });
@@ -149,19 +151,20 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeTruthy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });
 
   describe('ChangePasswordSuccess', () => {
     it('should set the state', () => {
-      const action = new ChangePasswordSuccess();
+      const action = new ChangePasswordSuccess({ message: Constant.UserChangePasswordSuccess });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback.success).toBeTruthy();
+      expect(state.feedback.message).toBe(Constant.UserChangePasswordSuccess);
       expect(state.selectedId).toBeNull();
     });
   });
@@ -174,7 +177,8 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBe(error);
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
       expect(state.selectedId).toBeNull();
     });
   });
@@ -186,7 +190,7 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.entities[user.id]).toEqual(user);
       expect(state.selectedId).toBe(user.id);
     });
@@ -199,7 +203,7 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeTruthy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });
@@ -212,19 +216,20 @@ describe('userReducer', () => {
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBe(error);
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });
 
   describe('ResetPasswordSuccess', () => {
     it('should set the state', () => {
-      const action = new ResetPasswordSuccess();
+      const action = new ResetPasswordSuccess({ message: Constant.UserResetPasswordSuccess });
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback.success).toBeTruthy();
+      expect(state.feedback.message).toBe(Constant.UserResetPasswordSuccess);
       expect(state.selectedId).toBeNull();
     });
   });
@@ -235,7 +240,7 @@ describe('userReducer', () => {
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });
@@ -246,10 +251,11 @@ describe('userReducer', () => {
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.feedback.success).toBeTruthy();
       expect(state.feedback.message).toBe('success');
+      expect(state.verificationEmailSent).toBeTruthy();
     });
   });
 
@@ -260,7 +266,6 @@ describe('userReducer', () => {
       const state = userReducer(initialUserState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
       expect(state.feedback.success).toBeFalsy();
       expect(state.feedback.message).toBe(error);
