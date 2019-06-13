@@ -22,11 +22,6 @@ export const isLoading = createSelector(
   state => state.isLoading
 );
 
-export const getError = createSelector(
-  getHighscoreState,
-  state => state.error
-);
-
 export const getSelectedHighscore = createSelector(
   getHighscoreState,
   state => (state.selectedId ? state.entities[state.selectedId] : null)

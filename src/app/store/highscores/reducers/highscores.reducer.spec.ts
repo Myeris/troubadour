@@ -34,7 +34,7 @@ describe('HighscoreReducer', () => {
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
     });
@@ -47,7 +47,8 @@ describe('HighscoreReducer', () => {
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBe(error);
+      expect(state.feedback.message).toBe(error);
+      expect(state.feedback.success).toBeFalsy();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
     });
@@ -59,7 +60,7 @@ describe('HighscoreReducer', () => {
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(3);
     });
@@ -71,7 +72,7 @@ describe('HighscoreReducer', () => {
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBe('id');
     });
   });
@@ -82,7 +83,7 @@ describe('HighscoreReducer', () => {
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeTruthy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
     });
@@ -95,7 +96,8 @@ describe('HighscoreReducer', () => {
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBe(error);
+      expect(state.feedback.message).toBe(error);
+      expect(state.feedback.success).toBeFalsy();
       expect(state.selectedId).toBeNull();
       expect(state.ids.length).toBe(0);
     });
@@ -107,7 +109,7 @@ describe('HighscoreReducer', () => {
       const state = highscoreReducer(initialHighscoresState, action);
 
       expect(state.isLoading).toBeFalsy();
-      expect(state.error).toBeNull();
+      expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
     });
   });

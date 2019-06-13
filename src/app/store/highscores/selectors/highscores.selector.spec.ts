@@ -3,13 +3,14 @@ import { Store, StoreModule } from '@ngrx/store';
 // app
 import { Highscore } from '../../../drums/shared/models/highscore.model';
 import { appReducers, AppState } from '../../app.reducer';
-import { getError, getSelectedHighscore, isLoading } from './highscores.selector';
+import { getError, getSelectedHighscore, isLoading, getFeedback } from './highscores.selector';
 import {
   HighscoreListLoad,
   HighscoreListLoadFail,
   HighscoreListLodSuccess,
   HighscoreSelect
 } from '../actions/highscores.actions';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 const highscores: Highscore[] = [
   { $key: '1', name: 'Single stroke roll', highscore: 130, date: new Date().valueOf() },
@@ -50,23 +51,24 @@ describe('HighscoresSelectors', () => {
     });
   });
 
-  describe('getError', () => {
-    it('should return the error message', () => {
+  describe('gegetFeedbackError', () => {
+    it('should return the feedback message', () => {
       const error = 'error';
+      const feedback: Feedback = { success: false, message: error };
       let result = null;
 
-      store.select(getError).subscribe(value => (result = value));
+      store.select(getFeedback).subscribe(value => (result = value));
 
       expect(result).toBeNull();
 
       store.dispatch(new HighscoreListLoadFail({ error }));
-      expect(result).toBe(error);
+      expect(result).toEqual(feedback);
 
       store.dispatch(new HighscoreListLoad());
       expect(result).toBeNull();
 
       store.dispatch(new HighscoreListLoadFail({ error }));
-      expect(result).toBe(error);
+      expect(result).toEqual(feedback);
 
       store.dispatch(new HighscoreListLodSuccess({ highscores }));
       expect(result).toBeNull();
@@ -86,12 +88,6 @@ describe('HighscoresSelectors', () => {
 
       store.dispatch(new HighscoreSelect({ id }));
       expect(result).toEqual(highscores[0]);
-    });
-  });
-
-  describe('getFeedback', () => {
-    it('should return the feedback', () => {
-      // TODO
     });
   });
 });
