@@ -248,6 +248,8 @@ describe('userReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBeNull();
       expect(state.selectedId).toBeNull();
+      expect(state.feedback.success).toBeTruthy();
+      expect(state.feedback.message).toBe('success');
     });
   });
 
@@ -260,6 +262,8 @@ describe('userReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBe(error);
       expect(state.selectedId).toBeNull();
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
     });
   });
 });

@@ -13,7 +13,8 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         isLoading: true,
         error: null,
         selectedId: null,
-        verificationEmailSent: false
+        verificationEmailSent: false,
+        feedback: null
       };
     case UserActionsTypes.LogInFail:
     case UserActionsTypes.RegisterFail:
@@ -26,7 +27,8 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         isLoading: false,
         error: action.payload.error,
         selectedId: null,
-        verificationEmailSent: false
+        verificationEmailSent: false,
+        feedback: { success: false, message: action.payload.error }
       };
     case UserActionsTypes.LogInSuccess:
     case UserActionsTypes.RegisterSuccess:
@@ -37,7 +39,8 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         isLoggedIn: true,
         isLoading: false,
         error: null,
-        verificationEmailSent: false
+        verificationEmailSent: false,
+        feedback: null
       });
     case UserActionsTypes.LogOutSuccess:
       return userEntityAdapter.removeAll({
@@ -46,7 +49,8 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         isLoading: false,
         selectedId: null,
         error: null,
-        verificationEmailSent: false
+        verificationEmailSent: false,
+        feedback: null
       });
     case UserActionsTypes.ChangePasswordSuccess:
     case UserActionsTypes.ResetPasswordSuccess:
@@ -56,7 +60,8 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         isLoading: state.isLoading,
         error: null,
         selectedId: null,
-        verificationEmailSent: false
+        verificationEmailSent: false,
+        feedback: null
       };
     case UserActionsTypes.SendVerificationEmail:
       return {
@@ -64,7 +69,8 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         isLoading: false,
         error: null,
         selectedId: null,
-        verificationEmailSent: false
+        verificationEmailSent: false,
+        feedback: null
       };
     case UserActionsTypes.SendVerificationEmailSuccess:
       return {
@@ -72,7 +78,8 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         isLoading: false,
         error: null,
         selectedId: null,
-        verificationEmailSent: true
+        verificationEmailSent: true,
+        feedback: { success: true, message: action.payload.success }
       };
     default:
       return state;
