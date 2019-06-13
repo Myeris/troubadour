@@ -13,7 +13,13 @@ export function tabsReducer(state: TabsState = initialTabsState, action: TabsAct
         selectedId: null
       });
     case TabsActionsTypes.LoadListFail:
-      return { ...state, isLoading: false, error: action.payload.error, selectedId: null };
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error,
+        selectedId: null,
+        feedback: { success: false, message: action.payload.error }
+      };
     case TabsActionsTypes.Select:
       return { ...state, isLoading: false, error: null, selectedId: action.payload.id };
     case TabsActionsTypes.SelectType:

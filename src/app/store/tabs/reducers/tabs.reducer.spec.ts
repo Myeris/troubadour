@@ -73,6 +73,8 @@ describe('TabsReducer', () => {
       expect(state.isLoading).toBeFalsy();
       expect(state.error).toBe(error);
       expect(state.ids.length).toBe(0);
+      expect(state.feedback.success).toBeFalsy();
+      expect(state.feedback.message).toBe(error);
     });
   });
 
