@@ -12,7 +12,12 @@ export function typesReducer(state: TypesState = initialTypesState, action: Type
         error: null
       });
     case TypesActionsTypes.LoadListFail:
-      return { ...state, isLoading: false, error: action.payload.error };
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error,
+        feedback: { success: false, message: action.payload.error }
+      };
     default:
       return state;
   }

@@ -1,10 +1,12 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 // app
 import { Tag } from '../../drums/shared/models/tag.model';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 export interface TypesState extends EntityState<Tag> {
   isLoading: boolean;
-  error: string;
+  error: string; // TODO remove
+  feedback: Feedback;
 }
 
 export const typesEntityAdapter: EntityAdapter<Tag> = createEntityAdapter<Tag>({
@@ -13,5 +15,6 @@ export const typesEntityAdapter: EntityAdapter<Tag> = createEntityAdapter<Tag>({
 
 export const initialTypesState: TypesState = typesEntityAdapter.getInitialState({
   isLoading: false,
-  error: null
+  error: null,
+  feedback: null
 });
