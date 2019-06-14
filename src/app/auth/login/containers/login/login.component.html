@@ -17,7 +17,7 @@
     <div *ngIf="(feedback$ | async)?.success === false" class="error">
       {{ (feedback$ | async)?.message }}
 
-      <div *ngIf="!(isVerified$ | async)">
+      <div *ngIf="(isVerified$ | async) === false">
         <a (click)="resendVerificationEmail()">
           Resend the verification email?
         </a>

@@ -32,7 +32,7 @@ export const getCurrentUser = createSelector(
 
 export const isVerified = createSelector(
   getCurrentUser,
-  currentUser => (currentUser ? currentUser.verified : false)
+  currentUser => (currentUser ? currentUser.verified : null)
 );
 
 export const verificationEmailSent = createSelector(
