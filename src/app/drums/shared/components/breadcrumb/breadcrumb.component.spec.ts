@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 // app
 import { BreadcrumbComponent } from './breadcrumb.component';
-import { asPureExpressionData } from '@angular/core/src/view';
 
 describe('BreadcrumbComponent', () => {
   let component: BreadcrumbComponent;

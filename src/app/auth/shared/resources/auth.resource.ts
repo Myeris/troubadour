@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { from, Observable, Subscription } from 'rxjs';
 // app
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AuthRequest } from '../models/auth-request.model';
@@ -9,8 +10,10 @@ import UserCredential = firebase.auth.UserCredential;
 export class AuthResource {
   constructor(private afAuth: AngularFireAuth) {}
 
-  public login(authRequest: AuthRequest): Promise<UserCredential> {
-    return this.afAuth.auth.signInWithEmailAndPassword(authRequest.email, authRequest.password);
+  public login(authRequest: AuthRequest): Observable<UserCredential> {
+    return from(
+      this.afAuth.auth.signInWithEmailAndPassword(authRequest.email, authRequest.password)
+    );
   }
 
   public register(authRequest: AuthRequest): Promise<UserCredential> {
@@ -19,6 +22,7 @@ export class AuthResource {
 
   public changePassword(email: string, changePassword: ChangePassword): Promise<void> {
     return this.login({ email, password: changePassword.old })
+      .toPromise()
       .then(() => this.afAuth.auth.currentUser.updatePassword(changePassword.new))
       .catch(err => new Promise((resolve, reject) => reject(err)));
   }

@@ -44,13 +44,16 @@ export class UserEffects {
     ofType<LogIn>(UserActionsTypes.LogIn),
     pluck('payload'),
     pluck('authRequest'),
-    switchMap((authRequest: AuthRequest) => this.authResource.login(authRequest)),
-    map((userCreds: UserCredential) =>
-      userCreds.user.emailVerified
-        ? new LogInSuccess({ user: this.userService.mapLoginResponse(userCreds) })
-        : new LogInFail({ error: AuthErrors.NotVerified })
-    ),
-    catchError((fe: FirestoreError) => of(new LogInFail({ error: fe.message })))
+    switchMap((authRequest: AuthRequest) =>
+      this.authResource.login(authRequest).pipe(
+        map((userCreds: UserCredential) =>
+          userCreds.user.emailVerified
+            ? new LogInSuccess({ user: this.userService.mapLoginResponse(userCreds) })
+            : new LogInFail({ error: AuthErrors.NotVerified })
+        ),
+        catchError((fe: FirestoreError) => of(new LogInFail({ error: fe.message })))
+      )
+    )
   );
 
   @Effect()
