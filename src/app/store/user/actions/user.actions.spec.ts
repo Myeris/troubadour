@@ -21,7 +21,8 @@ import {
   SendVerificationEmailFail,
   SendVerificationEmailSuccess,
   SetPersistedUser,
-  UserActionsTypes
+  UserActionsTypes,
+  ResetFeedback
 } from './user.actions';
 import { User } from '../../../auth/shared/models/user.model';
 import { Constant } from 'src/app/shared/utils/enums/constants.utils';
@@ -179,6 +180,13 @@ describe('UserActions', () => {
     it('should create an action', () => {
       const action = new SendVerificationEmailFail({ error: 'This is an error' });
       expect(action.type).toBe(UserActionsTypes.SendVerificationEmailFail);
+    });
+  });
+
+  describe('ResetFeedback', () => {
+    it('should reset the feedback', () => {
+      const action = new ResetFeedback();
+      expect(action.type).toBe(UserActionsTypes.ResetFeedback);
     });
   });
 });

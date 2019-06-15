@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs';
+import { Observable, of, from } from 'rxjs';
 import { catchError, map, pluck, switchMap, tap, withLatestFrom, mergeMap } from 'rxjs/operators';
 import { Action, Store } from '@ngrx/store';
 import { Router } from '@angular/router';
+import { RouterNavigatedAction, ROUTER_NAVIGATED } from '@ngrx/router-store';
 import { FirebaseError } from 'firebase';
 // app
 import { AppState } from '../../app.reducer';
@@ -25,7 +26,8 @@ import {
   SendVerificationEmail,
   SendVerificationEmailFail,
   SendVerificationEmailSuccess,
-  UserActionsTypes
+  UserActionsTypes,
+  ResetFeedback
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { AuthResource } from '../../../auth/shared/resources/auth.resource';
@@ -40,12 +42,18 @@ import { Constant } from 'src/app/shared/utils/enums/constants.utils';
 @Injectable()
 export class UserEffects {
   @Effect()
+  $resetFeedback: Observable<Action> = this.actions$.pipe(
+    ofType<RouterNavigatedAction>(ROUTER_NAVIGATED),
+    map(() => new ResetFeedback())
+  );
+
+  @Effect()
   authenticateUser$: Observable<Action> = this.actions$.pipe(
     ofType<LogIn>(UserActionsTypes.LogIn),
     pluck('payload'),
     pluck('authRequest'),
     switchMap((authRequest: AuthRequest) =>
-      this.authResource.login(authRequest).pipe(
+      from(this.authResource.login(authRequest)).pipe(
         map((userCreds: UserCredential) =>
           userCreds.user.emailVerified
             ? new LogInSuccess({ user: this.userService.mapLoginResponse(userCreds) })
@@ -97,10 +105,11 @@ export class UserEffects {
     ofType<ChangePassword>(UserActionsTypes.ChangePassword),
     withLatestFrom(this.store$.select<User>(getCurrentUser)),
     switchMap(([action, currentUser]) =>
-      this.authResource.changePassword(currentUser.email, action.payload.changePassword)
-    ),
-    map(() => new ChangePasswordSuccess({ message: Constant.UserChangePasswordSuccess })),
-    catchError((error: FirebaseError) => of(new ChangePasswordFail({ error: error.message })))
+      from(this.authResource.changePassword(currentUser.email, action.payload.changePassword)).pipe(
+        map(() => new ChangePasswordSuccess({ message: Constant.UserChangePasswordSuccess })),
+        catchError((error: FirebaseError) => of(new ChangePasswordFail({ error: error.message })))
+      )
+    )
   );
 
   @Effect()

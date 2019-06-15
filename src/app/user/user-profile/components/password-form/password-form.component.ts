@@ -1,23 +1,29 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+// app
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 @Component({
   selector: 'app-password-form',
   templateUrl: './password-form.component.html',
   styleUrls: ['./password-form.component.scss']
 })
-export class PasswordFormComponent {
+export class PasswordFormComponent implements OnChanges {
   public password: FormGroup = this.fb.group({
     old: ['', Validators.required],
     new: ['', Validators.required],
     confirmed: ['', Validators.required]
   });
-
-  @Input() public feedback: { success: boolean; message: string };
-
+  @Input() public feedback: Feedback;
   @Output() public changePassword: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   constructor(private fb: FormBuilder) {}
+
+  ngOnChanges(): void {
+    if (this.feedback && this.feedback.success) {
+      this.resetForm();
+    }
+  }
 
   public displayPasswordError(formControlName: string): boolean {
     return (
@@ -41,5 +47,9 @@ export class PasswordFormComponent {
     }
 
     this.changePassword.emit(this.password.value);
+  }
+
+  public resetForm(): void {
+    this.password.reset();
   }
 }

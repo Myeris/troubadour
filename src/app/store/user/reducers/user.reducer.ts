@@ -5,7 +5,6 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
   switch (action.type) {
     case UserActionsTypes.LogIn:
     case UserActionsTypes.Register:
-    case UserActionsTypes.ChangePassword:
     case UserActionsTypes.ResetPassword:
       return {
         ...state,
@@ -15,9 +14,13 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         verificationEmailSent: false,
         feedback: null
       };
+    case UserActionsTypes.ChangePassword:
+      return {
+        ...state,
+        feedback: null
+      };
     case UserActionsTypes.LogInFail:
     case UserActionsTypes.RegisterFail:
-    case UserActionsTypes.ChangePasswordFail:
     case UserActionsTypes.ResetPasswordFail:
     case UserActionsTypes.SendVerificationEmailFail:
       return {
@@ -27,6 +30,16 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         selectedId: null,
         verificationEmailSent: false,
         feedback: { success: false, message: action.payload.error }
+      };
+    case UserActionsTypes.ChangePasswordFail:
+      return {
+        ...state,
+        feedback: { success: false, message: action.payload.error }
+      };
+    case UserActionsTypes.ChangePasswordSuccess:
+      return {
+        ...state,
+        feedback: { success: true, message: action.payload.message }
       };
     case UserActionsTypes.LogInSuccess:
     case UserActionsTypes.RegisterSuccess:
@@ -48,7 +61,6 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         verificationEmailSent: false,
         feedback: null
       });
-    case UserActionsTypes.ChangePasswordSuccess:
     case UserActionsTypes.ResetPasswordSuccess:
       return {
         ...state,
@@ -73,6 +85,11 @@ export function userReducer(state: UserState = initialUserState, action: UserAct
         selectedId: null,
         verificationEmailSent: true,
         feedback: { success: true, message: action.payload.success }
+      };
+    case UserActionsTypes.ResetFeedback:
+      return {
+        ...state,
+        feedback: null
       };
     default:
       return state;

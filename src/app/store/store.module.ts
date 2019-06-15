@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 // app
 import { environment } from '../../environments/environment';
 import { appReducers } from './app.reducer';
@@ -20,7 +21,8 @@ import { TypesEffects } from './types/effects/types.effects';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode
     }),
-    EffectsModule.forRoot([UserEffects, PracticeSessionsEffects, TabsEffects, TypesEffects])
+    EffectsModule.forRoot([UserEffects, PracticeSessionsEffects, TabsEffects, TypesEffects]),
+    StoreRouterConnectingModule.forRoot()
   ]
 })
 export class AppStoreModule {}

@@ -1,4 +1,5 @@
 import { ActionReducerMap } from '@ngrx/store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 // app
 import { UserState } from './user/user.state';
 import { userReducer } from './user/reducers/user.reducer';
@@ -17,6 +18,7 @@ export interface AppState {
   tab: TabsState;
   type: TypesState;
   highscore: HighscoresState;
+  router: RouterReducerState;
 }
 
 export const appReducers: ActionReducerMap<AppState> = {
@@ -24,5 +26,6 @@ export const appReducers: ActionReducerMap<AppState> = {
   practiceSession: practiceSessionsReducer,
   tab: tabsReducer,
   type: typesReducer,
-  highscore: highscoreReducer
+  highscore: highscoreReducer,
+  router: routerReducer
 };

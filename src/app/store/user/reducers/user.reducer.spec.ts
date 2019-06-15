@@ -18,11 +18,13 @@ import {
   SendVerificationEmail,
   SendVerificationEmailFail,
   SendVerificationEmailSuccess,
-  SetPersistedUser
+  SetPersistedUser,
+  ResetFeedback
 } from '../actions/user.actions';
 import { AuthRequest } from '../../../auth/shared/models/auth-request.model';
 import { User } from '../../../auth/shared/models/user.model';
 import { Constant } from 'src/app/shared/utils/enums/constants.utils';
+import { Feedback } from 'src/app/shared/models/feedback.model';
 
 const user: User = {
   email: 'email',
@@ -150,7 +152,7 @@ describe('userReducer', () => {
       const action = new ChangePassword({ changePassword: { old: 'a', new: 'b', confirmed: 'b' } });
       const state = userReducer(initialUserState, action);
 
-      expect(state.isLoading).toBeTruthy();
+      expect(state.isLoading).toBeFalsy();
       expect(state.isLoggedIn).toBeFalsy();
       expect(state.feedback).toBeNull();
       expect(state.selectedId).toBeNull();
@@ -272,6 +274,16 @@ describe('userReducer', () => {
       expect(state.selectedId).toBeNull();
       expect(state.feedback.success).toBeFalsy();
       expect(state.feedback.message).toBe(error);
+    });
+  });
+
+  describe('ResetFeedback', () => {
+    it('should reset the feedback', () => {
+      const feedback: Feedback = { success: true, message: 'youpi' };
+      const action = new ResetFeedback();
+      const state = userReducer({ ...initialUserState, feedback }, action);
+
+      expect(state.feedback).toBeNull();
     });
   });
 });

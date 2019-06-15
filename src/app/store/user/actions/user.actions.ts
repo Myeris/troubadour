@@ -33,7 +33,9 @@ export enum UserActionsTypes {
 
   SendVerificationEmail = '[Login page] Send verification email',
   SendVerificationEmailSuccess = '[AuthResourceAPI] Send verification email success',
-  SendVerificationEmailFail = '[AuthResourceAPI] Send verification email fail'
+  SendVerificationEmailFail = '[AuthResourceAPI] Send verification email fail',
+
+  ResetFeedback = '[Router Navigation] Reset user feedback'
 }
 
 export class LogIn implements Action {
@@ -152,6 +154,10 @@ export class SendVerificationEmailFail implements Action {
   constructor(public payload: { error: string }) {}
 }
 
+export class ResetFeedback implements Action {
+  public readonly type = UserActionsTypes.ResetFeedback;
+}
+
 export type UserActions =
   | LogIn
   | LogInSuccess
@@ -173,4 +179,5 @@ export type UserActions =
   | ResetPasswordFail
   | SendVerificationEmail
   | SendVerificationEmailSuccess
-  | SendVerificationEmailFail;
+  | SendVerificationEmailFail
+  | ResetFeedback;

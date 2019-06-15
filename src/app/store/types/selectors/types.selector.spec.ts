@@ -37,4 +37,17 @@ describe('TypesSelector', () => {
       expect(result).toBeFalsy();
     });
   });
+
+  describe('getFeedback', () => {
+    it('should return feedback', () => {
+      let result = null;
+
+      store.select(getFeedback).subscribe(value => (result = value));
+
+      expect(result).toBeNull();
+
+      store.dispatch(new TypesListLoadFail({ error: 'error' }));
+      expect(result).toEqual({ success: false, message: 'error' });
+    });
+  });
 });

@@ -93,7 +93,7 @@ describe('PracticeSessionComponent', () => {
   });
 
   describe('breadcrumbs', () => {
-    it('should return the breadcrums', () => {
+    it('should return the breadcrumbs', () => {
       expect(component.breadcrumb).toEqual({
         label: 'Practice sessions',
         route: 'practice-sessions',

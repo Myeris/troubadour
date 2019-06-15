@@ -8,7 +8,8 @@
     </div>
 
     <div class="user__content">
-      <app-password-form (changePassword)="onPasswordChange($event)"> </app-password-form>
+      <app-password-form (changePassword)="onPasswordChange($event)" [feedback]="feedback$ | async">
+      </app-password-form>
 
       <app-remove-form (removeUser)="onAccountRemove()"> </app-remove-form>
     </div>

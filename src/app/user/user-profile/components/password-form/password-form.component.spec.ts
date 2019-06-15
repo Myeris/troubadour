@@ -56,6 +56,24 @@ describe('PasswordFormComponent', () => {
     );
   });
 
+  describe('ngOnChanges', () => {
+    it('should do nothing', () => {
+      spyOn(component, 'resetForm').and.callThrough();
+      component.ngOnChanges();
+      expect(component.resetForm).not.toHaveBeenCalled();
+
+      component.feedback = { success: false, message: 'error' };
+      expect(component.resetForm).not.toHaveBeenCalled();
+    });
+
+    it('should call resetForm', () => {
+      spyOn(component, 'resetForm').and.callThrough();
+      component.feedback = { success: true, message: 'success' };
+      component.ngOnChanges();
+      expect(component.resetForm).toHaveBeenCalledTimes(1);
+    });
+  });
+
   describe('displayPasswordError', () => {
     it('should return true if there is an error', () => {
       component.password.get('old').setValue('');
@@ -106,6 +124,18 @@ describe('PasswordFormComponent', () => {
       component.password.get('confirmed').setValue('new');
       component.updatePassword();
       expect(component.changePassword.emit).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('resetForm', () => {
+    it('should reset the form', () => {
+      component.password.get('old').setValue('value');
+      component.password.get('new').setValue('value');
+      component.password.get('confirmed').setValue('value');
+      component.resetForm();
+      expect(component.password.get('old').value).toBeNull();
+      expect(component.password.get('new').value).toBeNull();
+      expect(component.password.get('confirmed').value).toBeNull();
     });
   });
 });
