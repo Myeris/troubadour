@@ -15,6 +15,7 @@ export class HighscoresResource {
   constructor(private db: AngularFireDatabase, private highscoresService: HighscoresService) {}
 
   public getHighscoreList$(uid: string): Observable<Highscore[]> {
+    console.log('ici');
     return this.db
       .list<Highscore>(`${this.colName}/${uid}`)
       .snapshotChanges()

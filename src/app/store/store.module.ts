@@ -11,6 +11,7 @@ import { UserEffects } from './user/effects/user.effects';
 import { PracticeSessionsEffects } from './practice-sessions/effects/practice-sessions.effects';
 import { TabsEffects } from './tabs/effects/tabs.effects';
 import { TypesEffects } from './types/effects/types.effects';
+import { HighscoresEffects } from './highscores/effects/highscores.effects';
 
 @NgModule({
   declarations: [],
@@ -21,7 +22,13 @@ import { TypesEffects } from './types/effects/types.effects';
       maxAge: 25, // Retains last 25 states
       logOnly: environment.production // Restrict extension to log-only mode
     }),
-    EffectsModule.forRoot([UserEffects, PracticeSessionsEffects, TabsEffects, TypesEffects]),
+    EffectsModule.forRoot([
+      UserEffects,
+      PracticeSessionsEffects,
+      TabsEffects,
+      TypesEffects,
+      HighscoresEffects
+    ]),
     StoreRouterConnectingModule.forRoot()
   ]
 })

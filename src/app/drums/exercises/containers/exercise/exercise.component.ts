@@ -10,9 +10,13 @@ import { LifecycleComponent } from '../../../../shared/components/lifecycle/life
 import { AppState } from '../../../../store/app.reducer';
 import {
   HighscoreSave,
-  HighscoreSelect
+  HighscoreSelect,
+  HighscoreListLoad
 } from '../../../../store/highscores/actions/highscores.actions';
-import { getSelectedHighscore } from '../../../../store/highscores/selectors/highscores.selector';
+import {
+  getSelectedHighscore,
+  selectAll as selectAllHighscores
+} from '../../../../store/highscores/selectors/highscores.selector';
 import { TabSelect, TabListLoad } from '../../../../store/tabs/actions/tabs.actions';
 import {
   getSelectedTab,
@@ -32,6 +36,7 @@ import { PracticeSessionListLoad } from 'src/app/store/practice-sessions/actions
 })
 export class ExerciseComponent extends LifecycleComponent implements OnInit {
   public tab$: Observable<Tab>;
+  public highscores$: Observable<Highscore[]>;
   public highscore$: Observable<Highscore>;
   public sessions$: Observable<PracticeSession[]>;
   public assignOpen = false;
@@ -58,10 +63,19 @@ export class ExerciseComponent extends LifecycleComponent implements OnInit {
     this.highscore$ = this.store
       .select(getSelectedHighscore)
       .pipe(takeUntil(this.componentDestroyed$));
+    this.highscores$ = this.store
+      .select(selectAllHighscores)
+      .pipe(takeUntil(this.componentDestroyed$));
 
     this.sessions$.subscribe((sessions: PracticeSession[]) => {
       if (sessions.length === 0) {
         this.store.dispatch(new PracticeSessionListLoad());
+      }
+    });
+
+    this.highscores$.subscribe((highscores: Highscore[]) => {
+      if (highscores.length === 0) {
+        this.store.dispatch(new HighscoreListLoad());
       }
     });
 
