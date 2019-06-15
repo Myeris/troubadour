@@ -13,8 +13,7 @@ import { LifecycleComponent } from '../../../shared/components/lifecycle/lifecyc
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends LifecycleComponent implements OnInit {
   public user$: Observable<User>;

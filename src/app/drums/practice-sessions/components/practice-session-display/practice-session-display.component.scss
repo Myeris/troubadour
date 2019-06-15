@@ -55,6 +55,11 @@
       margin: -0.1rem 0.25rem;
     }
 
+    app-svg-icon,
+    mat-icon {
+      margin-right: 5px;
+    }
+
     .duration,
     .repeat,
     .drumkit,
