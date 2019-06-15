@@ -6,6 +6,7 @@
 .exercise-display {
   &__details {
     display: flex;
+    justify-content: space-around;
     padding: 1rem;
     border: 1px solid #535d6e;
     margin-bottom: 2rem;
