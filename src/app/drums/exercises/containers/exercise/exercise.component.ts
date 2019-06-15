@@ -22,6 +22,7 @@ import { Breadcrumb } from '../../../shared/models/breadcrumb.model';
 import { Highscore } from '../../../shared/models/highscore.model';
 import { PracticeSession } from '../../../shared/models/practice-session.model';
 import { Tab } from '../../../shared/models/tab.model';
+import { PracticeSessionListLoad } from 'src/app/store/practice-sessions/actions/practice-sessions.actions';
 
 @Component({
   selector: 'app-exercise',
@@ -57,6 +58,12 @@ export class ExerciseComponent extends LifecycleComponent implements OnInit {
     this.highscore$ = this.store
       .select(getSelectedHighscore)
       .pipe(takeUntil(this.componentDestroyed$));
+
+    this.sessions$.subscribe((sessions: PracticeSession[]) => {
+      if (sessions.length === 0) {
+        this.store.dispatch(new PracticeSessionListLoad());
+      }
+    });
 
     this.tabs$.subscribe((tabs: Tab[]) => {
       if (tabs.length === 0) {
