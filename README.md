@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/Myeris/troubadour/tree/develop.svg?style=svg)](https://circleci.com/gh/Myeris/troubadour/tree/develop)
+[![CircleCI](https://circleci.com/gh/Myeris/troubadour/tree/master.svg?style=svg)](https://circleci.com/gh/Myeris/troubadour/tree/master)
 
 # Troubadour
 
