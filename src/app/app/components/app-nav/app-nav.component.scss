@@ -1,0 +1,45 @@
+$transition: all 0.5s;
+
+div {
+  display: flex;
+  justify-content: center;
+  background: #333;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+  padding: 0.25em 0;
+  margin-bottom: 1em;
+
+  a {
+    color: white;
+    fill: white;
+    display: flex;
+    text-transform: uppercase;
+    padding: 0 1em;
+    transition: $transition;
+    align-items: center;
+
+    mat-icon,
+    .mat-icon {
+      color: white;
+    }
+
+    &.active,
+    &:hover {
+      transition: $transition;
+      color: #ccff00;
+
+      mat-icon,
+      .mat-icon {
+        color: #ccff00;
+      }
+    }
+
+    app-svg-icon {
+      margin-right: 0.5em;
+      -webkit-transform: scale(0.6);
+      -moz-transform: scale(0.6);
+      -ms-transform: scale(0.6);
+      -o-transform: scale(0.6);
+      transform: scale(0.6);
+    }
+  }
+}

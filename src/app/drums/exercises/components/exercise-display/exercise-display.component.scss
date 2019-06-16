@@ -1,0 +1,108 @@
+.wrapper {
+  max-width: 1200px;
+  padding: 2rem;
+}
+
+.exercise-display {
+  &__details {
+    display: flex;
+    justify-content: space-around;
+    padding: 1rem;
+    border: 1px solid #535d6e;
+    margin-bottom: 2rem;
+
+    img {
+      height: 1.1rem;
+      margin: -0.1rem 0.25rem;
+    }
+
+    .detail {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+
+      app-svg-icon,
+      mat-icon {
+        margin-right: 0.5em;
+      }
+    }
+  }
+
+  &__button {
+    display: flex;
+    margin: 2rem 0 1rem 0;
+    justify-content: space-between;
+
+    a {
+      transition: all 0.2s ease-in-out;
+      color: white;
+      text-transform: uppercase;
+      font-weight: bold;
+      padding: 0.5rem 2rem;
+      border-radius: 0.3rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &.play {
+        background: #97c747;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background: darken(#97c747, 10%);
+        }
+      }
+
+      &.stop {
+        background: #ce2a39;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background: darken(#ce2a39, 10%);
+        }
+      }
+
+      &.practice {
+        background: #39a1e7;
+        transition: all 0.2s ease-in-out;
+
+        app-svg-icon {
+          margin-right: 0.5em;
+          height: 18px;
+        }
+
+        &.disabled {
+          opacity: 0.6;
+          transition: all 0.2s ease-in-out;
+        }
+
+        &:hover {
+          background: darken(#39a1e7, 10%);
+          transition: all 0.2s ease-in-out;
+        }
+      }
+
+      img {
+        height: 0.8rem;
+        filter: invert(1);
+        transition: all 0.2s ease-in-out;
+        margin-top: 0.25rem;
+      }
+    }
+  }
+}
+
+.form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}

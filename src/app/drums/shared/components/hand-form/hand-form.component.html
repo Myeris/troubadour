@@ -1,0 +1,14 @@
+<div [formGroup]="form" class="hand-form">
+  <p>
+    Start with
+  </p>
+  <label>
+    <input (change)="onChange()" formControlName="hand" name="hand" type="radio" value="R" /> Right
+    hand
+  </label>
+
+  <label>
+    <input (change)="onChange()" formControlName="hand" name="hand" type="radio" value="L" /> Left
+    hand
+  </label>
+</div>

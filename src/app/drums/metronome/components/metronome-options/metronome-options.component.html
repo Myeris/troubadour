@@ -1,0 +1,96 @@
+<div class="metronome-options">
+  <div class="wrapper">
+    <form class="metronome-options__form" [formGroup]="form">
+      <div class="flex">
+        <div class="bpm">{{ form.value.bpm }} <span>BPM</span></div>
+
+        <div [class]="'player ' + (playing ? 'stop' : 'play')" (click)="playing ? stop() : play()">
+          <mat-icon *ngIf="!playing">play_arrow</mat-icon>
+          <mat-icon *ngIf="playing">pause</mat-icon>
+          <p>{{ playing ? 'Stop' : 'Play' }}</p>
+        </div>
+      </div>
+
+      <div class="slider">
+        <a class="decrease" type="button" (click)="changeBpm(false)">
+          <span>-</span>
+        </a>
+        <input
+          type="range"
+          id="bpm"
+          name="bpm"
+          [min]="bpm.min"
+          [max]="bpm.max"
+          step="1"
+          (change)="restart()"
+          formControlName="bpm"
+        />
+        <a class="increase" type="button" (click)="changeBpm(true)">
+          <span>+</span>
+        </a>
+      </div>
+
+      <div class="visual">
+        <p>
+          <span
+            [id]="'metronome-' + i"
+            class="accent"
+            (click)="setAccent(i)"
+            *ngFor="let beat of form.value.beat | numberToCollection; index as i"
+          >
+            {{ isAccent(i) ? '◉' : '◎' }}
+          </span>
+        </p>
+
+        <p>
+          <app-stopwatch [isRunning]="playing"></app-stopwatch>
+        </p>
+      </div>
+
+      <div class="btn__options">
+        <a (click)="showAdvancedForm = !showAdvancedForm">
+          <mat-icon>settings</mat-icon>
+          Advanced mode
+        </a>
+      </div>
+
+      <div *ngIf="showAdvancedForm" class="options">
+        <!--<div>-->
+        <!--<label>-->
+        <!--Time signature-->
+        <!--</label>-->
+
+        <!--<input-->
+        <!--type="number"-->
+        <!--min="1"-->
+        <!--max="16"-->
+        <!--(change)="restart()"-->
+        <!--formControlName="beat">-->
+        <!--/-->
+        <!--<select-->
+        <!--formControlName="note"-->
+        <!--(change)="restart()">-->
+        <!--<option value="1">1</option>-->
+        <!--<option value="2">2</option>-->
+        <!--<option value="4">4</option>-->
+        <!--<option value="8">8</option>-->
+        <!--<option value="16">16</option>-->
+        <!--<option value="32">32</option>-->
+        <!--</select>-->
+        <!--</div>-->
+
+        <div>
+          <label>
+            Subdivision
+          </label>
+
+          <select formControlName="subdivision" (change)="restart()">
+            <option value="4">Quarter</option>
+            <option value="8">Eighth</option>
+            <option value="16">Sixteenth</option>
+          </select>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  p.logo {
+    height: 2.5rem;
+    display: flex;
+    width: 20%;
+    justify-content: center;
+
+    .mat-icon {
+      padding: 0.25rem;
+    }
+
+    span {
+      color: #333333;
+      padding: 0.3rem 0.5rem;
+      font-size: 22px;
+      font-weight: 500;
+      text-transform: uppercase;
+      opacity: 1;
+      height: 2.5rem;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+<div id="practice-session" [@fade]>
+  <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+  <div class="practice-session">
+    <div *ngIf="session$ | async as session">
+      <app-practice-session-form
+        (created)="onCreate($event)"
+        (removed)="onRemove()"
+        (updated)="onUpdate($event)"
+        *ngIf="showForm"
+        [exerciseId]="exerciseId"
+        [feedback]="feedback$ | async"
+        [session]="session"
+        [tabs]="tabs$ | async"
+        [types]="types$ | async"
+      >
+      </app-practice-session-form>
+
+      <app-practice-session-display *ngIf="!showForm" [session]="session" [tabs]="tabs$ | async">
+      </app-practice-session-display>
+    </div>
+
+    <app-practice-session-form
+      (created)="onCreate($event)"
+      (removed)="onRemove()"
+      (updated)="onUpdate($event)"
+      *ngIf="showForm && !(session$ | async)"
+      [exerciseId]="null"
+      [feedback]="feedback$ | async"
+      [session]="null"
+      [tabs]="tabs$ | async"
+      [types]="types$ | async"
+    >
+    </app-practice-session-form>
+
+    <div *ngIf="isLoading$ | async" class="message">
+      <app-svg-icon
+        name="Fetching practice session"
+        path="assets/img/utils/loading.svg"
+      ></app-svg-icon>
+      Fetching practice session...
+    </div>
+  </div>
+</div>

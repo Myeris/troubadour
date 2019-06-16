@@ -1,0 +1,17 @@
+<div class="app-header">
+  <div>
+    <a [routerLink]="['']">
+      <app-svg-icon name="logo" path="assets/img/identity/logo.svg"></app-svg-icon>
+      <p>Troubadour</p>
+    </a>
+  </div>
+
+  <div>
+    <a class="account" [routerLink]="['/user']">
+      <mat-icon>account_circle</mat-icon>
+    </a>
+    <a (click)="logout()" class="logout">
+      <mat-icon>power_settings_new</mat-icon>
+    </a>
+  </div>
+</div>

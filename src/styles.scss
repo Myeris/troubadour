@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  background-color: #eff4f9;
+  font: 300 16px/1.4 -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  color: #333333;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+  color: #333333;
+}
+
+p {
+  a {
+    background-image: linear-gradient(#ccff00, #ccff00);
+    background-size: 100% 0.5em;
+    background-repeat: no-repeat;
+    background-position: left 0 bottom -40%;
+  }
+}
+
+@mixin md-icon-size($size: 24px) {
+  font-size: $size;
+  height: $size;
+  width: $size;
+}

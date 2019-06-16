@@ -1,0 +1,32 @@
+<div class="to-failure-result">
+  <div class="to-failure-result__title">
+    <mat-icon>star</mat-icon>
+    Road to failure
+  </div>
+  <div class="to-failure-result__content">
+    <p>
+      You failed at <b>{{ bpm }}bpm</b>!
+    </p>
+
+    <label>
+      Adjust your score
+
+      <input type="number" min="0" [max]="bpm" [(ngModel)]="newBpm" />
+    </label>
+
+    <div class="info" *ngIf="feedback">
+      {{ feedback }}
+    </div>
+  </div>
+  <div class="to-failure-result__buttons">
+    <div>
+      <button type="button" class="button" (click)="saveHighscore()" [disabled]="newBpm > bpm">
+        Save your high score
+      </button>
+
+      <button type="button" class="button button--cancel" (click)="cancel()">
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>

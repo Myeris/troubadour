@@ -1,0 +1,42 @@
+<div class="auth-form">
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <ng-content select="h1"></ng-content>
+
+    <label>
+      <input formControlName="email" placeholder="Email address" type="email" />
+    </label>
+
+    <label>
+      <input
+        autocomplete="false"
+        formControlName="password"
+        placeholder="Password"
+        type="password"
+      />
+    </label>
+
+    <div *ngIf="emailFormatInvalid" class="error">
+      Invalid email format
+    </div>
+
+    <div *ngIf="passwordInvalid" class="error">
+      Invalid password
+    </div>
+
+    <ng-content select=".error"></ng-content>
+
+    <ng-content select=".message"></ng-content>
+
+    <div class="auth-form_reset-password">
+      <ng-content select=".reset"></ng-content>
+    </div>
+
+    <div class="auth-form__action">
+      <ng-content select="button"></ng-content>
+    </div>
+
+    <div class="auth-form__toggle">
+      <ng-content select="a"></ng-content>
+    </div>
+  </form>
+</div>

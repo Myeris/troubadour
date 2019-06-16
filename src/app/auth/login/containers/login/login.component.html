@@ -1,0 +1,39 @@
+<div id="login" [@fade]>
+  <app-auth-header></app-auth-header>
+
+  <app-auth-form (submitted)="loginUser($event)">
+    <h1>
+      Login
+    </h1>
+
+    <a [routerLink]="['/auth/register']">
+      Not registered
+    </a>
+
+    <button type="submit">
+      Login
+    </button>
+
+    <div *ngIf="(feedback$ | async)?.success === false" class="error">
+      {{ (feedback$ | async)?.message }}
+
+      <div *ngIf="(isVerified$ | async) === false">
+        <a (click)="resendVerificationEmail()">
+          Resend the verification email?
+        </a>
+      </div>
+    </div>
+
+    <div *ngIf="emailVerificationSent$ | async" class="message">
+      Email sent! Check your inbox.
+    </div>
+
+    <div class="reset">
+      <a [routerLink]="['/auth/reset-password']">
+        Forgot your password?
+      </a>
+    </div>
+  </app-auth-form>
+
+  <app-auth-footer></app-auth-footer>
+</div>

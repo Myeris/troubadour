@@ -1,0 +1,22 @@
+<div id="register" [@fade]>
+  <app-auth-header></app-auth-header>
+
+  <app-auth-form (submitted)="registerUser($event)">
+    <h1>
+      Register
+    </h1>
+
+    <a [routerLink]="['/auth/login']">
+      Already have an account
+    </a>
+
+    <button type="submit">
+      Create account
+    </button>
+    <div *ngIf="(feedback$ | async)?.success === false" class="error">
+      {{ (feedback$ | async)?.message }}
+    </div>
+  </app-auth-form>
+
+  <app-auth-footer></app-auth-footer>
+</div>

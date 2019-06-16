@@ -1,0 +1,110 @@
+.list-session {
+  display: flex;
+  transition: all 0.2s ease-in-out;
+  border-bottom: 1px solid #c1cedb;
+
+  &:hover {
+    background-color: #f9f9f9;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  &__name {
+    flex-grow: 1;
+  }
+
+  &__exercises {
+    font-size: 0.8rem;
+    color: #8ea6bd;
+    font-style: italic;
+  }
+
+  &__delete {
+    display: flex;
+    align-items: center;
+    margin: 0 0.5rem 0 0;
+
+    p {
+      margin: 0 0.5rem 0 0;
+      font-size: 0.9rem;
+    }
+  }
+
+  a {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem 1.5rem;
+    font-weight: 400;
+    color: #545e6f;
+    font-size: 1rem;
+  }
+}
+
+%button {
+  outline: 0;
+  cursor: pointer;
+  border: 0;
+}
+
+.confirm,
+.cancel {
+  @extend %button;
+  padding: 0.25rem 0.5rem;
+  margin: 0 0 0 0.25rem;
+  font-size: 0.8rem;
+}
+
+.confirm {
+  color: #fff;
+  background: #d73a49;
+  border-radius: 0.2rem;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: darken(#d73a49, 10%);
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.cancel {
+  background: transparent;
+  transition: all 0.2s ease-in-out;
+  border-radius: 0.2rem;
+
+  &:hover {
+    background: darken(#ffffff, 10%);
+    transition: all 0.2s ease-in-out;
+  }
+}
+
+.trash {
+  @extend %button;
+  border-left: 1px solid #c1cedb;
+  padding: 0.5rem 1rem;
+  background: #f6fafd;
+  transition: all 0.2s ease-in-out;
+  color: #f44336;
+
+  &:hover {
+    background-color: darken(#f6fafd, 2%);
+    transition: all 0.2s ease-in-out;
+    color: #b71c1c;
+  }
+}
+
+.type {
+  display: flex;
+  border-right: 1px solid #c1cedb;
+  padding: 0.5rem 1rem;
+  background: #f6fafd;
+  transition: all 0.2s ease-in-out;
+  color: #333333;
+
+  &:hover {
+    background-color: darken(#f6fafd, 2%);
+  }
+}

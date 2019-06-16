@@ -1,0 +1,15 @@
+#footer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+  opacity: 0.5;
+  font-size: 14px;
+
+  a {
+    color: #333;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

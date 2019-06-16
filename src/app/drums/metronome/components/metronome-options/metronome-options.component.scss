@@ -1,0 +1,235 @@
+.wrapper {
+  max-width: 1200px;
+  padding: 2rem;
+}
+
+.invert {
+  filter: invert(1);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.btn {
+  &__options {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    a {
+      display: flex;
+      align-content: center;
+      background: white;
+      padding: 0 1rem;
+      text-transform: uppercase;
+      border-radius: 0.2rem;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        transition: all 0.2s ease-in-out;
+        background: darken(#fff, 5%);
+      }
+
+      mat-icon {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.metronome-options {
+  background: #ffffff;
+  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+  margin-top: 2rem;
+
+  &__title {
+    text-transform: uppercase;
+    font-size: 1rem;
+  }
+
+  &__form {
+    .bpm {
+      font-size: 2rem;
+      flex-grow: 1;
+      align-items: center;
+
+      span {
+        font-size: 0.75rem;
+        color: #333333;
+        opacity: 0.6;
+      }
+    }
+
+    .player {
+      display: flex;
+      color: white;
+      text-transform: uppercase;
+      padding: 0.25rem 1rem;
+      border-radius: 0.2rem;
+      transition: opacity 0.2s;
+      opacity: 0.7;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      align-items: center;
+
+      p {
+        margin: 0;
+      }
+
+      &.play {
+        background: #97c747;
+      }
+
+      &.stop {
+        background: #ce2a39;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    .slider {
+      display: flex;
+      margin: 0.5rem 0 1rem 0;
+
+      #bpm {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 1.7rem;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+        margin: 0;
+
+        &:hover {
+          opacity: 1;
+        }
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 1.7rem;
+          height: 1.7rem;
+          background: #4caf50;
+          cursor: pointer;
+        }
+
+        &::-moz-range-thumb {
+          width: 1.7rem;
+          height: 1.7rem;
+          background: #4caf50;
+          cursor: pointer;
+        }
+      }
+
+      a {
+        color: white;
+        border: none;
+        user-select: none;
+        cursor: pointer;
+        opacity: 0.75;
+        width: 1.7rem;
+        height: 1.7rem;
+        display: flex;
+
+        &.decrease {
+          background: #ce2a39;
+        }
+
+        &.increase {
+          background: #97c747;
+        }
+
+        &:hover {
+          opacity: 1;
+        }
+
+        span {
+          font-size: 1rem;
+          font-weight: bold;
+          cursor: pointer;
+          width: 1.7rem;
+          text-align: center;
+        }
+      }
+    }
+
+    .visual {
+      display: flex;
+      flex-direction: column;
+      margin-top: 3rem;
+
+      p {
+        width: 100%;
+        text-align: center;
+        font-size: 1.75rem;
+        transition: all 0.2s ease-in-out;
+        border-radius: 0.2rem;
+        color: #333;
+        margin: 0;
+        padding: 0;
+
+        span {
+          cursor: pointer;
+          vertical-align: middle;
+        }
+
+        span.active {
+          color: #97c747;
+          transition: all 0.2s ease-in-out;
+        }
+      }
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      margin: -0.75rem 0;
+      border: 1px solid #333;
+      padding: 1rem;
+
+      > div {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 0;
+
+        label {
+          margin-right: 1rem;
+        }
+
+        img {
+          height: 1rem;
+        }
+      }
+    }
+  }
+}
+
+.accent {
+  opacity: 0.75;
+
+  &:hover {
+    transition: all 0.2s ease-in-out;
+    opacity: 1;
+  }
+}
+
+/* (1920x1080) Full HD Display */
+@media screen and (min-width: 1600px) and (max-width: 1920px) {
+  .wrapper {
+    max-width: 1500px;
+  }
+}
+
+/* (1600x900) HD+ Display */
+@media screen and (min-width: 1920px) {
+  .wrapper {
+    max-width: 1500px;
+  }
+}

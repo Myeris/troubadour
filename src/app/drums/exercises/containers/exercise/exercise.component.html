@@ -1,0 +1,36 @@
+<div id="exercise" [@fade]>
+  <app-breadcrumb [breadcrumb]="breadcrumb"></app-breadcrumb>
+
+  <div class="exercise">
+    <div class="exercise__title">
+      <h1>
+        <app-svg-icon name="Snare icon" path="assets/img/drums/snare.svg"></app-svg-icon>
+        <span *ngIf="tab$ | async as tab">
+          {{ tab.name }}
+        </span>
+      </h1>
+
+      <a class="assign" (click)="assignExercise()">
+        <mat-icon>add</mat-icon>
+      </a>
+    </div>
+
+    <div *ngIf="tab$ | async as tab">
+      <app-exercise-display
+        [tab]="tab"
+        [highscore]="highscore$ | async"
+        (highscored)="saveHighscore($event)"
+      >
+      </app-exercise-display>
+    </div>
+
+    <app-exercise-assign
+      *ngIf="assignOpen"
+      [sessions]="sessions$ | async"
+      [tab]="tab$ | async"
+      (update)="onAssign($event)"
+      (cancel)="onAssignCancel()"
+    >
+    </app-exercise-assign>
+  </div>
+</div>
