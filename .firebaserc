@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "drums-101"
+  },
+  "targets": {
+    "drums-101": {
+      "hosting": {
+        "troubadour": [
+          "troubadour"
+        ],
+        "drums-101": [
+          "drums-101"
+        ]
+      }
+    }
   }
 }
