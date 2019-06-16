@@ -99,7 +99,7 @@ export class ExercisePracticeFormComponent {
 
   public onSoundOptionsChange(formGroup: FormGroup): void {
     const soundOptionsForm: FormGroup = this.form.get('soundOptions') as FormGroup;
-    const type: number = parseInt(formGroup.get('type').value, 16);
+    const type: number = parseInt(formGroup.get('type').value, 0);
 
     if (type === 0) {
       soundOptionsForm.get('playAlong').setValue(true);

@@ -16,7 +16,7 @@ export class MetronomeSettingsComponent implements OnChanges {
   @Output() changed: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   public get subdivision(): number {
-    return parseInt(this.form.get('subdivision').value, 16);
+    return parseInt(this.form.get('subdivision').value, 0);
   }
 
   public get accents(): FormArray {

@@ -131,7 +131,7 @@ export class ExerciseFormComponent implements OnChanges {
   }
 
   public onTypeChange($event: any): void {
-    const type: number = parseInt($event.target.value, 16);
+    const type: number = parseInt($event.target.value, 0);
 
     if (type === 0) {
       this.form.setControl('bpm', new FormControl(90));
@@ -238,7 +238,7 @@ export class ExerciseFormComponent implements OnChanges {
 
   public onSoundOptionsChange($event: FormGroup): void {
     const soundOptionsForm: FormGroup = this.form.get('soundOptions') as FormGroup;
-    const type: number = parseInt($event.get('type').value, 16);
+    const type: number = parseInt($event.get('type').value, 0);
 
     if (type === 0) {
       soundOptionsForm.get('playAlong').setValue(true);

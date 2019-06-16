@@ -53,7 +53,7 @@ export class SoundOptionsComponent implements OnChanges {
   }
 
   public onTypeChange(): void {
-    this.selectedType = parseInt(this.form.get('type').value, 16);
+    this.selectedType = parseInt(this.form.get('type').value, 0);
 
     // If type is 0 (play along), emit the submitted event
     if (this.selectedType === 0) {

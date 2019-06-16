@@ -48,8 +48,8 @@ export class MetronomeOptionsComponent {
 
   public play(): void {
     this.playing = true;
-    this.form.setControl('subdivision', new FormControl(parseInt(this.form.value.subdivision, 16)));
-    this.form.setControl('note', new FormControl(parseInt(this.form.value.note, 16)));
+    this.form.setControl('subdivision', new FormControl(parseInt(this.form.value.subdivision, 0)));
+    this.form.setControl('note', new FormControl(parseInt(this.form.value.note, 0)));
 
     this.played.emit(this.form.value);
   }

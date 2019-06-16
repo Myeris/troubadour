@@ -31,6 +31,10 @@
         transition: all 0.2s ease-in-out;
         background: darken(#fff, 5%);
       }
+
+      mat-icon {
+        font-size: 20px;
+      }
     }
   }
 }

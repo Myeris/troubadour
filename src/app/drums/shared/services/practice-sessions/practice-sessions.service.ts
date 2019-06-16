@@ -21,7 +21,7 @@ export class PracticeSessionsService {
   }
 
   public getSessionDuration(timeSignature: string, repeat: number, bpm: number): number {
-    const beatsPerMeasure = parseInt(timeSignature[0], 16);
+    const beatsPerMeasure = parseInt(timeSignature[0], 0);
 
     return ((beatsPerMeasure * repeat) / bpm) * 60;
   }

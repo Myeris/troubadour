@@ -206,7 +206,7 @@ export class MetronomeService {
       this.gainNode = this.context.createGain();
     }
 
-    const fraction = parseInt(element.value, 16) / parseInt(element.max, 16);
+    const fraction = parseInt(element.value, 0) / parseInt(element.max, 0);
     this.gainNode.gain.value = fraction * fraction;
   }
 
@@ -319,7 +319,7 @@ export class MetronomeService {
           if (exercise.soundOptions.metronomeOnly) {
             const subdivision: number = parseInt(
               exercise.soundOptions.metronomeSettings.subdivision,
-              16
+              0
             );
             const noteTime: number = this.getNoteTime(exercise.bpm, {
               keys: ['c/5'],
@@ -437,6 +437,6 @@ export class MetronomeService {
   }
 
   private getNoteDenominator(note: Note): number {
-    return parseInt(note.duration, 16) / 4;
+    return parseInt(note.duration, 0) / 4;
   }
 }
